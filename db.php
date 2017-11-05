@@ -8,15 +8,15 @@
         function __construct()
         {
             try {
-                $this->db = new PDO('mysql:host=localhost;dbname=' . DB_NAME, DB_USER, DB_PASS);
+                $this->db = new PDO('mysql:dbname=' . DB_NAME, DB_USER, DB_PASS);
                 $this->db->exec('SET NAMES utf8;');
             } catch (PDOException $e) {
-                if (strpos(gethostname(), 'russiancoders') !== false) {
+                //if (strpos(gethostname(), 'russiancoders') !== false) {
                     // for local testing
                     echo 'Error: ' . $e->getMessage() . '<br>';
                     echo 'Line: ' . $e->getLine() . '<br>';
                     die();
-                }
+                //}
             }
         }
 
@@ -25,12 +25,12 @@
             try {
                 $this->db->exec($q);
             } catch (PDOException $e) {
-                if (strpos(gethostname(), 'russiancoders') !== false) {
+                //if (strpos(gethostname(), 'russiancoders') !== false) {
                     // for local testing
                     echo 'Error: ' . $e->getMessage() . '<br>';
                     echo 'Line: ' . $e->getLine() . '<br>';
                     die();
-                }
+                //}
             }
         }
 
@@ -39,12 +39,12 @@
             try {
                 return $this->db->query($q);
             } catch (PDOException $e) {
-                if (strpos(gethostname(), 'russiancoders') !== false) {
+                //if (strpos(gethostname(), 'russiancoders') !== false) {
                     // for local testing
                     echo 'Error: ' . $e->getMessage() . '<br>';
                     echo 'Line: ' . $e->getLine() . '<br>';
                     die();
-                }
+                //}
             }
         }
 
@@ -53,12 +53,12 @@
             try {
                 return $this->db->prepare($q);
             } catch (PDOException $e) {
-                if (strpos(gethostname(), 'russiancoders') !== false) {
+                //if (strpos(gethostname(), 'russiancoders') !== false) {
                     // for local testing
                     echo 'Error: ' . $e->getMessage() . '<br>';
                     echo 'Line: ' . $e->getLine() . '<br>';
                     die();
-                }
+                //}
             }
         }
 
@@ -67,12 +67,12 @@
             try {
                 $this->db->beginTransaction();
             } catch (PDOException $e) {
-                if (strpos(gethostname(), 'russiancoders') !== false) {
+                //if (strpos(gethostname(), 'russiancoders') !== false) {
                     // for local testing
                     echo 'Error: ' . $e->getMessage() . '<br>';
                     echo 'Line: ' . $e->getLine() . '<br>';
                     die();
-                }
+                //}
             }
         }
 
@@ -83,12 +83,12 @@
             } catch (PDOException $e) {
                 $this->$db->rollBack();
 
-                if (strpos(gethostname(), 'russiancoders') !== false) {
+                //if (strpos(gethostname(), 'russiancoders') !== false) {
                     // for local testing
                     echo 'Error: ' . $e->getMessage() . '<br>';
                     echo 'Line: ' . $e->getLine() . '<br>';
                     die();
-                }
+                //}
             }
         }
     }
