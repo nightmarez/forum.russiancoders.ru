@@ -141,9 +141,23 @@
 		$pass = saltPass($pass, $salt);
 		$session = generateSession();
 
+		echo $userId;
+		echo '<br>';
+		echo $safelogin;
+		echo '<br>';
+		echo $salt;
+		echo '<br>';
+		echo $pass;
+		echo '<br>';
+		echo $session;
+		die();
+
 		$db = new PdoDb();
 
-		$query = 'INSERT INTO `users` (`userid`, `login`, `pass`, `salt`, `session`, `first`, `last`, `mail`, `state`) VALUES (:userid, :login, :pass, :salt, :session, now(), now(), :mail, 0);';
+		$query = 'INSERT INTO `users` 
+				(`userid`, `login`, `pass`, `salt`, `session`, `first`, `last`, `mail`, `state`) 
+			VALUES 
+				(:userid, :login, :pass, :salt, :session, now(), now(), :mail, 0);';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':userid', $userId, PDO::PARAM_STR);
