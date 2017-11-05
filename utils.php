@@ -169,4 +169,23 @@
 		$req->execute();
 		header('Location: /index.php');
 	}
+
+	function isLogin() {
+		$session = $_COOKIE['session'];
+
+		if (!preg_match('/^\{?[0-9a-zA-Z]{40}\}?$/', $session)) {
+			return false;
+		}
+
+		$db = new PdoDb();
+
+		$query =
+			'SELECT * FROM `users` WHERE `session`=:session LIMIT 0, 1;';
+
+		$req = $pdo->prepare($query);
+		$req->bingParam(':session', $session);
+		$req->execute();
+		$count = $req->fetchColumn();
+		return $count >= 1;
+	}
 ?>
