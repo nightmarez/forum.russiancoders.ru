@@ -8,7 +8,7 @@
         function __construct()
         {
             try {
-                $this->db = new PDO('mysql:host=mysql.nightmarez.myjino.ru;dbname=' . DB_NAME, DB_USER, DB_PASS);
+                $this->db = new PDO('mysql:host=localhost;dbname=' . DB_NAME, DB_USER, DB_PASS);
                 $this->db->exec('SET NAMES utf8;');
             } catch (PDOException $e) {
                 if (strpos(gethostname(), 'russiancoders') !== false) {
