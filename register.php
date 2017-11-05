@@ -26,7 +26,7 @@
 	});
 </script>
 
-<div class="panel panel-primary" style="margin:20px;">
+<div class="panel panel-primary" style="margin: 20px;">
 	<div class="panel-heading">
 		<h3 class="panel-title">Регистрация</h3>
 	</div>

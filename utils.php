@@ -159,6 +159,15 @@
 		$req->bindParam(':mail', $mail, PDO::PARAM_STR);
 
 		if ($req->execute()) {
+			$subject = 'Регистрация на форуме RussianCoders';
+			$message = 'Вы зарегистрировались на форуме <b>RussianCoders</b><br>' . "\r\n" .
+'Для активации аккаунта перейдите по ссылке <a href="https://forum.russiancoders.ru/activate.php?id=' . $session . '">' . $session . '</a>';
+			$headers = 'From: noreply@russiancoders.ru' . "\r\n" .
+'Reply-To: webmaster@example.com' . "\r\n" .
+'X-Mailer: PHP/' . phpversion();
+
+			mail($mail, $subject, $message, $headers);
+
 			header('Location: /registercomplete.php');
 			die();
 		}
