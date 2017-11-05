@@ -12,9 +12,6 @@
 		die();
 	}
 
-	$publickey = ;
-	$privatekey = RE_SECRET;
-
 	$privatekey = RE_SECRET;
 	$resp = recaptcha_check_answer (
 		$privatekey,
