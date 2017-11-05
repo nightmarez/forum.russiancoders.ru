@@ -1,5 +1,6 @@
 <?php include_once('head.php'); ?>
 <?php include_once('nav.php'); ?>
+<?php require_once('recaptchalib.php'); ?>
 
 <script src='https://www.google.com/recaptcha/api.js'></script>
 
