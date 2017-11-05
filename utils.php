@@ -1,6 +1,24 @@
 <?php
 	require_once('db.php');
 
+	function databaseTestAccess() {
+		$sum = 0;
+
+		$db = new PdoDb();
+
+		$query =
+			'SELECT `num` FROM `test`;';
+
+		$req = $db->prepare($query);
+		$req->execute();
+
+		while (list($value) = $req->fetch(PDO::FETCH_NUM)) {
+			$sum += $value;
+		}
+
+		return $sum == 60;
+	}
+
 	function validateLogin($login) {
 		$safelogin = stripslashes(htmlspecialchars($login));
 
