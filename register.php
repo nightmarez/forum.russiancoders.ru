@@ -36,21 +36,21 @@
 			<div class="col-md-12 col-sm-12">
 				<div class="form-group col-md-6 col-sm-6">
 					<label for="name">Логин*</label>
-					<input type="text" class="form-control input-sm" id="login" placeholder="" maxlength="20">
+					<input type="text" class="form-control input-sm" id="login" name="login" placeholder="" maxlength="20">
 				</div>
 				<div class="form-group col-md-6 col-sm-6">
 					<label for="email">Email*</label>
-					<input type="email" class="form-control input-sm" id="mail" placeholder="">
+					<input type="email" class="form-control input-sm" id="mail" name="mail" placeholder="">
 				</div>
 			</div>
 			<div class="col-md-12 col-sm-12">
 				<div class="form-group col-md-6 col-sm-6">
 					<label for="name">Пароль*</label>
-					<input type="password" class="form-control input-sm" id="pass1" placeholder="" maxlength="40">
+					<input type="password" class="form-control input-sm" id="pass1" name="pass1" placeholder="" maxlength="40">
 				</div>
 				<div class="form-group col-md-6 col-sm-6">
 					<label for="email">Повторите пароль*</label>
-					<input type="password" class="form-control input-sm" id="pass2" placeholder="" maxlength="40">
+					<input type="password" class="form-control input-sm" id="pass2" name="pass2" placeholder="" maxlength="40">
 				</div>
 			</div>
 			<div class="col-md-12 col-sm-12">
