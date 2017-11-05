@@ -167,7 +167,7 @@
 
 		$req->bindParam(':session', $session, PDO::PARAM_STR);
 		$req->execute();
-		header('Location: /index.php');
+		header('Location: /');
 	}
 
 	function isLogin() {

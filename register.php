@@ -1,6 +1,8 @@
 <?php include_once('head.php'); ?>
 <?php include_once('nav.php'); ?>
 
+<script src='https://www.google.com/recaptcha/api.js'></script>
+
 <script>
 	function testLogin() {
 		return true;
@@ -29,7 +31,7 @@
 	</div>
 
 	<div class="panel-body">
-		<form>
+		<form action="/doregister.php" method="POST">
 			<div class="col-md-12 col-sm-12">
 				<div class="form-group col-md-6 col-sm-6">
 					<label for="name">Логин*</label>
@@ -52,9 +54,21 @@
 			</div>
 			<div class="col-md-12 col-sm-12">
 				<div class="form-group col-md-12 col-sm-12">
+					<?php echo recaptcha_get_html('6LdlUjcUAAAAACmECdupCukxHQt-KGv-AKn0UTy3'); ?>
+				</div>
+			</div>
+			<div class="col-md-12 col-sm-12">
+				<div class="form-group col-md-12 col-sm-12">
 					<input type="submit" class="btn btn-primary" value="Зарегистрироваться">
 				</div>
 			</div>
+			<?php if (isset($_GET['error'])) { ?>
+				<div class="col-md-12 col-sm-12">
+					<div class="form-group col-md-12 col-sm-12">
+						<p style="color: red;"><?php echo htmlspecialchars($_GET['error']); ?></p>
+					</div>
+				</div>
+			<?php } ?>
 		</form>
 	</div>
 </div>
