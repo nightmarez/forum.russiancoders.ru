@@ -26,7 +26,7 @@
 			'SELECT * FROM `users` WHERE `login`=:login LIMIT 0, 1;';
 
 		$req = $db->prepare($query);
-		$req->bingParam(':login', $login);
+		$req->bindParam(':login', $login);
 		$req->execute();
 		$count = $req->fetchColumn();
 		return $count >= 1;
@@ -47,7 +47,7 @@
 			'SELECT * FROM `users` WHERE `userid`=:userid LIMIT 0, 1;';
 
 		$req = $db->prepare($query);
-		$req->bingParam(':userid', $userId);
+		$req->bindParam(':userid', $userId);
 		$req->execute();
 		$count = $req->fetchColumn();
 		return $count >= 1;
@@ -171,6 +171,10 @@
 	}
 
 	function isLogin() {
+		if (!isset($_COOKIE['session'])) {
+			return false;
+		}
+
 		$session = $_COOKIE['session'];
 
 		if (!preg_match('/^\{?[0-9a-zA-Z]{40}\}?$/', $session)) {
@@ -183,7 +187,7 @@
 			'SELECT * FROM `users` WHERE `session`=:session LIMIT 0, 1;';
 
 		$req = $db->prepare($query);
-		$req->bingParam(':session', $session);
+		$req->bindParam(':session', $session);
 		$req->execute();
 		$count = $req->fetchColumn();
 		return $count >= 1;
