@@ -25,7 +25,7 @@
 		$query =
 			'SELECT * FROM `users` WHERE `login`=:login LIMIT 0, 1;';
 
-		$req = $pdo->prepare($query);
+		$req = $db->prepare($query);
 		$req->bingParam(':login', $login);
 		$req->execute();
 		$count = $req->fetchColumn();
@@ -46,7 +46,7 @@
 		$query =
 			'SELECT * FROM `users` WHERE `userid`=:userid LIMIT 0, 1;';
 
-		$req = $pdo->prepare($query);
+		$req = $db->prepare($query);
 		$req->bingParam(':userid', $userId);
 		$req->execute();
 		$count = $req->fetchColumn();
@@ -182,7 +182,7 @@
 		$query =
 			'SELECT * FROM `users` WHERE `session`=:session LIMIT 0, 1;';
 
-		$req = $pdo->prepare($query);
+		$req = $db->prepare($query);
 		$req->bingParam(':session', $session);
 		$req->execute();
 		$count = $req->fetchColumn();
