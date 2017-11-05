@@ -156,9 +156,14 @@
 		$req->bindParam(':salt', $salt, PDO::PARAM_STR);
 		$req->bindParam(':session', $session, PDO::PARAM_STR);
 		$req->bindParam(':mail', $mail, PDO::PARAM_STR);
-		$req->execute();
 
-		header('Location: /registercomplete.php');
+		if ($req->execute()) {
+			header('Location: /registercomplete.php');
+			die();
+		}
+
+		header('Location: /register.php?error=Неизвестная ошибка при регистрации пользователя');
+		die();
 	}
 
 	function setUserCookies($userid, $session) {
