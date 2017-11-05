@@ -24,5 +24,5 @@
 		die();
 	}
 
-	addUser($login, $pass1, $user);
+	addUser($login, $pass1, $mail);
 ?>
