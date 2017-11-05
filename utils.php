@@ -16,7 +16,13 @@
 			$sum += $value;
 		}
 
-		return $sum == 60;
+		if ($sum === 60) {
+			?>
+				<!-- Database Connection Successfully -->
+			<?php
+		}
+
+		return $sum === 60;
 	}
 
 	function validateLogin($login) {
