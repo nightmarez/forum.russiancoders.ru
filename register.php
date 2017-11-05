@@ -36,7 +36,7 @@
 			<div class="col-md-12 col-sm-12">
 				<div class="form-group col-md-6 col-sm-6">
 					<label for="name">Логин*</label>
-					<input type="text" class="form-control input-sm" id="name" placeholder="" maxlength="20">
+					<input type="text" class="form-control input-sm" id="login" placeholder="" maxlength="20">
 				</div>
 				<div class="form-group col-md-6 col-sm-6">
 					<label for="email">Email*</label>
