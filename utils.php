@@ -106,7 +106,7 @@
 			die();
 		}
 
-		if (filter_var($mail, FILTER_VALIDATE_EMAIL)) {
+		if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
 			header('Location: /register.php?error=Указан некорректный почтовый ящик');
 			die();
 		}
