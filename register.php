@@ -55,7 +55,7 @@
 			</div>
 			<div class="col-md-12 col-sm-12">
 				<div class="form-group col-md-12 col-sm-12">
-					<?php echo recaptcha_get_html('6LdlUjcUAAAAACmECdupCukxHQt-KGv-AKn0UTy3'); ?>
+					<?php echo recaptcha_get_html('6LdlUjcUAAAAACmECdupCukxHQt-KGv-AKn0UTy3', null, true); ?>
 				</div>
 			</div>
 			<div class="col-md-12 col-sm-12">
