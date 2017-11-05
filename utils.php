@@ -125,7 +125,7 @@
 			VALUES 
 				(:userid, :login, :pass, :salt, :session, now(), now(), 0);';
 
-		$req = $pdo->prepare($query);
+		$req = $db->prepare($query);
 		$req->bindParam(':userid', $userId, PDO::PARAM_STR);
 		$req->bindParam(':login', $safelogin, PDO::PARAM_STR);
 		$req->bindParam(':pass', $pass, PDO::PARAM_STR);
