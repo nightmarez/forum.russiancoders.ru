@@ -107,6 +107,8 @@
 		do {
 			$userId = generateSymbols(20);
 		} while (isUserIdExists($userId));
+
+		return $userId;
 	}
 
 	function addUser($login, $pass, $mail) {
@@ -140,17 +142,6 @@
 		$salt = generateSalt();
 		$pass = saltPass($pass, $salt);
 		$session = generateSession();
-
-		echo $userId;
-		echo '<br>';
-		echo $safelogin;
-		echo '<br>';
-		echo $salt;
-		echo '<br>';
-		echo $pass;
-		echo '<br>';
-		echo $session;
-		die();
 
 		$db = new PdoDb();
 
