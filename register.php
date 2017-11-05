@@ -18,7 +18,7 @@
 	}
 
 	$(document).ready(function() {
-		$('form').submit(function() {
+		$('#submit-button').click(function() {
 			if (testLogin() && testMail() && testPasswords()) {
 				$('form').submit();
 			}
@@ -60,7 +60,7 @@
 			</div>
 			<div class="col-md-12 col-sm-12">
 				<div class="form-group col-md-12 col-sm-12">
-					<input type="submit" class="btn btn-primary" value="Зарегистрироваться">
+					<input type="button" id="submit-button" class="btn btn-primary" value="Зарегистрироваться">
 				</div>
 			</div>
 			<?php if (isset($_GET['error'])) { ?>
