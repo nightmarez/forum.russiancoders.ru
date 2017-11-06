@@ -57,7 +57,7 @@
 													$r->bindParam(':userid', $userid);
 													$r->execute();
 
-													while (list($login) = $req->fetch(PDO::FETCH_NUM)) {
+													while (list($login) = $r->fetch(PDO::FETCH_NUM)) {
 														echo htmlspecialchars($login);
 														break;
 													}
