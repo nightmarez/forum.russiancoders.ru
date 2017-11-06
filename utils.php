@@ -73,6 +73,18 @@
 		while (list($userid, $pass2, $salt, $session) = $req->fetch(PDO::FETCH_NUM)) {
 			$pass = saltPass($pass, $salt);
 
+			echo $userid;
+			echo '<br>';
+			echo $pass;
+			echo '<br>';
+			echo $pass2;
+			echo '<br>';
+			echo $salt;
+			echo '<br>';
+			echo $session;
+			echo '<br>';
+			die();
+
 			if ($pass !== $pass2) {
 				return false;
 			}
@@ -174,7 +186,8 @@
 
 		$db = new PdoDb();
 
-		$query = 'INSERT INTO `users` 
+		$query = 
+			'INSERT INTO `users` 
 				(`userid`, `login`, `pass`, `salt`, `session`, `first`, `last`, `mail`, `state`) 
 			VALUES 
 				(:userid, :login, :pass, :salt, :session, now(), now(), :mail, 0);';
