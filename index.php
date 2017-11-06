@@ -37,7 +37,7 @@
 											$pdo = new PdoDb();
 
 											$query =
-												'SELECT `id` FROM `topics` WHERE `sectionid`=:sectionid;';
+												'SELECT COUNT(*) FROM `topics` WHERE `sectionid`=:sectionid;';
 
 											$r = $pdo->prepare($query);
 											$r->bindParam(':sectionid', $sectionid);
