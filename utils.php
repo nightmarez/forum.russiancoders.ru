@@ -56,6 +56,20 @@
 		return $count >= 1;
 	}
 
+	function isSectionExists($sectionid) {
+		$sectionid = stripslashes(htmlspecialchars($sectionid));
+		$db = new PdoDb();
+
+		$query =
+			'SELECT * FROM `sections` WHERE `sectionid`=:sectionid LIMIT 0, 1;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':sectionid', $sectionid);
+		$req->execute();
+		$count = $req->fetchColumn();
+		return $count >= 1;
+	}
+
 	function tryLogin($login, $pass) {
 		if (!isLoginExists($login)) {
 			return false;
@@ -204,6 +218,33 @@
 
 		header('Location: /register.php?error=Неизвестная ошибка при регистрации пользователя');
 		die();
+	}
+
+	function createTopic($userid, $sectionid, $title, $content) {
+		if (!isSectionExists($sectionid)) {
+			header('Location: /createtopic.php?error=Заданного раздела не существует');
+			die();
+		}
+
+		$topicid = generateUserId();
+
+		$db = new PdoDb();
+
+		$query = 
+			'INSERT INTO `topics` 
+				(`topicid`, `userid`, `sectionid`, `title`, `created`, `updated`, `content`) 
+			VALUES 
+				(:topicid, :userid, :sectionid, :title, now(), now(), :content);';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':topicid', $topicid, PDO::PARAM_STR);
+		$req->bindParam(':userid', $safelogin, PDO::PARAM_STR);
+		$req->bindParam(':sectionid', $sectionid, PDO::PARAM_STR);
+		$req->bindParam(':title', $title, PDO::PARAM_STR);
+		$req->bindParam(':content', $content, PDO::PARAM_STR);
+
+		$req->execute();
+		header('Location: /topic.php?topicid=' . $topicid);
 	}
 
 	function setUserCookies($userid, $session) {

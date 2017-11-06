@@ -1,5 +1,8 @@
 <?php include_once('head.php'); ?>
 <?php include_once('nav.php'); ?>
+<?php require_once('recaptchalib.php'); ?>
+
+<script src='https://www.google.com/recaptcha/api.js'></script>
 
 <div class="panel panel-primary" style="margin: 20px;">
 	<div class="panel-heading">
@@ -58,10 +61,22 @@
 							</td>
 						</tr>
 						<tr>
+							<td>
+								<?php echo recaptcha_get_html('6LdlUjcUAAAAACmECdupCukxHQt-KGv-AKn0UTy3', null, true); ?>
+							</td>
+						</tr>
+						<tr>
 							<td colspan="2">
 								<input type="submit" class="btn btn-primary" value="Создать">
 							</td>
 						</tr>
+						<?php if (isset($_GET['error'])) { ?>
+							<tr>
+								<td class="form-group col-md-12 col-sm-12">
+									<p style="color: red;"><?php echo htmlspecialchars($_GET['error']); ?></p>
+								</td>
+							</tr>
+						<?php } ?>
 					</tbody>
 				</table>
 			</form>
