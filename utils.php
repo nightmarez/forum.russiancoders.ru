@@ -206,7 +206,7 @@
 			'INSERT INTO `users` 
 				(`userid`, `login`, `pass`, `salt`, `session`, `first`, `last`, `mail`, `state`) 
 			VALUES 
-				(:userid, :login, :pass, :salt, :session, now(), now(), :mail, 0);';
+				(:userid, :login, :pass, :salt, :session, now(), now(), :mail, 1);';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':userid', $userId, PDO::PARAM_STR);
