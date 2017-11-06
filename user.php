@@ -39,7 +39,7 @@
 							$req->bindParam(':userid', $userid);
 							$req->execute();
 
-							while (list($userid, $last) = $req->fetch(PDO::FETCH_NUM)) {
+							while (list($login, $last) = $req->fetch(PDO::FETCH_NUM)) {
 						?>
 							<tr>
 								<td colspan="2">
