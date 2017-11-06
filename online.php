@@ -32,7 +32,7 @@
 										<a href="/user.php?userid=<?php echo htmlspecialchars($userid); ?>"><?php echo htmlspecialchars($login); ?></a>
 									</td>
 									<td>
-										echo $last;
+										<?php echo $last; ?>
 									</td>
 								</tr>
 							<?php
