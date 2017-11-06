@@ -14,7 +14,7 @@
 	}
 
 	$userid = htmlspecialchars($_COOKIE['userid']);
-	$content = htmlspecialchars($_POST['topicid']);
+	$topicid = htmlspecialchars($_POST['topicid']);
 
 	addPost($userid, $topicid, $content);
 	header('Location: /topic.php?topicid=' . $topicid);
