@@ -33,7 +33,18 @@
 										<a href="/section.php?sectionid=<?php echo htmlspecialchars($sectionid); ?>"><?php echo htmlspecialchars($title); ?></a>
 									</td>
 									<td>
-										?
+										<?php
+											$pdo = new PdoDb();
+
+											$query =
+												'SELECT `id` FROM `topics` WHERE `sectionid`=:sectionid;';
+
+											$r = $pdo->prepare($query);
+											$r->bindParam(':sectionid', $sectionid);
+											$r->execute();
+											$count = $r->fetchColumn();
+											echo intval($count);
+										?>
 									</td>
 									<td>
 										?
