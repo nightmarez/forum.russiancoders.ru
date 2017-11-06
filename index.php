@@ -140,6 +140,12 @@
 					</table>
 				</div>
 			</div>
+
+			<div>
+				<form method="GET" action="/createtopic.php?sectionid=<?php echo $sectionid; ?>">
+					<input type="submit" class="btn btn-primary" value="Создать тему">
+				</form>
+			</div>
 		</div>
 	<?php
 		}
