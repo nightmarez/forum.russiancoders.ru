@@ -73,18 +73,6 @@
 		while (list($userid, $pass2, $salt, $session) = $req->fetch(PDO::FETCH_NUM)) {
 			$pass = saltPass($pass, $salt);
 
-			echo $userid;
-			echo '<br>';
-			echo $pass;
-			echo '<br>';
-			echo $pass2;
-			echo '<br>';
-			echo $salt;
-			echo '<br>';
-			echo $session;
-			echo '<br>';
-			die();
-
 			if ($pass !== $pass2) {
 				return false;
 			}
