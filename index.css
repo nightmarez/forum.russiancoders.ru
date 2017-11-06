@@ -5,3 +5,8 @@
 .input-sm {
     font-size: 14px !important;
 }
+
+.big-letter {
+	font-size: 20px;
+	float: left;
+}
