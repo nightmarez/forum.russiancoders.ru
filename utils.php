@@ -239,6 +239,34 @@
 		header('Location: /');
 	}
 
+	function updateUserOnline() {
+		if (!isset($_COOKIE['session'])) {
+			return false;
+		}
+
+		$session = $_COOKIE['session'];
+
+		if (!isset($_COOKIE['userid'])) {
+			return false;
+		}
+
+		$userid = $_COOKIE['userid'];
+
+		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $userid)) {
+			return false;
+		}
+
+		$db = new PdoDb();
+
+		$query =
+			'UPDATE `users` SET `last`=now() WHERE `session`=:session AND `userid`=:userid;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':session', $session);
+		$req->bindParam(':userid', $userid);
+		$req->execute();
+	}
+
 	function isLogin() {
 		if (!isset($_COOKIE['session'])) {
 			return false;

@@ -27,4 +27,6 @@
 			if (!databaseTestAccess()) {
 				die('No Database Access');
 			}
+
+			updateUserOnline();
 		?>

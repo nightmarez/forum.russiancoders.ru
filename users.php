@@ -3,7 +3,7 @@
 
 <div class="panel panel-primary" style="margin: 20px;">
 	<div class="panel-heading">
-		<h3 class="panel-title">Регистрация</h3>
+		<h3 class="panel-title">Пользователи</h3>
 	</div>
 
 	<div class="panel-body">
@@ -11,7 +11,7 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th>Login</th>
+						<th>Логин</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -19,7 +19,7 @@
 						$db = new PdoDb();
 
 						$query =
-							'SELECT `userid`, `login` FROM `users` ORDER BY `id` LIMIT 0, 1;';
+							'SELECT `userid`, `login` FROM `users` ORDER BY `id` LIMIT 0, 1000;';
 
 						$req = $db->prepare($query);
 						$req->execute();
