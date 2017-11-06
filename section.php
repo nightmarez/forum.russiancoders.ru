@@ -41,11 +41,6 @@
 
 							while (list($title) = $req->fetch(PDO::FETCH_NUM)) {
 						?>
-							<div class="panel panel-primary" style="margin: 20px;">
-								<div class="panel-heading">
-									<h3 class="panel-title"><a href="/section.php?sectionid=<?php echo htmlspecialchars($sectionid); ?>"><?php echo htmlspecialchars($title); ?></a></h3>
-								</div>
-
 								<div class="panel-body">
 									<div class="table-responsive">
 										<table class="table">
@@ -63,7 +58,7 @@
 													$pdo = new PdoDb();
 
 													$query =
-														'SELECT `topicid`, `title`, `userid`, `updated` FROM `topics` WHERE `sectionid`=:sectionid ORDER BY `updated` DESC LIMIT 0, 10;';
+														'SELECT `topicid`, `title`, `userid`, `updated` FROM `topics` WHERE `sectionid`=:sectionid ORDER BY `updated` DESC LIMIT 0, 20;';
 
 													$r = $pdo->prepare($query);
 													$r->bindParam(':sectionid', $sectionid);
@@ -111,7 +106,6 @@
 										</table>
 									</div>
 								</div>
-							</div>
 						<?php
 							}
 						?>
