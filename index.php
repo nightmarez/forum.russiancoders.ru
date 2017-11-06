@@ -57,6 +57,7 @@
 			</table>
 		</div>
 	</div>
+</div>
 
 	<?php
 		$db = new PdoDb();
@@ -91,7 +92,7 @@
 								$pdo = new PdoDb();
 
 								$query =
-									'SELECT `topicid`, `title`, `userid` FROM `topics` WHERE `sectionid`=:sectionid;';
+									'SELECT `topicid`, `title`, `userid` FROM `topics` WHERE `sectionid`=:sectionid ORDER BY `updated` DESC LIMIT 0, 10;';
 
 								$r = $pdo->prepare($query);
 								$r->bindParam(':sectionid', $sectionid);
@@ -143,6 +144,5 @@
 	<?php
 		}
 	?>
-</div>
 
 <?php include_once('footer.php'); ?>
