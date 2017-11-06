@@ -7,7 +7,7 @@
 	if (isset($_GET['sectionid'])) {
 		$sectionid = htmlspecialchars($_GET['sectionid']);
 
-		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $sectionid)) {
+		if (!preg_match('/^\{?[0-9a-zA-Z]{1,20}\}?$/', $sectionid)) {
 			$sectionid = false;
 		}
 	}
