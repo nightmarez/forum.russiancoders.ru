@@ -32,12 +32,12 @@
 						<tr>
 							<td colspan="2">
 								<p>Сообщение</p>
-								<textarea name="content"></textarea>
+								<textarea name="content" style="min-width: 800px; min-height: 300px;"></textarea>
 							</td>
 						</tr>
 						<tr>
 							<td colspan="2">
-								<input type="submit" value="Создать">
+								<input type="submit" class="btn btn-primary" value="Создать">
 							</td>
 						</tr>
 					</tbody>
