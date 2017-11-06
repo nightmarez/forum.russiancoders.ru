@@ -70,7 +70,7 @@
 		$req->bindParam(':login', $login);
 		$req->execute();
 
-		while (list($userid, $pass2, $salt, $session) = $req->fetch(PDO::FETCH_ASSOC)) {
+		while (list($userid, $pass2, $salt, $session) = $req->fetch(PDO::FETCH_NUM)) {
 			$pass = saltPass($pass, $salt);
 
 			if ($pass !== $pass2) {
