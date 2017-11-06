@@ -246,17 +246,24 @@
 
 		$session = $_COOKIE['session'];
 
-		if (!preg_match('/^\{?[0-9a-zA-Z]{40}\}?$/', $session)) {
+		if (!isset($_COOKIE['userid'])) {
+			return false;
+		}
+
+		$userid = $_COOKIE['userid'];
+
+		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $userid)) {
 			return false;
 		}
 
 		$db = new PdoDb();
 
 		$query =
-			'SELECT * FROM `users` WHERE `session`=:session LIMIT 0, 1;';
+			'SELECT * FROM `users` WHERE `session`=:session AND `userid`=:userid LIMIT 0, 1;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':session', $session);
+		$req->bindParam(':userid', $userid);
 		$req->execute();
 		$count = $req->fetchColumn();
 		return $count >= 1;
