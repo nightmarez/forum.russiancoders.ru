@@ -64,12 +64,13 @@
 		$db = new PdoDb();
 
 		$query =
-			'SELECT `userid`, `pass`, `salt`, `session` FROM `users` LIMIT 0, 1;';
+			'SELECT `userid`, `pass`, `salt`, `session` FROM `users` WHERE `login`=:login LIMIT 0, 1;';
 
 		$req = $db->prepare($query);
+		$req->bindParam(':login', $login);
 		$req->execute();
 
-		while (list($userid, $pass2, $salt, $session) = $req->fetch(PDO::FETCH_NUM)) {
+		while (list($userid, $pass2, $salt, $session) = $req->fetch(PDO::FETCH_ASSOC)) {
 			$pass = saltPass($pass, $salt);
 
 			if ($pass !== $pass2) {
