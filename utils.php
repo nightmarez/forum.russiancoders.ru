@@ -61,8 +61,10 @@
 			return false;
 		}
 
+		$db = new PdoDb();
+
 		$query =
-			'SELECT `userid`, `pass`, `salt`, `session` FROM `users`;';
+			'SELECT `userid`, `pass`, `salt`, `session` FROM `users` LIMIT 0, 1;';
 
 		$req = $db->prepare($query);
 		$req->execute();

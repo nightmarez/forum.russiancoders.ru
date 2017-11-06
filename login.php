@@ -10,7 +10,7 @@
 		<form action="/dologin.php" method="POST">
 			<div class="col-md-12 col-sm-12">
 				<div class="form-group col-md-6 col-sm-6">
-					<label for="name">Логин*</label>
+					<label for="login">Логин*</label>
 					<input type="text" class="form-control input-sm" id="login" name="login" placeholder="" maxlength="20">
 				</div>
 				<div class="form-group col-md-6 col-sm-6">
