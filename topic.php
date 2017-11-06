@@ -40,7 +40,7 @@
 
 						while (list($id, $topicid, $userid, $content, $created) = $req->fetch(PDO::FETCH_NUM)) {
 							?>
-								<table class="table">
+								<table class="table" style="border: 1px solid blue;">
 									<tbody>
 										<tr>
 											<td>
@@ -82,5 +82,25 @@
 		</div>
 	</div>
 </div>
+
+<?php if (isLogin()) { ?>
+	<div class="panel panel-primary" style="margin: 20px;">
+		<div class="panel-heading">
+			<h3 class="panel-title">Добавить сообщение</h3>
+		</div>
+
+		<div class="panel-body">
+			<div class="table-responsive">
+				<form method="POST" action="addpost.php">
+					<input type="hidden" name="topicid" value="<?php echo $topicid; ?>">
+					<textarea name="content" style="min-width: 800px; min-height: 300px;"></textarea>
+					<div>
+						<input type="submit" value="Отправить">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+<?php } ?>
 
 <?php include_once('footer.php'); ?>

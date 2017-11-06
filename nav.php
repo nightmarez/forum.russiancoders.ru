@@ -5,6 +5,7 @@
 				<div class="navbar-collapse">
 					<ul class="nav navbar-nav">
 						<li><a href="/">Форум</a></li>
+						<li><a href="/tracker.php">Трекер</a></li>
 						<li><a href="/faq.php">ЧаВо</a></li>
 						<li><a href="/users.php">Пользователи</a></li>
 						<li><a href="/online.php">Онлайн</a></li>
