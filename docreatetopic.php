@@ -16,7 +16,7 @@
 
 	$title = htmlspecialchars($_POST['title']);
 
-	if ($title !== $_POST['title'] || strlen($title) > 40) {
+	if ($title !== $_POST['title'] || strlen($title) > 100) {
 		header('Location: /createtopic.php?error=Некорректно задан заголовок');
 		die();
 	}
