@@ -141,8 +141,9 @@
 				</div>
 			</div>
 
-			<div>
-				<form method="GET" action="/createtopic.php?sectionid=<?php echo $sectionid; ?>">
+			<div style="margin: 0 0 10px 10px;">
+				<form method="GET" action="/createtopic.php">
+					<input type="hidden" name="sectionid" value="<?php echo $sectionid; ?>">
 					<input type="submit" class="btn btn-primary" value="Создать тему">
 				</form>
 			</div>
