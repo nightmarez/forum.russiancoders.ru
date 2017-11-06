@@ -12,6 +12,7 @@
 				<thead>
 					<tr>
 						<th>Логин</th>
+						<th>Дата</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -19,16 +20,19 @@
 						$db = new PdoDb();
 
 						$query =
-							'SELECT `userid`, `login` FROM `users` ORDER BY `last` DESC LIMIT 0, 100;';
+							'SELECT `userid`, `login`, `last` FROM `users` ORDER BY `last` DESC LIMIT 0, 100;';
 
 						$req = $db->prepare($query);
 						$req->execute();
 
-						while (list($userid, $login) = $req->fetch(PDO::FETCH_NUM)) {
+						while (list($userid, $login, $last) = $req->fetch(PDO::FETCH_NUM)) {
 							?>
 								<tr>
 									<td>
 										<a href="/user.php?userid=<?php echo htmlspecialchars($userid); ?>"><?php echo htmlspecialchars($login); ?></a>
+									</td>
+									<td>
+										echo $last;
 									</td>
 								</tr>
 							<?php
