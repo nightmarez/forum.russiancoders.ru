@@ -35,6 +35,7 @@
 							'SELECT `id`, `topicid`, `userid`, `content`, `created` FROM `posts` WHERE `topicid`=:topicid ORDER BY `id` ASC LIMIT 0, 100;';
 
 						$req = $db->prepare($query);
+						$req->bindParam(':topicid', $topicid);
 						$req->execute();
 
 						while (list($id, $topicid, $userid, $content, $created) = $req->fetch(PDO::FETCH_NUM)) {
