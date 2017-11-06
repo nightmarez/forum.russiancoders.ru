@@ -32,13 +32,13 @@
 						$db = new PdoDb();
 
 						$query =
-							'SELECT `id`, `topicid`, `userid`, `content`, `created` FROM `posts` WHERE `topicid`=:topicid ORDER BY `id` ASC LIMIT 0, 100;';
+							'SELECT `id`, `userid`, `content`, `created` FROM `posts` WHERE `topicid`=:topicid ORDER BY `id` ASC LIMIT 0, 100;';
 
 						$req = $db->prepare($query);
 						$req->bindParam(':topicid', $topicid);
 						$req->execute();
 
-						while (list($id, $topicid, $userid, $content, $created) = $req->fetch(PDO::FETCH_NUM)) {
+						while (list($id, $userid, $content, $created) = $req->fetch(PDO::FETCH_NUM)) {
 							?>
 								<table class="table" style="border: 1px solid blue;">
 									<tbody>
