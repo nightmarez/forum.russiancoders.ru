@@ -92,13 +92,13 @@
 								$pdo = new PdoDb();
 
 								$query =
-									'SELECT `topicid`, `title`, `userid` FROM `topics` WHERE `sectionid`=:sectionid ORDER BY `updated` DESC LIMIT 0, 10;';
+									'SELECT `topicid`, `title`, `userid`, `updated` FROM `topics` WHERE `sectionid`=:sectionid ORDER BY `updated` DESC LIMIT 0, 10;';
 
 								$r = $pdo->prepare($query);
 								$r->bindParam(':sectionid', $sectionid);
 								$r->execute();
 								
-								while (list($topicid, $title, $userid) = $r->fetch(PDO::FETCH_NUM)) {
+								while (list($topicid, $title, $userid, $updated) = $r->fetch(PDO::FETCH_NUM)) {
 									?>
 										<tr>
 											<td style="width: 20%;">
@@ -130,7 +130,7 @@
 												?
 											</td>
 											<td style="width: 20%;">
-												?
+												<?php echo $updated; ?>
 											</td>
 										</tr>
 									<?php
