@@ -238,6 +238,20 @@
 		if (!isTopicExists($topicid)) {
 			return false;
 		}
+
+		$db = new PdoDb();
+
+		$query = 
+			'INSERT INTO `posts` 
+				(`topicid`, `userid`, `content`) 
+			VALUES 
+				(:topicid, :userid, :content);';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':topicid', $topicid, PDO::PARAM_STR);
+		$req->bindParam(':userid', $userid, PDO::PARAM_STR);
+		$req->bindParam(':content', $content, PDO::PARAM_STR);
+		$req->execute();
 	}
 
 	function createTopic($userid, $sectionid, $title, $content) {

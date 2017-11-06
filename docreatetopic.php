@@ -23,7 +23,7 @@
 
 	$content = htmlspecialchars($_POST['content']);
 
-	if ($content !== $_POST['content'] || strlen($content) > 40) {
+	if ($content !== $_POST['content'] || strlen($content) > 4096) {
 		header('Location: /createtopic.php?error=Некорректно задано содержимое поста');
 		die();
 	}
