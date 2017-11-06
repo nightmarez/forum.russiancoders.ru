@@ -7,10 +7,10 @@
 	</div>
 
 	<div class="panel-body">
-		<form action="/" method="GET">
+		<form action="/login.php" method="GET">
 			<div class="col-md-12 col-sm-12">
 				<div class="form-group col-md-12 col-sm-12">
-					Регистрация прошла успешно. На указанный Вами адрес была выслана ссылка для активации аккаунта.
+					Регистрация прошла успешно.<!-- На указанный Вами адрес была выслана ссылка для активации аккаунта. -->
 				</div>
 			</div>
 			<div class="col-md-12 col-sm-12">

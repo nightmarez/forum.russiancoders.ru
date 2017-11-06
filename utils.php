@@ -56,6 +56,32 @@
 		return $count >= 1;
 	}
 
+	function tryLogin($login, $pass) {
+		if (!isLoginExists($login)) {
+			return false;
+		}
+
+		$query =
+			'SELECT `userid`, `pass`, `salt`, `session` FROM `users`;';
+
+		$req = $db->prepare($query);
+		$req->execute();
+
+		while (list($userid, $pass2, $salt, $session) = $req->fetch(PDO::FETCH_NUM)) {
+			$pass = saltPass($pass, $salt);
+
+			if ($pass !== $pass2) {
+				return false;
+			}
+
+			setUserCookies($userid, $session);
+			return true;
+			break;
+		}
+
+		return false;
+	}
+
 	function validateUserId($userId) {
 		return preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $userId);
 	}
@@ -166,7 +192,7 @@
 'Reply-To: webmaster@example.com' . "\r\n" .
 'X-Mailer: PHP/' . phpversion();
 
-			mail($mail, $subject, $message, $headers);
+			// mail($mail, $subject, $message, $headers);
 
 			header('Location: /registercomplete.php');
 			die();
