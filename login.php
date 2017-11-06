@@ -14,8 +14,8 @@
 					<input type="text" class="form-control input-sm" id="login" name="login" placeholder="" maxlength="20">
 				</div>
 				<div class="form-group col-md-6 col-sm-6">
-					<label for="email">Пароль*</label>
-					<input type="email" class="form-control input-sm" id="pass" name="pass" placeholder="">
+					<label for="pass">Пароль*</label>
+					<input type="password" class="form-control input-sm" id="pass" name="pass" placeholder="">
 				</div>
 			</div>
 			<div class="col-md-12 col-sm-12">
