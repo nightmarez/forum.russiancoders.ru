@@ -6,6 +6,14 @@
 		<h3 class="panel-title">Создание темы</h3>
 	</div>
 
+	<?php
+		$sectionid = false;
+
+		if (isset($_GET['sectionid'])) {
+			$sectionid = htmlspecialchars($_GET['sectionid']);
+		}
+	?>
+
 	<div class="panel-body">
 		<div class="table-responsive">
 			<form method="POST" action="docreatetopic.php">
@@ -17,7 +25,21 @@
 							</td>
 							<td>
 								<select name="sectionid">
+									<?php
+										$db = new PdoDb();
 
+										$query =
+											'SELECT `sectionid`, `title` FROM `sections` ORDER BY `id`;';
+
+										$req = $db->prepare($query);
+										$req->execute();
+
+										while (list($sectionid2, $title) = $req->fetch(PDO::FETCH_NUM)) {
+											?>
+												<option value="<?php echo $sectionid2; ?>" <?php if ($sectionid === $sectionid2) echo 'selected'; ?>><?php echo htmlspecialchars($title); ?></option>
+											<?php
+										}
+									?>
 								</select>
 							</td>
 						</tr>
@@ -26,7 +48,7 @@
 								Тема
 							</td>
 							<td>
-								<input type="text" maxlength="40" name="title">
+								<input type="text" maxlength="40" name="title" style="min-width: 200px;">
 							</td>
 						</tr>
 						<tr>
