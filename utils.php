@@ -70,6 +70,20 @@
 		return $count >= 1;
 	}
 
+	function isTopicExists($topicid) {
+		$topicid = stripslashes(htmlspecialchars($topicid));
+		$db = new PdoDb();
+
+		$query =
+			'SELECT * FROM `topics` WHERE `topicid`=:topicid LIMIT 0, 1;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':topicid', $topicid);
+		$req->execute();
+		$count = $req->fetchColumn();
+		return $count >= 1;
+	}
+
 	function tryLogin($login, $pass) {
 		if (!isLoginExists($login)) {
 			return false;
@@ -220,6 +234,12 @@
 		die();
 	}
 
+	function addPost($userid, $topicid, $content) {
+		if (!isTopicExists($topicid)) {
+			return false;
+		}
+	}
+
 	function createTopic($userid, $sectionid, $title, $content) {
 		if (!isSectionExists($sectionid)) {
 			header('Location: /createtopic.php?error=Заданного раздела не существует');
@@ -232,18 +252,18 @@
 
 		$query = 
 			'INSERT INTO `topics` 
-				(`topicid`, `userid`, `sectionid`, `title`, `created`, `updated`, `content`) 
+				(`topicid`, `userid`, `sectionid`, `title`, `created`, `updated`) 
 			VALUES 
-				(:topicid, :userid, :sectionid, :title, now(), now(), :content);';
+				(:topicid, :userid, :sectionid, :title, now(), now());';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':topicid', $topicid, PDO::PARAM_STR);
 		$req->bindParam(':userid', $userid, PDO::PARAM_STR);
 		$req->bindParam(':sectionid', $sectionid, PDO::PARAM_STR);
 		$req->bindParam(':title', $title, PDO::PARAM_STR);
-		$req->bindParam(':content', $content, PDO::PARAM_STR);
 
 		$req->execute();
+		addPost($userid, $topicid, $content);
 		header('Location: /topic.php?topicid=' . $topicid);
 	}
 
