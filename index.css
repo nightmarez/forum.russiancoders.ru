@@ -40,8 +40,8 @@ table.index-posts th:nth-child(5), table.index-posts td:nth-child(5) {
 	margin-bottom: 0;
 }
 
-table.topic-posts > tr > td {
-	border-top: none;
+table.topic-posts td {
+	border-top: none !important;
 }
 
 table.topic-posts tr:nth-child(1) {
