@@ -144,7 +144,7 @@
 														$rrr->bindParam(':userid', $userid2);
 														$rrr->execute();
 
-														while (list($login2) = $rr->fetch(PDO::FETCH_NUM)) {
+														while (list($login2) = $rrr->fetch(PDO::FETCH_NUM)) {
 															?>
 																<a href="/user.php?userid=<?php echo htmlspecialchars($userid2); ?>"><?php echo htmlspecialchars($login2); ?></a>
 															<?php
