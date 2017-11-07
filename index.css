@@ -3,10 +3,30 @@
 }
 
 .input-sm {
-    font-size: 14px !important;
+    font-size: 14px;
 }
 
 .big-letter {
-	font-size: 20px;
 	float: left;
+	font-size: 20px;
+}
+
+table.index-topics th:nth-child(2), table.index-topics td:nth-child(2) {
+	text-align: center;
+	width: 50px;	
+}
+
+table.index-topics th:nth-child(3), table.index-topics td:nth-child(3) {
+	text-align: center;
+	width: 150px;
+}
+
+table.index-posts th:nth-child(4), table.index-posts td:nth-child(4) {
+	text-align: center;
+	width: 50px;
+}
+
+table.index-posts th:nth-child(5), table.index-posts td:nth-child(5) {
+	text-align: center;
+	width: 150px;
 }

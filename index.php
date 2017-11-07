@@ -8,7 +8,7 @@
 
 	<div class="panel-body">
 		<div class="table-responsive">
-			<table class="table">
+			<table class="table index-topics">
 				<thead>
 					<tr>
 						<th>Раздел</th>
@@ -77,7 +77,7 @@
 
 			<div class="panel-body">
 				<div class="table-responsive">
-					<table class="table">
+					<table class="table index-posts">
 						<thead>
 							<tr>
 								<th>Тема</th>
@@ -101,10 +101,10 @@
 								while (list($topicid, $title, $userid, $updated) = $r->fetch(PDO::FETCH_NUM)) {
 									?>
 										<tr>
-											<td style="width: 20%;">
+											<td>
 												<a href="/topic.php?topicid=<?php echo htmlspecialchars($topicid); ?>"><?php echo htmlspecialchars($title); ?></a>
 											</td>
-											<td style="width: 20%;">
+											<td>
 												<?php
 													$p = new PdoDb();
 
@@ -123,7 +123,7 @@
 													}
 												?>
 											</td>
-											<td style="width: 20%;">
+											<td>
 												<?php
 													$p = new PdoDb();
 
@@ -155,7 +155,7 @@
 													}
 												?>
 											</td>
-											<td style="width: 20%;">
+											<td>
 												<?php
 													$p = new PdoDb();
 
@@ -171,7 +171,7 @@
 													echo $count;
 												?>
 											</td>
-											<td style="width: 20%;">
+											<td>
 												<?php echo $updated; ?>
 											</td>
 										</tr>
