@@ -124,7 +124,36 @@
 												?>
 											</td>
 											<td style="width: 20%;">
-												?
+												<?php
+													$p = new PdoDb();
+
+													$query =
+														'SELECT `userid` FROM `posts` WHERE `topicid`=:topicid ORDER BY `id` DESC LIMIT 0, 1;';
+
+													$rr = $p->prepare($query);
+													$rr->bindParam(':topicid', $topicid);
+													$rr->execute();
+
+													while (list($userid2) = $rr->fetch(PDO::FETCH_NUM)) {
+														$pp = new PdoDb();
+
+														$query2 =
+															'SELECT `login` FROM `users` WHERE `userid`=:userid LIMIT 0, 1;';
+
+														$rrr = $pp->prepare($query2);
+														$rrr->bindParam(':userid', $userid2);
+														$rrr->execute();
+
+														while (list($login2) = $rr->fetch(PDO::FETCH_NUM)) {
+															?>
+																<a href="/user.php?userid=<?php echo htmlspecialchars($userid2); ?>"><?php echo htmlspecialchars($login2); ?></a>
+															<?php
+															break;
+														}
+
+														break;
+													}
+												?>
 											</td>
 											<td style="width: 20%;">
 												?
