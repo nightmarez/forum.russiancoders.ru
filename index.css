@@ -30,3 +30,36 @@ table.index-posts th:nth-child(5), table.index-posts td:nth-child(5) {
 	text-align: center;
 	width: 300px;
 }
+
+.topic-posts {
+	background-color: whitesmoke;
+	border: 1px solid blue;
+}
+
+.topic-posts:last-child {
+	margin-bottom: 0;
+}
+
+table.topic-posts td {
+	border-top: none;
+}
+
+table.topic-posts tr:nth-child(1) {
+	background-color: lightsteelblue;
+}
+
+table.topic-posts tr:nth-child(2) > td {
+	padding: 15px 8px 15px 8px;
+}  
+
+table.topic-posts td:nth-child(1) {
+	width: 50px;
+}
+
+table.topic-posts td:nth-child(2) {
+	width: 400px;
+}
+
+table.topic-posts td:nth-child(3) {
+	text-align: left;
+}

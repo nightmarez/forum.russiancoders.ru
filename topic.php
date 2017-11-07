@@ -40,7 +40,7 @@
 
 						while (list($id, $userid, $content, $created) = $req->fetch(PDO::FETCH_NUM)) {
 							?>
-								<table class="table" style="border: 1px solid blue;">
+								<table class="table topic-posts">
 									<tbody>
 										<tr>
 											<td>
