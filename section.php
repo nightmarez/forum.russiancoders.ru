@@ -15,7 +15,21 @@
 
 <div class="panel panel-primary" style="margin: 20px;">
 	<div class="panel-heading">
-		<h3 class="panel-title">Раздел</h3>
+		<h3 class="panel-title"><?php
+			$db = new PdoDb();
+
+			$query =
+				'SELECT `title` FROM `sections` WHERE `sectionid`=:sectionid LIMIT 0, 1;';
+
+			$req = $db->prepare($query);
+			$req->bindParam(':sectionid', $sectionid);
+			$req->execute();
+
+			while (list($title) = $req->fetch(PDO::FETCH_NUM)) {
+				echo htmlspecialchars($title);
+				break;
+			}
+		?></h3>
 	</div>
 
 	<div class="panel-body">
