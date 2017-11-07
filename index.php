@@ -156,7 +156,20 @@
 												?>
 											</td>
 											<td style="width: 20%;">
-												?
+												<?php
+													$p = new PdoDb();
+
+													$query =
+														'SELECT COUNT(*) FROM `posts` WHERE `topicid`=:topicid;';
+
+													$rr = $p->prepare($query);
+													$rr->bindParam(':topicid', $topicid);
+													$rr->execute();
+
+													$count = $result->fetchColumn();
+
+													echo $count;
+												?>
 											</td>
 											<td style="width: 20%;">
 												<?php echo $updated; ?>
