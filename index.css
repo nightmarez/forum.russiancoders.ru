@@ -1,3 +1,7 @@
+a {
+	filter: contrast(4) brightness(0.5);
+}
+
 .footer {
 	visibility: hidden;
 }
