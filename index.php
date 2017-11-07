@@ -166,7 +166,7 @@
 													$rr->bindParam(':topicid', $topicid);
 													$rr->execute();
 
-													$count = $result->fetchColumn();
+													$count = $rr->fetchColumn();
 
 													echo $count;
 												?>
