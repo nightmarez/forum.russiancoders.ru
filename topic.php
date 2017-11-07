@@ -43,11 +43,8 @@
 								<table class="table topic-posts">
 									<tbody>
 										<tr>
-											<td>
-												#
-											</td>
-											<td>
-												<?php
+											<td>#</td>
+											<td><?php
 													$pdo = new PdoDb();
 
 													$query =
@@ -58,21 +55,16 @@
 													$r->execute();
 
 													while (list($login) = $r->fetch(PDO::FETCH_NUM)) {
-														echo htmlspecialchars($login);
+														?><a href="/user.php?userid=<?php echo htmlspecialchars($userid); ?>"><?php echo htmlspecialchars($login); ?></a><?php
 														break;
 													}
-												?>
-											</td>
-											<td>
-												<?php
+												?></td>
+											<td><?php
 													echo $created;
-												?>
-											</td>
+												?></td>
 										</tr>
 										<tr>
-											<td colspan="3">
-												<?php echo htmlspecialchars($content); ?>
-											</td>
+											<td colspan="3"><?php echo htmlspecialchars($content); ?></td>
 										</tr>
 									</tbody>
 								</table>
