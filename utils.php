@@ -381,26 +381,15 @@
 		$text = preg_replace("/(\r){2,}/", "<br/><br/>", $text);
 		$text = preg_replace("/(\r)/", "<br/>", $text);
 
-  		$pattern = '/\[url=\"(.*)\"\](.*)\[\/url\]/i';
-  		$text = preg_replace($pattern, '<a href="${1}">${2}</a>', $text);
+  		$text = preg_replace('/\[url=\"(.*)\"\](.*)\[\/url\]/i', '<a href="${1}">${2}</a>', $text);
+  		$text = preg_replace('/\[url=(.*)\](.*)\[\/url\]/i', '<a href="${1}">${2}</a>', $text);
 
-  		$pattern = '/\[url=(.*)\](.*)\[\/url\]/i';
-  		$text = preg_replace($pattern, '<a href="${1}">${2}</a>', $text);
+  		$text = preg_replace('/\[b\](.*)\[\/b\]/i', '<b>${1}</b>', $text);
+  		$text = preg_replace('/\[i\](.*)\[\/i\]/i', '<i>${1}</i>', $text);
+  		$text = preg_replace('/\[s\](.*)\[\/s\]/i', '<s>${1}</s>', $text);
 
-  		$pattern = '/\[b\](.*)\[\/b\]/i';
-  		$text = preg_replace($pattern, '<b>${1}</b>', $text);
-
-  		$pattern = '/\[i\](.*)\[\/i\]/i';
-  		$text = preg_replace($pattern, '<i>${1}</i>', $text);
-
-  		$pattern = '/\[s\](.*)\[\/s\]/i';
-  		$text = preg_replace($pattern, '<s>${1}</s>', $text);
-
-  		$pattern = '/(\[br\]){2,}/i';
-  		$text = preg_replace($pattern, '<br><br>', $text);
-
-  		$pattern = '/\[br\]/i';
-  		$text = preg_replace($pattern, '<br>', $text);
+  		$text = preg_replace('/(\[br\]){2,}/i', '<br/><br/>', $text);
+  		$text = preg_replace('/\[br\]/i', '<br/>', $text);
 
   		return $text;
 	}
