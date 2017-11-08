@@ -108,7 +108,7 @@ table.tracker-posts tr:nth-child(2) > td {
 }  
 
 table.tracker-posts td:nth-child(1) {
-	width: 50px;
+	width: 400px;
 }
 
 table.tracker-posts td:nth-child(2) {
