@@ -396,6 +396,12 @@
   		$pattern = '/\[s\](.*)\[\/s\]/i';
   		$text = preg_replace($pattern, '<s>${1}</s>', $text);
 
+  		$pattern = '/(\[br\]){2,}/i';
+  		$text = preg_replace($pattern, '<br><br>', $text);
+
+  		$pattern = '/\[br\]/i';
+  		$text = preg_replace($pattern, '<br>', $text);
+
   		return $text;
 	}
 ?>
