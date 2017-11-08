@@ -372,7 +372,7 @@
 		return $count >= 1;
 	}
 
-	function filterMessage($text) {
+	function filterMessage($text, $userid) {
 		$text = htmlspecialchars($text);
 
 		$text = preg_replace("/(\r\n){2,}/", "<br/><br/>", $text);
@@ -390,6 +390,8 @@
 
   		$text = preg_replace('/(\[br\]){2,}/i', '<br/><br/>', $text);
   		$text = preg_replace('/\[br\]/i', '<br/>', $text);
+
+  		$text = preg_replace('/\[img=([0-9a-zA-Z]{20})\]/i', '<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg">', $text);
 
   		return $text;
 	}
