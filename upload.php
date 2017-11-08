@@ -13,6 +13,21 @@
 		<div class="table-responsive">
 			<?php
 				$userid = $_COOKIE['userid'];
+
+				$userid = false;
+
+				if (isset($_COOKIE['userid'])) {
+					$userid = htmlspecialchars($_COOKIE['userid']);
+
+					if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $userid)) {
+						$userid = false;
+					}
+				}
+
+				if ($userid === false) {
+					die();
+				}
+
 				$fileid = generateUserId();
 
 				$target_dir = "uploads/";
@@ -24,35 +39,35 @@
 				if(isset($_POST["imgSubmit"])) {
 					$check = getimagesize($_FILES["imgInp"]["tmp_name"]);
 					if($check !== false) {
-						echo "File is an image - " . $check["mime"] . ".";
+						//echo "File is an image - " . $check["mime"] . ".";
 						$uploadOk = 1;
 					} else {
-						echo "File is not an image.";
+						echo "Файл не является графическим изображением.";
 						$uploadOk = 0;
 					}
 				}
 
 				// Check if file already exists
 				if (file_exists($target_file)) {
-					echo "Sorry, file already exists.";
+					echo "Коллизия в директории загрузки файлов. Напишите об этом на форуме и я постараюсь в ближайшее время починить.";
 					$uploadOk = 0;
 				}
 
 				// Check file size
 				if ($_FILES["imgInp"]["size"] > 500000) {
-					echo "Sorry, your file is too large.";
+					echo "Извините, файл имеет слишком большой размер.";
 					$uploadOk = 0;
 				}
 
 				// Allow certain file formats
 				if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
-					echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+					echo "Извините, только JPG, JPEG, PNG и GIF файлы разрешены.";
 					$uploadOk = 0;
 				}
 
 				// Check if $uploadOk is set to 0 by an error
 				if ($uploadOk == 0) {
-					echo "Sorry, your file was not uploaded.";
+					echo "Загрузка файла не удалась. Напишите об этом на форуме и я постараюсь в ближайшее время починить.";
 				// if everything is ok, try to upload file
 				} else {
 					if (move_uploaded_file($_FILES["imgInp"]["tmp_name"], $target_file)) {
@@ -60,13 +75,35 @@
 
 						if (!file_exists('/var/www/domains/storage.russiancoders.ru/' . $userid)) {
 							mkdir('/var/www/domains/storage.russiancoders.ru/' . $userid);
+							chmod('/var/www/domains/storage.russiancoders.ru/' . $userid, 777);
 						}
 
 						if (copy($target_file, '/var/www/domains/storage.russiancoders.ru/' . $userid . '/' . $fileid . '.' . $imageFileType)) {
+							$image = false;
+
+							switch ($imageFileType) {
+								case 'jpeg':
+									$image = imagecreatefromjpeg($filename);
+									break;
+								case 'gif':
+									$image = imagecreatefromgif($filename);
+									break;
+								case 'png':
+									$image = imagecreatefrompng($filename);
+									break;
+							}
+
+							if ($image !== false) {
+								imagejpeg($image, '/var/www/domains/storage.russiancoders.ru/' . $userid . '/' . $fileid . '.jpg');
+								unlink('/var/www/domains/storage.russiancoders.ru/' . $userid . '/' . $fileid . '.' . $imageFileType);
+							}
+
 							echo 'Файл успешно загружен.<br>Для вставки в сообщение, используйте код:<br>[img=' . $fileid . ']';
 						}
+
+						unlink($target_file);
 					} else {
-						echo "Sorry, there was an error uploading your file.";
+						echo 'Что-то где-то пошло не так. Напишите об этом на форуме и я постараюсь в ближайшее время починить.';
 					}
 				}
 			?>
