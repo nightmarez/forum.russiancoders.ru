@@ -68,6 +68,11 @@
 								                </span>
 								            </span>
 								            <input type="text" class="form-control" readonly>
+								            <span class="input-group-btn">
+								                <span class="btn btn-default btn-file">
+								                    Загрузить… <input type="submit" id="imgSubmit">
+								                </span>
+								            </span>
 								        </div>
 								        <img id='img-upload'/>
 								    </div>
