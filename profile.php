@@ -60,22 +60,24 @@
 							<tr>
 								<td colspan="2">
 									<div class="form-group">
-								        <label>Загрузка изображения</label>
-								        <div class="input-group">
-								            <span class="input-group-btn">
-								                <span class="btn btn-default btn-file">
-								                    Выбрать… <input type="file" id="imgInp">
-								                </span>
-								            </span>
-								            <input type="text" class="form-control" readonly>
-								            <span class="input-group-btn">
-								                <span class="btn btn-default btn-file">
-								                    Загрузить… <input type="submit" id="imgSubmit">
-								                </span>
-								            </span>
-								        </div>
-								        <img id='img-upload'/>
-								    </div>
+										<label>Загрузка изображения</label>
+										<form method="POST" action="upload.php" enctype="multipart/form-data">
+											<div class="input-group">
+												<span class="input-group-btn">
+													<span class="btn btn-default btn-file">
+														Выбрать… <input type="file" id="imgInp">
+													</span>
+												</span>
+												<input type="text" class="form-control" readonly>
+												<span class="input-group-btn">
+													<span class="btn btn-default btn-file">
+														Загрузить… <input type="submit" id="imgSubmit">
+													</span>
+												</span>
+											</div>
+										</form>
+										<img id='img-upload'/>
+									</div>
 								</td>
 							</tr>
 						<?php
