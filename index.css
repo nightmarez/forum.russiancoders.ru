@@ -85,3 +85,36 @@ table.topic-posts td:nth-child(2) {
 table.topic-posts td:nth-child(3) {
 	text-align: left;
 }
+
+.tracker-posts {
+	background-color: whitesmoke;
+	border: 1px solid blue;
+}
+
+.tracker-posts:last-child {
+	margin-bottom: 0;
+}
+
+table.tracker-posts td {
+	border-top: none !important;
+}
+
+table.tracker-posts tr:nth-child(1) {
+	background-color: lightsteelblue;
+}
+
+table.tracker-posts tr:nth-child(2) > td {
+	padding: 15px 8px 15px 8px;
+}  
+
+table.tracker-posts td:nth-child(1) {
+	width: 50px;
+}
+
+table.tracker-posts td:nth-child(2) {
+	width: 400px;
+}
+
+table.tracker-posts td:nth-child(3) {
+	text-align: left;
+}

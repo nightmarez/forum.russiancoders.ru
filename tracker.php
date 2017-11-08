@@ -25,7 +25,7 @@
 
 				while (list($topicid, $userid, $content, $created) = $req->fetch(PDO::FETCH_NUM)) {
 					?>
-						<table class="table topic-posts">
+						<table class="table tracker-posts">
 							<tbody>
 								<tr>
 									<td>
@@ -40,7 +40,7 @@
 											$r->execute();
 
 											while (list($title) = $r->fetch(PDO::FETCH_NUM)) {
-												?><a href="/user.php?topicid=<?php echo htmlspecialchars($topicid); ?>"><?php echo htmlspecialchars($title); ?></a><?php
+												?><a href="/topic.php?topicid=<?php echo htmlspecialchars($topicid); ?>"><?php echo htmlspecialchars($title); ?></a><?php
 												break;
 											}
 										?>
