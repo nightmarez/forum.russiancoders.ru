@@ -9,6 +9,7 @@
 						<li><a href="/faq.php">ЧаВо</a></li>
 						<li><a href="/users.php">Пользователи</a></li>
 						<li><a href="/online.php">Онлайн</a></li>
+						<li><a href="/donate.php">Донат</a></li>
 						<?php if (isLogin()) { ?>
 							<li><a href="/logout.php">Выход</a></li>
 						<?php } else { ?>
