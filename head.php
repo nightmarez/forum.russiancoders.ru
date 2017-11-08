@@ -1,7 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>RussianCoder's Forum</title>
+		<?php
+			require_once('utils.php');
+
+			if (!databaseTestAccess()) {
+				die('No Database Access');
+			}
+
+			updateUserOnline();
+		?>
+		<title>
+			<?php
+				$title = 'RussianCoder\'s Forum';
+
+				// ----------------------------------------------------
+
+				$sectionid = false;
+
+				if (isset($_GET['sectionid'])) {
+					$sectionid = htmlspecialchars($_GET['sectionid']);
+
+					if (!preg_match('/^\{?[0-9a-zA-Z]{1,20}\}?$/', $sectionid)) {
+						$sectionid = false;
+					}
+				}
+
+				if ($sectionid !== false) {
+					$db = new PdoDb();
+
+					$query =
+						'SELECT `title` FROM `sections` WHERE `sectionid`=:sectionid LIMIT 0, 1;';
+
+					$req = $db->prepare($query);
+					$req->bindParam(':sectionid', $sectionid);
+					$req->execute();
+
+					while (list($title) = $req->fetch(PDO::FETCH_NUM)) {
+						$title = htmlspecialchars($title);
+						break;
+					}
+				} else {
+					// ----------------------------------------------------
+
+					$topicid = false;
+
+					if (isset($_GET['sectionid'])) {
+						$topicid = htmlspecialchars($_GET['topicid']);
+
+						if (!preg_match('/^\{?[0-9a-zA-Z]{1,20}\}?$/', $topicid)) {
+							$topicid = false;
+						}
+					}
+
+					if ($topicid !== false) {
+						$db = new PdoDb();
+
+						$query =
+							'SELECT `title` FROM `topics` WHERE `topicid`=:topicid LIMIT 0, 1;';
+
+						$req = $db->prepare($query);
+						$req->bindParam(':topicid', $topicid);
+						$req->execute();
+
+						while (list($title) = $req->fetch(PDO::FETCH_NUM)) {
+							$title = htmlspecialchars($title);
+							break;
+						}
+					}
+				}
+
+				// ----------------------------------------------------
+
+				echo $title;
+			?>
+		</title>
 		<meta charset="utf-8">
 		<meta name="description" content="RussianCoder's Forum">
 		<meta property="og:title" content="RussianCoder's Forum">
@@ -21,12 +94,3 @@
 		<link rel="shortcut icon" href="/favicon.ico">
 	</head>
 	<body>
-		<?php
-			require_once('utils.php');
-
-			if (!databaseTestAccess()) {
-				die('No Database Access');
-			}
-
-			updateUserOnline();
-		?>

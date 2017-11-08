@@ -19,7 +19,7 @@
 				$req->execute();
 
 				while (list($title) = $req->fetch(PDO::FETCH_NUM)) {
-					echo $title;
+					echo htmlspecialchars($title);
 					break;
 				}
 			?>
