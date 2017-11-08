@@ -51,7 +51,7 @@
 									Последнее посещение:
 								</td>
 								<td>
-									<?php echo ''; /* $last; */ ?>
+									<?php echo $last; ?>
 								</td>
 							</tr>
 						<?php
