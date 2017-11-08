@@ -60,11 +60,11 @@
 							<tr>
 								<td colspan="2">
 									<div class="form-group">
-								        <label>Upload Image</label>
+								        <label>Загрузка изображения</label>
 								        <div class="input-group">
 								            <span class="input-group-btn">
 								                <span class="btn btn-default btn-file">
-								                    Browse… <input type="file" id="imgInp">
+								                    Выбрать… <input type="file" id="imgInp">
 								                </span>
 								            </span>
 								            <input type="text" class="form-control" readonly>
