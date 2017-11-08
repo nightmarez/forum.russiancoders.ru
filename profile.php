@@ -57,6 +57,15 @@
 									<?php echo $last; ?>
 								</td>
 							</tr>
+							<tr>
+								<td colspan="2">
+									<form action="upload.php" method="post" enctype="multipart/form-data">
+									    Загрузка изображения:
+									    <input type="file" name="image" id="image">
+									    <input type="submit" value="Загрузить" name="submit">
+									</form>
+								</td>
+							</tr>
 						<?php
 								break;
 							}
