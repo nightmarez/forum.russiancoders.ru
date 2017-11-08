@@ -80,6 +80,7 @@
 
 						if (copy($target_file, '/var/www/domains/storage.russiancoders.ru/' . $userid . '/' . $fileid . '.' . $imageFileType)) {
 							$image = false;
+							$filename = '/var/www/domains/storage.russiancoders.ru/' . $userid . '/' . $fileid . '.' . $imageFileType;
 
 							switch ($imageFileType) {
 								case 'jpeg':
