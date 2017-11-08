@@ -45,7 +45,7 @@
 
 					$topicid = false;
 
-					if (isset($_GET['sectionid'])) {
+					if (isset($_GET['topicid'])) {
 						$topicid = htmlspecialchars($_GET['topicid']);
 
 						if (!preg_match('/^\{?[0-9a-zA-Z]{1,20}\}?$/', $topicid)) {
