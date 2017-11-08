@@ -59,19 +59,18 @@
 							</tr>
 							<tr>
 								<td colspan="2">
-									<div class="input-group image-preview">
-										<input type="text" class="form-control image-preview-filename" disabled="disabled">
-										<span class="input-group-btn">
-											<button type="button" class="btn btn-default image-preview-clear" style="display:none;">
-												<span class="glyphicon glyphicon-remove"></span> Очистить
-											</button>
-											<div class="btn btn-default image-preview-input">
-												<span class="glyphicon glyphicon-folder-open"></span>
-												<span class="image-preview-input-title">Выбрать</span>
-												<input type="file" accept="image/png, image/jpeg, image/gif" name="input-file-preview"/>
-											</div>
-										</span>
-									</div>
+									<div class="form-group">
+								        <label>Upload Image</label>
+								        <div class="input-group">
+								            <span class="input-group-btn">
+								                <span class="btn btn-default btn-file">
+								                    Browse… <input type="file" id="imgInp">
+								                </span>
+								            </span>
+								            <input type="text" class="form-control" readonly>
+								        </div>
+								        <img id='img-upload'/>
+								    </div>
 								</td>
 							</tr>
 						<?php
