@@ -371,4 +371,25 @@
 		$count = $req->fetchColumn();
 		return $count >= 1;
 	}
+
+	function filterMessage($text) {
+		$text = htmlspecialchars($text);
+
+		$text = preg_replace("/(\r\n){2,}/", "<br/><br/>", $text);
+		$text = preg_replace("/(\r\n)/", "<br/>", $text);
+
+		$text = preg_replace("/(\r){2,}/", "<br/><br/>", $text);
+		$text = preg_replace("/(\r)/", "<br/>", $text);
+
+  		$pattern = '/\[url=\"(.*)\"\](.*)\[\/url\]/i';
+  		$text = preg_replace($pattern, '<a href="${1}">${2}</a>', $text);
+
+  		$pattern = '/\[b\](.*)\[\/b\]/i';
+  		$text = preg_replace($pattern, '<b>${1}</b>', $text);
+
+  		$pattern = '/\[s\](.*)\[\/s\]/i';
+  		$text = preg_replace($pattern, '<s>${1}</s>', $text);
+
+  		return $text;
+	}
 ?>

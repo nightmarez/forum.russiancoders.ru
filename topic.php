@@ -64,7 +64,7 @@
 												?></td>
 										</tr>
 										<tr>
-											<td colspan="3"><?php echo htmlspecialchars($content); ?></td>
+											<td colspan="3"><?php echo filterMessage($content); ?></td>
 										</tr>
 									</tbody>
 								</table>
