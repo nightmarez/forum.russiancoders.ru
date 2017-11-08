@@ -5,6 +5,9 @@
 	<div class="panel-heading">
 		<h3 class="panel-title">Пользователи OnLine</h3>
 	</div>
+	<script>
+		document.title = 'Пользователи OnLine';
+	</script>
 
 	<div class="panel-body">
 		<div class="table-responsive">

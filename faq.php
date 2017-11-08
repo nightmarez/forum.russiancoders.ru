@@ -5,6 +5,9 @@
 	<div class="panel-heading">
 		<h3 class="panel-title">ЧаВо</h3>
 	</div>
+	<script>
+		document.title = 'ЧаВо';
+	</script>
 
 	<div>
 		<ul class="list-group">

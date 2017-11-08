@@ -11,6 +11,9 @@
 			Трекер
 		</h3>
 	</div>
+	<script>
+		document.title = 'Трекер';
+	</script>
 
 	<div class="panel-body">
 		<div class="table-responsive">

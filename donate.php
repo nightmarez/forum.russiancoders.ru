@@ -5,6 +5,9 @@
 	<div class="panel-heading">
 		<h3 class="panel-title">Донат</h3>
 	</div>
+	<script>
+		document.title = 'Донат';
+	</script>
 
 	<div>
 		<div style="margin: 10px; width: calc(100% - 20px); text-align: center;">
