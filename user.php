@@ -54,6 +54,22 @@
 									<?php echo $last; ?>
 								</td>
 							</tr>
+							<tr>
+								<td>
+									Темы пользователя:
+								</td>
+								<td>
+									Not Implemented Yet
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Сообщения пользователя:
+								</td>
+								<td>
+									Not Implemented Yet
+								</td>
+							</tr>
 						<?php
 								break;
 							}
