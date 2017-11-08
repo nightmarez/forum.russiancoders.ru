@@ -8,7 +8,7 @@
 
 	$content = $_POST['content'];
 
-	if ($content !== $_POST['content'] || strlen($content) > 4096) {
+	if (strlen($content) > 20000) {
 		//header('Location: /createtopic.php?error=Некорректно задано содержимое поста');
 		die();
 	}
