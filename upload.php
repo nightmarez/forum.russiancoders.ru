@@ -58,7 +58,7 @@
 					if (move_uploaded_file($_FILES["imgInp"]["tmp_name"], $target_file)) {
 						echo "The file ". basename($_FILES["imgInp"]["name"]). " has been uploaded.";
 
-						if (copy($_FILES["imgInp"]["name"], '../storage.russiancoders.ru/' . $userid . '/' . $fileid . '.' . $imageFileType)) {
+						if (copy($target_file, '../storage.russiancoders.ru/' . $userid . '/' . $fileid . '.' . $imageFileType)) {
 							echo 'Файл успешно загружен.<br>Для вставки в сообщение, используйте код:<br>[img=' . $fileid . ']';
 						}
 					} else {
