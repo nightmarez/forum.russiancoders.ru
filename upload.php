@@ -12,10 +12,13 @@
 	<div class="panel-body">
 		<div class="table-responsive">
 			<?php
+				$userid = $_COOKIE['userid'];
+				$fileid = generateUserId();
+
 				$target_dir = "uploads/";
 				$target_file = $target_dir . basename($_FILES["imgInp"]["name"]);
 				$uploadOk = 1;
-				$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+				$imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
 
 				// Check if image file is a actual image or fake image
 				if(isset($_POST["imgSubmit"])) {
@@ -53,7 +56,11 @@
 				// if everything is ok, try to upload file
 				} else {
 					if (move_uploaded_file($_FILES["imgInp"]["tmp_name"], $target_file)) {
-						echo "The file ". basename( $_FILES["imgInp"]["name"]). " has been uploaded.";
+						echo "The file ". basename($_FILES["imgInp"]["name"]). " has been uploaded.";
+
+						if (copy($_FILES["imgInp"]["name"], '../storage.russiancoders.ru/' . $userid . '/' . $fileid . '.' . $imageFileType)) {
+							echo 'Файл успешно загружен.<br>Для вставки в сообщение, используйте код:<br>[img=' . $fileid . ']';
+						}
 					} else {
 						echo "Sorry, there was an error uploading your file.";
 					}
