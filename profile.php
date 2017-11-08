@@ -65,10 +65,10 @@
 											<div class="input-group">
 												<span class="input-group-btn">
 													<span class="btn btn-default btn-file">
-														Выбрать… <input type="file" id="imgInp">
+														Выбрать… <input type="file" id="imgInp" name="imgInp">
 													</span>
 												</span>
-												<input type="text" class="form-control" readonly>
+												<input type="text" class="form-control" readonly style="width: 337px;">
 												<span class="input-group-btn">
 													<span class="btn btn-default btn-file">
 														Загрузить… <input type="submit" id="imgSubmit">
