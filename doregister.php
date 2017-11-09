@@ -50,6 +50,9 @@
 	$query =
 		'SELECT `login` FROM `users`;';
 
+	$req = $db->prepare($query);
+	$req->execute();
+
 	while (list($l) = $req->fetch(PDO::FETCH_NUM)) {
 		if (levenshtein($login, $l, 1, 1, 1) < 7) {
 			header('Location: /register.php?error=Похожий логин уже занят');
