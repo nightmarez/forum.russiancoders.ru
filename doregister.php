@@ -62,11 +62,11 @@
 		$login = preg_replace('/X/', 'Х', $login);
 	}
 
+	/*
 	$tmp = $login;
 	$len = mb_strlen($tmp, 'utf-8');
 	$login = '';
 
-	/*
 	for ($i = 0; $i < $len; ++$i) {
 		$symbol = mb_substr($tmp, $i, 1, 'utf-8');
 
