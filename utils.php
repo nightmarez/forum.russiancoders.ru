@@ -396,11 +396,11 @@
 	function filterMessage($text, $userid) {
 		$text = htmlspecialchars($text);
 
-		$text = preg_replace("/(\r\n){2,}/", "<br/><br/>", $text);
-		$text = preg_replace("/(\r\n)/", "<br/>", $text);
+		$text = preg_replace("/(\r\n){2,}/", "<br><br>", $text);
+		$text = preg_replace("/(\r\n)/", "<br>", $text);
 
-		$text = preg_replace("/(\r){2,}/", "<br/><br/>", $text);
-		$text = preg_replace("/(\r)/", "<br/>", $text);
+		$text = preg_replace("/(\r){2,}/", "<br><br>", $text);
+		$text = preg_replace("/(\r)/", "<br>", $text);
 
   		$text = preg_replace('/\[url=\"(.*)\"\](.*)\[\/url\]/i', '<a href="${1}">${2}</a>', $text);
   		$text = preg_replace('/\[url=(.*)\](.*)\[\/url\]/i', '<a href="${1}">${2}</a>', $text);
@@ -409,10 +409,10 @@
   		$text = preg_replace('/\[i\](.*)\[\/i\]/i', '<i>${1}</i>', $text);
   		$text = preg_replace('/\[s\](.*)\[\/s\]/i', '<s>${1}</s>', $text);
 
-  		$text = preg_replace('/(\[br\]){2,}/i', '<br/><br/>', $text);
-  		$text = preg_replace('/\[br\]/i', '<br/>', $text);
+  		$text = preg_replace('/(\[br\]){2,}/i', '<br><br>', $text);
+  		$text = preg_replace('/\[br\]/i', '<br>', $text);
 
-  		$text = preg_replace('/^\s+(>+)\s+(.*)<br\/>/i', '${1} <p style="color: darkgray;">${2}</p><br/>', $text);
+  		$text = preg_replace('/^\s+(>+)\s+(.*)\s+<br>/i', '${1} <p style="color: darkgray;">${2}</p><br/>', $text);
 
   		$text = preg_replace('/\[img=([0-9a-zA-Z]{20})\]/i', '<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg">', $text);
 
