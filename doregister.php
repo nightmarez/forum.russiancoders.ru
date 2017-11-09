@@ -3,6 +3,10 @@
 	require_once('recaptchalib.php');
 
 	$login = trim($_POST['login']);
+	$login = preg_replace('/а/', 'a', $login);
+	$login = preg_replace('/е/', 'e', $login);
+	$login = preg_replace('/о/', 'o', $login);
+
 	$pass1 = $_POST['pass1'];
 	$pass2 = $_POST['pass2'];
 	$mail = $_POST['mail'];
