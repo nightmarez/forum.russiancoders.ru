@@ -347,6 +347,8 @@
 			return false;
 		}
 
+		$db = new PdoDb();
+
 		$query =
 			'SELECT `login` FROM `users` WHERE `userid`=:userid;';
 
