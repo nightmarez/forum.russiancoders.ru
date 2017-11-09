@@ -7,7 +7,7 @@
 		die();
 	}
 
-	$login = trim();
+	$login = trim($_POST['login']);
 
 	if (strlen($login) <= 0) {
 		header('Location: /register.php?error=Задан пустой логин');
@@ -62,7 +62,6 @@
 		$login = preg_replace('/X/', 'Х', $login);
 	}
 
-	/*
 	$tmp = $login;
 	$len = mb_strlen($tmp, 'utf-8');
 	$login = '';
@@ -86,7 +85,6 @@
 		header('Location: /register.php?error=Задан пустой логин');
 		die();
 	}
-	*/
 
 	$pass1 = $_POST['pass1'];
 	$pass2 = $_POST['pass2'];
