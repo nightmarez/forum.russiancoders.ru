@@ -70,7 +70,9 @@
 										$r->execute();
 										$count = $r->fetchColumn();
 
-										echo intval($count);
+										?>
+											<a href="/topics.php?userid=<?php echo $userid;?>"><?php echo intval($count); ?></a>
+										<?php
 									?>
 								</td>
 							</tr>
@@ -90,7 +92,9 @@
 										$r->execute();
 										$count = $r->fetchColumn();
 
-										echo intval($count);
+										?>
+											<a href="/posts.php?userid=<?php echo $userid;?>"><?php echo intval($count); ?></a>
+										<?php
 									?>
 								</td>
 							</tr>

@@ -342,6 +342,25 @@
 		$req->execute();
 	}
 
+	function getUserLoginById($userid) {
+		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $userid)) {
+			return false;
+		}
+
+		$query =
+			'SELECT `login` FROM `users` WHERE `userid`=:userid;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':userid', $userid);
+		$req->execute();
+
+		while (list($login) = $req->fetch(PDO::FETCH_NUM)) {
+			return htmlspecialchars($login);
+		}
+
+		return false;
+	}
+
 	function isLogin() {
 		if (!isset($_COOKIE['session'])) {
 			return false;
