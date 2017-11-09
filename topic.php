@@ -95,4 +95,10 @@
 	</div>
 <?php } ?>
 
+<script>
+	$(document).ready(function() {
+		$('html, body').animate({ scrollTop: $(document).height() }, 'fast');
+	});
+</script>
+
 <?php include_once('footer.php'); ?>
