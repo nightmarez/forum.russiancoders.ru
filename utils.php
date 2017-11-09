@@ -414,6 +414,9 @@
 
   		// $text = preg_replace('/^\s*([>|&gt;]+)\s*(.*)[\s|\r|\n]*<br>/i', '<p style="color: darkgray;">${1} ${2}</p>', $text);
 
+  		$text = preg_replace('/(:\)){2,}/', '<img src="https://forum.russiancoders.ru/icons/smile.gif">', $text);
+  		$text = preg_replace('/(:\))/', '<img src="https://forum.russiancoders.ru/icons/laugh.gif">', $text);
+
   		$text = preg_replace('/\[img=([0-9a-zA-Z]{20})\]/i', '<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg">', $text);
 
   		return $text;
