@@ -67,7 +67,7 @@
 	$login = '';
 
 	for ($i = 0; $i < $len; ++$i) {
-		$symbol = mb_substr($login, $i, 1, 'utf-8');
+		$symbol = mb_substr($tmp, $i, 1, 'utf-8');
 
 		if (in_array($symbol, [
 			'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
