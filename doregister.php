@@ -66,6 +66,7 @@
 	$len = mb_strlen($tmp, 'utf-8');
 	$login = '';
 
+	/*
 	for ($i = 0; $i < $len; ++$i) {
 		$symbol = mb_substr($tmp, $i, 1, 'utf-8');
 
@@ -85,6 +86,7 @@
 		header('Location: /register.php?error=Задан пустой логин');
 		die();
 	}
+	*/
 
 	$pass1 = $_POST['pass1'];
 	$pass2 = $_POST['pass2'];
