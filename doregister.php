@@ -39,13 +39,22 @@
 
 	$req = $db->prepare($query);
 	$req->bindParam(':login', $login);
-	$req->bindParam(':userid', $userid);
 	$req->execute();
 	$count = $req->fetchColumn();
 	
 	if ($count > 0) {
 		header('Location: /register.php?error=Такой логин уже занят');
 		die();
+	}
+
+	$query =
+		'SELECT `login` FROM `users`;';
+
+	while (list($l) = $req->fetch(PDO::FETCH_NUM)) {
+		if (levenshtein($login, $l) < 7) {
+			header('Location: /register.php?error=Похожий логин уже занят');
+			die();
+		}
 	}
 
 	$privatekey = RE_SECRET;
