@@ -59,7 +59,19 @@
 									Темы пользователя:
 								</td>
 								<td>
-									Not Implemented Yet
+									<?php
+										$pdo = new PdoDb();
+
+										$query =
+											'SELECT COUNT(*) FROM `topics` WHERE `userid`=:userid LIMIT 0, 1;';
+
+										$r = $db->prepare($query);
+										$r->bindParam(':userid', $userid);
+										$r->execute();
+										$count = $r->fetchColumn();
+
+										echo intval($count);
+									?>
 								</td>
 							</tr>
 							<tr>
@@ -67,7 +79,19 @@
 									Сообщения пользователя:
 								</td>
 								<td>
-									Not Implemented Yet
+									<?php
+										$pdo = new PdoDb();
+
+										$query =
+											'SELECT COUNT(*) FROM `posts` WHERE `userid`=:userid LIMIT 0, 1;';
+
+										$r = $db->prepare($query);
+										$r->bindParam(':userid', $userid);
+										$r->execute();
+										$count = $r->fetchColumn();
+
+										echo intval($count);
+									?>
 								</td>
 							</tr>
 						<?php
