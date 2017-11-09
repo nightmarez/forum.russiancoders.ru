@@ -11,6 +11,18 @@
 	$login = preg_replace('/у/', 'y', $login);
 	$login = preg_replace('/х/', 'x', $login);
 
+	$login = preg_replace('/А/', 'A', $login);
+	$login = preg_replace('/В/', 'B', $login);
+	$login = preg_replace('/Е/', 'E', $login);
+	$login = preg_replace('/К/', 'K', $login);
+	$login = preg_replace('/М/', 'M', $login);
+	$login = preg_replace('/Н/', 'H', $login);
+	$login = preg_replace('/О/', 'O', $login);
+	$login = preg_replace('/Р/', 'P', $login);
+	$login = preg_replace('/С/', 'C', $login);
+	$login = preg_replace('/Т/', 'T', $login);
+	$login = preg_replace('/Х/', 'X', $login);
+
 	$pass1 = $_POST['pass1'];
 	$pass2 = $_POST['pass2'];
 	$mail = $_POST['mail'];
