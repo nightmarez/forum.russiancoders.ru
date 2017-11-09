@@ -412,6 +412,8 @@
   		$text = preg_replace('/(\[br\]){2,}/i', '<br/><br/>', $text);
   		$text = preg_replace('/\[br\]/i', '<br/>', $text);
 
+  		$text = preg_replace('/^\s+>\s+(.+)<br/>/i', '<p style="color: darkgray;">${1}</p><br/>', $text);
+
   		$text = preg_replace('/\[img=([0-9a-zA-Z]{20})\]/i', '<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg">', $text);
 
   		return $text;
