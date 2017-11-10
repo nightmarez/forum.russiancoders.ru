@@ -43,9 +43,24 @@ table.index-topics th:nth-child(3), table.index-topics td:nth-child(3) {
 	width: 200px;
 }
 
+table.index-posts th:nth-child(1), table.index-posts td:nth-child(1) {
+	text-align: center;
+	width: calc((100% - 400px) / 2);
+}
+
+table.index-posts th:nth-child(2), table.index-posts td:nth-child(2) {
+	text-align: center;
+	width: calc((100% - 400px) / 2);
+}
+
+table.index-posts th:nth-child(3), table.index-posts td:nth-child(3) {
+	text-align: center;
+	width: calc((100% - 400px) / 2);
+}
+
 table.index-posts th:nth-child(4), table.index-posts td:nth-child(4) {
 	text-align: center;
-	width: 200px;
+	width: 100px;
 }
 
 table.index-posts th:nth-child(5), table.index-posts td:nth-child(5) {
