@@ -77,22 +77,24 @@
 
 					if ($mime['mime'] == 'image/png') {
 						$result = imagepng($dst_img, $new_thumb_loc, 8);
+						chmod($new_thumb_loc, 777);
 					}
 
 					if($mime['mime'] == 'image/jpg' || $mime['mime'] == 'image/jpeg' || $mime['mime'] == 'image/pjpeg') {
 						$result = imagejpeg($dst_img, $new_thumb_loc, 80);
+						chmod($new_thumb_loc, 777);
 					}
 
 					imagedestroy($dst_img); 
 					imagedestroy($src_img);
 
-					echo $result;
+					return result;
 				}
 
 				$files = scanDirectory('/var/www/domains/storage.russiancoders.ru/');
 
 				foreach ($files as $key => $value) {
-					if (!file_exists($value)) {
+					if (!file_exists('/var/www/domains/storage.russiancoders.ru/gallery/' . basename($value)) {
 						createThumbnail(basename($value), '200', '200', dirname($value), '/var/www/domains/storage.russiancoders.ru/gallery/');
 					}
 
