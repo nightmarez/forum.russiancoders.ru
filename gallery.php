@@ -21,7 +21,7 @@
 
 					foreach ($cdir as $key => $value) 
 					{ 
-						if (!in_array($value, array('.', '..', 'gallery'))) 
+						if (!in_array($value, array('.', '..', 'gallery', '.git'))) 
 						{ 
 							if (is_dir($base . DIRECTORY_SEPARATOR . $value)) 
 							{ 
