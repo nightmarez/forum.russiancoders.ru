@@ -3,5 +3,9 @@
 
 	if (!isLogin()) {
 		updateUserOnline();
+		echo '{ok=true}';
+		die();
 	}
+
+	echo '{}';
 ?>
