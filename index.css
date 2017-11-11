@@ -171,11 +171,12 @@ table.tracker-posts td:nth-child(3) {
 
 .online-indicator {
 	display: block;
-	float: left;
-	background-color: lime;
-	border: 1px solid green;
-	width: 15px;
-	height: 15px;
-	margin-left: 10px;
-	border-radius: 7.5px;
+    float: left;
+    background-color: lime;
+    border: 1px solid green;
+    width: 6px;
+    height: 6px;
+    margin-left: 6px;
+    margin-top: 7px;
+    border-radius: 3px;
 }
