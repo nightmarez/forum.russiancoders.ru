@@ -85,6 +85,7 @@
 		<meta name="site-created" content="Михаил Макаров"> 
 		<meta name="author" content="Михаил Макаров">
 		<meta name="address" content="https://forum.russiancoders.ru/">
+		<meta name="yandex-verification" content="5283d249ceae7fde" />
 		<link rel="stylesheet" href="https://cdn.russiancoders.ru/reset.min.css" integrity="sha256-2DxinKvLYJYnTr6inpIVCKiFmPF8KN/HY6FlStDd9f0=" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://cdn.russiancoders.ru/bootstrap-3.3.7.min.css" integrity="sha256-o2apjDbT22+ewfXNTyunMhEeA6NSxH7me0O2cI8V8AU=" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://cdn.russiancoders.ru/bootstrap-theme-3.3.7.min.css" integrity="sha256-ZT4HPpdCOt2lvDkXokHuhJfdOKSPFLzeAJik5U/Q+l4=" crossorigin="anonymous">
