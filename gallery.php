@@ -105,6 +105,12 @@
 			?>
 
 		</div>
+
+		<div>
+			<form action="uploader.php" method="GET">
+				<input type="submit" value="Загрузить изображение">
+			</form>
+		</div>
 	</div>
 </div>
 
