@@ -32,9 +32,7 @@
 							?>
 								<tr>
 									<td>
-										<a href="/user.php?userid=<?php echo htmlspecialchars($userid); ?>"><?php echo htmlspecialchars($login); ?></a>
-										<!-- online-indicator -->
-										<!-- <?php echo $online; ?> -->
+										<a href="/user.php?userid=<?php echo htmlspecialchars($userid); ?>"><?php echo htmlspecialchars($login); ?></a><?php if (intval($online <= 600 /* seconds */)) { ?><div class="online-indicator"></div><?php } ?>
 									</td>
 									<td>
 										<?php echo $last; ?>
