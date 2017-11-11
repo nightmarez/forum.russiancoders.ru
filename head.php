@@ -92,5 +92,6 @@
 		<script src="https://cdn.russiancoders.ru/bootstrap-3.3.7.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="index.css">
 		<link rel="shortcut icon" href="/favicon.ico">
+		<script src="/main.js"></script>
 	</head>
 	<body>
