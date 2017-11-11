@@ -71,22 +71,22 @@
 						$thumb_h = $new_height;
 					}
 
-					$dst_img = ImageCreateTrueColor($thumb_w,$thumb_h);
-					imagecopyresampled($dst_img,$src_img,0,0,0,0,$thumb_w,$thumb_h,$old_x,$old_y); 
+					$dst_img = ImageCreateTrueColor($thumb_w, $thumb_h);
+					imagecopyresampled($dst_img, $src_img, 0, 0, 0, 0, $thumb_w, $thumb_h, $old_x, $old_y); 
 					$new_thumb_loc = $moveToDir . $image_name;
 
 					if ($mime['mime'] == 'image/png') {
-						$result = imagepng($dst_img,$new_thumb_loc,8);
+						$result = imagepng($dst_img, $new_thumb_loc, 8);
 					}
 
 					if($mime['mime'] == 'image/jpg' || $mime['mime'] == 'image/jpeg' || $mime['mime'] == 'image/pjpeg') {
-						$result = imagejpeg($dst_img,$new_thumb_loc,80);
+						$result = imagejpeg($dst_img, $new_thumb_loc, 80);
 					}
 
 					imagedestroy($dst_img); 
 					imagedestroy($src_img);
 
-					return $result;
+					echo $result;
 				}
 
 				$files = scanDirectory('/var/www/domains/storage.russiancoders.ru/');
