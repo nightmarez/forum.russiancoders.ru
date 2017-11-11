@@ -1,7 +1,7 @@
 <?php
 	require_once('utils.php');
 
-	if (!isLogin()) {
+	if (isLogin()) {
 		updateUserOnline();
 		echo '{ok=true}';
 		die();
