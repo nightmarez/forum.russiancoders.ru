@@ -23,16 +23,18 @@
 						$db = new PdoDb();
 
 						$query =
-							'SELECT `userid`, `login`, `last` FROM `users` ORDER BY `last` DESC LIMIT 0, 100;';
+							'SELECT `userid`, `login`, `last`, (now() - `last`) as `online` FROM `users` ORDER BY `last` DESC LIMIT 0, 100;';
 
 						$req = $db->prepare($query);
 						$req->execute();
 
-						while (list($userid, $login, $last) = $req->fetch(PDO::FETCH_NUM)) {
+						while (list($userid, $login, $last, $online) = $req->fetch(PDO::FETCH_NUM)) {
 							?>
 								<tr>
 									<td>
 										<a href="/user.php?userid=<?php echo htmlspecialchars($userid); ?>"><?php echo htmlspecialchars($login); ?></a>
+										<!-- online-indicator -->
+										<!-- <?php echo $online; ?> -->
 									</td>
 									<td>
 										<?php echo $last; ?>

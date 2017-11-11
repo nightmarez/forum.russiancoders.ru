@@ -168,3 +168,14 @@ table.tracker-posts td:nth-child(3) {
     width: 540px;
     height: 540px;
 }
+
+.online-indicator {
+	display: block;
+	float: left;
+	background-color: lime;
+	border: 1px solid green;
+	width: 15px;
+	height: 15px;
+	margin-left: 10px;
+	border-radius: 7.5px;
+}
