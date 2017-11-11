@@ -1,4 +1,4 @@
-		<footer class="footer">
+		<footer class="footer" style="text-align: center; line-height: 0.5;">
 			<div class="footer-inner">
 				<p>Developed by Michael Makarov (aka NightmareZ)</p>
 				<p>Welcome to my personal site <a href="https://nightmarez.net/">NightmareZ.net</a></p>
