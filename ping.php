@@ -3,7 +3,7 @@
 
 	if (isLogin()) {
 		updateUserOnline();
-		echo '{ok=true}';
+		echo '{ok: true}';
 		die();
 	}
 
