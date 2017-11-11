@@ -5,18 +5,18 @@
 				<div class="navbar-collapse">
 					<ul class="nav navbar-nav">
 						<li><a href="/">Форум</a></li>
-						<li><a href="/tracker.php">Трекер</a></li>
-						<li><a href="/faq.php">ЧаВо</a></li>
-						<li><a href="/users.php">Пользователи</a></li>
-						<li><a href="/online.php">Онлайн</a></li>
-						<li><a href="/profile.php">Профиль</a></li>
-						<li><a href="/gallery.php">Галерея</a></li>
-						<li><a href="/donate.php">Донат</a></li>
+						<li><a href="/tracker/">Трекер</a></li>
+						<li><a href="/faq/">ЧаВо</a></li>
+						<li><a href="/users/">Пользователи</a></li>
+						<li><a href="/online/">Онлайн</a></li>
+						<li><a href="/profile/">Профиль</a></li>
+						<li><a href="/gallery/">Галерея</a></li>
+						<li><a href="/donate/">Донат</a></li>
 						<?php if (isLogin()) { ?>
-							<li><a href="/logout.php">Выход</a></li>
+							<li><a href="/logout/">Выход</a></li>
 						<?php } else { ?>
-							<li><a href="/login.php">Вход</a></li>
-							<li><a href="/register.php">Регистрация</a></li>
+							<li><a href="/login/">Вход</a></li>
+							<li><a href="/register/">Регистрация</a></li>
 						<?php } ?>
 					</ul>
 				</div>
