@@ -92,10 +92,13 @@
 				$files = scanDirectory('/var/www/domains/storage.russiancoders.ru/');
 
 				foreach ($files as $key => $value) {
-					echo $value . '<br>';
-					//if (!file_exists('/var/www/domains/storage.russiancoders.ru/gallery/' . $value)) {
-					//	createThumbnail($value, '200', '200', )
-					//}
+					if (!file_exists($value)) {
+						createThumbnail(basename($value), '200', '200', dirname($value), '/var/www/domains/storage.russiancoders.ru/gallery/');
+					}
+
+					?>
+						<div style="width: 200px; height: 200px; overflow: hidden; border: 1px solid silver; background-image: url('<?php echo '/var/www/domains/storage.russiancoders.ru/gallery/' . basename($value); ?>'); float: left"></div>
+					<?php
 				}
 			?>
 
