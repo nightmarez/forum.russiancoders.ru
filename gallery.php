@@ -94,14 +94,12 @@
 				$files = scanDirectory('/var/www/domains/storage.russiancoders.ru/');
 
 				foreach ($files as $key => $value) {
-					echo '/var/www/domains/storage.russiancoders.ru/gallery/' . basename($value) . '<br>';
-
 					if (!file_exists('/var/www/domains/storage.russiancoders.ru/gallery/' . basename($value))) {
 						createThumbnail(basename($value), '200', '200', dirname($value), '/var/www/domains/storage.russiancoders.ru/gallery/');
 					}
 
 					?>
-						<div style="width: 200px; height: 200px; overflow: hidden; border: 1px solid silver; margin: 3px; background-image: url('<?php echo 'https://storage.russiancoders.ru/gallery/' . basename($value); ?>'); float: left"></div>
+						<div style="width: 200px; height: 200px; overflow: hidden; border: 1px solid silver; margin: 3px; background-image: url('<?php echo 'https://storage.russiancoders.ru/gallery/' . basename($value); ?>'); float: left; background-repeat: no-repeat; background-position: center center;"></div>
 					<?php
 				}
 			?>
