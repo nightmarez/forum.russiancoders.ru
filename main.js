@@ -15,11 +15,11 @@ $(document).ready(function() {
 	var ping = function() {
 		setTimeout(function() {
 			$.get('https://forum.russiancoders.ru/ping.php?uniq=' + uuidv4(), function(data) {
-				data = JSON.parse(data);
+				//data = JSON.parse(data);
 
-				if (data.ok) {
+				//if (data.ok) {
 					ping();
-				}
+				//}
 			});
 		}, 60000);
 	};
