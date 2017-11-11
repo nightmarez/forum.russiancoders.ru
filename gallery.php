@@ -96,7 +96,7 @@
 				foreach ($files as $key => $value) {
 					echo '/var/www/domains/storage.russiancoders.ru/gallery/' . basename($value) . '<br>';
 
-					if (!file_exists('/var/www/domains/storage.russiancoders.ru/gallery/' . basename($value)) {
+					if (!file_exists('/var/www/domains/storage.russiancoders.ru/gallery/' . basename($value))) {
 						createThumbnail(basename($value), '200', '200', dirname($value), '/var/www/domains/storage.russiancoders.ru/gallery/');
 					}
 
