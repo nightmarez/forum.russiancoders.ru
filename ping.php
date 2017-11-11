@@ -3,9 +3,9 @@
 
 	if (isLogin()) {
 		updateUserOnline();
-		echo '{ok: true}';
+		echo json_encode(array('ok' => true));
 		die();
 	}
 
-	echo '{}';
+	echo array('ok' => false);
 ?>
