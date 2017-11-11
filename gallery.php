@@ -97,7 +97,7 @@
 					}
 
 					?>
-						<div style="width: 200px; height: 200px; overflow: hidden; border: 1px solid silver; background-image: url('<?php echo '/var/www/domains/storage.russiancoders.ru/gallery/' . basename($value); ?>'); float: left"></div>
+						<div style="width: 200px; height: 200px; overflow: hidden; border: 1px solid silver; margin: 3px; background-image: url('<?php echo 'https://storage.russiancoders.ru/gallery/' . basename($value); ?>'); float: left"></div>
 					<?php
 				}
 			?>
