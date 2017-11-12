@@ -402,10 +402,11 @@
 		$text = preg_replace("/(\r){2,}/", "<br><br>", $text);
 		$text = preg_replace("/(\r)/", "<br>", $text);
 
+		$text = preg_replace('/\[url=(.*)\](.*)\[\/url\]/i', '<a href="${1}" rel="nofollow" target="_blank">${2}</a>', $text);
   		$text = preg_replace('/\[url=\"(.*)\"\](.*)\[\/url\]/i', '<a href="${1}" rel="nofollow" target="_blank">${2}</a>', $text);
-  		$text = preg_replace('/\[url=(.*)\](.*)\[\/url\]/i', '<a href="${1}" rel="nofollow" target="_blank">${2}</a>', $text);
-  		$text = preg_replace('/\[url=\"(.*)\"\]/i', '<a href="${1}" rel="nofollow" target="_blank">${1}</a>', $text);
   		$text = preg_replace('/\[url=(.*)\]/i', '<a href="${1}" rel="nofollow" target="_blank">${1}</a>', $text);
+  		$text = preg_replace('/\[url=\"(.*)\"\]/i', '<a href="${1}" rel="nofollow" target="_blank">${1}</a>', $text);
+  		
 
   		$text = preg_replace('/\[b\](.*)\[\/b\]/i', '<b>${1}</b>', $text);
   		$text = preg_replace('/\[i\](.*)\[\/i\]/i', '<i>${1}</i>', $text);
