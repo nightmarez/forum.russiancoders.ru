@@ -30,7 +30,7 @@
 							?>
 								<tr>
 									<td>
-										<a href="/section.php?sectionid=<?php echo htmlspecialchars($sectionid); ?>"><?php echo htmlspecialchars($title); ?></a>
+										<a href="/section/<?php echo htmlspecialchars($sectionid); ?>/"><?php echo htmlspecialchars($title); ?></a>
 									</td>
 									<td>
 										<?php
@@ -72,7 +72,7 @@
 	?>
 		<div class="panel panel-primary" style="margin: 20px;">
 			<div class="panel-heading">
-				<h3 class="panel-title"><a href="/section.php?sectionid=<?php echo htmlspecialchars($sectionid); ?>"><?php echo htmlspecialchars($title); ?></a></h3>
+				<h3 class="panel-title"><a href="/section/<?php echo htmlspecialchars($sectionid); ?>/"><?php echo htmlspecialchars($title); ?></a></h3>
 			</div>
 
 			<div class="panel-body">
@@ -102,7 +102,7 @@
 									?>
 										<tr>
 											<td>
-												<a href="/topic.php?topicid=<?php echo htmlspecialchars($topicid); ?>"><?php echo htmlspecialchars($title); ?></a>
+												<a href="/topic/<?php echo htmlspecialchars($topicid); ?>/"><?php echo htmlspecialchars($title); ?></a>
 											</td>
 											<td>
 												<?php
@@ -117,7 +117,7 @@
 
 													while (list($login) = $rr->fetch(PDO::FETCH_NUM)) {
 														?>
-															<a href="/user.php?userid=<?php echo htmlspecialchars($userid); ?>"><?php echo htmlspecialchars($login); ?></a>
+															<a href="/user/<?php echo htmlspecialchars($userid); ?>/"><?php echo htmlspecialchars($login); ?></a>
 														<?php
 														break;
 													}
@@ -146,7 +146,7 @@
 
 														while (list($login2) = $rrr->fetch(PDO::FETCH_NUM)) {
 															?>
-																<a href="/user.php?userid=<?php echo htmlspecialchars($userid2); ?>"><?php echo htmlspecialchars($login2); ?></a>
+																<a href="/user/<?php echo htmlspecialchars($userid2); ?>/"><?php echo htmlspecialchars($login2); ?></a>
 															<?php
 															break;
 														}

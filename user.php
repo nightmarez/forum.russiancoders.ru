@@ -71,7 +71,7 @@
 										$count = $r->fetchColumn();
 
 										?>
-											<a href="/topics.php?userid=<?php echo $userid;?>"><?php echo intval($count); ?></a>
+											<a href="/topics/<?php echo $userid;?>/"><?php echo intval($count); ?></a>
 										<?php
 									?>
 								</td>
@@ -93,7 +93,7 @@
 										$count = $r->fetchColumn();
 
 										?>
-											<a href="/posts.php?userid=<?php echo $userid;?>"><?php echo intval($count); ?></a>
+											<a href="/posts/<?php echo $userid;?>/"><?php echo intval($count); ?></a>
 										<?php
 									?>
 								</td>

@@ -84,7 +84,7 @@
 															?>
 																<tr>
 																	<td style="width: 20%;">
-																		<a href="/topic.php?topicid=<?php echo htmlspecialchars($topicid); ?>"><?php echo htmlspecialchars($title); ?></a>
+																		<a href="/topic/<?php echo htmlspecialchars($topicid); ?>/"><?php echo htmlspecialchars($title); ?></a>
 																	</td>
 																	<td style="width: 20%;">
 																		<?php
@@ -99,7 +99,7 @@
 
 																			while (list($login) = $rr->fetch(PDO::FETCH_NUM)) {
 																				?>
-																					<a href="/user.php?userid=<?php echo htmlspecialchars($userid); ?>"><?php echo htmlspecialchars($login); ?></a>
+																					<a href="/user/<?php echo htmlspecialchars($userid); ?>/"><?php echo htmlspecialchars($login); ?></a>
 																				<?php
 																				break;
 																			}

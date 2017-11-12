@@ -2,7 +2,7 @@
 	require_once('utils.php');
 
 	if (!isLogin()) {
-		header('Location: /login.php');
+		header('Location: /login/');
 		die();
 	}
 
@@ -17,5 +17,5 @@
 	$topicid = htmlspecialchars($_POST['topicid']);
 
 	addPost($userid, $topicid, $content);
-	header('Location: /topic.php?topicid=' . $topicid);
+	header('Location: /topic.php/' . $topicid . '/');
 ?>

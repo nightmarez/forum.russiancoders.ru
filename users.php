@@ -31,7 +31,7 @@
 							?>
 								<tr>
 									<td>
-										<a href="/user.php?userid=<?php echo htmlspecialchars($userid); ?>"><?php echo htmlspecialchars($login); ?></a>
+										<a href="/user/<?php echo htmlspecialchars($userid); ?>/"><?php echo htmlspecialchars($login); ?></a>
 									</td>
 								</tr>
 							<?php
