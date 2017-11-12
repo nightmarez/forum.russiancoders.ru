@@ -17,5 +17,5 @@
 	$topicid = htmlspecialchars($_POST['topicid']);
 
 	addPost($userid, $topicid, $content);
-	header('Location: /topic.php/' . $topicid . '/');
+	header('Location: /topic/' . $topicid . '/');
 ?>
