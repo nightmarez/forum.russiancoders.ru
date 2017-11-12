@@ -3,10 +3,10 @@
 
 <div class="panel panel-primary" style="margin: 20px;">
 	<div class="panel-heading">
-		<h3 class="panel-title">Профиль</h3>
+		<h3 class="panel-title">Загрузка изображения</h3>
 	</div>
 	<script>
-		document.title = 'Профиль';
+		document.title = 'Загрузка изображения';
 	</script>
 
 	<div class="panel-body">
@@ -60,7 +60,8 @@
 				}
 
 				// Allow certain file formats
-				if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
+				if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" &&
+				   $imageFileType != "JPG" && $imageFileType != "PNG" && $imageFileType != "JPEG" && $imageFileType != "GIF") {
 					echo "Извините, только JPG, JPEG, PNG и GIF файлы разрешены.";
 					$uploadOk = 0;
 				}
