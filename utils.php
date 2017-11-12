@@ -402,8 +402,10 @@
 		$text = preg_replace("/(\r){2,}/", "<br><br>", $text);
 		$text = preg_replace("/(\r)/", "<br>", $text);
 
-  		$text = preg_replace('/\[url=\"(.*)\"\](.*)\[\/url\]/i', '<a href="${1}">${2}</a>', $text);
-  		$text = preg_replace('/\[url=(.*)\](.*)\[\/url\]/i', '<a href="${1}">${2}</a>', $text);
+  		$text = preg_replace('/\[url=\"(.*)\"\](.*)\[\/url\]/i', '<a href="${1}" rel="nofollow">${2}</a>', $text);
+  		$text = preg_replace('/\[url=(.*)\](.*)\[\/url\]/i', '<a href="${1}" rel="nofollow">${2}</a>', $text);
+  		$text = preg_replace('/\[url=\"(.*)\"\]/i', '<a href="${1}" rel="nofollow">${1}</a>', $text);
+  		$text = preg_replace('/\[url=(.*)\]/i', '<a href="${1}" rel="nofollow">${1}</a>', $text);
 
   		$text = preg_replace('/\[b\](.*)\[\/b\]/i', '<b>${1}</b>', $text);
   		$text = preg_replace('/\[i\](.*)\[\/i\]/i', '<i>${1}</i>', $text);
@@ -423,7 +425,7 @@
   		//$text = str_replace(':))', '<img src="https://forum.russiancoders.ru/icons/laugh.gif" alt="смех">', $text);
   		//$text = str_replace(':)', '<img src="https://forum.russiancoders.ru/icons/laugh.gif" alt="смех">', $text);
 
-  		$text = preg_replace('/\[img=([0-9a-zA-Z]{20})\]/i', '<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg">', $text);
+  		$text = preg_replace('/\[img=([0-9a-zA-Z]{20})\]/i', '<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="изображение">', $text);
 
   		return $text;
 	}
