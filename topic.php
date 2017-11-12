@@ -55,7 +55,7 @@
 													$r->execute();
 
 													while (list($login) = $r->fetch(PDO::FETCH_NUM)) {
-														?><a href="/user.php?userid=<?php echo htmlspecialchars($userid); ?>"><?php echo htmlspecialchars($login); ?></a><?php
+														?><a href="/user/<?php echo htmlspecialchars($userid); ?>/"><?php echo htmlspecialchars($login); ?></a><?php
 														break;
 													}
 												?></td>
