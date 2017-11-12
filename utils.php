@@ -412,8 +412,8 @@
   		$text = preg_replace('/(\[br\]){2,}/i', '<br><br>', $text);
   		$text = preg_replace('/\[br\]/i', '<br>', $text);
 
-  		$text = preg_replace('/(\s+)--(\s+)/i', '${1}–${2}', $text);
-  		$text = preg_replace('/(\s+)---(\s+)/i', '${1}—${2}', $text);
+  		$text = preg_replace('/(\s*)--(\s*)/i', '${1}–${2}', $text);
+  		$text = preg_replace('/(\s*)---(\s*)/i', '${1}—${2}', $text);
 
   		// $text = preg_replace('/^\s*([>|&gt;]+)\s*(.*)[\s|\r|\n]*<br>/i', '<p style="color: darkgray;">${1} ${2}</p>', $text);
 
