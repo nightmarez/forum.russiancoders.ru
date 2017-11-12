@@ -1,7 +1,7 @@
 RewriteEngine On
 RewriteRule ^/([a-z]+)/$ /$1.php [L]
-RewriteRule ^/user/([a-z]+)/$ /user.php?userid=$1.php [L]
-RewriteRule ^/posts/([a-z]+)/$ /posts.php?userid=$1.php [L]
-RewriteRule ^/topics/([a-z]+)/$ /topics.php?userid=$1.php [L]
-RewriteRule ^/section/([a-z]+)/$ /section.php?sectionid=$1.php [L]
-RewriteRule ^/topic/([a-z]+)/$ /topic.php?topicid=$1.php [L]
+RewriteRule ^/user/([a-zA-Z0-9]+)/$ /user.php?userid=$1.php [L]
+RewriteRule ^/posts/([a-zA-Z0-9]+)/$ /posts.php?userid=$1.php [L]
+RewriteRule ^/topics/([a-zA-Z0-9]+)/$ /topics.php?userid=$1.php [L]
+RewriteRule ^/section/([a-zA-Z0-9]+)/$ /section.php?sectionid=$1.php [L]
+RewriteRule ^/topic/([a-zA-Z0-9]+)/$ /topic.php?topicid=$1.php [L]
