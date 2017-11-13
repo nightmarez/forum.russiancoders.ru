@@ -26,3 +26,9 @@ $(document).ready(function() {
 
 	ping();
 });
+
+$(document).ready(function() {
+	if (location.href.indexOf('/topic/') !== -1) {
+		$('html, body').animate({ scrollTop: $(document).height() }, 'fast');
+	}
+});
