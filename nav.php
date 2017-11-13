@@ -19,23 +19,16 @@
 							<li><a href="/register/">Регистрация</a></li>
 						<?php } ?>
 						<li style="float: right;">
-							<div class="container">
-								<div class="row">
-							        <div class="col-md-6">
-							    		<h2>Custom search field</h2>
-							            <div id="custom-search-input">
-							                <div class="input-group col-md-12">
-							                    <input type="text" class="form-control input-lg" placeholder="Поиск" />
-							                    <span class="input-group-btn">
-							                        <button class="btn btn-info btn-lg" type="button">
-							                            <i class="glyphicon glyphicon-search"></i>
-							                        </button>
-							                    </span>
-							                </div>
-							            </div>
-							        </div>
-								</div>
-							</div>
+										<div id="custom-search-input" style="max-width: 600px;">
+											<div class="input-group col-md-12">
+												<input type="text" class="form-control input-lg" placeholder="Поиск" />
+												<span class="input-group-btn">
+													<button class="btn btn-info btn-lg" type="button">
+														<i class="glyphicon glyphicon-search"></i>
+													</button>
+												</span>
+											</div>
+										</div>
 						</li>
 					</ul>
 				</div>
