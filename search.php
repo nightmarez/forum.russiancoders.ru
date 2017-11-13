@@ -29,7 +29,7 @@
 				$req->bindParam(':search', $search);
 				$req->execute();
 
-				while (list($topicid, $content, $created) = $req->fetch(PDO::FETCH_NUM)) {
+				while (list($topicid, $userid, $content, $created) = $req->fetch(PDO::FETCH_NUM)) {
 					?>
 						<table class="table tracker-posts">
 							<tbody>
