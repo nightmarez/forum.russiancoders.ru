@@ -35,12 +35,13 @@ $(document).ready(function() {
 
 $(document).ready(function() {
 	if (location.href.indexOf('/uploader/') !== -1) {
-		var input = $(this),
+		var self = $('input[type=file]')[0];
+		var input = $(self),
 			label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
 		input.trigger('fileselect', [label]);
 
 		$('.btn-file :file').on('fileselect', function(event, label) {
-			var input = $(this).parents('.input-group').find(':text'),
+			var input = $(self).parents('.input-group').find(':text'),
 				log = label;
 			
 			if( input.length ) {
@@ -63,7 +64,7 @@ $(document).ready(function() {
 		};
 
 		$("#imgInp").change(function(){
-			readURL(this);
+			readURL(self);
 		});
 	}
 });
