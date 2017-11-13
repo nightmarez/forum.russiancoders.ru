@@ -23,7 +23,7 @@
 											<div class="input-group col-md-12" style="max-height: 35px; padding-top: 3px;">
 												<input type="text" class="form-control input-lg" placeholder="Поиск" style="width: 300px; height: 35px;" />
 												<span class="input-group-btn">
-													<button class="btn btn-info btn-lg" type="button">
+													<button class="btn btn-info btn-lg" type="button" style="height: 35px; padding-top: 3px;">
 														<i class="glyphicon glyphicon-search" style="height: 35px;"></i>
 													</button>
 												</span>
