@@ -278,7 +278,7 @@
 
 		$req->execute();
 		addPost($userid, $topicid, $content);
-		header('Location: /topic.php?topicid=' . $topicid);
+		header('Location: /topic/' . $topicid . '/');
 	}
 
 	function setUserCookies($userid, $session) {
@@ -293,7 +293,7 @@
 
 	function logout() {
 		unsetUserCookies();
-		header('Location: /index.php');
+		header('Location: /');
 	}
 
 	function fullLogout() {
