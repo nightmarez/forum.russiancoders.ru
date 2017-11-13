@@ -19,12 +19,12 @@
 							<li><a href="/register/">Регистрация</a></li>
 						<?php } ?>
 						<li style="float: right;">
-										<div id="custom-search-input" style="max-width: 600px;">
-											<div class="input-group col-md-12">
-												<input type="text" class="form-control input-lg" placeholder="Поиск" />
+										<div id="custom-search-input" style="max-width: 300px; margin-top: 7px;">
+											<div class="input-group col-md-12" style="max-height: 35px; padding-top: 3px;">
+												<input type="text" class="form-control input-lg" placeholder="Поиск" style="width: 300px; height: 35px;" />
 												<span class="input-group-btn">
 													<button class="btn btn-info btn-lg" type="button">
-														<i class="glyphicon glyphicon-search"></i>
+														<i class="glyphicon glyphicon-search" style="height: 35px;"></i>
 													</button>
 												</span>
 											</div>
