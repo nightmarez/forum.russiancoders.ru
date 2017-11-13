@@ -180,3 +180,36 @@ table.tracker-posts td:nth-child(3) {
     margin-top: 7px;
     border-radius: 3px;
 }
+
+.topics-posts {
+	background-color: whitesmoke;
+	border: 1px solid blue;
+}
+
+.topics-posts:last-child {
+	margin-bottom: 0;
+}
+
+table.topics-posts td {
+	border-top: none !important;
+}
+
+table.topics-posts tr:nth-child(1) {
+	background-color: lightsteelblue;
+}
+
+table.topics-posts tr:nth-child(2) > td {
+	padding: 15px 8px 15px 8px;
+}  
+
+table.topics-posts td:nth-child(1) {
+	width: 400px;
+}
+
+table.topics-posts td:nth-child(2) {
+	width: 400px;
+}
+
+table.topics-posts td:nth-child(3) {
+	text-align: left;
+}

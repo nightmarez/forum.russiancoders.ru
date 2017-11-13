@@ -37,7 +37,7 @@
 
 				while (list($topicid, $userid, $sectionid, $title, $created) = $req->fetch(PDO::FETCH_NUM)) {
 					?>
-						<table class="table tracker-posts">
+						<table class="table topics-posts">
 							<tbody>
 								<tr>
 									<td>
