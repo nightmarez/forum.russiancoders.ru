@@ -48,7 +48,7 @@
 								<td colspan="2">
 									<div class="form-group">
 										<label>Загрузка изображения</label>
-										<form method="POST" action="upload.php" enctype="multipart/form-data">
+										<form method="POST" action="/upload.php" enctype="multipart/form-data">
 											<div class="input-group">
 												<span class="input-group-btn">
 													<span class="btn btn-default btn-file">
