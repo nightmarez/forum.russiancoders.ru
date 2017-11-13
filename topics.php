@@ -47,6 +47,7 @@
 											$query =
 												'SELECT `title` FROM `sections` WHERE `sectionid`=:sectionid LIMIT 0, 1;';
 
+											$r = $pdo->prepare($query);
 											$r->bindParam(':sectionid', $sectionid);
 											$r->execute();
 
@@ -84,6 +85,7 @@
 											$query =
 												'SELECT `content` FROM `posts` WHERE `topicid`=:topicid ORDER BY `created` ASC LIMIT 0, 1;';
 
+											$r = $pdo->prepare($query);
 											$r->bindParam(':topicid', $topicid);
 											$r->execute();
 
