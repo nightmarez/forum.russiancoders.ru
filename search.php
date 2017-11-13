@@ -4,25 +4,32 @@
 <div class="panel panel-primary" style="margin: 20px;">
 	<div class="panel-heading">
 		<h3 class="panel-title">
-			Трекер
+			Поиск
 		</h3>
 	</div>
 	<script>
-		document.title = 'Трекер';
+		document.title = 'Поиск';
 	</script>
 
 	<div class="panel-body">
 		<div class="table-responsive">
 			<?php
+				if (!isset($_POST['search'])) {
+					die();
+				}
+
+				$search = $_POST['search'];
+
 				$db = new PdoDb();
 
 				$query =
-					'SELECT `topicid`, `userid`, `content`, `created` FROM `posts` ORDER BY `id` DESC LIMIT 0, 30;';
+					'SELECT `id`, `topicid`, `userid`, `content`, `created` FROM `posts` WHERE MATCH (`content`) AGAINST (:search) LIMIT 0, 20;';
 
 				$req = $db->prepare($query);
+				$req->bindParam(':search', $search);
 				$req->execute();
 
-				while (list($topicid, $userid, $content, $created) = $req->fetch(PDO::FETCH_NUM)) {
+				while (list($id, $topicid, $content, $created) = $req->fetch(PDO::FETCH_NUM)) {
 					?>
 						<table class="table tracker-posts">
 							<tbody>
