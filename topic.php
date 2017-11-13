@@ -95,7 +95,7 @@
 	</div>
 <?php } ?>
 
-<script>
+<script defer>
 	$(document).ready(function() {
 		$('html, body').animate({ scrollTop: $(document).height() }, 'fast');
 	});
