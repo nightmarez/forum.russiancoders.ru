@@ -45,7 +45,7 @@
 											$pdo = new PdoDb();
 
 											$query =
-												'SELECT `title` as t FROM `sections` WHERE `sectionid`=:sectionid LIMIT 0, 1;';
+												'SELECT `title` FROM `sections` WHERE `sectionid`=:sectionid LIMIT 0, 1;';
 
 											$r->bindParam(':sectionid', $sectionid);
 											$r->execute();
