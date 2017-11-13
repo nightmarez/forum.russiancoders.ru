@@ -20,11 +20,11 @@
 						<?php } ?>
 						<li style="float: right;">
 										<div id="custom-search-input" style="max-width: 300px; margin-top: 7px;">
-											<div class="input-group col-md-12" style="max-height: 35px; padding-top: 3px;">
+											<div class="input-group col-md-12" style="max-height: 35px; padding-top: 1px;">
 												<input type="text" class="form-control input-lg" placeholder="Поиск" style="width: 300px; height: 35px;" />
 												<span class="input-group-btn">
-													<button class="btn btn-info btn-lg" type="button" style="height: 35px; padding-top: 3px;">
-														<i class="glyphicon glyphicon-search" style="height: 35px;"></i>
+													<button class="btn btn-info btn-lg" type="button" style="height: 35px; padding-top: 6px;">
+														<i class="glyphicon glyphicon-search"></i>
 													</button>
 												</span>
 											</div>
