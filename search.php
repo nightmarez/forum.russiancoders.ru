@@ -15,7 +15,7 @@
 		<div class="table-responsive">
 			<?php
 				if (!isset($_POST['search'])) {
-					die();
+					die('Search param undefined');
 				}
 
 				$search = $_POST['search'];
