@@ -23,13 +23,13 @@
 				$db = new PdoDb();
 
 				$query =
-					'SELECT `id`, `topicid`, `userid`, `content`, `created` FROM `posts` WHERE MATCH (`content`) AGAINST (:search) LIMIT 0, 20;';
+					'SELECT `topicid`, `userid`, `content`, `created` FROM `posts` WHERE MATCH (`content`) AGAINST (:search) DESC LIMIT 0, 20;';
 
 				$req = $db->prepare($query);
 				$req->bindParam(':search', $search);
 				$req->execute();
 
-				while (list($id, $topicid, $content, $created) = $req->fetch(PDO::FETCH_NUM)) {
+				while (list($topicid, $content, $created) = $req->fetch(PDO::FETCH_NUM)) {
 					?>
 						<table class="table tracker-posts">
 							<tbody>
