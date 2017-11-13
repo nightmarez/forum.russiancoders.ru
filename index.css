@@ -192,24 +192,16 @@ table.tracker-posts td:nth-child(3) {
 
 table.topics-posts td {
 	border-top: none !important;
-}
-
-table.topics-posts tr:nth-child(1) {
-	background-color: lightsteelblue;
-}
-
-table.topics-posts tr:nth-child(2) > td {
-	padding: 15px 8px 15px 8px;
 }  
 
 table.topics-posts td:nth-child(1) {
-	width: 400px;
+	width: 300px;
 }
 
 table.topics-posts td:nth-child(2) {
-	width: 400px;
+	width: 300px;
 }
 
 table.topics-posts td:nth-child(3) {
-	text-align: left;
+	text-align: right;
 }
