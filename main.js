@@ -51,7 +51,8 @@ $(document).ready(function() {
 				if( log ) alert(log);
 			}
 		});
-		function readURL(input) {
+
+		var readURL = function(input) {
 			if (input.files && input.files[0]) {
 				var reader = new FileReader();
 				
@@ -61,7 +62,7 @@ $(document).ready(function() {
 				
 				reader.readAsDataURL(input.files[0]);
 			}
-		}
+		};
 
 		$("#imgInp").change(function(){
 			readURL(this);
