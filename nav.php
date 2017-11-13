@@ -2,7 +2,7 @@
 
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
-					<ul class="nav navbar-nav">
+					<ul class="nav navbar-nav" style="width: calc(100% - 56px);">
 						<li><a href="/">Форум</a></li>
 						<li><a href="/tracker/">Трекер</a></li>
 						<li><a href="/faq/">ЧаВо</a></li>
