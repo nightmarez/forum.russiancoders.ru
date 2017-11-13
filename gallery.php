@@ -109,7 +109,7 @@
 		<br><br>
 
 		<div>
-			<form action="/uploader.php" method="GET">
+			<form action="/uploader/" method="GET">
 				<input type="submit" class="btn btn-primary" value="Загрузить изображение">
 			</form>
 		</div>
