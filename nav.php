@@ -2,7 +2,6 @@
 
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
-				<div class="navbar-collapse">
 					<ul class="nav navbar-nav">
 						<li><a href="/">Форум</a></li>
 						<li><a href="/tracker/">Трекер</a></li>
@@ -31,6 +30,5 @@
 										</div>
 						</li>
 					</ul>
-				</div>
 			</div>
 		</nav>
