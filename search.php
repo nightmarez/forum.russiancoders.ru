@@ -23,7 +23,7 @@
 				$db = new PdoDb();
 
 				$query =
-					'SELECT `topicid`, `userid`, `content`, `created` FROM `posts` WHERE MATCH (`content`) AGAINST (:search) DESC LIMIT 0, 20;';
+					'SELECT `topicid`, `userid`, `content`, `created` FROM `posts` WHERE MATCH (`content`) AGAINST (:search) LIMIT 0, 20;';
 
 				$req = $db->prepare($query);
 				$req->bindParam(':search', $search);
