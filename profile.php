@@ -57,6 +57,26 @@
 									<?php echo $last; ?>
 								</td>
 							</tr>
+							<tr>
+								<td>
+									Ваши темы с новыми сообщениями:
+								</td>
+								<td>
+									<?php
+										$topics = getSelfTopicsWithNewMessage($userid);
+
+										if ($topics !== false) {
+											foreach ($topics as $key => $topic) {
+												?>
+													<a href="/topic/<?php echo $topic['topicid']; " ?>/"><?php echo htmlspecialchars($topic['title']); ?></a><br>
+												<?php
+											}
+										} else {
+											echo 'нет';
+										}
+									?>
+								</td>
+							</tr>
 						<?php
 								break;
 							}

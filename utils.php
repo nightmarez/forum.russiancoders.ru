@@ -435,4 +435,73 @@
 
   		return $text;
 	}
+
+	function getSelfTopicsWithNewMessage($userid) {
+		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $userid)) {
+			return false;
+		}
+
+		$db = new PdoDb();
+
+		$query =
+			'SELECT `topicid` FROM `topics` WHERE `userid`=:userid;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':userid', $userid);
+		$req->execute();
+
+		$topicsids = array();
+
+		while (list($topicid) = $req->fetch(PDO::FETCH_NUM)) {
+			$topicsids[] = $topicid;
+		}
+
+		if (count($topicsid) == 0) {
+			return false;
+		}
+
+		$updated = array();
+
+		foreach ($toicsids as $key => $topicid) {
+			$query =
+				'SELECT `userid` FROM `posts` WHERE `topicid`=:topicid ORDER BY `id` DESC LIMIT 0, 1;';
+
+			$req = $db->prepare($query);
+			$req->bindParam(':topicid', $topicid);
+			$req->execute();
+
+			while (list($uid) = $req->fetch(PDO::FETCH_NUM)) {
+				if ($uid != $userid) {
+					$updated[] = $topicid;
+				}
+
+				break;
+			}
+		}
+
+		$result = array();
+
+		foreach ($toicsids as $key => $topicid) {
+			$query =
+				'SELECT `title` FROM `topics` WHERE `topicid`=:topicid;';
+
+			$req = $db->prepare($query);
+			$req->bindParam(':topicid', $topicid);
+			$req->execute();
+
+			while (list($title) = $req->fetch(PDO::FETCH_NUM)) {
+				$result = array(
+					'topicid' => $topicid,
+					'title' => $title);
+
+				break;
+			}
+		}
+
+		if (count($result) == 0) {
+			return false;
+		}
+
+		return result;
+	}
 ?>
