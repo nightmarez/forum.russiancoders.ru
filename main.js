@@ -74,3 +74,25 @@ $(document).ready(function() {
 		$(this).parent().parent().find('form').submit();
 	});
 });
+
+$(document).ready(function() {
+	function testLogin() {
+		return true;
+	}
+
+	function testMail() {
+		return true;
+	}
+
+	function testPasswords() {
+		return $('#pass1').val() == $('#pass2').val();
+	}
+
+	$(document).ready(function() {
+		$('#submit-button').click(function() {
+			if (testLogin() && testMail() && testPasswords()) {
+				$('form').submit();
+			}
+		});
+	});
+});

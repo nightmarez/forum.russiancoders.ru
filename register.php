@@ -2,29 +2,7 @@
 <?php include_once('nav.php'); ?>
 <?php require_once('recaptchalib.php'); ?>
 
-<script src='https://www.google.com/recaptcha/api.js'></script>
-
-<script>
-	function testLogin() {
-		return true;
-	}
-
-	function testMail() {
-		return true;
-	}
-
-	function testPasswords() {
-		return $('#pass1').val() == $('#pass2').val();
-	}
-
-	$(document).ready(function() {
-		$('#submit-button').click(function() {
-			if (testLogin() && testMail() && testPasswords()) {
-				$('form').submit();
-			}
-		});
-	});
-</script>
+<script src='https://www.google.com/recaptcha/api.js' defer></script>
 
 <div class="panel panel-primary" style="margin: 20px;">
 	<div class="panel-heading">
@@ -44,7 +22,7 @@
 	</div>
 
 	<div class="panel-body">
-		<form action="/doregister.php" method="POST">
+		<form action="/doregister/" method="POST">
 			<div class="col-md-12 col-sm-12">
 				<div class="form-group col-md-6 col-sm-6">
 					<label for="name">Логин*</label>
