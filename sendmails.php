@@ -32,16 +32,15 @@
 	require 'vendor/autoload.php';
 	$mail = new PHPMailer;
 	$mail->isSMTP();
+	$mail->Host = 'smtp.jino.ru';
+	$mail->Port = 25;
+	$mail->SMTPAuth = false;
 
 	//Enable SMTP debugging
 	// 0 = off (for production use)
 	// 1 = client messages
 	// 2 = client and server messages
 	$mail->SMTPDebug = 2;
-
-	$mail->Host = 'smtp.jino.ru';
-	$mail->Port = 25;
-	$mail->SMTPAuth = true;
 	$mail->Username = 'nightmarez';
 	$mail->Password = SMTP_PASS;
 	$mail->setFrom('noreply@russiancoders.ru', 'Mikhail Makarov');
