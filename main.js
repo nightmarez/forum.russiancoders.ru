@@ -11,6 +11,74 @@ function uuidv4() {
 	});
 }
 
+var trim = function(string) {
+	return string.replace(/(^\s+)|(\s+$)/g, "");
+};
+
+var decToHex = function(dec) {
+	var result = parseInt(dec.toString()).toString(16);
+
+	if (result.length == 1) {
+		result = "0".concat(result);
+	}
+
+	return result;
+};
+
+var createGrayscaleArray = function() {
+	var colors = [];
+
+	for (var i = 0xf; i >= 0; i--) {
+		var hexString = i.toString(16);
+		if (hexString.length == 1) hexString = hexString.concat(hexString);
+		colors[0xf - i] = "#".concat(hexString, hexString, hexString);
+	}
+
+	return colors;
+};
+
+var hue = function(P, Q, h) {
+	if (h < 0.0) h += 1.0;
+	if (h > 1.0) h -= 1.0;
+	if (h * 6.0 < 1.0) return P + (Q - P) * h * 6.0;
+	if (h * 2.0 < 1.0) return Q;
+	if (h * 3.0 < 2.0) return P + (Q - P) * (2.0 / 3.0 - h) * 6.0;
+	return P;
+};
+
+var HSLToRGB = function(h, s, l) {
+	var r, g, b;
+	var Q, P;
+
+	if (s == 0.0) {
+		r = g = b = 0.0;
+	}
+	else {
+		Q = l < 0.5 ? l * (s + 1.0) : l + s - (l * s);
+		P = l * 2.0 - Q;
+		r = hue(P, Q, h + 1.0 / 3.0);
+		g = hue(P, Q, h);
+		b = hue(P, Q, h - 1.0 / 3.0);
+	}
+
+	return [r * 255, g * 255, b * 255];
+};
+
+var createHueArray = function() {
+	var colors = [];
+
+	for (var i = 0; i < 360; i++) {
+		var color = HSLToRGB(i / 360.0, 1.0, 0.5);
+
+		colors[i] = "#".concat(
+			decToHex(color[0]),
+			decToHex(color[1]),
+			decToHex(color[2]));
+	}
+
+	return colors;
+};
+
 $(document).ready(function() {
 	var ping = function() {
 		setTimeout(function() {
