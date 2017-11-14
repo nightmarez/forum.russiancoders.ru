@@ -33,8 +33,8 @@
 	$mail = new PHPMailer;
 	$mail->isSMTP();
 	$mail->Host = 'smtp.jino.ru';
-	$mail->Port = 25;
-	$mail->SMTPAuth = false;
+	$mail->Port = 465;
+	$mail->SMTPAuth = true;
 
 	//Enable SMTP debugging
 	// 0 = off (for production use)
