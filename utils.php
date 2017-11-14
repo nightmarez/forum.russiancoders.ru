@@ -532,7 +532,7 @@
 				    'Reply-To: m.m.makarov@gmail.com' . "\r\n" .
 				    'X-Mailer: PHP/' . phpversion();
 
-				echo 'send to mail ' . htmlspecialchars($mail) . '<br>';;
+				echo 'send mail to ' . htmlspecialchars($mail) . '<br>';;
 				echo mail($to, $subject, $message, $headers);
 				echo '<br><br>';
 			}
