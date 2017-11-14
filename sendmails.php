@@ -1,4 +1,5 @@
 <?php
+	use PHPMailer\PHPMailer\PHPMailer;
 	require_once('utils.php');
 
 	if (!isset($_COOKIE['session'])) {
@@ -21,5 +22,33 @@
 		echo 'Access denied';
 	}
 
-	sendMailsAboutNewMessages();
+	date_default_timezone_set('Etc/UTC');
+	//require '../vendor/autoload.php';
+	$mail = new PHPMailer;
+	$mail->isSMTP();
+
+	//Enable SMTP debugging
+	// 0 = off (for production use)
+	// 1 = client messages
+	// 2 = client and server messages
+	$mail->SMTPDebug = 2;
+
+	$mail->Host = 'smtp.jino.ru';
+	$mail->Port = 25;
+	$mail->SMTPAuth = true;
+	$mail->Username = 'nightmarez';
+	$mail->Password = SMTP_PASS;
+	$mail->setFrom('noreply@forum.russiancoders.ru', 'Mikhail Makarov');
+	$mail->addReplyTo('replyto@example.com', 'Mikhail Makarov');
+	$mail->addAddress('m.m.makarov@gmail.com', 'John Doe');
+	$mail->Subject = 'PHPMailer SMTP test';
+	$mail->msgHTML('test content', __DIR__);
+	$mail->AltBody = 'This is a plain-text message body';
+	//$mail->addAttachment('images/phpmailer_mini.png');
+
+	if (!$mail->send()) {
+	    echo 'Mailer Error: ' . $mail->ErrorInfo;
+	} else {
+	    echo 'Message sent!';
+	}
 ?>
