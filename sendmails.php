@@ -18,7 +18,7 @@
 		echo 'Invalid UserID';
 	}
 
-	if ($userid == 'jYzACIND80rGj0XngB3N') {
+	if ($userid != 'jYzACIND80rGj0XngB3N') {
 		echo 'You is not Root';
 	}
 
