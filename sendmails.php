@@ -44,7 +44,7 @@
 	$mail->SMTPAuth = true;
 	$mail->Username = 'nightmarez';
 	$mail->Password = SMTP_PASS;
-	$mail->setFrom('noreply@forum.russiancoders.ru', 'Mikhail Makarov');
+	$mail->setFrom('noreply@russiancoders.ru', 'Mikhail Makarov');
 	$mail->addReplyTo('replyto@example.com', 'Mikhail Makarov');
 	$mail->addAddress('m.m.makarov@gmail.com', 'John Doe');
 	$mail->Subject = 'PHPMailer SMTP test';
