@@ -456,13 +456,13 @@
 			$topicsids[] = $topicid;
 		}
 
-		if (count($topicsid) == 0) {
+		if (count($topicsids) == 0) {
 			return false;
 		}
 
 		$updated = array();
 
-		foreach ($toicsids as $topicid) {
+		foreach ($topicsids as $topicid) {
 			$query =
 				'SELECT `userid` FROM `posts` WHERE `topicid`=:topicid ORDER BY `id` DESC;';
 
