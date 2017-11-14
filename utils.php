@@ -401,6 +401,9 @@
   		$text = preg_replace('/\[url=(\S*)\]/i', '<a href="${1}" rel="nofollow" target="_blank">${1}</a>', $text);
   		$text = preg_replace('/\[url=\"(\S*)\"\]/i', '<a href="${1}" rel="nofollow" target="_blank">${1}</a>', $text);
 
+  		$text = preg_replace('/\[youtube=\"([0-9a-zA-Z]{5, 15})\"\]/i', '<iframe width="640" height="420" src="http://www.youtube.com/embed/${1}" frameborder="0" allowfullscreen=""></iframe>', $text);
+  		$text = preg_replace('/\[rutube=\"([0-9a-zA-Z]{5, 15})\"\]/i', '<iframe width="640" height="420" src="//rutube.ru/play/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
+
 		$text = preg_replace("/(\r\n){2,}/", "<br><br>", $text);
 		$text = preg_replace("/(\r\n)/", "<br>", $text);
 
