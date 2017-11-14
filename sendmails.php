@@ -1,5 +1,11 @@
 <?php
 	use PHPMailer\PHPMailer\PHPMailer;
+	use PHPMailer\PHPMailer\Exception;
+
+	require 'path/to/PHPMailer/src/Exception.php';
+	require 'path/to/PHPMailer/src/PHPMailer.php';
+	require 'path/to/PHPMailer/src/SMTP.php';
+
 	require_once('utils.php');
 
 	if (!isset($_COOKIE['session'])) {
@@ -23,7 +29,7 @@
 	}
 
 	date_default_timezone_set('Etc/UTC');
-	//require '../vendor/autoload.php';
+	require 'vendor/autoload.php';
 	$mail = new PHPMailer;
 	$mail->isSMTP();
 
