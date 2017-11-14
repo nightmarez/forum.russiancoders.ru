@@ -95,8 +95,6 @@
 											}
 										?>
 									</td>
-
-									<td colspan="3"></td>
 								</tr>
 							</tbody>
 						</table>

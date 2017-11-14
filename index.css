@@ -184,8 +184,6 @@ table.tracker-posts td:nth-child(3) {
 .topics-posts {
 	background-color: whitesmoke;
 	border: 1px solid blue;
-	max-width: 100%;
-	width: 100%;
 }
 
 .topics-posts:last-child {
