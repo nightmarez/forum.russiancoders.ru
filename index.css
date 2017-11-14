@@ -184,10 +184,16 @@ table.tracker-posts td:nth-child(3) {
 .topics-posts {
 	background-color: whitesmoke;
 	border: 1px solid blue;
+	max-width: 100%;
+	width: 100%;
 }
 
 .topics-posts:last-child {
 	margin-bottom: 0;
+}
+
+table.tracker-posts tr:nth-child(1) {
+    background-color: lightsteelblue;
 }
 
 table.topics-posts td {
@@ -195,11 +201,11 @@ table.topics-posts td {
 }  
 
 table.topics-posts td:nth-child(1) {
-	width: 300px;
+	width: 400px;
 }
 
 table.topics-posts td:nth-child(2) {
-	width: 300px;
+	width: 400px;
 }
 
 table.topics-posts td:nth-child(3) {
