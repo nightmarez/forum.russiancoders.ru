@@ -481,7 +481,7 @@
 
 		$result = array();
 
-		foreach ($toicsids as $key => $topicid) {
+		foreach ($updated as $key => $topicid) {
 			$query =
 				'SELECT `title` FROM `topics` WHERE `topicid`=:topicid;';
 
