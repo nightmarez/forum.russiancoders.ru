@@ -3,23 +3,23 @@
 	require_once('utils.php');
 
 	if (!isset($_COOKIE['session'])) {
-		echo 'Access denied';
+		echo 'Session not found';
 	}
 
 	$session = $_COOKIE['session'];
 
 	if (!isset($_COOKIE['userid'])) {
-		echo 'Access denied';
+		echo 'UserID not found';
 	}
 
 	$userid = $_COOKIE['userid'];
 
 	if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $userid)) {
-		echo 'Access denied';
+		echo 'Invalid UserID';
 	}
 
 	if ($userid == 'jYzACIND80rGj0XngB3N') {
-		echo 'Access denied';
+		echo 'You is not Root';
 	}
 
 	date_default_timezone_set('Etc/UTC');
