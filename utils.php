@@ -525,7 +525,7 @@
 				$message = 'На форуме RussianCoders появились новые сообщения в Ваших темах:<br><br>' . "\r\n";
 
 				foreach ($topics as $topic) {
-					$message = $message . '<a href="/topic/' . $topic['topicid']; . '/">' . htmlspecialchars($topic['title']); . '</a><br>' . "\r\n";
+					$message = $message . '<a href="/topic/' . $topic['topicid'] . '/">' . htmlspecialchars($topic['title']) . '</a><br>' . "\r\n";
 				}
 
 				$headers = 'From: noreply@forum.russiancoders.ru' . "\r\n" .
