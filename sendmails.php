@@ -1,0 +1,2 @@
+<?php require_once('utils.php'); ?>
+<?php sendMailsAboutNewMessages(); ?>

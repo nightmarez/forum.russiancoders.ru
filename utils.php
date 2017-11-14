@@ -504,4 +504,38 @@
 
 		return $result;
 	}
+
+	function sendMailsAboutNewMessages() {
+		$db = new PdoDb();
+
+		$query =
+			'SELECT `userid`, `mail` FROM `users`;';
+
+		$req = $db->prepare($query);
+		$req->execute();
+
+		$users = array();
+
+		while (list($userid, $mail) = $req->fetch(PDO::FETCH_NUM)) {
+			$topics = getSelfTopicsWithNewMessage($userid);
+
+			if ($topics !== false) {
+				$to      = $mail;
+				$subject = 'Новые сообщения в ваших темах';
+				$message = 'На форуме RussianCoders появились новые сообщения в Ваших темах:<br><br>' . "\r\n";
+
+				foreach ($topics as $topic) {
+					$message = $message . '<a href="/topic/' . echo $topic['topicid']; . '/">' . echo htmlspecialchars($topic['title']); . '</a><br>' . "\r\n";
+				}
+
+				$headers = 'From: noreply@forum.russiancoders.ru' . "\r\n" .
+				    'Reply-To: m.m.makarov@gmail.com' . "\r\n" .
+				    'X-Mailer: PHP/' . phpversion();
+
+				echo 'send to mail ' . htmlspecialchars($mail) . '<br>';;
+				echo mail($to, $subject, $message, $headers);
+				echo '<br><br>';
+			}
+		}
+	}
 ?>
