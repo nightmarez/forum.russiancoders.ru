@@ -331,11 +331,11 @@
 			return false;
 		}
 
-		/* don't update admin */
+		/* //////////// don't update admin /////////// */
 		if ($userid == 'jYzACIND80rGj0XngB3N') {
 			return false;
 		}
-		////////////////////////
+		/////////////////////////////////////////////////
 
 		$db = new PdoDb();
 
