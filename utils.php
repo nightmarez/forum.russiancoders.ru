@@ -464,7 +464,7 @@
 
 		foreach ($toicsids as $topicid) {
 			$query =
-				'SELECT `userid` FROM `posts` WHERE `topicid`=:topicid ORDER BY `id` DESC LIMIT 0, 1;';
+				'SELECT `userid` FROM `posts` WHERE `topicid`=:topicid ORDER BY `id` DESC;';
 
 			$req = $db->prepare($query);
 			$req->bindParam(':topicid', $topicid);
