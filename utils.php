@@ -490,7 +490,7 @@
 			$req->execute();
 
 			while (list($title) = $req->fetch(PDO::FETCH_NUM)) {
-				$result = array(
+				$result[] = array(
 					'topicid' => $topicid,
 					'title' => $title);
 
