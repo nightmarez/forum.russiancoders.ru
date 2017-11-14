@@ -462,7 +462,7 @@
 
 		$updated = array();
 
-		foreach ($toicsids as $key => $topicid) {
+		foreach ($toicsids as $topicid) {
 			$query =
 				'SELECT `userid` FROM `posts` WHERE `topicid`=:topicid ORDER BY `id` DESC LIMIT 0, 1;';
 
@@ -481,7 +481,7 @@
 
 		$result = array();
 
-		foreach ($updated as $key => $topicid) {
+		foreach ($updated as $topicid) {
 			$query =
 				'SELECT `title` FROM `topics` WHERE `topicid`=:topicid;';
 
@@ -502,6 +502,6 @@
 			return false;
 		}
 
-		return result;
+		return $result;
 	}
 ?>
