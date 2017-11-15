@@ -106,7 +106,7 @@ $(document).ready(function() {
 		$('html, body').animate({ scrollTop: $(document).height() }, 'fast');
 
 		$('#upload-image-btn').click(function() {
-			location.href = '/uploader/';
+			window.open('/uploader/');
 		});
 	}
 });
