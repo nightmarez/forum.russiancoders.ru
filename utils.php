@@ -564,7 +564,7 @@
 		$db = is_null($readydb) ? new PdoDb() : $readydb;
 
 		$query =
-			'SELECT `id` FROM `topics` WHERE `sectionid` = :sectionid;';
+			'SELECT COUNT(*) FROM `topics` WHERE `sectionid` = :sectionid;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':sectionid', $sectionid);
