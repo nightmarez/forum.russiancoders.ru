@@ -609,6 +609,20 @@
 		return $sum;
 	}
 
+	function isPostExists($postid, $readydb = NULL) {
+		$postid = intval($postid);
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		$query =
+			'SELECT COUNT(*) FROM `posts` WHERE `id`=:postid LIMIT 0, 1;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':postid', $postid);
+		$req->execute();
+		$count = $req->fetchColumn();
+		return $count >= 1;
+	}
+
 	function calcPostVotes($postid, $readydb = NULL) {
 		$postid = intval($postid);
 
@@ -627,19 +641,5 @@
 		$sum = $req->fetchColumn();
 
 		return $sum;
-	}
-
-	function isPostExists($postid, $readydb = NULL) {
-		$postid = intval($postid);
-		$db = is_null($readydb) ? new PdoDb() : $readydb;
-
-		$query =
-			'SELECT COUNT(*) FROM `posts` WHERE `id`=:postid LIMIT 0, 1;';
-
-		$req = $db->prepare($query);
-		$req->bindParam(':postid', $postid);
-		$req->execute();
-		$count = $req->fetchColumn();
-		return $count >= 1;
 	}
 ?>
