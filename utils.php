@@ -667,6 +667,6 @@
 		$req->execute();
 		$count = $req->fetchColumn();
 
-		return $count >= 1;
+		return $count == 0;
 	}
 ?>
