@@ -32,7 +32,7 @@
 						$db = new PdoDb();
 
 						$query =
-							'SELECT `id`, `userid`, `content`, `created` FROM `posts` WHERE `topicid`=:topicid ORDER BY `id` ASC LIMIT 0, 100;';
+							'SELECT `id`, `userid`, `content`, `created` FROM `posts` WHERE `topicid`=:topicid ORDER BY `id` ASC LIMIT 0, 300;';
 
 						$req = $db->prepare($query);
 						$req->bindParam(':topicid', $topicid);
