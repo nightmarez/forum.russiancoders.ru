@@ -644,4 +644,29 @@
 
 		return intval($sum);
 	}
+
+	function canVote($postid, $userid, $readydb = NULL) {
+		$postid = intval($postid);
+
+		if (!isPostExists($postid, $readydb)) {
+			return false;
+		}
+
+		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $userid)) {
+			return false;
+		}
+
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		$query =
+			'SELECT COUNT(*) FROM `likes` WHERE `userid` = :userid AND `postid` = :postid;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':userid', $userid);
+		$req->bindParam(':postid', $postid);
+		$req->execute();
+		$count = $req->fetchColumn();
+
+		return $count >= 1;
+	}
 ?>
