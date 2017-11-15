@@ -564,6 +564,24 @@
 		$db = is_null($readydb) ? new PdoDb() : $readydb;
 
 		$query =
+			'SELECT `id` FROM `topics` WHERE `sectionid` = :sectionid;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':topicid', $topicid);
+		$req->execute();
+		$count = $req->fetchColumn();
+
+		return $count;
+	}
+
+	function calcPostsInSection($sectionid, $readydb = NULL) {
+		if (!isSectionExists($sectionid)) {
+			return false;
+		}
+
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		$query =
 			'SELECT `topicid` FROM `topics` WHERE `sectionid` = :sectionid;';
 
 		$req = $db->prepare($query);
@@ -573,7 +591,7 @@
 		$sum = 0;
 
 		while (list($topicid) = $req->fetch(PDO::FETCH_NUM)) {
-			$sum += calcPostsInTopic($topicid, $db);
+			$sum += intval(calcPostsInTopic($topicid, $db));
 		}
 
 		return $sum;

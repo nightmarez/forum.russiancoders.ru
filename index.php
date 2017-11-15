@@ -36,7 +36,7 @@
 										<?php echo intval(calcTopicsInSection($sectionid, $db)); ?>
 									</td>
 									<td>
-										<?php echo intval(calcTopicsInSection($sectionid, $db)); ?>
+										<?php echo intval(calcPostsInSection($sectionid, $db)); ?>
 									</td>
 								</tr>
 							<?php
@@ -142,22 +142,7 @@
 													}
 												?>
 											</td>
-											<td>
-												<?php
-													$p = new PdoDb();
-
-													$query =
-														'SELECT COUNT(*) FROM `posts` WHERE `topicid`=:topicid;';
-
-													$rr = $p->prepare($query);
-													$rr->bindParam(':topicid', $topicid);
-													$rr->execute();
-
-													$count = $rr->fetchColumn();
-
-													echo $count;
-												?>
-											</td>
+											<td><?php echo intval(calcPostsInTopic($topicid, $db)); ?></td>
 											<td>
 												<?php echo $updated; ?>
 											</td>
