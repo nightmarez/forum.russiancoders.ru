@@ -125,6 +125,8 @@ $(document).ready(function() {
 						self.addClass('triangle-up-disabled');
 						self.parent().find('.triangle-down').addClass('triangle-down-disabled');
 						self.parent().find('.likes-counter').text(result.count);
+					} else {
+						console.log('Voting error: ' + result.reason);
 					}
 				});
 			}
