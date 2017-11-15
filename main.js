@@ -111,6 +111,24 @@ $(document).ready(function() {
 		$('#upload-image-btn').click(function() {
 			window.open('/uploader/');
 		});
+
+		$('.triangle-up').click(function() {
+			var self = $(this);
+
+			if (!self.hasClass('triangle-up-disabled')) {
+				var id = parseInt(self.attr('data-id'));
+
+				$.get('/vote.php?id=' + id, function(result) {
+					result = JSON.parse(result);
+
+					if (result.ok === true) {
+						self.addClass('triangle-up-disabled');
+						self.parent().find('.triangle-down').addClass('triangle-down-disabled');
+						self.parent().find('.likes-counter').text(result.count);
+					}
+				});
+			}
+		});
 	}
 });
 
