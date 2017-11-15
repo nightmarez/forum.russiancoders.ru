@@ -640,6 +640,8 @@
 		$req->execute();
 		$sum = $req->fetch(PDO::FETCH_NUM)[0];
 
+		echo '<!-- sum: ' . $sum . ', id: ' . $postid . ' -->';
+
 		return $sum;
 	}
 ?>
