@@ -642,6 +642,6 @@
 
 		echo '<!-- sum: ' . $sum . ', id: ' . $postid . ' -->';
 
-		return $sum;
+		return intval($sum);
 	}
 ?>
