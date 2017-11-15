@@ -537,4 +537,45 @@
 			}
 		}
 	}
+
+	function calcPostsInTopic($topicid, $readydb = NULL) {
+		if (!isTopicExists($topicid)) {
+			return false;
+		}
+
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		$query =
+			'SELECT `id` FROM `posts` WHERE `topicid` = :topicid;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':topicid', $topicid);
+		$req->execute();
+		$count = $req->fetchColumn();
+
+		return $count;
+	}
+
+	function calcTopicsInSection($sectionid, $readydb = NULL) {
+		if (!isSectionExists($sectionid)) {
+			return false;
+		}
+
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		$query =
+			'SELECT `topicid` FROM `topics` WHERE `sectionid` = :sectionid;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':sectionid', $sectionid);
+		$req->execute();
+
+		$sum = 0;
+
+		while (list($topicid) = $req->fetch(PDO::FETCH_NUM)) {
+			$sum += calcPostsInTopic($topicid, $db);
+		}
+
+		return $sum;
+	}
 ?>

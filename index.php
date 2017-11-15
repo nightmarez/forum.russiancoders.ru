@@ -47,7 +47,7 @@
 										?>
 									</td>
 									<td>
-										?
+										<?php echo intval(calcTopicsInSection($sectionid)); ?>
 									</td>
 								</tr>
 							<?php
