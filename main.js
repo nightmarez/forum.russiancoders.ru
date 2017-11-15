@@ -98,6 +98,10 @@ $(document).ready(function() {
 $(document).ready(function() {
 	if (location.href.indexOf('/topic/') !== -1) {
 		$('html, body').animate({ scrollTop: $(document).height() }, 'fast');
+
+		$('#upload-image-btn').click(function() {
+			location.href = '/uploader/';
+		});
 	}
 });
 

@@ -87,7 +87,12 @@
 					<input type="hidden" name="topicid" value="<?php echo $topicid; ?>">
 					<textarea name="content" style="min-width: 800px; min-height: 300px; width: 100%; margin-bottom: 5px;"></textarea>
 					<div>
-						<input type="submit" class="btn btn-primary" value="Отправить">
+						<div>
+							<input type="submit" class="btn btn-primary" value="Отправить">
+						</div>
+						<div>
+							<input type="button" class="btn btn-primary" id="upload-image-btn" value="Загрузить изображение">
+						</div>
 					</div>
 				</form>
 			</div>
