@@ -96,8 +96,11 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-	$('input[type=submit]').click(function() {
+	$('input[type=submit]').click(function(e) {
 		$(this).attr('disabled', true);
+		e.stopPropagation();
+		$('form').submit();
+		return false;
 	});
 });
 
