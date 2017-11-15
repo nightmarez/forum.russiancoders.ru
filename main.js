@@ -96,6 +96,12 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
+	$('input[type=submit]').click(function() {
+		$(this).attr('disabled', true);
+	});
+});
+
+$(document).ready(function() {
 	if (location.href.indexOf('/topic/') !== -1) {
 		$('html, body').animate({ scrollTop: $(document).height() }, 'fast');
 
