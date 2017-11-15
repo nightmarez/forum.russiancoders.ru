@@ -252,6 +252,18 @@
 		$req->bindParam(':userid', $userid, PDO::PARAM_STR);
 		$req->bindParam(':content', $content, PDO::PARAM_STR);
 		$req->execute();
+
+		$query = 
+			'UPDATE 
+				`topics` 
+			SET 
+				`updated` = NOW()
+			WHERE 
+				`topicid` = :topicid;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':topicid', $topicid, PDO::PARAM_STR);
+		$req->execute();
 	}
 
 	function createTopic($userid, $sectionid, $title, $content) {
