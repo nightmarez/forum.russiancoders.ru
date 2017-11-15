@@ -638,7 +638,7 @@
 		$req = $db->prepare($query);
 		$req->bindParam(':postid', $postid);
 		$req->execute();
-		$sum = $req->fetchColumn();
+		$sum = $req->fetch()[0];
 
 		return $sum;
 	}
