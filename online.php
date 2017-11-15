@@ -3,7 +3,7 @@
 
 <div class="panel panel-primary" style="margin: 20px;">
 	<div class="panel-heading">
-		<h3 class="panel-title">Пользователи OnLine</h3>
+		<h3 class="panel-title">Пользователи OnLine за последние 24 часа</h3>
 	</div>
 	<script>
 		document.title = 'Пользователи OnLine';
@@ -23,7 +23,8 @@
 						$db = new PdoDb();
 
 						$query =
-							'SELECT `userid`, `login`, `last`, (now() - `last`) as `online` FROM `users` ORDER BY `last` DESC LIMIT 0, 100;';
+							'SELECT `userid`, `login`, `last`, (now() - `last`) as `online` FROM `users` WHERE TIME_TO_SEC(TIMEDIFF(NOW(), `last`)) < 24
+ ORDER BY `last` DESC LIMIT 0, 100;';
 
 						$req = $db->prepare($query);
 						$req->execute();
