@@ -63,7 +63,7 @@
 													echo $created;
 												?></td>
 											<td>
-												<span class="triangle-up"></span><span class="likes-counter"><?php echo calcPostVotes($id, $db); ?></span><span class="triangle-down"></span>
+												<span class="triangle-up"></span><span class="likes-counter"><?php echo isPostExists($id, $db); ?></span><span class="triangle-down"></span>
 											</td>
 										</tr>
 										<tr>
