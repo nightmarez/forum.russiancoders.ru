@@ -62,6 +62,9 @@
 											<td><?php
 													echo $created;
 												?></td>
+											<td>
+												<span class="triangle-up"></span><span class="likes-counter"><?php echo calcPostVotes($id, $db); ?></span><span class="triangle-down"></span>
+											</td>
 										</tr>
 										<tr>
 											<td colspan="3"><?php echo filterMessage($content, $userid); ?></td>

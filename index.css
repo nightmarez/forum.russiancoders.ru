@@ -209,3 +209,31 @@ table.topics-posts td:nth-child(2) {
 table.topics-posts td:nth-child(3) {
 	text-align: right;
 }
+
+.triangle-up {
+	width: 0;
+	height: 0;
+	border-left: 50px solid transparent;
+	border-right: 50px solid transparent;
+	border-bottom: 100px solid lime;
+	cursor: pointer;
+}
+
+.triangle-down {
+	width: 0;
+	height: 0;
+	border-left: 50px solid transparent;
+	border-right: 50px solid transparent;
+	border-top: 100px solid red;
+	cursor: pointer;
+}
+
+.triangle-disabled {
+	border-color: gray;
+	cursor: default;
+}
+
+.likes-counter {
+	margin-left: 5px;
+	margin-right: 5px;
+}
