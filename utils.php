@@ -567,7 +567,7 @@
 			'SELECT `id` FROM `topics` WHERE `sectionid` = :sectionid;';
 
 		$req = $db->prepare($query);
-		$req->bindParam(':topicid', $topicid);
+		$req->bindParam(':sectionid', $sectionid);
 		$req->execute();
 		$count = $req->fetchColumn();
 
