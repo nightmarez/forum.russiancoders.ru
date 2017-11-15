@@ -33,21 +33,10 @@
 										<a href="/section/<?php echo htmlspecialchars($sectionid); ?>/"><?php echo htmlspecialchars($title); ?></a>
 									</td>
 									<td>
-										<?php
-											$pdo = new PdoDb();
-
-											$query =
-												'SELECT COUNT(*) FROM `topics` WHERE `sectionid`=:sectionid;';
-
-											$r = $pdo->prepare($query);
-											$r->bindParam(':sectionid', $sectionid);
-											$r->execute();
-											$count = $r->fetchColumn();
-											echo intval($count);
-										?>
+										<?php echo intval(calcTopicsInSection($sectionid, $db)); ?>
 									</td>
 									<td>
-										<?php echo intval(calcTopicsInSection($sectionid)); ?>
+										<?php echo intval(calcTopicsInSection($sectionid, $db)); ?>
 									</td>
 								</tr>
 							<?php
@@ -60,8 +49,6 @@
 </div>
 
 	<?php
-		$db = new PdoDb();
-
 		$query =
 			'SELECT `sectionid`, `title` FROM `sections` ORDER BY `id`;';
 
