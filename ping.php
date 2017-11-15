@@ -9,5 +9,5 @@
 		die();
 	}
 
-	echo array('ok' => false);
+	echo json_encode(array('ok' => false));
 ?>
