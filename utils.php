@@ -546,7 +546,7 @@
 		$db = is_null($readydb) ? new PdoDb() : $readydb;
 
 		$query =
-			'SELECT `id` FROM `posts` WHERE `topicid` = :topicid;';
+			'SELECT COUNT(*) FROM `posts` WHERE `topicid` = :topicid;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':topicid', $topicid);
