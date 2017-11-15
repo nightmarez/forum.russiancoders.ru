@@ -217,6 +217,8 @@ table.topics-posts td:nth-child(3) {
 	border-right: 7px solid transparent;
 	border-bottom: 14px solid lime;
 	cursor: pointer;
+	display: block;
+    float: left;
 }
 
 .triangle-down {
@@ -226,6 +228,8 @@ table.topics-posts td:nth-child(3) {
 	border-right: 7px solid transparent;
 	border-top: 14px solid red;
 	cursor: pointer;
+	display: block;
+    float: left;
 }
 
 .triangle-disabled {
@@ -236,4 +240,6 @@ table.topics-posts td:nth-child(3) {
 .likes-counter {
 	margin-left: 5px;
 	margin-right: 5px;
+	display: block;
+    float: left;
 }
