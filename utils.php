@@ -25,6 +25,19 @@
 		return $sum === 60;
 	}
 
+	function get_ip()
+	{
+		if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+			$ip = $_SERVER['HTTP_CLIENT_IP'];
+		} elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+			$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+		} else {
+			$ip = $_SERVER['REMOTE_ADDR'];
+		}
+
+		return $ip;
+	}
+
 	function validateLogin($login) {
 		$safelogin = stripslashes(htmlspecialchars($login));
 
@@ -243,14 +256,15 @@
 
 		$query = 
 			'INSERT INTO `posts` 
-				(`topicid`, `userid`, `content`) 
+				(`topicid`, `userid`, `content`, `ip`) 
 			VALUES 
-				(:topicid, :userid, :content);';
+				(:topicid, :userid, :content, :ip);';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':topicid', $topicid, PDO::PARAM_STR);
 		$req->bindParam(':userid', $userid, PDO::PARAM_STR);
 		$req->bindParam(':content', $content, PDO::PARAM_STR);
+		$req->bindParam(':ip', get_ip(), PDO::PARAM_STR);
 		$req->execute();
 
 		$query = 
@@ -409,14 +423,14 @@
 		$text = htmlspecialchars($text);
 
 		$text = preg_replace('/\[url=(\S*)\](.*)\[\/url\]/i', '<a href="${1}" rel="nofollow" target="_blank">${2}</a>', $text);
-  		$text = preg_replace('/\[url=\"(\S*)\"\](.*)\[\/url\]/i', '<a href="${1}" rel="nofollow" target="_blank">${2}</a>', $text);
-  		$text = preg_replace('/\[url=(\S*)\]/i', '<a href="${1}" rel="nofollow" target="_blank">${1}</a>', $text);
-  		$text = preg_replace('/\[url=\"(\S*)\"\]/i', '<a href="${1}" rel="nofollow" target="_blank">${1}</a>', $text);
+		$text = preg_replace('/\[url=\"(\S*)\"\](.*)\[\/url\]/i', '<a href="${1}" rel="nofollow" target="_blank">${2}</a>', $text);
+		$text = preg_replace('/\[url=(\S*)\]/i', '<a href="${1}" rel="nofollow" target="_blank">${1}</a>', $text);
+		$text = preg_replace('/\[url=\"(\S*)\"\]/i', '<a href="${1}" rel="nofollow" target="_blank">${1}</a>', $text);
 
-  		$text = preg_replace('/\[youtube=\"([0-9a-zA-Z]*)\"\]/i', '<iframe width="640" height="420" src="https://www.youtube.com/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
-  		$text = preg_replace('/\[rutube=\"([0-9a-zA-Z]*)\"\]/i', '<iframe width="640" height="420" src="https://rutube.ru/play/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
-  		$text = preg_replace('/\[youtube=([0-9a-zA-Z]*)\]/i', '<iframe width="640" height="420" src="https://www.youtube.com/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
-  		$text = preg_replace('/\[rutube=([0-9a-zA-Z]*)\]/i', '<iframe width="640" height="420" src="https://rutube.ru/play/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
+		$text = preg_replace('/\[youtube=\"([0-9a-zA-Z]*)\"\]/i', '<iframe width="640" height="420" src="https://www.youtube.com/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
+		$text = preg_replace('/\[rutube=\"([0-9a-zA-Z]*)\"\]/i', '<iframe width="640" height="420" src="https://rutube.ru/play/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
+		$text = preg_replace('/\[youtube=([0-9a-zA-Z]*)\]/i', '<iframe width="640" height="420" src="https://www.youtube.com/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
+		$text = preg_replace('/\[rutube=([0-9a-zA-Z]*)\]/i', '<iframe width="640" height="420" src="https://rutube.ru/play/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
 
 		$text = preg_replace("/(\r\n){2,}/", "<br><br>", $text);
 		$text = preg_replace("/(\r\n)/", "<br>", $text);
@@ -424,27 +438,27 @@
 		$text = preg_replace("/(\r){2,}/", "<br><br>", $text);
 		$text = preg_replace("/(\r)/", "<br>", $text);  		
 
-  		$text = preg_replace('/\[b\](.*)\[\/b\]/i', '<b>${1}</b>', $text);
-  		$text = preg_replace('/\[i\](.*)\[\/i\]/i', '<i>${1}</i>', $text);
-  		$text = preg_replace('/\[s\](.*)\[\/s\]/i', '<s>${1}</s>', $text);
+		$text = preg_replace('/\[b\](.*)\[\/b\]/i', '<b>${1}</b>', $text);
+		$text = preg_replace('/\[i\](.*)\[\/i\]/i', '<i>${1}</i>', $text);
+		$text = preg_replace('/\[s\](.*)\[\/s\]/i', '<s>${1}</s>', $text);
 
-  		$text = preg_replace('/(\[br\]){2,}/i', '<br><br>', $text);
-  		$text = preg_replace('/\[br\]/i', '<br>', $text);
+		$text = preg_replace('/(\[br\]){2,}/i', '<br><br>', $text);
+		$text = preg_replace('/\[br\]/i', '<br>', $text);
 
-  		$text = preg_replace('/(\s*)---(\s*)/i', '${1}—${2}', $text);
-  		$text = preg_replace('/(\s*)--(\s*)/i', '${1}–${2}', $text);
+		$text = preg_replace('/(\s*)---(\s*)/i', '${1}—${2}', $text);
+		$text = preg_replace('/(\s*)--(\s*)/i', '${1}–${2}', $text);
 
-  		// $text = preg_replace('/^\s*([>|&gt;]+)\s*(.*)[\s|\r|\n]*<br>/i', '<p style="color: darkgray;">${1} ${2}</p>', $text);
+		// $text = preg_replace('/^\s*([>|&gt;]+)\s*(.*)[\s|\r|\n]*<br>/i', '<p style="color: darkgray;">${1} ${2}</p>', $text);
 
-  		//$text = str_replace(':)))))', '<img src="https://forum.russiancoders.ru/icons/smile.gif" alt="улыбка">', $text);
-  		//$text = str_replace(':))))', '<img src="https://forum.russiancoders.ru/icons/laugh.gif" alt="смех">', $text);
-  		//$text = str_replace(':)))', '<img src="https://forum.russiancoders.ru/icons/laugh.gif" alt="смех">', $text);
-  		//$text = str_replace(':))', '<img src="https://forum.russiancoders.ru/icons/laugh.gif" alt="смех">', $text);
-  		//$text = str_replace(':)', '<img src="https://forum.russiancoders.ru/icons/laugh.gif" alt="смех">', $text);
+		//$text = str_replace(':)))))', '<img src="https://forum.russiancoders.ru/icons/smile.gif" alt="улыбка">', $text);
+		//$text = str_replace(':))))', '<img src="https://forum.russiancoders.ru/icons/laugh.gif" alt="смех">', $text);
+		//$text = str_replace(':)))', '<img src="https://forum.russiancoders.ru/icons/laugh.gif" alt="смех">', $text);
+		//$text = str_replace(':))', '<img src="https://forum.russiancoders.ru/icons/laugh.gif" alt="смех">', $text);
+		//$text = str_replace(':)', '<img src="https://forum.russiancoders.ru/icons/laugh.gif" alt="смех">', $text);
 
-  		$text = preg_replace('/\[img=([0-9a-zA-Z]{20})\]/i', '<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="изображение">', $text);
+		$text = preg_replace('/\[img=([0-9a-zA-Z]{20})\]/i', '<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="изображение">', $text);
 
-  		return $text;
+		return $text;
 	}
 
 	function getSelfTopicsWithNewMessage($userid) {
@@ -540,8 +554,8 @@
 				}
 
 				$headers = 'From: noreply@forum.russiancoders.ru' . "\r\n" .
-				    'Reply-To: m.m.makarov@gmail.com' . "\r\n" .
-				    'X-Mailer: PHP/' . phpversion();
+					'Reply-To: m.m.makarov@gmail.com' . "\r\n" .
+					'X-Mailer: PHP/' . phpversion();
 
 				echo 'send mail to ' . htmlspecialchars($mail) . '<br>';;
 				echo mail($to, $subject, $message, $headers);
