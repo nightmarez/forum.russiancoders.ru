@@ -787,4 +787,40 @@
 		$req->bindParam(':value', $value);
 		$req->execute();
 	}
+
+	function blackList() {
+		$arr = array();
+
+		$db = new PdoDb();
+
+		$query =
+			'SELECT `ip` FROM `ips` WHERE `userid`=:userid;';
+
+		$badid = 'dcHw3LiNKzm2lFfeCWyz';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':userid', $badid, PDO::PARAM_STR);
+		$req->execute();
+
+		while (list($ip) = $req->fetch(PDO::FETCH_NUM)) {
+			$arr[] = $ip;
+		}
+
+		return $arr;
+	}
+
+	function call404() {
+		header("HTTP/1.0 404 Not Found");
+		header("HTTP/1.1 404 Not Found");
+		header("Status: 404 Not Found");
+		die();
+	}
+
+	function testBlackList() {
+		if (count(blackList())) {
+			call404();
+		}
+	}
+
+	testBlackList();
 ?>

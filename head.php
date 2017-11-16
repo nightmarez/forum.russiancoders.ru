@@ -1,9 +1,7 @@
-<!DOCTYPE html>
+<?php require_once('utils.php'); ?><!DOCTYPE html>
 <html lang="en">
 	<head>
 		<?php
-			require_once('utils.php');
-
 			if (!databaseTestAccess()) {
 				die('No Database Access');
 			}
