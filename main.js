@@ -124,12 +124,10 @@ $(document).ready(function() {
 
 				(function(self) {
 					$.get('/vote.php?id=' + id + '&userid=' + userid, function(result) {
-						//result = JSON.parse(result.trim());
-
 						if (result.answer === true) {
 							self.addClass('triangle-up-disabled');
-							self.parent('.triangle-down').addClass('triangle-down-disabled');
-							self.parent('.likes-counter').text(result.count);
+							self.parent().find('.triangle-down').addClass('triangle-down-disabled');
+							self.parent().find('.likes-counter').text(result.count);
 						} else {
 							console.log('Voting error: ' + result.reason);
 						}
