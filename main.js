@@ -119,17 +119,19 @@ $(document).ready(function() {
 				var id = parseInt(self.attr('data-id'));
 				var userid = self.attr('data-userid');
 
-				$.get('/vote.php?id=' + id + '&userid=' + userid, function(result) {
-					result = JSON.parse(result);
+				(function(self) {
+					$.get('/vote.php?id=' + id + '&userid=' + userid, function(result) {
+						result = JSON.parse(result);
 
-					if (result.ok === true) {
-						self.addClass('triangle-up-disabled');
-						self.parent().find('.triangle-down').addClass('triangle-down-disabled');
-						self.parent().find('.likes-counter').text(result.count);
-					} else {
-						console.log('Voting error: ' + result.reason);
-					}
-				});
+						if (result.ok === true) {
+							self.addClass('triangle-up-disabled');
+							self.parent('.triangle-down').addClass('triangle-down-disabled');
+							self.parent('.likes-counter').text(result.count);
+						} else {
+							console.log('Voting error: ' + result.reason);
+						}
+					});
+				})(self);
 			}
 		});
 	}
