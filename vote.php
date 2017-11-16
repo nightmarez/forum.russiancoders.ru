@@ -41,7 +41,7 @@
 		echo json_encode(
 			array(
 				'ok' => false,
-				'reason' => 'invalid user id'
+				'reason' => 'invalid post user id'
 			)
 		);
 		die();
@@ -67,7 +67,19 @@
 		die();
 	}
 
-	vote($id, $userid);
+	$curruserid = $_COOKIE['userid'];
+
+	if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $curruserid)) {
+		echo json_encode(
+			array(
+				'ok' => false,
+				'reason' => 'invalid user id'
+			)
+		);
+		die();
+	}
+
+	vote($id, $curruserid);
 
 	echo json_encode(
 		array(
