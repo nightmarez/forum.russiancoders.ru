@@ -395,6 +395,27 @@
 		$req->bindParam(':session', $session);
 		$req->bindParam(':userid', $userid);
 		$req->execute();
+
+		$ip = get_ip();
+
+		$query =
+			'SELECT * FROM `users` WHERE `userid`=:userid AND `ip`=:ip LIMIT 0, 1;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':userid', $userid);
+		$req->bindParam(':ip', $ip);
+		$req->execute();
+		$count = $req->fetchColumn();
+
+		if ($count == 0) {
+			$query =
+				'INSERT INTO `ips` (`userid`, `ip`) VALUES (:userid, :ip);';
+
+			$req = $db->prepare($query);
+			$req->bindParam(':userid', $userid);
+			$req->bindParam(':ip', $ip);
+			$req->execute();
+		}
 	}
 
 	function getUserLoginById($userid) {
