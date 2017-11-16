@@ -399,23 +399,26 @@
 		$ip = get_ip();
 
 		$query =
-			'SELECT COUNT(*) FROM `users` WHERE `userid`=:userid AND `ip`=:ip LIMIT 0, 1;';
+			'SELECT `id` FROM `users` WHERE `userid`=:userid AND `ip`=:ip LIMIT 0, 1;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':userid', $userid);
 		$req->bindParam(':ip', $ip);
 		$req->execute();
-		$count = $req->fetch();
 
-		if ($count == 0) {
-			$query =
-				'INSERT INTO `ips` (`userid`, `ip`) VALUES (:userid, :ip);';
-
-			$req = $db->prepare($query);
-			$req->bindParam(':userid', $userid);
-			$req->bindParam(':ip', $ip);
-			$req->execute();
+		while (list($id) = $req->fetch(PDO::FETCH_NUM)) {
+			return true;
 		}
+
+		$query =
+			'INSERT INTO `ips` (`userid`, `ip`) VALUES (:userid, :ip);';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':userid', $userid);
+		$req->bindParam(':ip', $ip);
+		$req->execute();
+
+		return true;
 	}
 
 	function getUserLoginById($userid) {
