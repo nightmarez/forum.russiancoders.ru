@@ -25,6 +25,26 @@
 
 	$id = intval($_GET['id']);
 
+	if (!isset($_GET['value'])) {
+		echo json_encode(
+			array(
+				'answer' => false,
+				'reason' => 'vote value not set'
+			)
+		);
+		die();
+	}
+
+	$value = intval($_GET['value']);
+
+	if ($value > 0) {
+		$value = 1;
+	} else if ($value < 0) {
+		$value = -1;
+	} else {
+		$value = 0;
+	}
+
 	if (!isset($_COOKIE['userid'])) {
 		echo json_encode(
 			array(
@@ -79,7 +99,7 @@
 		die();
 	}
 
-	vote($id, $curruserid);
+	vote($id, $curruserid, $value);
 
 	echo json_encode(
 		array(

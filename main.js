@@ -123,7 +123,7 @@ $(document).ready(function() {
 				var userid = self.attr('data-userid');
 
 				(function(self) {
-					$.get('/vote.php?id=' + id + '&userid=' + userid, function(result) {
+					$.get('/vote.php?id=' + id + '&userid=' + userid + '&value=1', function(result) {
 						if (result.answer === true) {
 							self.addClass('triangle-up-disabled');
 							self.parent().find('.triangle-down').addClass('triangle-down-disabled');
@@ -144,7 +144,7 @@ $(document).ready(function() {
 				var userid = self.attr('data-userid');
 
 				(function(self) {
-					$.get('/vote.php?id=' + id + '&userid=' + userid, function(result) {
+					$.get('/vote.php?id=' + id + '&userid=' + userid + '&value=-1', function(result) {
 						if (result.answer === true) {
 							self.addClass('triangle-down-disabled');
 							self.parent().find('.triangle-up').addClass('triangle-up-disabled');

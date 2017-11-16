@@ -682,8 +682,9 @@
 		return $count == 0;
 	}
 
-	function vote($postid, $userid, $readydb = NULL) {
+	function vote($postid, $userid, $value, $readydb = NULL) {
 		$postid = intval($postid);
+		$value = intval($value);
 
 		if (!isPostExists($postid, $readydb)) {
 			return false;
@@ -696,11 +697,12 @@
 		$db = is_null($readydb) ? new PdoDb() : $readydb;
 
 		$query =
-			'INSERT INTO `likes` (`userid`, `postid`, `value`) VALUES (:userid, :postid, 1);';
+			'INSERT INTO `likes` (`userid`, `postid`, `value`) VALUES (:userid, :postid, :value);';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':userid', $userid);
 		$req->bindParam(':postid', $postid);
+		$req->bindParam(':value', $value);
 		$req->execute();
 	}
 ?>
