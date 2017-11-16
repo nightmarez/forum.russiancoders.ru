@@ -817,7 +817,7 @@
 	}
 
 	function testBlackList() {
-		if (count(blackList())) {
+		if (in_array(get_ip(), blackList())) {
 			call404();
 		}
 	}
