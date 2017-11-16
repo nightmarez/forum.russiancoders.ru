@@ -125,7 +125,7 @@ $(document).ready(function() {
 
 				(function(self) {
 					$.get('/vote.php?id=' + id + '&userid=' + userid, function(result) {
-						result = JSON.parse(trim(result));
+						result = JSON.parse(result.trim());
 
 						if (result.answer === true) {
 							self.addClass('triangle-up-disabled');
