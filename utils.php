@@ -399,7 +399,7 @@
 		$ip = get_ip();
 
 		$query =
-			'SELECT * FROM `users` WHERE `userid`=:userid AND `ip`=:ip LIMIT 0, 1;';
+			'SELECT COUNT(*) FROM `users` WHERE `userid`=:userid AND `ip`=:ip LIMIT 0, 1;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':userid', $userid);
