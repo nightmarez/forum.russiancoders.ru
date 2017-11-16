@@ -135,6 +135,27 @@ $(document).ready(function() {
 				})(self);
 			}
 		});
+
+		$('.triangle-down').click(function() {
+			var self = $(this);
+
+			if (!self.hasClass('triangle-down-disabled')) {
+				var id = parseInt(self.attr('data-id'));
+				var userid = self.attr('data-userid');
+
+				(function(self) {
+					$.get('/vote.php?id=' + id + '&userid=' + userid, function(result) {
+						if (result.answer === true) {
+							self.addClass('triangle-down-disabled');
+							self.parent().find('.triangle-up').addClass('triangle-up-disabled');
+							self.parent().find('.likes-counter').text(result.count);
+						} else {
+							console.log('Voting error: ' + result.reason);
+						}
+					});
+				})(self);
+			}
+		});
 	}
 });
 
