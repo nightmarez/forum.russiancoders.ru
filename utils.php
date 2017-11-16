@@ -205,7 +205,7 @@
 
 		do {
 			$userId = generateSymbols(20);
-		} while (isUserIdExists($userId) || isUidExists($userId));
+		} while (isUserIdExists($userId) /* || isUidExists($userId) */);
 
 		return $userId;
 	}
