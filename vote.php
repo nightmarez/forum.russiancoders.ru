@@ -6,7 +6,7 @@
 	if (!isLogin()) {
 		echo json_encode(
 			array(
-				'ok' => false,
+				'answer' => false,
 				'reason' => 'user not login'
 			)
 		);
@@ -16,7 +16,7 @@
 	if (!isset($_GET['id'])) {
 		echo json_encode(
 			array(
-				'ok' => false,
+				'answer' => false,
 				'reason' => 'not set post id'
 			)
 		);
@@ -28,7 +28,7 @@
 	if (!isset($_COOKIE['userid'])) {
 		echo json_encode(
 			array(
-				'ok' => false,
+				'answer' => false,
 				'reason' => 'not set user id'
 			)
 		);
@@ -40,7 +40,7 @@
 	if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $userid)) {
 		echo json_encode(
 			array(
-				'ok' => false,
+				'answer' => false,
 				'reason' => 'invalid post user id'
 			)
 		);
@@ -50,7 +50,7 @@
 	if (!isPostExists($id)) {
 		echo json_encode(
 			array(
-				'ok' => false,
+				'answer' => false,
 				'reason' => 'post not exists'
 			)
 		);
@@ -60,7 +60,7 @@
 	if (!canVote($id, $userid)) {
 		echo json_encode(
 			array(
-				'ok' => false,
+				'answer' => false,
 				'reason' => 'user cant vote'
 			)
 		);
@@ -72,7 +72,7 @@
 	if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $curruserid)) {
 		echo json_encode(
 			array(
-				'ok' => false,
+				'answer' => false,
 				'reason' => 'invalid user id'
 			)
 		);
@@ -83,7 +83,7 @@
 
 	echo json_encode(
 		array(
-			'ok' => true,
+			'answer' => true,
 			'count' => calcPostVotes($id)
 		)
 	);

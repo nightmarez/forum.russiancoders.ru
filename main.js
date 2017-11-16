@@ -123,7 +123,7 @@ $(document).ready(function() {
 					$.get('/vote.php?id=' + id + '&userid=' + userid, function(result) {
 						result = JSON.parse(trim(result));
 
-						if (result.ok === true) {
+						if (result.answer === true) {
 							self.addClass('triangle-up-disabled');
 							self.parent('.triangle-down').addClass('triangle-down-disabled');
 							self.parent('.likes-counter').text(result.count);

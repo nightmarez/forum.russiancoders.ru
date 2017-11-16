@@ -674,7 +674,7 @@
 			'SELECT COUNT(*) FROM `likes` WHERE `userid` = :userid AND `postid` = :postid;';
 
 		$req = $db->prepare($query);
-		$req->bindParam(':userid', $userid);
+		$req->bindParam(':userid', $currentuserid);
 		$req->bindParam(':postid', $postid);
 		$req->execute();
 		$count = $req->fetchColumn();
