@@ -405,7 +405,7 @@
 		$req->bindParam(':userid', $userid);
 		$req->bindParam(':ip', $ip);
 		$req->execute();
-		$count = $req->fetchColumn();
+		$count = $req->fetch();
 
 		if ($count == 0) {
 			$query =
