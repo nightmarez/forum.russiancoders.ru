@@ -237,7 +237,7 @@ table.topics-posts td:nth-child(3) {
 	height: 0;
 	border-left: 7px solid transparent;
 	border-right: 7px solid transparent;
-	border-bottom: 14px solid gray;
+	border-bottom: 14px solid transparent;
 	cursor: pointer;
 	display: block;
     float: left;
@@ -249,7 +249,7 @@ table.topics-posts td:nth-child(3) {
 	height: 0;
 	border-left: 7px solid transparent;
 	border-right: 7px solid transparent;
-	border-top: 14px solid gray;
+	border-top: 14px solid transparent;
 	cursor: pointer;
 	display: block;
     float: left;
