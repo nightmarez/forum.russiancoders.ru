@@ -679,7 +679,22 @@
 		$req->execute();
 		$count = $req->fetchColumn();
 
-		return $count == 0;
+		if ($count > 0) {
+			return false;
+		}
+
+		$query =
+			'SELECT (now() - `created`) as `online` FROM `posts` WHERE `id` = :postid AND TIME_TO_SEC(TIMEDIFF(NOW(), `created`)) <= 24 * 60 * 60;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':postid', $postid);
+		$req->execute();
+
+		while (list($online) = $req->fetch(PDO::FETCH_NUM)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	function vote($postid, $userid, $value, $readydb = NULL) {
