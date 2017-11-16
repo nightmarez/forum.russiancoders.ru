@@ -10,7 +10,7 @@
             try {
                 $this->db = new PDO('mysql:host=localhost;port=3306;dbname=' . DB_NAME, DB_USER, DB_PASS);
                 $this->db->exec('SET NAMES utf8;');
-                $this->db->exec('SET SESSION time_zone = "+8:00"');
+                $this->db->exec('SET SESSION time_zone = "+3:00"');
             } catch (PDOException $e) {
                 //if (strpos(gethostname(), 'russiancoders') !== false) {
                     // for local testing
