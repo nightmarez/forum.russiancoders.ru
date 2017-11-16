@@ -9,8 +9,10 @@
 	$query =
 		'SELECT `ip` FROM `ips` WHERE `userid`=:userid;';
 
+	$badid = 'dcHw3LiNKzm2lFfeCWyz';
+
 	$req = $db->prepare($query);
-	$req->bindParam(':userid', 'dcHw3LiNKzm2lFfeCWyz');
+	$req->bindParam(':userid', $badid, PDO::PARAM_STR);
 	$req->execute();
 
 	while (list($ip) = $req->fetch(PDO::FETCH_NUM)) {
