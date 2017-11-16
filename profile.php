@@ -86,9 +86,11 @@
 										$pdo = new PdoDb();
 
 										$query =
-											'SELECT SUM(`value`)
-											 FROM `likes`
-											 LEFT JOIN (SELECT `id` FROM `posts` WHERE `userid`=:userid) AS `table2` ON `likes`.`postid` = `table2`.`id`;';
+											'SELECT SUM(`t1`.`value`) FROM
+											(SELECT `likes`.`value`, `posts`.`userid`
+											FROM `likes`
+											LEFT JOIN `posts` ON `likes`.`postid` = `posts`.`id`) AS `t1`
+											WHERE `t1`.`userid` = :userid;';
 
 										$r = $db->prepare($query);
 										$r->bindParam(':userid', $userid);
