@@ -147,6 +147,35 @@
 		return $count >= 1;
 	}
 
+	function isUidExists($uid) {
+		if (preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $uid)) {
+			return true;
+		}
+
+		$db = new PdoDb();
+
+		$query =
+			'SELECT * FROM `uids` WHERE `uid`=:uid LIMIT 0, 1;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':uid', $uid);
+		$req->execute();
+		$count = $req->fetchColumn();
+		
+		if ($count >= 1) {
+			return true;
+		}
+
+		$query =
+			'INSERT INTO `uids` (`uid`) VALUES (:uid);';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':uid', $uid);
+		$req->execute();
+
+		return false;
+	}
+
 	function generateSymbols($count) {
 		$symbols = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 		$salt = '';
@@ -176,7 +205,7 @@
 
 		do {
 			$userId = generateSymbols(20);
-		} while (isUserIdExists($userId));
+		} while (isUserIdExists($userId) || isUidExists($userId));
 
 		return $userId;
 	}
