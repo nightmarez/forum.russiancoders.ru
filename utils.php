@@ -654,6 +654,20 @@
 			return false;
 		}
 
+		if (!isset($_COOKIE['userid'])) {
+			return false;
+		}
+
+		$currentuserid = $_COOKIE['userid'];
+
+		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $currentuserid)) {
+			return false;
+		}
+
+		if ($userid == $currentuserid) {
+			return false;
+		}
+
 		$db = is_null($readydb) ? new PdoDb() : $readydb;
 
 		$query =
