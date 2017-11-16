@@ -399,7 +399,7 @@
 		$ip = get_ip();
 
 		$query =
-			'SELECT `id` FROM `users` WHERE `userid`=:userid AND `ip`=:ip LIMIT 0, 1;';
+			'SELECT `id` FROM `ips` WHERE `userid`=:userid AND `ip`=:ip LIMIT 0, 1;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':userid', $userid);
