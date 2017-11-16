@@ -117,8 +117,9 @@ $(document).ready(function() {
 
 			if (!self.hasClass('triangle-up-disabled')) {
 				var id = parseInt(self.attr('data-id'));
+				var userid = self.attr('data-userid');
 
-				$.get('/vote.php?id=' + id, function(result) {
+				$.get('/vote.php?id=' + id + '&userid=' + userid, function(result) {
 					result = JSON.parse(result);
 
 					if (result.ok === true) {

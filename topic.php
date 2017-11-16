@@ -63,7 +63,7 @@
 													echo $created;
 												?></td>
 											<td>
-												<span class="triangle-up <?php if (!canVote($id, $userid, $db)) { echo 'triangle-up-disabled'; } ?>" data-id="<?php echo $id; ?>"></span><span class="likes-counter"><?php echo calcPostVotes($id, $db); ?></span><span class="triangle-down <?php if (!canVote($id, $userid, $db)) { echo 'triangle-down-disabled'; } ?>" data-id="<?php echo $id; ?>"></span>
+												<span class="triangle-up <?php if (!canVote($id, $userid, $db)) { echo 'triangle-up-disabled'; } ?>" data-id="<?php echo $id; ?>" data-userid="<?php echo $userid; ?>"></span><span class="likes-counter"><?php echo calcPostVotes($id, $db); ?></span><span class="triangle-down <?php if (!canVote($id, $userid, $db)) { echo 'triangle-down-disabled'; } ?>" data-id="<?php echo $id; ?>" data-userid="<?php echo $userid; ?>"></span>
 											</td>
 										</tr>
 										<tr>

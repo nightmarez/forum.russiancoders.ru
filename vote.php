@@ -35,7 +35,7 @@
 		die();
 	}
 
-	$userid = $_COOKIE['userid'];
+	$userid = $_GET['userid'];
 
 	if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $userid)) {
 		echo json_encode(
