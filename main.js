@@ -88,7 +88,6 @@ $(document).ready(function() {
 		setTimeout(function() {
 			$.get('https://forum.russiancoders.ru/ping.php?uniq=' + uuidv4(), function(data) {
 				//data = JSON.parse(data);
-
 				//if (data.ok) {
 					ping();
 				//}
