@@ -11,9 +11,13 @@ function uuidv4() {
 	});
 }
 
-var trim = function(string) {
-	return string.replace(/(^\s+)|(\s+$)/g, "");
-};
+if (!String.prototype.trim) {
+	(function() {
+		String.prototype.trim = function() {
+			return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+		};
+	})();
+}
 
 var decToHex = function(dec) {
 	var result = parseInt(dec.toString()).toString(16);
