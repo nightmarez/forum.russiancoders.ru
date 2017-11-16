@@ -684,7 +684,7 @@
 		$db = is_null($readydb) ? new PdoDb() : $readydb;
 
 		$query =
-			'INSERT INTO `likes` (`userid`, `postid`) VALUES (:userid, :postid);';
+			'INSERT INTO `likes` (`userid`, `postid`, `value`) VALUES (:userid, :postid, 1);';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':userid', $userid);
