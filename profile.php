@@ -77,6 +77,27 @@
 									?>
 								</td>
 							</tr>
+							<tr>
+								<td>
+									Рейтинг:
+								</td>
+								<td>
+									<?php
+										$pdo = new PdoDb();
+
+										$query =
+											'SELECT SUM(`value`)
+											 FROM `likes`
+											 LEFT JOIN (SELECT `id` FROM `posts` WHERE `userid`=:userid) AS `table2` ON `likes`.`id` = `table2`.`id`;';
+
+										$r = $db->prepare($query);
+										$r->bindParam(':userid', $userid);
+										$r->execute();
+										$sum = $r->fetchColumn();
+										echo intval($sum);
+									?>
+								</td>
+							</tr>
 						<?php
 								break;
 							}
