@@ -109,7 +109,7 @@
 										$query =
 											'SELECT SUM(`value`)
 											 FROM `likes`
-											 LEFT JOIN (SELECT `id` FROM `posts` WHERE `userid`=:userid) AS `table2` ON `likes`.`id` = `table2`.`id`;';
+											 LEFT JOIN (SELECT `id` FROM `posts` WHERE `userid`=:userid) AS `table2` ON `likes`.`postid` = `table2`.`id`;';
 
 										$r = $db->prepare($query);
 										$r->bindParam(':userid', $userid);
