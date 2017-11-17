@@ -46,7 +46,7 @@
 						?>
 							<tr>
 								<td colspan="2">
-									<img style="margin-right: 15px;" src="<?php echo 'https://www.gravatar.com/avatar/' . md5(strtolower(trim(utf8_decode($mail)))) . '.jpg?s=200';?>" align="left">
+									<img style="margin-right: 15px;" src="<?php echo 'https://www.gravatar.com/avatar/' . md5(strtolower(trim(mb_convert_encoding($mail, 'ISO-8859-1','utf-8')))) . '.jpg?s=200';?>" align="left">
 									<h3>
 										<?php echo htmlspecialchars($login); ?>
 									<h3>
