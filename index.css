@@ -91,7 +91,12 @@ table.topic-posts td:nth-child(2) {
 }
 
 table.topic-posts td:nth-child(3) {
-	text-align: left;
+	text-align: right;
+}
+
+table.topic-posts td:nth-child(4) {
+	text-align: center;
+	width: 80px;
 }
 
 .tracker-posts {
