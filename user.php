@@ -39,11 +39,14 @@
 							$req->bindParam(':userid', $userid);
 							$req->execute();
 
-							while (list($login, $last) = $req->fetch(PDO::FETCH_NUM)) {
+							while (list($login, $last, $mail) = $req->fetch(PDO::FETCH_NUM)) {
 						?>
 							<tr>
 								<td colspan="2">
-									<h3><?php echo htmlspecialchars($login); ?><h3>
+									<img src="<?php echo 'https://www.gravatar.com/avatar/' . md5(strtolower(trim($mail))) . '?s=200';?>" align="left">
+									<h3>
+										<?php echo htmlspecialchars($login); ?>
+									<h3>
 								</td>
 							</tr>
 							<tr>
