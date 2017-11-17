@@ -28,6 +28,25 @@
 							<tbody>
 								<tr>
 									<td>
+												<?php
+													$pdo = new PdoDb();
+
+													$query =
+														'SELECT MD5(LOWER(TRIM(`mail`))) FROM `users` WHERE `userid`=:userid LIMIT 0, 1;';
+
+													$r = $pdo->prepare($query);
+													$r->bindParam(':userid', $userid);
+													$r->execute();
+
+													while (list($mail) = $r->fetch(PDO::FETCH_NUM)) {
+												?>
+													<img style="margin-right: 5px;" src="<?php echo 'https://secure.gravatar.com/avatar/' . $mail . '.jpg?s=25';?>">
+												<?php
+														break;
+													}
+												?>
+											</td>
+									<td>
 										<?php
 											$pdo = new PdoDb();
 
@@ -64,7 +83,7 @@
 										?></td>
 								</tr>
 								<tr>
-									<td colspan="3"><?php echo filterMessage($content, $userid); ?></td>
+									<td colspan="4"><?php echo filterMessage($content, $userid); ?></td>
 								</tr>
 							</tbody>
 						</table>
