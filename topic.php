@@ -49,19 +49,20 @@
 										<tr>
 											<td>
 												<?php
-													$db = new PdoDb();
+													$pdo = new PdoDb();
 
 													$query =
 														'SELECT MD5(LOWER(TRIM(`mail`))) FROM `users` WHERE `userid`=:userid LIMIT 0, 1;';
 
-													$req = $db->prepare($query);
+													$req = $pdo->prepare($query);
 													$req->bindParam(':userid', $userid);
 													$req->execute();
 
 													while (list($mail) = $req->fetch(PDO::FETCH_NUM)) {
 												?>
-													<img style="margin-right: 5px;" src="<?php echo 'https://secure.gravatar.com/avatar/' . $mail . '.jpg?s=32';?>" align="left">
+													<img style="margin-right: 5px;" src="<?php echo 'https://secure.gravatar.com/avatar/' . $mail . '.jpg?s=16';?>" align="left">
 												<?php
+														break;
 													}
 												?>
 											</td>
