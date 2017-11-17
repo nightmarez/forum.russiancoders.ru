@@ -47,7 +47,24 @@
 								<table class="table topic-posts">
 									<tbody>
 										<tr>
-											<td>#</td>
+											<td>
+												<?php
+													$db = new PdoDb();
+
+													$query =
+														'SELECT MD5(LOWER(TRIM(`mail`))) FROM `users` WHERE `userid`=:userid LIMIT 0, 1;';
+
+													$req = $db->prepare($query);
+													$req->bindParam(':userid', $userid);
+													$req->execute();
+
+													while (list($mail) = $req->fetch(PDO::FETCH_NUM)) {
+												?>
+													<img style="margin-right: 5px;" src="<?php echo 'https://secure.gravatar.com/avatar/' . $mail . '.jpg?s=32';?>" align="left">
+												<?php
+													}
+												?>
+											</td>
 											<td><?php
 													$pdo = new PdoDb();
 
