@@ -22,15 +22,16 @@
 						$db = new PdoDb();
 
 						$query =
-							'SELECT `userid`, `login` FROM `users` ORDER BY `id` LIMIT 0, 1000;';
+							'SELECT `userid`, `login`, MD5(LOWER(TRIM(`mail`))) FROM `users` ORDER BY `id` LIMIT 0, 1000;';
 
 						$req = $db->prepare($query);
 						$req->execute();
 
-						while (list($userid, $login) = $req->fetch(PDO::FETCH_NUM)) {
+						while (list($userid, $login, $mail) = $req->fetch(PDO::FETCH_NUM)) {
 							?>
 								<tr>
 									<td>
+										<img style="margin-right: 15px;" src="<?php echo 'https://secure.gravatar.com/avatar/' . $mail . '.jpg?s=25';?>" align="left">
 										<a href="/user/<?php echo htmlspecialchars($userid); ?>/"><?php echo htmlspecialchars($login); ?></a>
 									</td>
 								</tr>
