@@ -54,13 +54,13 @@
 													$query =
 														'SELECT MD5(LOWER(TRIM(`mail`))) FROM `users` WHERE `userid`=:userid LIMIT 0, 1;';
 
-													$req = $pdo->prepare($query);
-													$req->bindParam(':userid', $userid);
-													$req->execute();
+													$r = $pdo->prepare($query);
+													$r->bindParam(':userid', $userid);
+													$r->execute();
 
-													while (list($mail) = $req->fetch(PDO::FETCH_NUM)) {
+													while (list($mail) = $r->fetch(PDO::FETCH_NUM)) {
 												?>
-													<img style="margin-right: 5px;" src="<?php echo 'https://secure.gravatar.com/avatar/' . $mail . '.jpg?s=16';?>" align="left">
+													<img style="margin-right: 5px;" src="<?php echo 'https://secure.gravatar.com/avatar/' . $mail . '.jpg?s=25';?>">
 												<?php
 														break;
 													}
