@@ -33,7 +33,7 @@
 							?>
 								<tr>
 									<td>
-										<img style="margin-right: 15px;" src="<?php echo 'https://secure.gravatar.com/avatar/' . $mail . '.jpg?s=200';?>" align="left">
+										<img style="margin-right: 15px;" src="<?php echo 'https://secure.gravatar.com/avatar/' . $mail . '.jpg?s=25';?>" align="left">
 										<a href="/user/<?php echo htmlspecialchars($userid); ?>/" style="float: left;"><?php echo htmlspecialchars($login); ?></a><?php if (intval($online <= 80 /* seconds */)) { ?><div class="online-indicator"></div><?php } ?>
 									</td>
 									<td>
