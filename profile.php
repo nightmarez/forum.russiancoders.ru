@@ -36,7 +36,7 @@
 							$db = new PdoDb();
 
 							$query =
-								'SELECT `login`, `last` FROM `users` WHERE `userid`=:userid LIMIT 0, 1;';
+								'SELECT `login`, `last`, MD5(LOWER(TRIM(`mail`))) FROM `users` WHERE `userid`=:userid LIMIT 0, 1;';
 
 							$req = $db->prepare($query);
 							$req->bindParam(':userid', $userid);
@@ -46,7 +46,7 @@
 						?>
 							<tr>
 								<td colspan="2">
-									<img style="margin-right: 15px;" src="<?php echo 'https://secure.gravatar.com/avatar/' . md5(strtolower(trim($mail))) . '.jpg?s=200';?>" align="left">
+									<img style="margin-right: 15px;" src="<?php echo 'https://secure.gravatar.com/avatar/' . $mail . '.jpg?s=200';?>" align="left">
 									<h3>
 										<?php echo htmlspecialchars($login); ?>
 									<h3>
