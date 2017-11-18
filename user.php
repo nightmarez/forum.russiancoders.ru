@@ -124,6 +124,13 @@
 									?>
 								</td>
 							</tr>
+							<tr>
+								<td colspan="2">
+									<form method="GET" action="/sendmessage/<?php echo $userid;?>/">
+										<input type="submit" class="btn btn-primary" value="Написать сообщение">
+									</form>
+								</td>
+							</tr>
 						<?php
 								break;
 							}
