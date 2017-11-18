@@ -506,6 +506,8 @@
 		$text = preg_replace('/(Макаров Михаил)/i', 'NightmareZ', $text);
 		$text = preg_replace('/(Макаров\s*Михаил)/i', 'NightmareZ', $text);
 
+		$text = preg_replace('/(aik)/i', 'Антон Литвинов', $text);
+
 		// $text = preg_replace('/^\s*([>|&gt;]+)\s*(.*)[\s|\r|\n]*<br>/i', '<p style="color: darkgray;">${1} ${2}</p>', $text);
 
 		//$text = str_replace(':)))))', '<img src="https://forum.russiancoders.ru/icons/smile.gif" alt="улыбка">', $text);
