@@ -3,10 +3,6 @@
 
 <?php
 	$topicid = htmlspecialchars($_GET['topicid']);
-
-	if ($topicid == 'inXDm40YNWn1fenYwSoZ') {
-		call404();
-	}
 ?>
 
 <div class="panel panel-primary" style="margin: 20px;">
