@@ -289,11 +289,13 @@
 			VALUES 
 				(:topicid, :userid, :content, :ip);';
 
+		$ip = get_ip();
+
 		$req = $db->prepare($query);
 		$req->bindParam(':topicid', $topicid, PDO::PARAM_STR);
 		$req->bindParam(':userid', $userid, PDO::PARAM_STR);
 		$req->bindParam(':content', $content, PDO::PARAM_STR);
-		$req->bindParam(':ip', get_ip(), PDO::PARAM_STR);
+		$req->bindParam(':ip', $ip, PDO::PARAM_STR);
 		$req->execute();
 
 		$query = 
