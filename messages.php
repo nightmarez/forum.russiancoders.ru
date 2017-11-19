@@ -1,6 +1,20 @@
 <?php include_once('head.php'); ?>
 <?php include_once('nav.php'); ?>
 
+<script type="text/javascript" defer>
+	$(document).ready(function() {
+		$('button').each(function(button) {
+			button = $(button);
+
+			(function(button, id) {
+				button.click(function() {
+					location.href = '/sendmessage/' + id + '/';
+				});
+			})(button, button.attr('data-id'));
+		});
+	});
+</script>
+
 <div class="panel panel-primary" style="margin: 20px;">
 	<div class="panel-heading">
 		<h3 class="panel-title">Сообщения</h3>
@@ -42,9 +56,7 @@
 						</tr>
 						<tr>
 							<td colspan="4">
-								<form method="GET" action="/sendmessage/<?php echo $fromid; ?>/">
-									<input type="submit" class="btn btn-primary" value="Ответить">
-								</form>
+								<input type="button" class="btn btn-primary" value="Ответить" data-id="<?php echo $fromid; ?>">
 							</td>
 						</tr>
 					</tbody>
