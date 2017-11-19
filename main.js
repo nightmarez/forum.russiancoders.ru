@@ -196,6 +196,20 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
+	if (location.href.indexOf('/messages/') !== -1) {
+		$('button').each(function(button) {
+			button = $(button);
+
+			(function(button, id) {
+				button.click(function() {
+					location.href = '/sendmessage/' + id + '/';
+				});
+			})(button, button.attr('data-id'));
+		});
+	}
+});
+
+$(document).ready(function() {
 	$('#btn-search').click(function() {
 		$(this).parent().parent().find('form').submit();
 	});
