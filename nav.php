@@ -11,7 +11,7 @@
 
 			<?php if (isLogin()) { ?>
 				<li><a href="/profile/">Профиль</a></li>
-				<li><a href="/messages/">Сообщения</a><?php $cu = getCountUnviewedMessages(); if ($cu > 0) { ?>&nbsp;<p style="color red;">( <?php echo $cu; ?> )</p><?php } ?></li>
+				<li><a href="/messages/">Сообщения</a><?php $cu = getCountUnviewedMessages(); echo $cu; if ($cu > 0) { ?>&nbsp;<p style="color red;">( <?php echo $cu; ?> )</p><?php } ?></li>
 				<li><a href="/chat/">Чат</a></li>
 			<?php } ?>
 
