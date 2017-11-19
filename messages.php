@@ -40,6 +40,13 @@
 						<tr>
 							<td colspan="4"><?php echo filterMessage($text, $userid); ?></td>
 						</tr>
+						<tr>
+							<td colspan="4">
+								<form method="GET" action="/sendmessage/<?php echo $fromid; ?>/">
+									<input type="submit" class="btn btn-primary" value="Ответить">
+								</form>
+							</td>
+						</tr>
 					</tbody>
 				</table>
 			<?php
