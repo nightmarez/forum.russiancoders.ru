@@ -324,7 +324,7 @@
 		$query =
 			'SELECT COUNT(*)
 			FROM `messages`
-			WHERE `toid` = :userid;';
+			WHERE `toid` = :userid AND `viewed` = 0;';
 
 		$userid = $_COOKIE['userid'];
 
