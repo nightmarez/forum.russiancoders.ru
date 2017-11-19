@@ -314,8 +314,26 @@
 		$userid = $_COOKIE['userid'];
 
 		$req = $db->prepare($query);
-		$req->bindParam(':toid', $userid, PDO::PARAM_STR);
+		$req->bindParam(':userid', $userid, PDO::PARAM_STR);
 		$req->execute();
+	}
+
+	function getCountUnviewedMessages($readydb = NULL) {
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		$query =
+			'SELECT COUNT(*)
+			FROM `messages`
+			WHERE `toid` = :userid;';
+
+		$userid = $_COOKIE['userid'];
+
+		$req = $db->prepare($query);
+		$req->bindParam(':userid', $userid);
+		$req->execute();
+		$count = $req->fetchColumn();
+
+		return $count;
 	}
 
 	function addPost($userid, $topicid, $content) {
