@@ -13,7 +13,7 @@
 				<li><a href="/profile/">Профиль</a></li>
 				<li><a href="/messages/">Сообщения</a></li>
 				<li><a href="/chat/">Чат</a></li>
-			<? } ?>
+			<?php } ?>
 
 			<li><a href="/gallery/">Галерея</a></li>
 			<li><a href="/donate/">Донат</a></li>
