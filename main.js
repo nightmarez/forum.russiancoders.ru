@@ -197,7 +197,7 @@ $(document).ready(function() {
 
 $(document).ready(function() {
 	if (location.href.indexOf('/messages/') !== -1) {
-		$('button').each(function(button) {
+		$('input[type=button]').each(function(button) {
 			button = $(button);
 
 			(function(button, id) {
