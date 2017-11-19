@@ -289,9 +289,9 @@
 
 		$query = 
 			'INSERT INTO `messages` 
-				(`fromid`, `toid`, `text`, `last`, `ip`) 
+				(`fromid`, `toid`, `text`, `last`, `ip`, `viewed`) 
 			VALUES 
-				(:fromid, :toid, :content, NOW(), :ip);';
+				(:fromid, :toid, :content, NOW(), :ip, 0);';
 
 		$ip = get_ip();
 
@@ -300,6 +300,21 @@
 		$req->bindParam(':toid', $toid, PDO::PARAM_STR);
 		$req->bindParam(':content', $content, PDO::PARAM_STR);
 		$req->bindParam(':ip', $ip, PDO::PARAM_STR);
+		$req->execute();
+	}
+
+	function checkPrivateMessagesAsViewed($readydb = NULL) {
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		$query = 
+			'UPDATE `messages` 
+			SET `viewed` = 1
+			WHERE `toid`=:userid;';
+
+		$userid = $_COOKIE['userid'];
+
+		$req = $db->prepare($query);
+		$req->bindParam(':toid', $userid, PDO::PARAM_STR);
 		$req->execute();
 	}
 

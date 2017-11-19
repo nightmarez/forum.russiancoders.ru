@@ -49,4 +49,6 @@
 	</div>
 </div>
 
+<?php checkPrivateMessagesAsViewed(); ?>
+
 <?php include_once('footer.php'); ?>
