@@ -5,13 +5,20 @@
 	$targetid = false;
 	$targetLogin = '???';
 
-	if (isset($_GET['userid'])) {
+	if (isLogin() && isset($_GET['userid'])) {
 		$id = $_GET['userid'];
 
 		if (isUserIdExists($id)) {
 			$targetid = $id;
 			$targetLogin = getUserLoginById($targetid);
 		}
+	}
+
+	$userid = $_COOKIE['userid'];
+
+	if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $userid)) {
+		$targetid = false;
+		$targetLogin = '???';
 	}
 ?>
 
@@ -22,19 +29,20 @@
 
 	<div class="panel-body">
 		<div class="table-responsive">
-			<table class="table">
-				<tbody>
-					<tr>
-						<td>
-							<?php if ($targetid === false) { ?>
-								Такого пользователя не существует.
-							<?php } else { ?>
-								Not Implemented Yet
-							<?php } ?>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+			<?php if ($targetid === false) { ?>
+				Такого пользователя не существует.
+			<?php } else { ?>
+				<form method="POST" action="/dosendmessage.php">
+					<input type="hidden" name="fromid" value="<?php echo $userid; ?>">
+					<input type="hidden" name="toid" value="<?php echo $targetid; ?>">
+					<textarea name="content" style="min-width: 800px; min-height: 300px; width: 100%; margin-bottom: 5px;"></textarea>
+					<div>
+						<div style="float: left;">
+							<input type="submit" class="btn btn-primary" value="Отправить">
+						</div>
+					</div>
+				</form>
+			<?php } ?>
 		</div>
 	</div>
 </div>

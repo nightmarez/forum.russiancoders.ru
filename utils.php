@@ -276,6 +276,33 @@
 		die();
 	}
 
+	function sendPrivateMessage($fromid, $toid, $content, $readydb = NULL) {
+		if (!isUserIdExists($fromid)) {
+			return false;
+		}
+
+		if (!isUserIdExists($toid)) {
+			return false;
+		}
+
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		$query = 
+			'INSERT INTO `messages` 
+				(`fromid`, `toid`, `text`, `last`, `ip`) 
+			VALUES 
+				(:fromid, :toid, :content, NOW(), :ip);';
+
+		$ip = get_ip();
+
+		$req = $db->prepare($query);
+		$req->bindParam(':fromid', $fromid, PDO::PARAM_STR);
+		$req->bindParam(':toid', $toid, PDO::PARAM_STR);
+		$req->bindParam(':content', $content, PDO::PARAM_STR);
+		$req->bindParam(':ip', $ip, PDO::PARAM_STR);
+		$req->execute();
+	}
+
 	function addPost($userid, $topicid, $content) {
 		if (!isTopicExists($topicid)) {
 			return false;
@@ -831,5 +858,5 @@
 		}
 	}
 
-	testBlackList();
+	// testBlackList();
 ?>
