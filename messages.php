@@ -42,7 +42,7 @@
 						</tr>
 						<tr>
 							<td colspan="4">
-								<form method="GET" action="/sendmessage?userid=<?php echo $fromid; ?>">
+								<form method="GET" action="/sendmessage.php?userid=<?php echo $fromid; ?>">
 									<input type="submit" class="btn btn-primary" value="Ответить">
 								</form>
 							</td>
