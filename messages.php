@@ -32,8 +32,8 @@
 				<table class="table topic-posts">
 					<tbody>
 						<tr>
-							<td>From: <?php echo getUserLoginById($fromid); ?></td>
-							<td>To: <?php echo getUserLoginById($toid); ?></td>
+							<td style="width: 200px;">From: <?php echo getUserLoginById($fromid); ?></td>
+							<td style="width: 200px;">To: <?php echo getUserLoginById($toid); ?></td>
 							<td><?php echo $last; ?></td>
 							<td>&nbsp;</td>
 						</tr>
