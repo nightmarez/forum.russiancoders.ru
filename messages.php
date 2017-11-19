@@ -6,17 +6,45 @@
 		<h3 class="panel-title">Сообщения</h3>
 	</div>
 
+	<?php
+		if (!isLogin()) {
+			die();
+		}
+
+		$userid = $_COOKIE['userid'];
+		$db = new PdoDb();
+
+		$query =
+			'SELECT `fromid`, `toid`, `text`, `last` 
+			FROM `messages`
+			WHERE `fromid`=:userid OR `toid`=:userid ORDER BY `id` ASC;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':userid', $userid);
+		$req->execute();
+	?>
+
 	<div class="panel-body">
 		<div class="table-responsive">
-			<table class="table">
-				<tbody>
-					<tr>
-						<td>
-							Not Implemented Yet
-						</td>
-					</tr>
-				</tbody>
-			</table>
+			<?php
+				while (list($fromid, $toid, $text, $last) = $req->fetch(PDO::FETCH_NUM)) {
+			?>
+				<table class="table topic-posts">
+					<tbody>
+						<tr>
+							<td>From: <?php getUserLoginById($fromid); ?></td>
+							<td>To: <?php getUserLoginById($toid); ?></td>
+							<td><?php echo $last; ?></td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td colspan="4"><?php echo filterMessage($text, $userid); ?></td>
+						</tr>
+					</tbody>
+				</table>
+			<?php
+				}
+			?>
 		</div>
 	</div>
 </div>

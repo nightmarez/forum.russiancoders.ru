@@ -8,9 +8,13 @@
 			<li><a href="/faq/">ЧаВо</a></li>
 			<li><a href="/users/">Пользователи</a></li>
 			<li><a href="/online/">Онлайн</a></li>
-			<li><a href="/profile/">Профиль</a></li>
-			<li><a href="/messages/">Сообщения</a></li>
-			<li><a href="/chat/">Чат</a></li>
+
+			<?php if (isLogin()) { ?>
+				<li><a href="/profile/">Профиль</a></li>
+				<li><a href="/messages/">Сообщения</a></li>
+				<li><a href="/chat/">Чат</a></li>
+			<? } ?>
+
 			<li><a href="/gallery/">Галерея</a></li>
 			<li><a href="/donate/">Донат</a></li>
 
