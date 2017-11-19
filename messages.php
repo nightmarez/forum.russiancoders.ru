@@ -42,8 +42,7 @@
 						</tr>
 						<tr>
 							<td colspan="4">
-								<form method="GET" action="/sendmessage.php">
-									<input type="hidden" name="userid" value="<?php echo $fromid; ?>">
+								<form method="GET" action="/sendmessage/<?php echo $fromid; ?>/">
 									<input type="submit" class="btn btn-primary" value="Ответить">
 								</form>
 							</td>
