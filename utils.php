@@ -556,6 +556,19 @@
 		$text = preg_replace('#\[b\](.*)\[\/b\]#iUs', '<b>${1}</b>', $text);
 		$text = preg_replace('#\[i\](.*)\[\/i\]#iUs', '<i>${1}</i>', $text);
 		$text = preg_replace('#\[s\](.*)\[\/s\]#iUs', '<s>${1}</s>', $text);
+		$text = preg_replace('#\[u\](.*)\[\/u\]#iUs', '<u>${1}</u>', $text);
+		$text = preg_replace('#\[p\](.*)\[\/p\]#iUs', '<p>${1}</p>', $text);
+
+		$text = preg_replace('#\[h1\](.*)\[\/h1\]#iUs', '<h1>${1}</h1>', $text);
+		$text = preg_replace('#\[h2\](.*)\[\/h2\]#iUs', '<h2>${1}</h2>', $text);
+		$text = preg_replace('#\[h3\](.*)\[\/h3\]#iUs', '<h3>${1}</h3>', $text);
+		$text = preg_replace('#\[h4\](.*)\[\/h4\]#iUs', '<h4>${1}</h4>', $text);
+
+		$text = preg_replace('#\[strong\](.*)\[\/strong\]#iUs', '<strong>${1}</strong>', $text);
+		$text = preg_replace('#\[small\](.*)\[\/small\]#iUs', '<small>${1}</small>', $text);
+		$text = preg_replace('#\[sup\](.*)\[\/sup\]#iUs', '<sup>${1}</sup>', $text);
+		$text = preg_replace('#\[sub\](.*)\[\/sub\]#iUs', '<sub>${1}</sub>', $text);
+		$text = preg_replace('#\[pre\](.*)\[\/pre\]#iUs', '<pre>${1}</pre>', $text);
 
 		$text = preg_replace('#(\[br\]){2,}#iUs', '<br><br>', $text);
 		$text = preg_replace('#\[br\]#iUs', '<br>', $text);
@@ -579,6 +592,9 @@
 		$text = preg_replace('#\:-D#iUs', '<img src="https://gdpanel.nightmarez.net/laugh.gif" alt="смех">', $text);
 
 		$text = preg_replace('#\[img=([0-9a-zA-Z]{20})\]#iUs', '<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="изображение">', $text);
+		$text = preg_replace('#\[img\]([0-9a-zA-Z]{20})\[/img\]#iUs', '<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="изображение">', $text);
+		$text = preg_replace('#\[color=#([0-9a-zA-Z]{6})\](.*)\[\/color\]#iUs', '<span style="#${1}">${2}</span>', $text);
+		$text = preg_replace('#\[color=([0-9a-zA-Z]{6})\](.*)\[\/color\]#iUs', '<span style="#${1}">${2}</span>', $text);
 
 		return $text;
 	}
