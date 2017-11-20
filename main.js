@@ -455,13 +455,15 @@
 			if (longPalette) {
 				var hues = selectEach(createHueArray(), 2);
 
-				for (var i in hues)
+				for (var i in hues) {
 					createColorBtn(node, hues[i]);
+				}
 
 				var grayscales = createGrayscaleArray();
 
-				for (var i in grayscales)
+				for (var i in grayscales) {
 					createColorBtn(node, grayscales[i]);
+				}
 			} else {
 				var colors = [
 					"#000000",
@@ -531,11 +533,7 @@
 	};
 
 	var initFunc2 = function () {
-		var areatags = document.getElementById('areatags');
-		if (areatags)
-			areatags.parentNode.removeChild(areatags);
-
-		var txtAreas = document.getElementsTagName('textarea');
+		var txtAreas = document.getElementsByTagName('textarea');
 		if (txtAreas.length > 0) {
 			textArea = txtAreas[0];
 			var newNode = document.createElement('div');
