@@ -553,22 +553,22 @@
 		$text = preg_replace("/(\r){2,}/", "<br><br>", $text);
 		$text = preg_replace("/(\r)/", "<br>", $text);  		
 
-		$text = preg_replace('/\[b\](.*)\[\/b\]/i', '<b>${1}</b>', $text);
-		$text = preg_replace('/\[i\](.*)\[\/i\]/i', '<i>${1}</i>', $text);
-		$text = preg_replace('/\[s\](.*)\[\/s\]/i', '<s>${1}</s>', $text);
+		$text = preg_replace('#\[b\](.*)\[\/b\]#iUs', '<b>${1}</b>', $text);
+		$text = preg_replace('#\[i\](.*)\[\/i\]#iUs', '<i>${1}</i>', $text);
+		$text = preg_replace('#\[s\](.*)\[\/s\]#iUs', '<s>${1}</s>', $text);
 
-		$text = preg_replace('/(\[br\]){2,}/i', '<br><br>', $text);
-		$text = preg_replace('/\[br\]/i', '<br>', $text);
+		$text = preg_replace('#(\[br\]){2,}#iUs', '<br><br>', $text);
+		$text = preg_replace('#\[br\]#iUs', '<br>', $text);
 
-		$text = preg_replace('/(\s*)---(\s*)/i', '${1}—${2}', $text);
-		$text = preg_replace('/(\s*)--(\s*)/i', '${1}–${2}', $text);
+		$text = preg_replace('#(\s*)---(\s*)#iUs', '${1}—${2}', $text);
+		$text = preg_replace('#(\s*)--(\s*)#iUs', '${1}–${2}', $text);
 
-		$text = preg_replace('/(Михаил Макаров)/i', 'NightmareZ', $text);
-		$text = preg_replace('/(Михаил\s*Макаров)/i', 'NightmareZ', $text);
-		$text = preg_replace('/(Макаров Михаил)/i', 'NightmareZ', $text);
-		$text = preg_replace('/(Макаров\s*Михаил)/i', 'NightmareZ', $text);
+		$text = preg_replace('#(Михаил Макаров)#iUs', 'NightmareZ', $text);
+		$text = preg_replace('#(Михаил\s*Макаров)#iUs', 'NightmareZ', $text);
+		$text = preg_replace('#(Макаров Михаил)#iUs', 'NightmareZ', $text);
+		$text = preg_replace('#(Макаров\s*Михаил)#iUs', 'NightmareZ', $text);
 
-		$text = preg_replace('/(aik)/i', 'Антон Литвинов', $text);
+		$text = preg_replace('#(aik)#iUs', 'Антон Литвинов', $text);
 
 		// $text = preg_replace('/^\s*([>|&gt;]+)\s*(.*)[\s|\r|\n]*<br>/i', '<p style="color: darkgray;">${1} ${2}</p>', $text);
 
