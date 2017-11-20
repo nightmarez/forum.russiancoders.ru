@@ -348,7 +348,7 @@
 
 	var createSmileBtn = function(node, smile, alt) {
 		var smileTag = createATag('<img src="' + smile + '" alt="' + alt + '" />');
-		smileTag.addEventListener('click', function () { insertText("<img src=\"" + smile + "\" alt=\"" + alt + "\" />"); }, false);
+		smileTag.addEventListener('click', function () { insertText(alt); }, false);
 		node.appendChild(smileTag);
 	};
 
@@ -358,7 +358,7 @@
 			sizer = new Array(4).join('&nbsp;');
 
 		var colorTag = createATag('<span style="background-color:' + color + ';">' + sizer + '</span>');
-		colorTag.addEventListener('click', function () { insertTextD("<span style=\"color: " + color + ";\">", "</span>"); }, false);
+		colorTag.addEventListener('click', function () { insertTextD("[color=" + color + "]", "[/color]"); }, false);
 		node.appendChild(colorTag);
 	};
 
