@@ -428,6 +428,8 @@
 	};
 
 	var createTags = function(node) {
+		console.log('create tags');
+
 		if (showTags) {
 			var tags = createTagsArray(), tag;
 			for (var i in tags) {
@@ -533,6 +535,8 @@
 	};
 
 	var initFunc2 = function () {
+		console.log('init 2');
+
 		var txtAreas = document.getElementsByTagName('textarea');
 		if (txtAreas.length > 0) {
 			textArea = txtAreas[0];
@@ -543,6 +547,8 @@
 	};
 
 	var initFunc = function () {
+		console.log('init 1');
+
 		if (document.location.href.indexOf('/topic/') == -1 &&
 			document.location.href.indexOf('/sendmessage/') == -1 &&
 			document.location.href.indexOf('/createtopic') == -1)
