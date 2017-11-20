@@ -76,7 +76,7 @@
 
 						if (!file_exists('/var/www/domains/storage.russiancoders.ru/' . $userid)) {
 							mkdir('/var/www/domains/storage.russiancoders.ru/' . $userid);
-							chmod('/var/www/domains/storage.russiancoders.ru/' . $userid, 777);
+							chmod('/var/www/domains/storage.russiancoders.ru/' . $userid, 0777);
 						}
 
 						if (copy($target_file, '/var/www/domains/storage.russiancoders.ru/' . $userid . '/' . $fileid . '.' . $imageFileType)) {
