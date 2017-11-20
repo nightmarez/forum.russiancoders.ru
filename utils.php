@@ -592,8 +592,8 @@
 		$text = preg_replace('#\:-D#iUs', '<img src="https://gdpanel.nightmarez.net/laugh.gif" alt="смех">', $text);
 
 		$text = preg_replace('#\[img=([0-9a-zA-Z]{20})\]#iUs', '<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="изображение">', $text);
-		$text = preg_replace('#\[img\]([0-9a-zA-Z]{20})\[/img\]#iUs', '<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="изображение">', $text);
-		$text = preg_replace('#\[color=#([0-9a-zA-Z]{6})\](.*)\[\/color\]#iUs', '<span style="#${1}">${2}</span>', $text);
+		$text = preg_replace('#\[img\]([0-9a-zA-Z]{20})\[\/img\]#iUs', '<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="изображение">', $text);
+		$text = preg_replace('#\[color=\#([0-9a-zA-Z]{6})\](.*)\[\/color\]#iUs', '<span style="#${1}">${2}</span>', $text);
 		$text = preg_replace('#\[color=([0-9a-zA-Z]{6})\](.*)\[\/color\]#iUs', '<span style="#${1}">${2}</span>', $text);
 
 		return $text;
