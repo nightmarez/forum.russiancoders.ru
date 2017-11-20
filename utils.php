@@ -607,7 +607,7 @@
 		$text = preg_replace('#\[scratch\]#iUs', '<img src="https://gdpanel.nightmarez.net/scratch.gif" alt="задумался">', $text);
 		$text = preg_replace('#\[rtfm\]#iUs', '<img src="https://gdpanel.nightmarez.net/rtfm.gif" alt="читай маны">', $text);
 		$text = preg_replace('#\[stop\]#iUs', '<img src="https://gdpanel.nightmarez.net/stop.gif" alt="стоп">', $text);
-		$text = preg_replace('#\[genius\]#iUs', '<img src="https://gdpanel.nightmarez.net/genius.gif" alt="гений">', $text);
+		$text = preg_replace('#\[genius\]#iUs', '<img src="https://gdpanel.nightmarez.net/umnik.gif" alt="гений">', $text);
 		$text = preg_replace('#\[angel\]#iUs', '<img src="https://gdpanel.nightmarez.net/angel.gif" alt="ангел">', $text);
 		$text = preg_replace('#\[love\]#iUs', '<img src="https://gdpanel.nightmarez.net/love.gif" alt="любовь">', $text);
 		$text = preg_replace('#\[idea\]#iUs', '<img src="https://gdpanel.nightmarez.net/idea.gif" alt="идея">', $text);
