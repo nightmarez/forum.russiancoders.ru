@@ -569,6 +569,7 @@
 		$text = preg_replace('#\[sup\](.*)\[\/sup\]#iUs', '<sup>${1}</sup>', $text);
 		$text = preg_replace('#\[sub\](.*)\[\/sub\]#iUs', '<sub>${1}</sub>', $text);
 		$text = preg_replace('#\[pre\](.*)\[\/pre\]#iUs', '<pre>${1}</pre>', $text);
+		$text = preg_replace('#\[code\](.*)\[\/code\]#iUs', '<code>${1}</code>', $text);
 
 		$text = preg_replace('#(\[br\]){2,}#iUs', '<br><br>', $text);
 		$text = preg_replace('#\[br\]#iUs', '<br>', $text);
