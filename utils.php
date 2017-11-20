@@ -596,8 +596,8 @@
 		$text = preg_replace('#\:-P#iUs', '<img src="https://gdpanel.nightmarez.net/tongue.gif" alt="язык">', $text);
 		$text = preg_replace('#\:-(#iUs', '<img src="https://gdpanel.nightmarez.net/sorrow.gif" alt="грусть">', $text);
 		$text = preg_replace('#\:(#iUs', '<img src="https://gdpanel.nightmarez.net/sorrow.gif" alt="грусть">', $text);
-		$text = preg_replace('#\:''-(#iUs', '<img src="https://gdpanel.nightmarez.net/cry.gif" alt="слёзы">', $text);
-		$text = preg_replace('#\:''(#iUs', '<img src="https://gdpanel.nightmarez.net/cry.gif" alt="слёзы">', $text);
+		$text = preg_replace("#\:\'-(#iUs", '<img src="https://gdpanel.nightmarez.net/cry.gif" alt="слёзы">', $text);
+		$text = preg_replace("#\:\'(#iUs", '<img src="https://gdpanel.nightmarez.net/cry.gif" alt="слёзы">', $text);
 		$text = preg_replace('#O_O#iUs', '<img src="https://gdpanel.nightmarez.net/amazement.gif" alt="удивление">', $text);
 		$text = preg_replace('#O_o#iUs', '<img src="https://gdpanel.nightmarez.net/crazy.gif" alt="сумасшествие">', $text);
 		$text = preg_replace('#o_O#iUs', '<img src="https://gdpanel.nightmarez.net/crazy.gif" alt="сумасшествие">', $text);
