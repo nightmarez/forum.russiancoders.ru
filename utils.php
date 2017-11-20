@@ -570,13 +570,13 @@
 
 		$text = preg_replace('#(aik)#iUs', 'Антон Литвинов', $text);
 
-		// $text = preg_replace('/^\s*([>|&gt;]+)\s*(.*)[\s|\r|\n]*<br>/i', '<p style="color: darkgray;">${1} ${2}</p>', $text);
-
-		//$text = str_replace(':)))))', '<img src="https://forum.russiancoders.ru/icons/smile.gif" alt="улыбка">', $text);
-		//$text = str_replace(':))))', '<img src="https://forum.russiancoders.ru/icons/laugh.gif" alt="смех">', $text);
-		//$text = str_replace(':)))', '<img src="https://forum.russiancoders.ru/icons/laugh.gif" alt="смех">', $text);
-		//$text = str_replace(':))', '<img src="https://forum.russiancoders.ru/icons/laugh.gif" alt="смех">', $text);
-		//$text = str_replace(':)', '<img src="https://forum.russiancoders.ru/icons/laugh.gif" alt="смех">', $text);
+		$text = preg_replace('#\:\)#iUs', '<img src="https://gdpanel.nightmarez.net/smile.gif" alt="улыбка">', $text);
+		$text = preg_replace('#\:-\)#iUs', '<img src="https://gdpanel.nightmarez.net/smile.gif" alt="улыбка">', $text);
+		$text = preg_replace('#\:\)\)\)\)#iUs', '<img src="https://gdpanel.nightmarez.net/laugh.gif" alt="смех">', $text);
+		$text = preg_replace('#\:\)\)\)#iUs', '<img src="https://gdpanel.nightmarez.net/laugh.gif" alt="смех">', $text);
+		$text = preg_replace('#\:\)\)#iUs', '<img src="https://gdpanel.nightmarez.net/laugh.gif" alt="смех">', $text);
+		$text = preg_replace('#\:D#iUs', '<img src="https://gdpanel.nightmarez.net/laugh.gif" alt="смех">', $text);
+		$text = preg_replace('#\:-D#iUs', '<img src="https://gdpanel.nightmarez.net/laugh.gif" alt="смех">', $text);
 
 		$text = preg_replace('#\[img=([0-9a-zA-Z]{20})\]#iUs', '<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="изображение">', $text);
 
