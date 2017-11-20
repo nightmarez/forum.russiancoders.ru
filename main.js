@@ -610,14 +610,14 @@
 			return;
 		}
 
-		if (browserType == 1) {
-			addEventListener('load', function (e) {
+		//if (browserType == 1) {
+		//	addEventListener('load', function (e) {
 				initFunc2();
-			}, false);
-		}
-		else if (browserType == 2) {
-			initFunc2();
-		}
+		//	}, false);
+		//}
+		//else if (browserType == 2) {
+		//	initFunc2();
+		//}
 	};
 
 	initFunc();
