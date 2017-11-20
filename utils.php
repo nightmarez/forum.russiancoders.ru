@@ -537,21 +537,21 @@
 	function filterMessage($text, $userid) {
 		$text = htmlspecialchars($text);
 
-		$text = preg_replace('/\[url=(\S*)\](.*)\[\/url\]/i', '<a href="${1}" rel="nofollow" target="_blank">${2}</a>', $text);
-		$text = preg_replace('/\[url=\"(\S*)\"\](.*)\[\/url\]/i', '<a href="${1}" rel="nofollow" target="_blank">${2}</a>', $text);
-		$text = preg_replace('/\[url=(\S*)\]/i', '<a href="${1}" rel="nofollow" target="_blank">${1}</a>', $text);
-		$text = preg_replace('/\[url=\"(\S*)\"\]/i', '<a href="${1}" rel="nofollow" target="_blank">${1}</a>', $text);
+		$text = preg_replace('#\[url=(\S*)\](.*)\[\/url\]#iUs', '<a href="${1}" rel="nofollow" target="_blank">${2}</a>', $text);
+		$text = preg_replace('#\[url=\"(\S*)\"\](.*)\[\/url\]#iUs', '<a href="${1}" rel="nofollow" target="_blank">${2}</a>', $text);
+		$text = preg_replace('#\[url=(\S*)\]#iUs', '<a href="${1}" rel="nofollow" target="_blank">${1}</a>', $text);
+		$text = preg_replace('#\[url=\"(\S*)\"\]#iUs', '<a href="${1}" rel="nofollow" target="_blank">${1}</a>', $text);
 
-		$text = preg_replace('/\[youtube=\"([0-9a-zA-Z]*)\"\]/i', '<iframe width="640" height="420" src="https://www.youtube.com/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
-		$text = preg_replace('/\[rutube=\"([0-9a-zA-Z]*)\"\]/i', '<iframe width="640" height="420" src="https://rutube.ru/play/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
-		$text = preg_replace('/\[youtube=([0-9a-zA-Z]*)\]/i', '<iframe width="640" height="420" src="https://www.youtube.com/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
-		$text = preg_replace('/\[rutube=([0-9a-zA-Z]*)\]/i', '<iframe width="640" height="420" src="https://rutube.ru/play/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
+		$text = preg_replace('#\[youtube=\"([0-9a-zA-Z]*)\"\]#iUs', '<iframe width="640" height="420" src="https://www.youtube.com/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
+		$text = preg_replace('#\[rutube=\"([0-9a-zA-Z]*)\"\]#iUs', '<iframe width="640" height="420" src="https://rutube.ru/play/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
+		$text = preg_replace('#\[youtube=([0-9a-zA-Z]*)\]#iUs', '<iframe width="640" height="420" src="https://www.youtube.com/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
+		$text = preg_replace('#\[rutube=([0-9a-zA-Z]*)\]#iUs', '<iframe width="640" height="420" src="https://rutube.ru/play/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
 
-		$text = preg_replace("/(\r\n){2,}/", "<br><br>", $text);
-		$text = preg_replace("/(\r\n)/", "<br>", $text);
+		$text = preg_replace("#(\r\n){2,}#iUs", "<br><br>", $text);
+		$text = preg_replace("#(\r\n)#iUs", "<br>", $text);
 
-		$text = preg_replace("/(\r){2,}/", "<br><br>", $text);
-		$text = preg_replace("/(\r)/", "<br>", $text);  		
+		$text = preg_replace("#(\r){2,}#iUs", "<br><br>", $text);
+		$text = preg_replace("#(\r)#iUs", "<br>", $text);  		
 
 		$text = preg_replace('#\[b\](.*)\[\/b\]#iUs', '<b>${1}</b>', $text);
 		$text = preg_replace('#\[i\](.*)\[\/i\]#iUs', '<i>${1}</i>', $text);
@@ -578,7 +578,7 @@
 		//$text = str_replace(':))', '<img src="https://forum.russiancoders.ru/icons/laugh.gif" alt="смех">', $text);
 		//$text = str_replace(':)', '<img src="https://forum.russiancoders.ru/icons/laugh.gif" alt="смех">', $text);
 
-		$text = preg_replace('/\[img=([0-9a-zA-Z]{20})\]/i', '<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="изображение">', $text);
+		$text = preg_replace('#\[img=([0-9a-zA-Z]{20})\]#iUs', '<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="изображение">', $text);
 
 		return $text;
 	}
