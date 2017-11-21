@@ -979,7 +979,7 @@
 		$req = $db->prepare($query);
 		$req->bindParam(':topicid', $topicid);
 		$req->execute();
-		$count = $req->fetch();
+		$count = intval($req->fetch(PDO::FETCH_NUM)[0]);
 
 		return floor($count / postsPerPage());
 	}
