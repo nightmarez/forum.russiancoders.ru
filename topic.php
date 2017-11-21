@@ -118,7 +118,7 @@
 	<nav aria-label="Page navigation">
 		<ul class="pagination">
 			<li<?php if ($page == 0) { echo ' class="disabled"'; } ?>>
-				<a href="/topic/<?php echo $topicid; ?>/<?php echo $page; ?>" aria-label="Previous">
+				<a href="/topic/<?php echo $topicid; ?>/<?php echo $page; ?>/" aria-label="Previous"<?php if ($page == 0) { echo ' onclick="return false;"'; } ?>>
 					<span aria-hidden="true">&laquo;</span>
 				</a>
 			</li>
@@ -130,7 +130,7 @@
 				}
 			?>
 			<li<?php if ($page >= $pagesCount - 1) { echo ' class="disabled"'; } ?>>
-				<a href="/topic/<?php echo $topicid; ?>/<?php echo ($page + 2); ?>" aria-label="Next">
+				<a href="/topic/<?php echo $topicid; ?>/<?php echo ($page + 2); ?>/" aria-label="Next"<?php if ($page == 0) { echo ' onclick="return false;"'; } ?>>
 					<span aria-hidden="true">&raquo;</span>
 				</a>
 			</li>
