@@ -110,7 +110,7 @@
 
 	$(document).ready(function() {
 		if (location.href.indexOf('/topic/') !== -1) {
-			$('html, body').animate({ scrollTop: $(document).height() }, 'fast');
+			//$('html, body').animate({ scrollTop: $(document).height() }, 'fast');
 
 			$('#upload-image-btn').click(function() {
 				window.open('/uploader/');
