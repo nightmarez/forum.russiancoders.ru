@@ -44,10 +44,12 @@
 						$query =
 							'SELECT `id`, `userid`, `content`, `created` FROM `posts` WHERE `topicid`=:topicid LIMIT :pagesize OFFSET :skipcount ORDER BY `id` ASC;';
 
+						$skipCount = $page * postsPerPage();
+
 						$req = $db->prepare($query);
 						$req->bindParam(':topicid', $topicid);
 						$req->bindParam(':pagesize', postsPerPage());
-						$req->bindParam(':skipcount', $page * postsPerPage());
+						$req->bindParam(':skipcount', $skipCount);
 						$req->execute();
 
 						while (list($id, $userid, $content, $created) = $req->fetch(PDO::FETCH_NUM)) {
