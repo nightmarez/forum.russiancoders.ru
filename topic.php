@@ -44,11 +44,12 @@
 						$query =
 							'SELECT `id`, `userid`, `content`, `created` FROM `posts` WHERE `topicid`=:topicid LIMIT :pagesize OFFSET :skipcount ORDER BY `id` ASC;';
 
-						$skipCount = $page * postsPerPage();
+						$ppp = postsPerPage();
+						$skipCount = $page * $ppp;
 
 						$req = $db->prepare($query);
 						$req->bindParam(':topicid', $topicid);
-						$req->bindParam(':pagesize', postsPerPage());
+						$req->bindParam(':pagesize', $ppp);
 						$req->bindParam(':skipcount', $skipCount);
 						$req->execute();
 

@@ -6,6 +6,10 @@ h3 > a {
 	filter: none;
 }
 
+nav > a {
+	filter: none;
+}
+
 .table-responsive a {
 	filter: none;
 }
