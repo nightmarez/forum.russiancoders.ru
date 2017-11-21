@@ -569,7 +569,18 @@
 		$text = preg_replace('#\[sup\](.*)\[\/sup\]#iUs', '<sup>${1}</sup>', $text);
 		$text = preg_replace('#\[sub\](.*)\[\/sub\]#iUs', '<sub>${1}</sub>', $text);
 		$text = preg_replace('#\[pre\](.*)\[\/pre\]#iUs', '<pre>${1}</pre>', $text);
-		$text = preg_replace('#\[code\](.*)\[\/code\]#iUs', '<code>${1}</code>', $text);
+		$text = preg_replace('#\[code\](.*)\[\/code\]#iUs', '<pre><code>${1}</code></pre>', $text);
+
+		$text = preg_replace('#\[code=cs\](.*)\[\/code\]#iUs', '<pre><code class="cs">${1}</code></pre>', $text);
+		$text = preg_replace('#\[code=csharp\](.*)\[\/code\]#iUs', '<pre><code class="csharp">${1}</code></pre>', $text);
+		$text = preg_replace('#\[code=cpp\](.*)\[\/code\]#iUs', '<pre><code class="cpp">${1}</code></pre>', $text);
+		$text = preg_replace('#\[code=c\](.*)\[\/code\]#iUs', '<pre><code class="c">${1}</code></pre>', $text);
+		$text = preg_replace('#\[code=c++\](.*)\[\/code\]#iUs', '<pre><code class="cpp">${1}</code></pre>', $text);
+		$text = preg_replace('#\[code=css\](.*)\[\/code\]#iUs', '<pre><code class="css">${1}</code></pre>', $text);
+		$text = preg_replace('#\[code=javascript\](.*)\[\/code\]#iUs', '<pre><code class="javascript">${1}</code></pre>', $text);
+		$text = preg_replace('#\[code=js\](.*)\[\/code\]#iUs', '<pre><code class="js">${1}</code></pre>', $text);
+		$text = preg_replace('#\[code=php\](.*)\[\/code\]#iUs', '<pre><code class="php">${1}</code></pre>', $text);
+		$text = preg_replace('#\[code=sql\](.*)\[\/code\]#iUs', '<pre><code class="sql">${1}</code></pre>', $text);
 
 		$text = preg_replace('#(\[br\]){2,}#iUs', '<br><br>', $text);
 		$text = preg_replace('#\[br\]#iUs', '<br>', $text);
