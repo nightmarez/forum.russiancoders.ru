@@ -42,7 +42,7 @@
 						$db = new PdoDb();
 
 						$query =
-							'SELECT `id`, `userid`, `content`, `created` FROM `posts` WHERE `topicid`=:topicid LIMIT :pagesize OFFSET :skipcount ORDER BY `id` ASC;';
+							'SELECT `id`, `userid`, `content`, `created` FROM `posts` WHERE `topicid`=:topicid ORDER BY `id` ASC LIMIT :pagesize OFFSET :skipcount;';
 
 						$ppp = postsPerPage();
 						$skipCount = $page * $ppp;
