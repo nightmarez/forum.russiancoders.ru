@@ -7,7 +7,7 @@
 	$page = 0;
 
 	if (isset($_GET['page'])) {
-		$page = intval($_GET['page']);
+		$page = intval($_GET['page']) - 1;
 	}
 
 	if ($page >= $pagesCount) {
@@ -46,12 +46,6 @@
 
 						$ppp = postsPerPage();
 						$skipCount = $page * $ppp;
-
-						echo 'topic: ' . $topicid . '<br>';
-						echo 'pagesCount: ' . $pagesCount . '<br>';
-						echo 'ppp: ' . $ppp . '<br>';
-						echo 'page: ' . $page . '<br>';
-						echo 'skip: ' . $skipCount . '<br>';
 
 						$req = $db->prepare($query);
 						$req->bindParam(':topicid', $topicid, PDO::PARAM_STR);
@@ -124,19 +118,19 @@
 	<nav aria-label="Page navigation">
 		<ul class="pagination">
 			<li<?php if ($page == 0) { echo ' class="disabled"'; } ?>>
-				<a href="#" aria-label="Previous">
+				<a href="/topic/<?php echo $topicid; ?>/<?php echo $page; ?>" aria-label="Previous">
 					<span aria-hidden="true">&laquo;</span>
 				</a>
 			</li>
 			<?php
-				for ($p = 0; $p < $pagesCount; ++$p) {
+				for ($p = 1; $p <= $pagesCount; ++$p) {
 					?>
-						<li<?php if ($p == $page) { echo ' class="active"'; } ?>><a href="#"><?php echo ($p + 1); ?></a></li>
+						<li<?php if ($p == $page) { echo ' class="active"'; } ?>><a href="/topic/<?php echo $topicid; ?>/<?php echo $p; ?>"><?php echo ($p + 1); ?></a></li>
 					<?php
 				}
 			?>
 			<li<?php if ($page >= $pagesCount - 1) { echo ' class="disabled"'; } ?>>
-				<a href="#" aria-label="Next">
+				<a href="/topic/<?php echo $topicid; ?>/<?php echo ($page + 2); ?>" aria-label="Next">
 					<span aria-hidden="true">&raquo;</span>
 				</a>
 			</li>
