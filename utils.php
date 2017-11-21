@@ -537,6 +537,27 @@
 	function filterMessage($text, $userid) {
 		$text = htmlspecialchars($text);
 
+		$text = preg_replace('#\[pre\](.*)\[\/pre\]#iUs', '<pre>${1}</pre>', $text);
+		$text = preg_replace('#\[code\](.*)\[\/code\]#iUs', '<pre><code>${1}</code></pre>', $text);
+		$text = preg_replace('#\[code=cs\](.*)\[\/code\]#iUs', '<pre><code class="cs">${1}</code></pre>', $text);
+		$text = preg_replace('#\[code=csharp\](.*)\[\/code\]#iUs', '<pre><code class="csharp">${1}</code></pre>', $text);
+		$text = preg_replace('#\[code=cpp\](.*)\[\/code\]#iUs', '<pre><code class="cpp">${1}</code></pre>', $text);
+		$text = preg_replace('#\[code=c\](.*)\[\/code\]#iUs', '<pre><code class="c">${1}</code></pre>', $text);
+		$text = preg_replace('#\[code=c++\](.*)\[\/code\]#iUs', '<pre><code class="cpp">${1}</code></pre>', $text);
+		$text = preg_replace('#\[code=css\](.*)\[\/code\]#iUs', '<pre><code class="css">${1}</code></pre>', $text);
+		$text = preg_replace('#\[code=javascript\](.*)\[\/code\]#iUs', '<pre><code class="javascript">${1}</code></pre>', $text);
+		$text = preg_replace('#\[code=js\](.*)\[\/code\]#iUs', '<pre><code class="js">${1}</code></pre>', $text);
+		$text = preg_replace('#\[code=php\](.*)\[\/code\]#iUs', '<pre><code class="php">${1}</code></pre>', $text);
+		$text = preg_replace('#\[code=sql\](.*)\[\/code\]#iUs', '<pre><code class="sql">${1}</code></pre>', $text);
+		$text = preg_replace('#\[code=html\](.*)\[\/code\]#iUs', '<pre><code class="html">${1}</code></pre>', $text);
+
+		$preformatted = array();
+		preg_match_all('#<pre>(.*)</pre>#iUs', $text, $preformatted);
+
+		foreach ($preformatted[1] as $key => $value) {
+			$text = str_replace($value, '###$$$###' . $key . '###$$$###', $text);
+		}
+
 		$text = preg_replace('#\[url=(\S*)\](.*)\[\/url\]#iUs', '<a href="${1}" rel="nofollow" target="_blank">${2}</a>', $text);
 		$text = preg_replace('#\[url=\"(\S*)\"\](.*)\[\/url\]#iUs', '<a href="${1}" rel="nofollow" target="_blank">${2}</a>', $text);
 		$text = preg_replace('#\[url=(\S*)\]#iUs', '<a href="${1}" rel="nofollow" target="_blank">${1}</a>', $text);
@@ -568,20 +589,6 @@
 		$text = preg_replace('#\[small\](.*)\[\/small\]#iUs', '<small>${1}</small>', $text);
 		$text = preg_replace('#\[sup\](.*)\[\/sup\]#iUs', '<sup>${1}</sup>', $text);
 		$text = preg_replace('#\[sub\](.*)\[\/sub\]#iUs', '<sub>${1}</sub>', $text);
-		$text = preg_replace('#\[pre\](.*)\[\/pre\]#iUs', '<pre>${1}</pre>', $text);
-		$text = preg_replace('#\[code\](.*)\[\/code\]#iUs', '<pre><code>${1}</code></pre>', $text);
-
-		$text = preg_replace('#\[code=cs\](.*)\[\/code\]#iUs', '<pre><code class="cs">${1}</code></pre>', $text);
-		$text = preg_replace('#\[code=csharp\](.*)\[\/code\]#iUs', '<pre><code class="csharp">${1}</code></pre>', $text);
-		$text = preg_replace('#\[code=cpp\](.*)\[\/code\]#iUs', '<pre><code class="cpp">${1}</code></pre>', $text);
-		$text = preg_replace('#\[code=c\](.*)\[\/code\]#iUs', '<pre><code class="c">${1}</code></pre>', $text);
-		$text = preg_replace('#\[code=c++\](.*)\[\/code\]#iUs', '<pre><code class="cpp">${1}</code></pre>', $text);
-		$text = preg_replace('#\[code=css\](.*)\[\/code\]#iUs', '<pre><code class="css">${1}</code></pre>', $text);
-		$text = preg_replace('#\[code=javascript\](.*)\[\/code\]#iUs', '<pre><code class="javascript">${1}</code></pre>', $text);
-		$text = preg_replace('#\[code=js\](.*)\[\/code\]#iUs', '<pre><code class="js">${1}</code></pre>', $text);
-		$text = preg_replace('#\[code=php\](.*)\[\/code\]#iUs', '<pre><code class="php">${1}</code></pre>', $text);
-		$text = preg_replace('#\[code=sql\](.*)\[\/code\]#iUs', '<pre><code class="sql">${1}</code></pre>', $text);
-		$text = preg_replace('#\[code=html\](.*)\[\/code\]#iUs', '<pre><code class="html">${1}</code></pre>', $text);
 
 		$text = preg_replace('#(\[br\]){2,}#iUs', '<br><br>', $text);
 		$text = preg_replace('#\[br\]#iUs', '<br>', $text);
@@ -639,6 +646,10 @@
 		$text = preg_replace('#\[img\]([0-9a-zA-Z]{20})\[\/img\]#iUs', '<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="изображение">', $text);
 		$text = preg_replace('#\[color=\#([0-9a-zA-Z]{6})\](.*)\[\/color\]#iUs', '<span style="color:#${1}">${2}</span>', $text);
 		$text = preg_replace('#\[color=([0-9a-zA-Z]{6})\](.*)\[\/color\]#iUs', '<span style="color:#${1}">${2}</span>', $text);
+
+		foreach ($preformatted[1] as $key => $value) {
+			$text = str_replace('###$$$###' . $key . '###$$$###', $value, $text);
+		}
 
 		return $text;
 	}
