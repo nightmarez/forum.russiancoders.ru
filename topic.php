@@ -48,6 +48,7 @@
 						$skipCount = $page * $ppp;
 
 						echo 'topic: ' . $topicid . '<br>';
+						echo 'pagesCount: ' . $pagesCount . '<br>';
 						echo 'ppp: ' . $ppp . '<br>';
 						echo 'page: ' . $page . '<br>';
 						echo 'skip: ' . $skipCount . '<br>';
