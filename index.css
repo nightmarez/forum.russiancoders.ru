@@ -6,8 +6,15 @@ h3 > a {
 	filter: none;
 }
 
-nav > a {
+nav a {
 	filter: none;
+}
+
+.pagination {
+	border-radius: 4px;
+    display: inline-block;
+    margin: 0 auto;
+    padding-left: 0;
 }
 
 .table-responsive a {
