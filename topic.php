@@ -112,10 +112,10 @@
 </div>
 
 <?php
-	if ($pagesCount > 0) {
+	if ($pagesCount > 1) {
 ?>
 
-	<nav aria-label="Page navigation">
+	<nav aria-label="Page navigation" style="text-align: center;">
 		<ul class="pagination">
 			<li<?php if ($page == 0) { echo ' class="disabled"'; } ?>>
 				<a href="/topic/<?php echo $topicid; ?>/<?php echo $page; ?>/" aria-label="Previous"<?php if ($page == 0) { echo ' onclick="return false" onmousedown="return false"'; } ?>>
