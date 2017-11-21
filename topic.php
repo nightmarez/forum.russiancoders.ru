@@ -54,9 +54,9 @@
 						echo 'skip: ' . $skipCount . '<br>';
 
 						$req = $db->prepare($query);
-						$req->bindParam(':topicid', $topicid);
-						$req->bindParam(':pagesize', $ppp);
-						$req->bindParam(':skipcount', $skipCount);
+						$req->bindParam(':topicid', $topicid, PDO::PARAM_STR);
+						$req->bindParam(':pagesize', $ppp, PDO::PARAM_INT);
+						$req->bindParam(':skipcount', $skipCount, PDO::PARAM_INT);
 						$req->execute();
 
 						while (list($id, $userid, $content, $created) = $req->fetch(PDO::FETCH_NUM)) {
