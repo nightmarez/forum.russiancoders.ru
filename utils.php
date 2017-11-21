@@ -581,6 +581,7 @@
 		$text = preg_replace('#\[code=js\](.*)\[\/code\]#iUs', '<pre><code class="js">${1}</code></pre>', $text);
 		$text = preg_replace('#\[code=php\](.*)\[\/code\]#iUs', '<pre><code class="php">${1}</code></pre>', $text);
 		$text = preg_replace('#\[code=sql\](.*)\[\/code\]#iUs', '<pre><code class="sql">${1}</code></pre>', $text);
+		$text = preg_replace('#\[code=html\](.*)\[\/code\]#iUs', '<pre><code class="html">${1}</code></pre>', $text);
 
 		$text = preg_replace('#(\[br\]){2,}#iUs', '<br><br>', $text);
 		$text = preg_replace('#\[br\]#iUs', '<br>', $text);
