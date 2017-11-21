@@ -974,13 +974,13 @@
 		$db = is_null($readydb) ? new PdoDb() : $readydb;
 
 		$query =
-			'SELECT COUNT(*) FROM `posts` WHERE `topicid`=:topicid LIMIT 0, 1;';
+			'SELECT COUNT(*) FROM `posts` WHERE `topicid`=:topicid;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':topicid', $topicid);
 		$req->execute();
 		$count = intval($req->fetch(PDO::FETCH_NUM)[0]);
-
-		return floor($count / postsPerPage());
+		$count = ceil($count / postsPerPage());
+		return $count > 0 ? $count : 1;
 	}
 ?>
