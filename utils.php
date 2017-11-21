@@ -962,5 +962,25 @@
 		}
 	}
 
-	// testBlackList();
+	function postsPerPage() {
+		return 10;
+	}
+
+	function topicPagesCount($topicid, $readydb = NULL) {
+		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $topicid)) {
+			return 0;
+		}
+
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		$query =
+			'SELECT COUNT(*) FROM `posts` WHERE `topicid`=:topicid LIMIT 0, 1;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':topicid', $topicid);
+		$req->execute();
+		$count = $req->fetch();
+
+		return floor($count / postsPerPage());
+	}
 ?>

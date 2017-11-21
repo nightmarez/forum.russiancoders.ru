@@ -3,6 +3,16 @@
 
 <?php
 	$topicid = htmlspecialchars($_GET['topicid']);
+	$pagesCount = topicPagesCount($topicid);
+	$page = 0;
+
+	if (isset($_GET['page'])) {
+		$page = intval($_GET['page']);
+	}
+
+	if ($page >= $pagesCount) {
+		$page = $pagesCount - 1;
+	}
 ?>
 
 <div class="panel panel-primary" style="margin: 20px;">
@@ -32,10 +42,12 @@
 						$db = new PdoDb();
 
 						$query =
-							'SELECT `id`, `userid`, `content`, `created` FROM `posts` WHERE `topicid`=:topicid ORDER BY `id` ASC;';
+							'SELECT `id`, `userid`, `content`, `created` FROM `posts` WHERE `topicid`=:topicid LIMIT :pagesize OFFSET :skipcount ORDER BY `id` ASC;';
 
 						$req = $db->prepare($query);
 						$req->bindParam(':topicid', $topicid);
+						$req->bindParam(':pagesize', postsPerPage());
+						$req->bindParam(':skipcount', $page * postsPerPage());
 						$req->execute();
 
 						while (list($id, $userid, $content, $created) = $req->fetch(PDO::FETCH_NUM)) {
@@ -95,6 +107,36 @@
 		</div>
 	</div>
 </div>
+
+<?php
+	if ($pagesCount > 0) {
+?>
+
+	<nav aria-label="Page navigation">
+		<ul class="pagination">
+			<li<?php if ($page == 0) { echo ' class="disabled"'; } ?>>
+				<a href="#" aria-label="Previous">
+					<span aria-hidden="true">&laquo;</span>
+				</a>
+			</li>
+			<?php
+				for ($p = 0; $p < $pagesCount; ++$p) {
+					?>
+						<li<?php if ($p == $page) { echo ' class="active"'; } ?>><a href="#"><?php echo ($p + 1); ?></a></li>
+					<?php
+				}
+			?>
+			<li<?php if ($page >= $pagesCount - 1) { echo ' class="disabled"'; } ?>>
+				<a href="#" aria-label="Next">
+					<span aria-hidden="true">&raquo;</span>
+				</a>
+			</li>
+		</ul>
+	</nav>
+
+<?php
+	}
+?>
 
 <?php if (isLogin()) { ?>
 	<div class="panel panel-primary" style="margin: 20px;">
