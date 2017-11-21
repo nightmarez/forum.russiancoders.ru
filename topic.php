@@ -125,7 +125,7 @@
 			<?php
 				for ($p = 1; $p <= $pagesCount; ++$p) {
 					?>
-						<li<?php if ($p == $page) { echo ' class="active"'; } ?>><a href="/topic/<?php echo $topicid; ?>/<?php echo $p; ?>/"><?php echo $p; ?></a></li>
+						<li<?php if ($p == $page + 1) { echo ' class="active"'; } ?>><a href="/topic/<?php echo $topicid; ?>/<?php echo $p; ?>/"><?php echo $p; ?></a></li>
 					<?php
 				}
 			?>
