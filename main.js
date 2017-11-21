@@ -238,6 +238,12 @@
 		});
 	});
 
+	$(document).ready(function() {
+		$('code').each(function(i, block) {
+			hljs.highlightBlock(block);
+		});
+	});
+
 	////////////////Config//////////////////////////////
 	var showColorPalette = true; // color palette
 	var longPalette = true; // long color palette
