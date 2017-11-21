@@ -85,10 +85,10 @@
 		<meta name="address" content="https://forum.russiancoders.ru/">
 		<meta name="yandex-verification" content="5283d249ceae7fde" />
 		<link rel="stylesheet" href="https://cdn.russiancoders.ru/reset.min.css" integrity="sha256-2DxinKvLYJYnTr6inpIVCKiFmPF8KN/HY6FlStDd9f0=" crossorigin="anonymous">
-		<link rel="stylesheet" href="https://cdn.russiancoders.ru/bootstrap-3.3.7.min.css" integrity="sha256-o2apjDbT22+ewfXNTyunMhEeA6NSxH7me0O2cI8V8AU=" crossorigin="anonymous">
-		<link rel="stylesheet" href="https://cdn.russiancoders.ru/bootstrap-theme-3.3.7.min.css" integrity="sha256-ZT4HPpdCOt2lvDkXokHuhJfdOKSPFLzeAJik5U/Q+l4=" crossorigin="anonymous">
-		<script src="https://cdn.russiancoders.ru/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous" defer></script>
-		<script src="https://cdn.russiancoders.ru/bootstrap-3.3.7.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous" defer></script>
+		<link rel="stylesheet" href="https://cdn.russiancoders.ru/bootstrap-4.0.0-beta.2.min.css" integrity="sha256-QUyqZrt5vIjBumoqQV0jM8CgGqscFfdGhN+nVCqX0vc=" crossorigin="anonymous">
+		<script src="https://cdn.russiancoders.ru/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+		<script src="https://cdn.russiancoders.ru/popper-1.12.3.min.js" integrity="sha256-jpW4gXAhFvqGDD5B7366rIPD7PDbAmqq4CO0ZnHbdM4=" crossorigin="anonymous"></script>
+		<script src="https://cdn.russiancoders.ru/bootstrap-4.0.0-beta.2.min.js" integrity="sha256-GIa8Vh3sfESnVB2CN3rYGkD/MklvMq0lmITweQxE1qU=" crossorigin="anonymous"></script>
 		<script src="https://cdn.russiancoders.ru/underscore-1.8.3.min.js" integrity="sha256-obZACiHd7gkOk9iIL/pimWMTJ4W/pBsKu+oZnSeBIek=" crossorigin="anonymous" defer></script>
 		<link rel="stylesheet" href="/index.css?ver=119">
 		<link rel="shortcut icon" href="/favicon.ico">
