@@ -47,6 +47,8 @@
 						$ppp = postsPerPage();
 						$skipCount = $page * $ppp;
 
+						echo $ppp . '<br>' . $skipCount;
+
 						$req = $db->prepare($query);
 						$req->bindParam(':topicid', $topicid);
 						$req->bindParam(':pagesize', $ppp);
