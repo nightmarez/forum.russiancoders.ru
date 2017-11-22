@@ -585,8 +585,7 @@
 		echo '-->';
 
 		$q = $db->query($query);
-		$r = $q->fetch();
-		return $r['cnt'];
+		return $q->fetchColumn();
 	}
 
 	function isLogin() {
