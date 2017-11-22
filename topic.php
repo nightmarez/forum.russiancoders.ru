@@ -5,6 +5,7 @@
 	$topicid = htmlspecialchars($_GET['topicid']);
 	$pagesCount = topicPagesCount($topicid);
 	$page = 0;
+	$ppp = postsPerPage();
 
 	if (isset($_GET['page'])) {
 		$page = intval($_GET['page']) - 1;
@@ -13,6 +14,8 @@
 	if ($page >= $pagesCount) {
 		$page = $pagesCount - 1;
 	}
+
+	$number = $page * $ppp;
 ?>
 
 <div class="panel panel-primary" style="margin: 20px;">
@@ -44,7 +47,6 @@
 						$query =
 							'SELECT `id`, `userid`, `content`, `created` FROM `posts` WHERE `topicid`=:topicid ORDER BY `id` ASC LIMIT :skipcount, :pagesize;';
 
-						$ppp = postsPerPage();
 						$skipCount = $page * $ppp;
 
 						$req = $db->prepare($query);
@@ -77,9 +79,7 @@
 													}
 												?>
 											</td>
-											<td><?php
-													$pdo = new PdoDb();
-
+											<td><a href="/topic/<?php echo $topicid; ?>/<?php echo $page; ?>/#<?php echo $number; ?>" title="Ссылка на сообщение">#<?php echo $number++; ?></a><?php
 													$query =
 														'SELECT `login` FROM `users` WHERE `userid`=:userid LIMIT 0, 1;';
 
@@ -88,7 +88,7 @@
 													$r->execute();
 
 													while (list($login) = $r->fetch(PDO::FETCH_NUM)) {
-														?><a href="/user/<?php echo htmlspecialchars($userid); ?>/"><?php echo htmlspecialchars($login); ?></a><?php
+														?><a href="/user/<?php echo htmlspecialchars($userid); ?>/" rel="author"><?php echo htmlspecialchars($login); ?></a><?php
 														break;
 													}
 												?></td>
@@ -118,7 +118,7 @@
 	<nav aria-label="Page navigation" style="text-align: center;">
 		<ul class="pagination">
 			<li<?php if ($page == 0) { echo ' class="disabled"'; } ?>>
-				<a href="/topic/<?php echo $topicid; ?>/<?php echo $page; ?>/" aria-label="Previous"<?php if ($page == 0) { echo ' onclick="return false" onmousedown="return false"'; } ?>>
+				<a href="/topic/<?php echo $topicid; ?>/<?php echo $page; ?>/" rel="prev" aria-label="Previous"<?php if ($page == 0) { echo ' onclick="return false" onmousedown="return false"'; } ?>>
 					<span aria-hidden="true">&laquo;</span>
 				</a>
 			</li>
@@ -130,7 +130,7 @@
 				}
 			?>
 			<li<?php if ($page >= $pagesCount - 1) { echo ' class="disabled"'; } ?>>
-				<a href="/topic/<?php echo $topicid; ?>/<?php echo ($page + 2); ?>/" aria-label="Next"<?php if ($page >= $pagesCount - 1) { echo ' onclick="return false;" onmousedown="return false"'; } ?>>
+				<a href="/topic/<?php echo $topicid; ?>/<?php echo ($page + 2); ?>/" rel="next" aria-label="Next"<?php if ($page >= $pagesCount - 1) { echo ' onclick="return false;" onmousedown="return false"'; } ?>>
 					<span aria-hidden="true">&raquo;</span>
 				</a>
 			</li>

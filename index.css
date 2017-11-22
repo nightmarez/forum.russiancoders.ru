@@ -6,6 +6,11 @@ h3 > a {
 	filter: none;
 }
 
+td > a {
+	filter: none;
+	margin: 0 5px 0 5px;
+}
+
 nav a {
 	filter: none;
 }
