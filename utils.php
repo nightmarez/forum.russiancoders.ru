@@ -494,7 +494,7 @@
 			'SELECT `login` FROM `users` WHERE `userid`=:userid LIMIT 0, 1;';
 
 		$req = $db->prepare($query);
-		$req->bindParam(':userid', $userid);
+		$req->bindParam(':userid', $userid, PDO::PARAM_STR);
 		$req->execute();
 
 		while (list($login) = $req->fetch(PDO::FETCH_NUM)) {
@@ -515,7 +515,7 @@
 			'SELECT `sectionid` FROM `topics` WHERE `topicid`=:topicid LIMIT 0, 1;';
 
 		$req = $db->prepare($query);
-		$req->bindParam(':topicid', $topicid);
+		$req->bindParam(':topicid', $topicid, PDO::PARAM_STR);
 		$req->execute();
 
 		while (list($sectionid) = $req->fetch(PDO::FETCH_NUM)) {
@@ -526,9 +526,7 @@
 	}
 
 	function getSectionTitleById($sectionid, $readydb = NULL) {
-		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $sectionid)) {
-			return false;
-		}
+		$sectionid = htmlspecialchars($sectionid);
 
 		$db = is_null($readydb) ? new PdoDb() : $readydb;
 
@@ -536,7 +534,7 @@
 			'SELECT `title` FROM `sections` WHERE `sectionid`=:sectionid LIMIT 0, 1;';
 
 		$req = $db->prepare($query);
-		$req->bindParam(':sectionid', $sectionid);
+		$req->bindParam(':sectionid', $sectionid, PDO::PARAM_STR);
 		$req->execute();
 
 		while (list($title) = $req->fetch(PDO::FETCH_NUM)) {
@@ -557,7 +555,7 @@
 			'SELECT `title` FROM `topics` WHERE `topicid`=:topicid LIMIT 0, 1;';
 
 		$req = $db->prepare($query);
-		$req->bindParam(':topicid', $topicid);
+		$req->bindParam(':topicid', $topicid, PDO::PARAM_STR);
 		$req->execute();
 
 		while (list($title) = $req->fetch(PDO::FETCH_NUM)) {

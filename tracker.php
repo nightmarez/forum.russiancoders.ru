@@ -51,7 +51,7 @@
 											$topicTitle = getTopicTitleById($topicid, $pdo);
 											$sectionid = getSectionIdByTopicId($topicid, $pdo);
 											$sectionTitle = getSectionTitleById($sectionid, $pdo);
-											$postnumber = calcPostsInTopic($topicid, $pdo);
+											$postnumber = calcPostsInTopic($topicid, $pdo) - 1;
 											$page = topicPagesCount($topicid, $pdo);
 										?>
 										<a href="/">Форум</a>
@@ -60,9 +60,9 @@
 										→
 										<a href="/topic/<?php echo $topicid; ?>/"><?php echo $topicTitle; ?></a>
 										→
-										<a href="/topic/<?php echo $topicid; ?>/<?php echo $page; ?>/"><?php echo $page; ?></a>
+										<a href="/topic/<?php echo $topicid; ?>/<?php echo $page; ?>/">страница <?php echo $page; ?></a>
 										→
-										<a href="/topic/<?php echo $topicid; ?>/<?php echo $page; ?>/#<?php echo $postnumber; ?>"><?php echo $postnumber; ?></a>
+										<a href="/topic/<?php echo $topicid; ?>/<?php echo $page; ?>/#<?php echo $postnumber; ?>">#<?php echo $postnumber; ?></a>
 									</td>
 									<td>
 										<a href="/user/<?php echo htmlspecialchars($userid); ?>/"><?php echo $login; ?></a>
