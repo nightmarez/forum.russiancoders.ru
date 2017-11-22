@@ -580,7 +580,7 @@
 			) as t
 			WHERE t.`id` = ' . $id . ';';
 
-		foreach ($db->query($query) as $row) {
+		foreach ($db->query($query, PDO::FETCH_ASSOC) as $row) {
 			print_r($row);
 			return $row['cnt'];
 		}
