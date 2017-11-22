@@ -17,12 +17,12 @@
 				$pdo = new PdoDb();
 
 				$query =
-					'SELECT `topicid`, `userid`, `content`, `created` FROM `posts` ORDER BY `id` DESC LIMIT 0, 30;';
+					'SELECT `id`, `topicid`, `userid`, `content`, `created` FROM `posts` ORDER BY `id` DESC LIMIT 0, 30;';
 
 				$req = $pdo->prepare($query);
 				$req->execute();
 
-				while (list($topicid, $userid, $content, $created) = $req->fetch(PDO::FETCH_NUM)) {
+				while (list($id, $topicid, $userid, $content, $created) = $req->fetch(PDO::FETCH_NUM)) {
 					$login = getUserLoginById($userid, $pdo);
 
 					?>
@@ -51,7 +51,7 @@
 											$topicTitle = getTopicTitleById($topicid, $pdo);
 											$sectionid = getSectionIdByTopicId($topicid, $pdo);
 											$sectionTitle = getSectionTitleById($sectionid, $pdo);
-											$postnumber = calcPostsInTopic($topicid, $pdo) - 1;
+											$postnumber = getPostNumber($topicid, $id, $pdo);
 											$page = topicPagesCount($topicid, $pdo);
 										?>
 										<a href="/">Форум</a>

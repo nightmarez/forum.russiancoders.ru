@@ -565,6 +565,30 @@
 		return false;
 	}
 
+	function getPostNumber($topicid, $id, $readydb = NULL) {
+		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $topicid)) {
+			return false;
+		}
+
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+
+		$query =
+			'SET @cnt := 0;
+			SELECT t.`cnt` FROM
+			(
+    			SELECT `id`, (@cnt := @cnt + 1) as `cnt` FROM `posts` WHERE `topicid`=:topicid
+			) as t
+			WHERE t.`id` = :id;'
+
+		$req = $db->prepare($query);
+		$req->bindParam(':topicid', $topicid, PDO::PARAM_STR);
+		$req->bindParam(':topicid', $id, PDO::PARAM_INT);
+		$req->execute();
+		$number = intval($req->fetch(PDO::FETCH_NUM)[0]);
+		return $number;
+	}
+
 	function isLogin() {
 		if (!isset($_COOKIE['session'])) {
 			return false;
