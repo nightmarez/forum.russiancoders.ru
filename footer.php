@@ -1,6 +1,10 @@
 		<footer class="footer" style="text-align: center; line-height: 0.5;">
 			<div class="footer-inner">
-                <?php printf("<!-- Страница сгенерирована за %f секунд -->", date('s', microtime(true) - $start_time)); ?>
+                <?php
+                    $end_time = microtime(true);
+                    $total_time = $end_time - $start_time;
+                    printf("<!-- Страница сгенерирована за %f секунд -->", $total_time);
+                ?>
 				<p>Developed by Michael Makarov (aka NightmareZ)</p>
 				<p>Welcome to my personal site <a href="https://nightmarez.net/">NightmareZ.net</a></p>
 				<p>Hosted at <a href="https://www.jino.ru/?pl=14468430">jino.ru</a></p>
