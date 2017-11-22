@@ -109,6 +109,10 @@
 				return false;
 			}
 		});
+
+		$('#upload-image-btn').click(function() {
+			window.open('/uploader/');
+		});
 	});
 
 	$(document).ready(function() {
@@ -130,10 +134,6 @@
 
 			window.addEventListener('hashchange', function(e) {
 				gotoMessage();
-			});
-
-			$('#upload-image-btn').click(function() {
-				window.open('/uploader/');
 			});
 
 			$('.triangle-up').click(function() {

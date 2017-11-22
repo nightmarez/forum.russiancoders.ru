@@ -27,7 +27,7 @@
 								Раздел
 							</td>
 							<td>
-								<select name="sectionid">
+								<select class="form-control" name="sectionid">
 									<?php
 										$db = new PdoDb();
 
@@ -51,13 +51,13 @@
 								Тема
 							</td>
 							<td>
-								<input type="text" maxlength="40" name="title" style="min-width: 200px;">
+								<input class="form-control" type="text" maxlength="40" name="title" style="min-width: 200px;">
 							</td>
 						</tr>
 						<tr>
 							<td colspan="2">
 								<p>Сообщение</p>
-								<textarea name="content" style="min-width: 800px; min-height: 300px;"></textarea>
+								<textarea class="form-control" name="content" style="min-width: 800px; min-height: 300px;"></textarea>
 							</td>
 						</tr>
 						<tr>
@@ -67,7 +67,10 @@
 						</tr>
 						<tr>
 							<td colspan="2">
-								<input type="submit" class="btn btn-primary" value="Создать">
+								<input type="submit" class="btn btn-primary" style="float: left;" value="Создать">
+								<div style="float: left; margin-left: 10px;">
+									<input type="button" class="btn btn-primary" id="upload-image-btn" value="Загрузить изображение">
+								</div>
 							</td>
 						</tr>
 						<?php if (isset($_GET['error'])) { ?>
