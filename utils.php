@@ -583,10 +583,17 @@
 		echo '<!--';
 		echo $query;
 		echo '-->';
+		echo "\r\n";
 
 		$req = $db->prepare($query);
 		$req->execute();
-		return $req->fetchColumn();
+		$result = $req->fetchColumn();
+
+		echo '<!--';
+		echo '[result:' . $result . ']';
+		echo '-->';
+
+		return $result;
 	}
 
 	function isLogin() {
