@@ -7,3 +7,22 @@ RewriteRule ^/section/([a-zA-Z0-9]+)/$ /section.php?sectionid=$1 [L]
 RewriteRule ^/topic/([a-zA-Z0-9]+)/$ /topic.php?topicid=$1 [L]
 RewriteRule ^/topic/([a-zA-Z0-9]+)/([0-9]+)/$ /topic.php?topicid=$1&page=$2 [L]
 RewriteRule ^/sendmessage/([a-zA-Z0-9]+)/$ /sendmessage.php?userid=$1 [L]
+
+RewriteCond %{HTTP_REFERER} !^$
+RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?forum.russiancoders.ru [NC]
+RewriteRule \.(jpg|jpeg|png|gif)$ - [NC,F,L]
+
+<FilesMatch ".(htaccess|htpasswd|ini|phps|fla|psd|log|sh|git)$">
+Order Allow,Deny
+Deny from all
+</FilesMatch>
+
+Options All -Indexes
+
+<FilesMatch ".(flv|gif|jpg|jpeg|png|ico|swf|js|css|pdf)$">
+Header set Cache-Control "max-age=2592000"
+</FilesMatch>
+
+<FilesMatch ".(pl|php|cgi|spl|scgi|fcgi)$">
+Header unset Cache-Control
+</FilesMatch>
