@@ -586,7 +586,7 @@
 		$req->execute();
 
 		while (list($cnt) = $req->fetch(PDO::FETCH_NUM)) {
-			return intval($cnt);
+			return $cnt;
 		}
 
 		return false;
