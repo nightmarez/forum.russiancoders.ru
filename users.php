@@ -24,8 +24,7 @@
 					<?php
 						$db = new PdoDb();
 
-						$query =
-							'SELECT `userid`, `login`, MD5(LOWER(TRIM(`mail`))) FROM `users` ORDER BY `id` DESC LIMIT 0, 1000;';
+						$query = 'SELECT `userid`, `login`, MD5(LOWER(TRIM(`mail`))) FROM `users` ORDER BY `last` DESC;';
 
 						$req = $db->prepare($query);
 						$req->execute();
