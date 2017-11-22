@@ -597,7 +597,7 @@
 
 		$db = is_null($readydb) ? new PdoDb() : $readydb;
 
-		$number = ceil(getPostNumber($topicid, $id, $readydb) / postsPerPage());
+		$number = ceil((getPostNumber($topicid, $id, $readydb) + 1) / postsPerPage());
 		return $number > 0 ? $number : 1;
 	}
 
