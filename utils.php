@@ -574,7 +574,7 @@
 
 		$query =
 			'SET @cnt := 0;
-			SELECT t.`cnt` as `cnt` FROM
+			SELECT t.`cnt` FROM
 			(
     			SELECT `id`, (@cnt := @cnt + 1) as `cnt` FROM `posts` WHERE `topicid`="' . $topicid . '"
 			) as t
@@ -584,13 +584,9 @@
 		echo $query;
 		echo '-->';
 
-		foreach ($db->query($query) as $row) {
-			echo $row;
-			print_r($row);
-			return $row['cnt'];
-		}
-
-		return false;
+		$q = $db->query($query);
+		$r = $q->fetch();
+		return $r['cnt'];
 	}
 
 	function isLogin() {
