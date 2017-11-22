@@ -580,12 +580,7 @@
 			) as t
 			WHERE t.`id` = ' . $id . ';';
 
-		foreach ($db->query($query, PDO::FETCH_ASSOC) as $row) {
-			print_r($row);
-			return $row['cnt'];
-		}
-
-		return false;
+		return $db->query($query, PDO::FETCH_ASSOC);
 	}
 
 	function isLogin() {
