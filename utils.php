@@ -580,8 +580,7 @@
 			) as t
 			WHERE t.`id` = ' . $id . ';';
 
-		$req = $db->prepare($query);
-		$req->execute();
+		$req = $db->query($query);
 
 		while (list($cnt) = $req->fetch(PDO::FETCH_NUM)) {
 			return $cnt;
