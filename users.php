@@ -14,9 +14,10 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th>&nbsp;</th>
+						<th>Аватар</th>
 						<th>Логин</th>
 						<th>Последнее посещение</th>
+						<th>Регистрация</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -39,7 +40,10 @@
 										<a href="/user/<?php echo htmlspecialchars($userid); ?>/"><?php echo htmlspecialchars($login); ?></a>
 									</td>
 									<td>
-										<?php echo getUserLastVisit($userid); ?>
+										<?php echo getUserLastVisit($userid, $db); ?>
+									</td>
+									<td>
+										<?php echo getUserFirstVisit($userid, $db); ?>
 									</td>
 								</tr>
 							<?php
