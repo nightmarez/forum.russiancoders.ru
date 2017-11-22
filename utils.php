@@ -483,15 +483,15 @@
 		return true;
 	}
 
-	function getUserLoginById($userid) {
+	function getUserLoginById($userid, $readydb = NULL) {
 		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $userid)) {
 			return false;
 		}
 
-		$db = new PdoDb();
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
 
 		$query =
-			'SELECT `login` FROM `users` WHERE `userid`=:userid;';
+			'SELECT `login` FROM `users` WHERE `userid`=:userid LIMIT 0, 1;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':userid', $userid);
@@ -499,6 +499,69 @@
 
 		while (list($login) = $req->fetch(PDO::FETCH_NUM)) {
 			return htmlspecialchars($login);
+		}
+
+		return false;
+	}
+
+	function getSectionIdByTopicId($topicid, $readydb = NULL) {
+		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $topicid)) {
+			return false;
+		}
+
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		$query =
+			'SELECT `sectionid` FROM `topics` WHERE `topicid`=:topicid LIMIT 0, 1;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':topicid', $topicid);
+		$req->execute();
+
+		while (list($sectionid) = $req->fetch(PDO::FETCH_NUM)) {
+			return htmlspecialchars($sectionid);
+		}
+
+		return false;
+	}
+
+	function getSectionTitleById($sectionid, $readydb = NULL) {
+		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $sectionid)) {
+			return false;
+		}
+
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		$query =
+			'SELECT `title` FROM `sections` WHERE `sectionid`=:sectionid LIMIT 0, 1;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':sectionid', $sectionid);
+		$req->execute();
+
+		while (list($title) = $req->fetch(PDO::FETCH_NUM)) {
+			return htmlspecialchars($title);
+		}
+
+		return false;
+	}
+
+	function getTopicTitleById($topicid, $readydb = NULL) {
+		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $readydb)) {
+			return false;
+		}
+
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		$query =
+			'SELECT `title` FROM `topics` WHERE `topicid`=:topicid LIMIT 0, 1;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':topicid', $topicid);
+		$req->execute();
+
+		while (list($title) = $req->fetch(PDO::FETCH_NUM)) {
+			return htmlspecialchars($title);
 		}
 
 		return false;
