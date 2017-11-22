@@ -585,6 +585,8 @@
 		echo '-->';
 
 		foreach ($db->query($query) as $row) {
+			echo $row;
+			print_r($row);
 			return $row['cnt'];
 		}
 
