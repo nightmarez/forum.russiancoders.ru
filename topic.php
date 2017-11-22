@@ -79,7 +79,7 @@
 													}
 												?>
 											</td>
-											<td><a href="/topic/<?php echo $topicid; ?>/<?php echo $page; ?>/#<?php echo $number; ?>" title="Ссылка на сообщение">#<?php echo $number++; ?></a><?php
+											<td id="message<?php echo $number; ?>"><a href="/topic/<?php echo $topicid; ?>/<?php echo $page; ?>/#<?php echo $number; ?>" title="Ссылка на сообщение">#<?php echo $number++; ?></a><?php
 													$query =
 														'SELECT `login` FROM `users` WHERE `userid`=:userid LIMIT 0, 1;';
 

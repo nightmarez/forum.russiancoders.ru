@@ -110,7 +110,16 @@
 
 	$(document).ready(function() {
 		if (location.href.indexOf('/topic/') !== -1) {
-			//$('html, body').animate({ scrollTop: $(document).height() }, 'fast');
+			var hashIdx = location.href.indexOf('#');
+
+			if (hashIdx !== -1) {
+				var messageId = location.href.substr(hashIdx + 1);
+
+				if (messageId.length) {
+					messageId = parseInt(messageId);
+					$('html, body').animate({ scrollTop: $('#message' + messageId).position().top }, 'fast');
+				}
+			}
 
 			$('#upload-image-btn').click(function() {
 				window.open('/uploader/');
