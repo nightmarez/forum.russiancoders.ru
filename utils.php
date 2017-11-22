@@ -590,6 +590,22 @@
 		return $result - 1;
 	}
 
+	function getUserLastVisit($userid, $readydb = NULL) {
+		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $userid)) {
+			return false;
+		}
+
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+		$query = 'SELECT `last` FROM `users` WHERE `userid`=:userid LIMIT 0, 1;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':userid', $userid, PDO::PARAM_STR);
+		$req->execute();
+		$result = $req->fetchColumn();
+
+		return $result;
+	}
+
 	function getPostPageNumber($topicid, $id, $readydb = NULL) {
 		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $topicid)) {
 			return false;

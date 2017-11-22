@@ -14,7 +14,9 @@
 			<table class="table">
 				<thead>
 					<tr>
+						<th>&nbsp;</th>
 						<th>Логин</th>
+						<th>Последнее посещение</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -22,7 +24,7 @@
 						$db = new PdoDb();
 
 						$query =
-							'SELECT `userid`, `login`, MD5(LOWER(TRIM(`mail`))) FROM `users` ORDER BY `id` LIMIT 0, 1000;';
+							'SELECT `userid`, `login`, MD5(LOWER(TRIM(`mail`))) FROM `users` ORDER BY `id` DESC LIMIT 0, 1000;';
 
 						$req = $db->prepare($query);
 						$req->execute();
@@ -32,7 +34,12 @@
 								<tr>
 									<td>
 										<img style="margin-right: 15px;" src="<?php echo 'https://secure.gravatar.com/avatar/' . $mail . '.jpg?s=25';?>" align="left">
+									</td>
+									<td>
 										<a href="/user/<?php echo htmlspecialchars($userid); ?>/"><?php echo htmlspecialchars($login); ?></a>
+									</td>
+									<td>
+										<?php echo getUserLastVisit($userid); ?>
 									</td>
 								</tr>
 							<?php
