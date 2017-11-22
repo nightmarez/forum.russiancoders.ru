@@ -574,18 +574,16 @@
 
 		$query =
 			'SET @cnt := 0;
-			SELECT t.`id`, t.`cnt` FROM
+			SELECT t.`cnt` FROM
 			(
-    			SELECT `id`, (@cnt := @cnt + 1) as `cnt` FROM `posts` WHERE `topicid`=:topicid
+    			SELECT `id`, (@cnt := @cnt + 1) as `cnt` FROM `posts` WHERE `topicid`=' . $topicid . '
 			) as t
-			WHERE t.`id` = :id;';
+			WHERE t.`id` = ' . $id . ';';
 
 		$req = $db->prepare($query);
-		$req->bindParam(':topicid', $topicid, PDO::PARAM_STR);
-		$req->bindParam(':id', $id, PDO::PARAM_INT);
 		$req->execute();
 
-		while (list($id, $cnt) = $req->fetch(PDO::FETCH_NUM)) {
+		while (list($cnt) = $req->fetch(PDO::FETCH_NUM)) {
 			return $cnt;
 		}
 
