@@ -720,7 +720,7 @@
 		$text = preg_replace('#o_O#iUs', '<img src="https://gdpanel.nightmarez.net/crazy.gif" alt="сумасшествие">', $text);
 
 		$text = preg_replace('#\[rofl\]#iUs', '<img src="https://gdpanel.nightmarez.net/rofl.gif" alt="ржу не могу">', $text);
-		$text = preg_replace('#\[good\]#iUs', '<img src="https://gdpanel.nightmarez.net/rofl.gif" alt="отлично">', $text);
+		$text = preg_replace('#\[good\]#iUs', '<img src="https://gdpanel.nightmarez.net/good.gif" alt="отлично">', $text);
 		$text = preg_replace('#\[scratch\]#iUs', '<img src="https://gdpanel.nightmarez.net/scratch.gif" alt="задумался">', $text);
 		$text = preg_replace('#\[rtfm\]#iUs', '<img src="https://gdpanel.nightmarez.net/rtfm.gif" alt="читай маны">', $text);
 		$text = preg_replace('#\[stop\]#iUs', '<img src="https://gdpanel.nightmarez.net/stop.gif" alt="стоп">', $text);
