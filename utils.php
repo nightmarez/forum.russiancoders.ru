@@ -580,7 +580,7 @@
 			) as t
 			WHERE t.`id` = ' . $id . ';';
 
-		return $db->query($query, PDO::FETCH_ASSOC);
+		return $db->query($query, PDO::FETCH_ASSOC)[0];
 	}
 
 	function isLogin() {
