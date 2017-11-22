@@ -100,11 +100,14 @@
 	});
 
 	$(document).ready(function() {
+		// prevent double clicks
 		$('input[type=submit]').click(function(e) {
-			$(this).attr('disabled', true);
-			e.stopPropagation();
-			$('form').submit();
-			return false;
+			if ($(this).parent().prop('tagName') == 'FORM') {
+				$(this).attr('disabled', true);
+				e.stopPropagation();
+				$(this).parent().submit();
+				return false;
+			}
 		});
 	});
 
