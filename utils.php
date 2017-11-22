@@ -582,7 +582,7 @@
 
 		$req = $db->prepare($query);
 		$req->bindParam(':topicid', $topicid, PDO::PARAM_STR);
-		$req->bindParam(':id', $id, PDO::PARAM_INT);
+		$req->bindParam(':id', $id);
 		$req->execute();
 
 		while (list($cnt) = $req->fetch(PDO::FETCH_NUM)) {
