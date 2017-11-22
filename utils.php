@@ -545,7 +545,7 @@
 	}
 
 	function getTopicTitleById($topicid, $readydb = NULL) {
-		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $readydb)) {
+		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $topicid)) {
 			return false;
 		}
 
