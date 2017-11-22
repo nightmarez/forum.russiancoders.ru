@@ -110,16 +110,24 @@
 
 	$(document).ready(function() {
 		if (location.href.indexOf('/topic/') !== -1) {
-			var hashIdx = location.href.indexOf('#');
+			var gotoMessage = function() {
+				var hashIdx = location.href.indexOf('#');
 
-			if (hashIdx !== -1) {
-				var messageId = location.href.substr(hashIdx + 1);
+				if (hashIdx !== -1) {
+					var messageId = location.href.substr(hashIdx + 1);
 
-				if (messageId.length) {
-					messageId = parseInt(messageId);
-					$('html, body').animate({ scrollTop: $('#message' + messageId).position().top }, 'fast');
+					if (messageId.length) {
+						messageId = parseInt(messageId);
+						$('html, body').animate({ scrollTop: $('#message' + messageId).position().top }, 'fast');
+					}
 				}
-			}
+			};
+
+			gotoMessage();
+
+			$('.message-link').click(function() {
+				gotoMessage();
+			});
 
 			$('#upload-image-btn').click(function() {
 				window.open('/uploader/');
