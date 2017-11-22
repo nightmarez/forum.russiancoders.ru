@@ -1,4 +1,4 @@
-<?php $start_time = microtime(); require_once('utils.php'); ?><!DOCTYPE html>
+<?php $start_time = microtime(true); require_once('utils.php'); ?><!DOCTYPE html>
 <html lang="en">
 	<head>
 		<?php
