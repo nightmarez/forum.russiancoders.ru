@@ -572,14 +572,13 @@
 
 		$db = is_null($readydb) ? new PdoDb() : $readydb;
 
-
 		$query =
 			'SET @cnt := 0;
 			SELECT t.`cnt` FROM
 			(
     			SELECT `id`, (@cnt := @cnt + 1) as `cnt` FROM `posts` WHERE `topicid`=:topicid
 			) as t
-			WHERE t.`id` = :id;'
+			WHERE t.`id` = :id;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':topicid', $topicid, PDO::PARAM_STR);
