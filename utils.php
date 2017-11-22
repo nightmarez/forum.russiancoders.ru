@@ -572,26 +572,20 @@
 
 		$db = is_null($readydb) ? new PdoDb() : $readydb;
 
+		$query = 'SET @cnt := 0;';
+		$req = $db->prepare($query);
+		$req->execute();
+
 		$query =
-			'SET @cnt := 0;
-			SELECT t.`cnt` FROM
+			'SELECT t.`cnt` FROM
 			(
     			SELECT `id`, (@cnt := @cnt + 1) as `cnt` FROM `posts` WHERE `topicid`="' . $topicid . '"
 			) as t
 			WHERE t.`id` = ' . $id . ';';
 
-		echo '<!--';
-		echo $query;
-		echo '-->';
-		echo "\r\n";
-
 		$req = $db->prepare($query);
 		$req->execute();
 		$result = $req->fetchColumn();
-
-		echo '<!--';
-		echo '[result:' . $result . ']';
-		echo '-->';
 
 		return $result;
 	}
