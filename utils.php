@@ -574,7 +574,7 @@
 
 		$query =
 			'SET @cnt := 0;
-			SELECT t.`cnt` FROM
+			SELECT t.`cnt` as `cnt` FROM
 			(
     			SELECT `id`, (@cnt := @cnt + 1) as `cnt` FROM `posts` WHERE `topicid`="' . $topicid . '"
 			) as t
@@ -584,11 +584,8 @@
 		echo $query;
 		echo '-->';
 
-		$req = $db->prepare($query);
-		$req->execute();
-
-		while (list($cnt) = $req->fetch(PDO::FETCH_NUM)) {
-			return $cnt;
+		foreach ($db->query($query) as $row) {
+			return $row['cnt'];
 		}
 
 		return false;
