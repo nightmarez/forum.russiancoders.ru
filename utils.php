@@ -584,8 +584,12 @@
 		$req->bindParam(':topicid', $topicid, PDO::PARAM_STR);
 		$req->bindParam(':id', $id, PDO::PARAM_INT);
 		$req->execute();
-		$number = intval($req->fetch(PDO::FETCH_NUM)[0]);
-		return $number;
+
+		while (list($cnt) = $req->fetch(PDO::FETCH_NUM)) {
+			return intval($cnt);
+		}
+
+		return false;
 	}
 
 	function isLogin() {
