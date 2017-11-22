@@ -587,7 +587,7 @@
 		$req->execute();
 		$result = $req->fetchColumn();
 
-		return $result;
+		return $result - 1;
 	}
 
 	function isLogin() {
