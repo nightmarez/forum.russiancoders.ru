@@ -581,6 +581,7 @@
 			WHERE t.`id` = ' . $id . ';';
 
 		foreach ($db->query($query) as $row) {
+			print_r($row);
 			return $row['cnt'];
 		}
 
