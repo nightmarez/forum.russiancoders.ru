@@ -584,8 +584,9 @@
 		echo $query;
 		echo '-->';
 
-		$q = $db->query($query);
-		return $q->fetchColumn();
+		$req = $db->prepare($query);
+		$req->execute();
+		return $req->fetchColumn();
 	}
 
 	function isLogin() {
