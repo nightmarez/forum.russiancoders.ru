@@ -125,7 +125,7 @@
 
 			gotoMessage();
 
-			$('.message-link').click(function() {
+			window.addEventListener('hashchange', function(e) {
 				gotoMessage();
 			});
 
