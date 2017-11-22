@@ -52,7 +52,7 @@
 											$sectionid = getSectionIdByTopicId($topicid, $pdo);
 											$sectionTitle = getSectionTitleById($sectionid, $pdo);
 											$postnumber = getPostNumber($topicid, $id, $pdo);
-											$page = topicPagesCount($topicid, $pdo);
+											$page = getPostPageNumber($topicid, $id, $pdo);
 										?>
 										<a href="/">Форум</a>
 										→

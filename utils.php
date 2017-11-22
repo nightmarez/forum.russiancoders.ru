@@ -590,6 +590,17 @@
 		return $result - 1;
 	}
 
+	function getPostPageNumber($topicid, $id, $readydb = NULL) {
+		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $topicid)) {
+			return false;
+		}
+
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		$number = ceil(getPostNumber($topicid, $id, $readydb) / postsPerPage());
+		return $number > 0 ? $number : 1;
+	}
+
 	function isLogin() {
 		if (!isset($_COOKIE['session'])) {
 			return false;
