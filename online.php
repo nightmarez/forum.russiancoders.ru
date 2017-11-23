@@ -23,13 +23,17 @@
 						$db = new PdoDb();
 
 						$query =
-							'SELECT `userid`, `login`, `last`, (now() - `last`) as `online`, MD5(LOWER(TRIM(`mail`))) FROM `users` WHERE TIME_TO_SEC(TIMEDIFF(NOW(), `last`)) <= 24 * 60 * 60
+							'SELECT `userid`, `login`, `last`, (now() - `last`) as `online`, MD5(LOWER(TRIM(`mail`))), `state` FROM `users` WHERE TIME_TO_SEC(TIMEDIFF(NOW(), `last`)) <= 24 * 60 * 60
  ORDER BY `last` DESC LIMIT 0, 100;';
 
 						$req = $db->prepare($query);
 						$req->execute();
 
-						while (list($userid, $login, $last, $online, $mail) = $req->fetch(PDO::FETCH_NUM)) {
+						while (list($userid, $login, $last, $online, $mail, $state) = $req->fetch(PDO::FETCH_NUM)) {
+							if ($state !== 2) {
+								continue;
+							}
+
 							?>
 								<tr>
 									<td>
