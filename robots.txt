@@ -1,5 +1,5 @@
 User-agent: * 
-Sitemap: http://forum.russiancoders.ru/sitemap.xml
+Sitemap: https://forum.russiancoders.ru/sitemap.xml
 Allow: /
 User-Agent: Yandex
 Host: forum.russiancoders.ru
