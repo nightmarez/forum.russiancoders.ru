@@ -1,0 +1,11 @@
+User-agent: * 
+Sitemap: http://forum.russiancoders.ru/sitemap.xml
+Allow: /
+User-Agent: Yandex
+Host: forum.russiancoders.ru
+User-agent: Mail.Ru
+Crawl-delay: 1
+User-agent: Slurp
+Crawl-delay: 3
+User-agent: MSNBot
+Crawl-delay: 3
