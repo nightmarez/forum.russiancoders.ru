@@ -448,6 +448,10 @@
 			return false;
 		}
 
+		if ($userid == 'jYzACIND80rGj0XngB3N') {
+			return false;
+		}
+
 		$db = new PdoDb();
 
 		$query =
