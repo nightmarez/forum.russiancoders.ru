@@ -30,7 +30,7 @@
 						$req->execute();
 
 						while (list($userid, $login, $last, $online, $mail, $state) = $req->fetch(PDO::FETCH_NUM)) {
-							if ($state !== 2) {
+							if ($state == 2) {
 								continue;
 							}
 
