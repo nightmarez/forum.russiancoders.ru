@@ -25,11 +25,9 @@
 					<div class="panel panel-info">
 						<div class="panel-heading">
 							<div class="row">
-								<div class="col-md-1">
-									<img src="<?php echo getGravatarLink($userid, 25, $readydb); ?>" alt="<?php echo $login; ?>">
-								</div>
-								<div class="col-md-3">
-									<a href="/user/<?php echo htmlspecialchars($userid); ?>/"><?php echo $login; ?></a>
+								<div class="col-md-4">
+									<img src="<?php echo getGravatarLink($userid, 25, $readydb); ?>" alt="<?php echo $login; ?>" style="float: left; margin-right: 5px;">
+									<a href="/user/<?php echo htmlspecialchars($userid); ?>/" style="float: left;" title="Пользователь <?php echo $login; ?>" rel="author"><?php echo $login; ?></a>
 								</div>
 								<div class="col-md-6">
 									<?php
