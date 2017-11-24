@@ -734,6 +734,10 @@
 		$text = preg_replace('#(\s*)---(\s*)#iUs', '${1}—${2}', $text);
 		$text = preg_replace('#(\s*)--(\s*)#iUs', '${1}–${2}', $text);
 
+		echo '<!--';
+		echo $text;
+		echo '-->';
+
 		$text = preg_replace('#(Михаил Макаров)#iUs', 'NightmareZ', $text);
 		$text = preg_replace('#(Михаил\s*Макаров)#iUs', 'NightmareZ', $text);
 		$text = preg_replace('#(Макаров Михаил)#iUs', 'NightmareZ', $text);
