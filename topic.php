@@ -52,10 +52,14 @@
 					<div class="panel panel-info">
 						<div class="panel-heading">
 							<div class="row">
-								<div class="col-md-2">
+								<div class="col-md-1">
 									<img src="<?php echo getGravatarLink($userid, 25, $readydb); ?>" alt="<?php echo $login; ?>">
 								</div>
-								<div class="col-md-6" id="message<?php echo $number; ?>"><a class="message-link" href="/topic/<?php echo $topicid; ?>/<?php echo ($page + 1); ?>/#<?php echo $number; ?>" title="Ссылка на сообщение">#<?php echo $number++; ?></a><?php
+								<div class="col-md-1">
+									<a class="message-link" href="/topic/<?php echo $topicid; ?>/<?php echo ($page + 1); ?>/#<?php echo $number; ?>" title="Ссылка на сообщение">#<?php echo $number++; ?></a>
+								</div>
+								<div class="col-md-6" id="message<?php echo $number; ?>">
+									<?php
 										$query = 'SELECT `login` FROM `users` WHERE `userid`=:userid LIMIT 0, 1;';
 
 										$r = $readydb->prepare($query);
