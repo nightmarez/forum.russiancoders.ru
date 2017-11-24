@@ -513,7 +513,11 @@
 		$req->execute();
 
 		while (list($login) = $req->fetch(PDO::FETCH_NUM)) {
-			return htmlspecialchars($login);
+			$login = htmlspecialchars($login);
+
+			$login = preg_replace('#(aik)#iUs', 'Антон Литвинов', $login);
+			$login = preg_replace('#(seoratings)#iUs', 'Антон Литвинов', $login);
+			$login = preg_replace('#(prematuremakarov)#iUs', 'Антон Литвинов', $login);
 		}
 
 		return false;
