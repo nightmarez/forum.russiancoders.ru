@@ -992,7 +992,7 @@
 
 		$currentuserid = $_COOKIE['userid'];
 
-		if (!isUserIdExists($userid, $currentuserid)) {
+		if (!isUserIdExists($currentuserid, $readydb)) {
 			return false;
 		}
 
