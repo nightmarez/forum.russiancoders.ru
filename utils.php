@@ -726,6 +726,7 @@
 		$text = preg_replace('#\[small\](.*)\[\/small\]#iUs', '<small>${1}</small>', $text);
 		$text = preg_replace('#\[sup\](.*)\[\/sup\]#iUs', '<sup>${1}</sup>', $text);
 		$text = preg_replace('#\[sub\](.*)\[\/sub\]#iUs', '<sub>${1}</sub>', $text);
+		$text = preg_replace('#\[quote\](.*)\[\/quote\]#iUs', '<span style="color: gray;">${1}</span>', $text);
 
 		$text = preg_replace('#(\[br\]){2,}#iUs', '<br><br>', $text);
 		$text = preg_replace('#\[br\]#iUs', '<br>', $text);
