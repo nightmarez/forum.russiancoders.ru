@@ -130,15 +130,13 @@
 		return preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $userId);
 	}
 
-	function isUserIdExists($userId) {
+	function isUserIdExists($userId, $readydb = NULL) {
 		if (!validateUserId($userId)) {
 			return false;
 		}
 
-		$db = new PdoDb();
-
-		$query =
-			'SELECT * FROM `users` WHERE `userid`=:userid LIMIT 0, 1;';
+		$db = $db = is_null($readydb) ? new PdoDb() : $readydb;
+		$query = 'SELECT * FROM `users` WHERE `userid`=:userid LIMIT 0, 1;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':userid', $userId);
@@ -147,15 +145,13 @@
 		return $count >= 1;
 	}
 
-	function isUidExists($uid) {
+	function isUidExists($uid, $readydb = NULL) {
 		if (preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $uid)) {
 			return true;
 		}
 
-		$db = new PdoDb();
-
-		$query =
-			'SELECT * FROM `uids` WHERE `uid`=:uid LIMIT 0, 1;';
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+		$query = 'SELECT * FROM `uids` WHERE `uid`=:uid LIMIT 0, 1;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':uid', $uid);
@@ -350,12 +346,16 @@
 		}
 	}
 
-	function addPost($userid, $topicid, $content) {
-		if (!isTopicExists($topicid)) {
+	function addPost($userid, $topicid, $content, $readydb = NULL) {
+		if (!isUserIdExists($userid, $readydb)) {
 			return false;
 		}
 
-		$db = new PdoDb();
+		if (!isTopicExists($topicid, $readydb)) {
+			return false;
+		}
+
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
 
 		$query = 
 			'INSERT INTO `posts` 
@@ -385,7 +385,11 @@
 		$req->execute();
 	}
 
-	function createTopic($userid, $sectionid, $title, $content) {
+	function createTopic($userid, $sectionid, $title, $content, $readydb = NULL) {
+		if (!isUserIdExists($userid, $readydb)) {
+			return false;
+		}
+
 		if (!isSectionExists($sectionid)) {
 			header('Location: /createtopic.php?error=Заданного раздела не существует');
 			die();
@@ -393,7 +397,7 @@
 
 		$topicid = generateUserId();
 
-		$db = new PdoDb();
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
 
 		$query = 
 			'INSERT INTO `topics` 
@@ -445,7 +449,7 @@
 		header('Location: /');
 	}
 
-	function updateUserOnline() {
+	function updateUserOnline($readydb = NULL) {
 		if (!isset($_COOKIE['session'])) {
 			return false;
 		}
@@ -458,7 +462,7 @@
 
 		$userid = $_COOKIE['userid'];
 
-		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $userid)) {
+		if (!isUserIdExists($userid, $readydb)) {
 			return false;
 		}
 
@@ -466,10 +470,8 @@
 			return false;
 		}
 
-		$db = new PdoDb();
-
-		$query =
-			'UPDATE `users` SET `last`=now() WHERE `session`=:session AND `userid`=:userid;';
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+		$query = 'UPDATE `users` SET `last`=now() WHERE `session`=:session AND `userid`=:userid;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':session', $session);
@@ -477,9 +479,7 @@
 		$req->execute();
 
 		$ip = get_ip();
-
-		$query =
-			'SELECT `id` FROM `ips` WHERE `userid`=:userid AND `ip`=:ip LIMIT 0, 1;';
+		$query = 'SELECT `id` FROM `ips` WHERE `userid`=:userid AND `ip`=:ip LIMIT 0, 1;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':userid', $userid);
@@ -490,8 +490,7 @@
 			return true;
 		}
 
-		$query =
-			'INSERT INTO `ips` (`userid`, `ip`) VALUES (:userid, :ip);';
+		$query = 'INSERT INTO `ips` (`userid`, `ip`) VALUES (:userid, :ip);';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':userid', $userid);
@@ -502,14 +501,12 @@
 	}
 
 	function getUserLoginById($userid, $readydb = NULL) {
-		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $userid)) {
+		if (!isUserIdExists($userid, $readydb)) {
 			return false;
 		}
 
 		$db = is_null($readydb) ? new PdoDb() : $readydb;
-
-		$query =
-			'SELECT `login` FROM `users` WHERE `userid`=:userid LIMIT 0, 1;';
+		$query = 'SELECT `login` FROM `users` WHERE `userid`=:userid LIMIT 0, 1;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':userid', $userid, PDO::PARAM_STR);
@@ -528,9 +525,7 @@
 		}
 
 		$db = is_null($readydb) ? new PdoDb() : $readydb;
-
-		$query =
-			'SELECT `sectionid` FROM `topics` WHERE `topicid`=:topicid LIMIT 0, 1;';
+		$query = 'SELECT `sectionid` FROM `topics` WHERE `topicid`=:topicid LIMIT 0, 1;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':topicid', $topicid, PDO::PARAM_STR);
@@ -545,11 +540,8 @@
 
 	function getSectionTitleById($sectionid, $readydb = NULL) {
 		$sectionid = htmlspecialchars($sectionid);
-
 		$db = is_null($readydb) ? new PdoDb() : $readydb;
-
-		$query =
-			'SELECT `title` FROM `sections` WHERE `sectionid`=:sectionid LIMIT 0, 1;';
+		$query = 'SELECT `title` FROM `sections` WHERE `sectionid`=:sectionid LIMIT 0, 1;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':sectionid', $sectionid, PDO::PARAM_STR);
@@ -568,9 +560,7 @@
 		}
 
 		$db = is_null($readydb) ? new PdoDb() : $readydb;
-
-		$query =
-			'SELECT `title` FROM `topics` WHERE `topicid`=:topicid LIMIT 0, 1;';
+		$query = 'SELECT `title` FROM `topics` WHERE `topicid`=:topicid LIMIT 0, 1;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':topicid', $topicid, PDO::PARAM_STR);
