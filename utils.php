@@ -518,6 +518,8 @@
 			$login = preg_replace('#(aik)#iUs', 'Антон Литвинов', $login);
 			$login = preg_replace('#(seoratings)#iUs', 'Антон Литвинов', $login);
 			$login = preg_replace('#(prematuremakarov)#iUs', 'Антон Литвинов', $login);
+
+			return $login;
 		}
 
 		return false;
