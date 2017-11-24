@@ -59,18 +59,8 @@
 									<a class="message-link" href="/topic/<?php echo $topicid; ?>/<?php echo ($page + 1); ?>/#<?php echo $number; ?>" title="Ссылка на сообщение">#<?php echo $number++; ?></a>
 								</div>
 								<div class="col-md-6" id="message<?php echo $number; ?>">
-									<?php
-										$query = 'SELECT `login` FROM `users` WHERE `userid`=:userid LIMIT 0, 1;';
-
-										$r = $readydb->prepare($query);
-										$r->bindParam(':userid', $userid);
-										$r->execute();
-
-										while (list($login) = $r->fetch(PDO::FETCH_NUM)) {
-											?><a href="/user/<?php echo htmlspecialchars($userid); ?>/" rel="author"><?php echo htmlspecialchars($login); ?></a><?php
-											break;
-										}
-									?></div>
+									<a href="/user/<?php echo htmlspecialchars($userid); ?>/" rel="author"><?php echo getUserLoginById($userid, $readydb); ?></a>
+								</div>
 								<div class="col-md-2" style="text-align: right;"><?php
 									echo $created;
 									?></div>
