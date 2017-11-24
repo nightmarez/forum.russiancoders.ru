@@ -22,11 +22,11 @@
 				$login = getUserLoginById($userid, $readydb);
 
 				?>
-					<div class="panel panel-info" style="margin: 20px;">
+					<div class="panel panel-info">
 						<div class="panel-heading">
 							<div class="row">
 								<div class="col-md-1">
-									<img style="margin-right: 5px;" src="<?php echo getGravatarLink($userid, 25, $readydb); ?>" alt="<?php echo $login; ?>">
+									<img src="<?php echo getGravatarLink($userid, 25, $readydb); ?>" alt="<?php echo $login; ?>">
 								</div>
 								<div class="col-md-3">
 									<a href="/user/<?php echo htmlspecialchars($userid); ?>/"><?php echo $login; ?></a>

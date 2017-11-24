@@ -22,12 +22,9 @@
 	<div class="panel-heading">
 		<h3 class="panel-title">
 			<?php
-				$db = new PdoDb();
+				$query = 'SELECT `title` FROM `topics` WHERE `topicid`=:topicid LIMIT 0, 1;';
 
-				$query =
-					'SELECT `title` FROM `topics` WHERE `topicid`=:topicid LIMIT 0, 1;';
-
-				$req = $db->prepare($query);
+				$req = $readydb->prepare($query);
 				$req->bindParam(':topicid', $topicid);
 				$req->execute();
 
@@ -40,74 +37,55 @@
 	</div>
 
 	<div class="panel-body">
-		<div class="table-responsive">
-					<?php
-						$db = new PdoDb();
+		<?php
+			$query = 'SELECT `id`, `userid`, `content`, `created` FROM `posts` WHERE `topicid`=:topicid ORDER BY `id` ASC LIMIT :skipcount, :pagesize;';
+			$skipCount = $page * $ppp;
 
-						$query =
-							'SELECT `id`, `userid`, `content`, `created` FROM `posts` WHERE `topicid`=:topicid ORDER BY `id` ASC LIMIT :skipcount, :pagesize;';
+			$req = $readydb->prepare($query);
+			$req->bindParam(':topicid', $topicid, PDO::PARAM_STR);
+			$req->bindParam(':pagesize', $ppp, PDO::PARAM_INT);
+			$req->bindParam(':skipcount', $skipCount, PDO::PARAM_INT);
+			$req->execute();
 
-						$skipCount = $page * $ppp;
+			while (list($id, $userid, $content, $created) = $req->fetch(PDO::FETCH_NUM)) {
+				?>
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							<div class="row">
+								<div class="col-md-2">
+									<img src="<?php echo getGravatarLink($userid, 25, $readydb); ?>" alt="<?php echo $login; ?>">
+								</div>
+								<div class="col-md-6" id="message<?php echo $number; ?>"><a class="message-link" href="/topic/<?php echo $topicid; ?>/<?php echo ($page + 1); ?>/#<?php echo $number; ?>" title="Ссылка на сообщение">#<?php echo $number++; ?></a><?php
+										$query = 'SELECT `login` FROM `users` WHERE `userid`=:userid LIMIT 0, 1;';
 
-						$req = $db->prepare($query);
-						$req->bindParam(':topicid', $topicid, PDO::PARAM_STR);
-						$req->bindParam(':pagesize', $ppp, PDO::PARAM_INT);
-						$req->bindParam(':skipcount', $skipCount, PDO::PARAM_INT);
-						$req->execute();
+										$r = $readydb->prepare($query);
+										$r->bindParam(':userid', $userid);
+										$r->execute();
 
-						while (list($id, $userid, $content, $created) = $req->fetch(PDO::FETCH_NUM)) {
-							?>
-								<table class="table topic-posts">
-									<tbody>
-										<tr>
-											<td>
-												<?php
-													$pdo = new PdoDb();
-
-													$query =
-														'SELECT MD5(LOWER(TRIM(`mail`))) FROM `users` WHERE `userid`=:userid LIMIT 0, 1;';
-
-													$r = $pdo->prepare($query);
-													$r->bindParam(':userid', $userid);
-													$r->execute();
-
-													while (list($mail) = $r->fetch(PDO::FETCH_NUM)) {
-												?>
-													<img style="margin-right: 5px;" src="<?php echo 'https://secure.gravatar.com/avatar/' . $mail . '.jpg?s=25';?>">
-												<?php
-														break;
-													}
-												?>
-											</td>
-											<td id="message<?php echo $number; ?>"><a class="message-link" href="/topic/<?php echo $topicid; ?>/<?php echo ($page + 1); ?>/#<?php echo $number; ?>" title="Ссылка на сообщение">#<?php echo $number++; ?></a><?php
-													$query =
-														'SELECT `login` FROM `users` WHERE `userid`=:userid LIMIT 0, 1;';
-
-													$r = $pdo->prepare($query);
-													$r->bindParam(':userid', $userid);
-													$r->execute();
-
-													while (list($login) = $r->fetch(PDO::FETCH_NUM)) {
-														?><a href="/user/<?php echo htmlspecialchars($userid); ?>/" rel="author"><?php echo htmlspecialchars($login); ?></a><?php
-														break;
-													}
-												?></td>
-											<td><?php
-													echo $created;
-												?></td>
-											<td>
-												<span class="triangle-up <?php if (!canVote($id, $userid, $db)) { echo 'triangle-up-disabled'; } ?>" data-id="<?php echo $id; ?>" data-userid="<?php echo $userid; ?>"></span><span class="likes-counter"><?php echo calcPostVotes($id, $db); ?></span><span class="triangle-down <?php if (!canVote($id, $userid, $db)) { echo 'triangle-down-disabled'; } ?>" data-id="<?php echo $id; ?>" data-userid="<?php echo $userid; ?>"></span>
-											</td>
-										</tr>
-										<tr>
-											<td colspan="4"><?php echo filterMessage($content, $userid); ?></td>
-										</tr>
-									</tbody>
-								</table>
-							<?php
-						}
-					?>
-		</div>
+										while (list($login) = $r->fetch(PDO::FETCH_NUM)) {
+											?><a href="/user/<?php echo htmlspecialchars($userid); ?>/" rel="author"><?php echo htmlspecialchars($login); ?></a><?php
+											break;
+										}
+									?></div>
+								<div class="col-md-2" style="text-align: right;"><?php
+									echo $created;
+									?></div>
+								<div class="col-md-2">
+									<span class="triangle-up <?php if (!canVote($id, $userid, $db)) { echo 'triangle-up-disabled'; } ?>" data-id="<?php echo $id; ?>" data-userid="<?php echo $userid; ?>"></span><span class="likes-counter"><?php echo calcPostVotes($id, $db); ?></span><span class="triangle-down <?php if (!canVote($id, $userid, $db)) { echo 'triangle-down-disabled'; } ?>" data-id="<?php echo $id; ?>" data-userid="<?php echo $userid; ?>"></span>
+								</div>
+							</div>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-12">
+									<?php echo filterMessage($content, $userid); ?>
+								</div>
+							</div>
+						</div>
+					</div>
+				<?php
+			}
+		?>
 	</div>
 </div>
 

@@ -599,7 +599,7 @@
 	}
 
 	function getUserLastVisit($userid, $readydb = NULL) {
-		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $userid)) {
+		if (!isUserIdExists($userid, $readydb)) {
 			return false;
 		}
 
@@ -615,7 +615,7 @@
 	}
 
 	function getUserFirstVisit($userid, $readydb = NULL) {
-		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $userid)) {
+		if (!isUserIdExists($userid, $readydb)) {
 			return false;
 		}
 
@@ -791,15 +791,13 @@
 		return $text;
 	}
 
-	function getSelfTopicsWithNewMessage($userid) {
-		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $userid)) {
+	function getSelfTopicsWithNewMessage($userid, $readydb = NULL) {
+		if (!isUserIdExists($userid, $readydb)) {
 			return false;
 		}
 
-		$db = new PdoDb();
-
-		$query =
-			'SELECT `topicid` FROM `topics` WHERE `userid`=:userid;';
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+		$query = 'SELECT `topicid` FROM `topics` WHERE `userid`=:userid;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':userid', $userid);
@@ -818,8 +816,7 @@
 		$updated = array();
 
 		foreach ($topicsids as $topicid) {
-			$query =
-				'SELECT `userid` FROM `posts` WHERE `topicid`=:topicid ORDER BY `id` DESC;';
+			$query = 'SELECT `userid` FROM `posts` WHERE `topicid`=:topicid ORDER BY `id` DESC;';
 
 			$req = $db->prepare($query);
 			$req->bindParam(':topicid', $topicid);
@@ -900,9 +897,7 @@
 		}
 
 		$db = is_null($readydb) ? new PdoDb() : $readydb;
-
-		$query =
-			'SELECT COUNT(*) FROM `posts` WHERE `topicid` = :topicid;';
+		$query = 'SELECT COUNT(*) FROM `posts` WHERE `topicid` = :topicid;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':topicid', $topicid);
@@ -918,9 +913,7 @@
 		}
 
 		$db = is_null($readydb) ? new PdoDb() : $readydb;
-
-		$query =
-			'SELECT COUNT(*) FROM `topics` WHERE `sectionid` = :sectionid;';
+		$query = 'SELECT COUNT(*) FROM `topics` WHERE `sectionid` = :sectionid;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':sectionid', $sectionid);
@@ -936,9 +929,7 @@
 		}
 
 		$db = is_null($readydb) ? new PdoDb() : $readydb;
-
-		$query =
-			'SELECT `topicid` FROM `topics` WHERE `sectionid` = :sectionid;';
+		$query = 'SELECT `topicid` FROM `topics` WHERE `sectionid` = :sectionid;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':sectionid', $sectionid);
@@ -956,14 +947,13 @@
 	function isPostExists($postid, $readydb = NULL) {
 		$postid = intval($postid);
 		$db = is_null($readydb) ? new PdoDb() : $readydb;
-
-		$query =
-			'SELECT COUNT(*) FROM `posts` WHERE `id`=:postid LIMIT 0, 1;';
+		$query = 'SELECT COUNT(*) FROM `posts` WHERE `id`=:postid LIMIT 0, 1;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':postid', $postid);
 		$req->execute();
 		$count = $req->fetchColumn();
+
 		return $count >= 1;
 	}
 
@@ -975,9 +965,7 @@
 		}
 
 		$db = is_null($readydb) ? new PdoDb() : $readydb;
-
-		$query =
-			'SELECT SUM(`value`) FROM `likes` WHERE `postid`=:postid;';
+		$query = 'SELECT SUM(`value`) FROM `likes` WHERE `postid`=:postid;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':postid', $postid);
@@ -994,7 +982,7 @@
 			return false;
 		}
 
-		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $userid)) {
+		if (!isUserIdExists($userid, $readydb)) {
 			return false;
 		}
 
@@ -1004,7 +992,7 @@
 
 		$currentuserid = $_COOKIE['userid'];
 
-		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $currentuserid)) {
+		if (!isUserIdExists($userid, $currentuserid)) {
 			return false;
 		}
 
@@ -1049,7 +1037,7 @@
 			return false;
 		}
 
-		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $userid)) {
+		if (!isUserIdExists($userid, $readydb)) {
 			return false;
 		}
 
@@ -1109,15 +1097,14 @@
 		}
 
 		$db = is_null($readydb) ? new PdoDb() : $readydb;
-
-		$query =
-			'SELECT COUNT(*) FROM `posts` WHERE `topicid`=:topicid;';
+		$query = 'SELECT COUNT(*) FROM `posts` WHERE `topicid`=:topicid;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':topicid', $topicid);
 		$req->execute();
 		$count = intval($req->fetch(PDO::FETCH_NUM)[0]);
 		$count = ceil($count / postsPerPage());
+		
 		return $count > 0 ? $count : 1;
 	}
 ?>
