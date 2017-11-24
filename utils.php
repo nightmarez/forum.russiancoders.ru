@@ -743,7 +743,7 @@
 		$text = preg_replace('#(Макаров Михаил)#iUs', 'NightmareZ', $text);
 		$text = preg_replace('#(Макаров\s*Михаил)#iUs', 'NightmareZ', $text);
 
-		$text = preg_replace('#(Михаила Макарова)#iUs', 'NightmareZ\'а', $text);
+		$text = preg_replace('#(Михaилa Мaкaрoвa)#iUs', 'NightmareZ\'а', $text);
 		$text = preg_replace('#(Михаила\s*Макарова)#iUs', 'NightmareZ\'а', $text);
 		$text = preg_replace('#(Макарова Михаила)#iUs', 'NightmareZ\'а', $text);
 		$text = preg_replace('#(Макарова\s*Михаила)#iUs', 'NightmareZ\'а', $text);
