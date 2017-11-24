@@ -41,6 +41,9 @@
 										}
 									?>
 								</div>
+								<div class="col-md-3">
+									<a href="/user/<?php echo htmlspecialchars($userid); ?>/"><?php echo $login; ?></a>
+								</div>
 								<div class="col-md-6">
 									<?php
 										$topicTitle = getTopicTitleById($topicid, $readydb);
@@ -59,10 +62,7 @@
 									→
 									<a href="/topic/<?php echo $topicid; ?>/<?php echo $page; ?>/#<?php echo $postnumber; ?>">#<?php echo $postnumber; ?></a>
 								</div>
-								<div class="col-md-3">
-									<a href="/user/<?php echo htmlspecialchars($userid); ?>/"><?php echo $login; ?></a>
-								</div>
-								<div class="col-md-2"><?php echo $created; ?></div>
+								<div class="col-md-2" style="text-align: right;"><?php echo $created; ?></div>
 							</div>
 						</div>
 						<div class="panel-body">
