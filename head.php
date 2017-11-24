@@ -1,4 +1,4 @@
-<?php $start_time = microtime(true); require_once('utils.php'); ?><!DOCTYPE html>
+<?php $start_time = microtime(true); require_once('utils.php'); $readydb = new PdoDb(); ?><!DOCTYPE html>
 <html lang="en">
 	<head>
 		<?php
@@ -25,12 +25,10 @@
 				}
 
 				if ($sectionid !== false) {
-					$db = new PdoDb();
-
 					$query =
 						'SELECT `title` FROM `sections` WHERE `sectionid`=:sectionid LIMIT 0, 1;';
 
-					$req = $db->prepare($query);
+					$req = $readydb->prepare($query);
 					$req->bindParam(':sectionid', $sectionid);
 					$req->execute();
 
@@ -52,12 +50,10 @@
 					}
 
 					if ($topicid !== false) {
-						$db = new PdoDb();
-
 						$query =
 							'SELECT `title` FROM `topics` WHERE `topicid`=:topicid LIMIT 0, 1;';
 
-						$req = $db->prepare($query);
+						$req = $readydb->prepare($query);
 						$req->bindParam(':topicid', $topicid);
 						$req->execute();
 
