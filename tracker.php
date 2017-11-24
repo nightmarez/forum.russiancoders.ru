@@ -67,7 +67,9 @@
 						</div>
 						<div class="panel-body">
 							<div class="row">
-								<?php echo filterMessage($content, $userid); ?>
+								<div class="col-md-12">
+									<?php echo filterMessage($content, $userid); ?>
+								</div>
 							</div>
 						</div>
 					</div>
