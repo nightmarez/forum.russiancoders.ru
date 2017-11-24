@@ -135,7 +135,7 @@
 			return false;
 		}
 
-		$db = $db = is_null($readydb) ? new PdoDb() : $readydb;
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
 		$query = 'SELECT * FROM `users` WHERE `userid`=:userid LIMIT 0, 1;';
 
 		$req = $db->prepare($query);
@@ -1104,7 +1104,7 @@
 		$req->execute();
 		$count = intval($req->fetch(PDO::FETCH_NUM)[0]);
 		$count = ceil($count / postsPerPage());
-		
+
 		return $count > 0 ? $count : 1;
 	}
 ?>
