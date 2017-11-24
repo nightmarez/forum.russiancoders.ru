@@ -336,6 +336,20 @@
 		return $count;
 	}
 
+	function getGravatarLink($userid, $size, $readydb = NULL) {
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		$query = 'SELECT MD5(LOWER(TRIM(`mail`))) FROM `users` WHERE `userid`=:userid LIMIT 0, 1;';
+
+		$r = $readydb->prepare($query);
+		$r->bindParam(':userid', $userid);
+		$r->execute();
+
+		while (list($mail) = $r->fetch(PDO::FETCH_NUM)) {
+			return 'https://secure.gravatar.com/avatar/' . $mail . '.jpg?s=' . $size;
+		}
+	}
+
 	function addPost($userid, $topicid, $content) {
 		if (!isTopicExists($topicid)) {
 			return false;

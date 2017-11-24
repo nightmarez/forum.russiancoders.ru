@@ -26,20 +26,7 @@
 						<div class="panel-heading">
 							<div class="row">
 								<div class="col-md-1">
-									<?php
-										$query = 'SELECT MD5(LOWER(TRIM(`mail`))) FROM `users` WHERE `userid`=:userid LIMIT 0, 1;';
-
-										$r = $readydb->prepare($query);
-										$r->bindParam(':userid', $userid);
-										$r->execute();
-
-										while (list($mail) = $r->fetch(PDO::FETCH_NUM)) {
-									?>
-										<img style="margin-right: 5px;" src="<?php echo 'https://secure.gravatar.com/avatar/' . $mail . '.jpg?s=25';?>" alt="<?php echo $login; ?>">
-									<?php
-										break;
-										}
-									?>
+									<img style="margin-right: 5px;" src="<?php echo getGravatarLink($userid, 25, $readydb); ?>" alt="<?php echo $login; ?>">
 								</div>
 								<div class="col-md-3">
 									<a href="/user/<?php echo htmlspecialchars($userid); ?>/"><?php echo $login; ?></a>
