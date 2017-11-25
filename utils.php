@@ -1101,9 +1101,9 @@
 
 				$headers = "From: noreply@$SERVER_NAME\r\n" . 
 					"Reply-To: noreply@$SERVER_NAME\r\n" . 
-					"X-Mailer: PHP/" . phpversion());
+					"X-Mailer: PHP/" . phpversion();
 
-				echo 'send mail to ' . htmlspecialchars($mail) . '<br>';;
+				echo 'send mail to ' . htmlspecialchars($mail) . '<br>';
 				echo mail($to, $subject, $message, $headers);
 				echo '<br><br>';
 			}
