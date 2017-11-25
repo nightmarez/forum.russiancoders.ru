@@ -18,6 +18,36 @@
 	$number = $page * $ppp;
 ?>
 
+<?php
+	if ($pagesCount > 1) {
+?>
+
+	<nav aria-label="Page navigation" style="text-align: center;">
+		<ul class="pagination">
+			<li<?php if ($page == 0) { echo ' class="disabled"'; } ?>>
+				<a href="/topic/<?php echo $topicid; ?>/<?php echo $page; ?>/" rel="prev" aria-label="Previous"<?php if ($page == 0) { echo ' onclick="return false" onmousedown="return false"'; } ?>>
+					<span aria-hidden="true">&laquo;</span>
+				</a>
+			</li>
+			<?php
+				for ($p = 1; $p <= $pagesCount; ++$p) {
+					?>
+						<li<?php if ($p == $page + 1) { echo ' class="active"'; } ?>><a href="/topic/<?php echo $topicid; ?>/<?php echo $p; ?>/"><?php echo $p; ?></a></li>
+					<?php
+				}
+			?>
+			<li<?php if ($page >= $pagesCount - 1) { echo ' class="disabled"'; } ?>>
+				<a href="/topic/<?php echo $topicid; ?>/<?php echo ($page + 2); ?>/" rel="next" aria-label="Next"<?php if ($page >= $pagesCount - 1) { echo ' onclick="return false;" onmousedown="return false"'; } ?>>
+					<span aria-hidden="true">&raquo;</span>
+				</a>
+			</li>
+		</ul>
+	</nav>
+
+<?php
+	}
+?>
+
 <div class="panel panel-primary" style="margin: 20px;">
 	<div class="panel-heading">
 		<h3 class="panel-title">
