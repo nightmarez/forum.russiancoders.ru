@@ -26,78 +26,45 @@
 	<div class="panel-body">
 		<div class="table-responsive">
 			<?php
-				$db = new PdoDb();
-
 				$query =
-					'SELECT `topicid`, `userid`, `sectionid`, `title`, `created` FROM `topics` WHERE `userid`=:userid ORDER BY `id` DESC LIMIT 0, 30;';
+					'SELECT `topicid`, `userid`, `sectionid`, `title`, `created` 
+					FROM `topics` 
+					WHERE `userid`=:userid 
+					ORDER BY `id` 
+					DESC LIMIT 0, 30;';
 
-				$req = $db->prepare($query);
+				$req = $readydb->prepare($query);
 				$req->bindParam(':userid', $userid);
 				$req->execute();
 
 				while (list($topicid, $userid, $sectionid, $title, $created) = $req->fetch(PDO::FETCH_NUM)) {
 					?>
-						<table class="table topics-posts">
-							<tbody>
-								<tr>
-									<td>
+						<div class="panel panel-info">
+							<div class="panel-heading">
+								<div class="row">
+									<div class="col-md-10">
 										<?php
-											$pdo = new PdoDb();
-
-											$query =
-												'SELECT `title` FROM `sections` WHERE `sectionid`=:sectionid LIMIT 0, 1;';
-
-											$r = $pdo->prepare($query);
-											$r->bindParam(':sectionid', $sectionid);
-											$r->execute();
-
-											while (list($t) = $r->fetch(PDO::FETCH_NUM)) {
-												?><a href="/section/<?php echo htmlspecialchars($sectionid); ?>/"><?php echo htmlspecialchars($t); ?></a><?php
-												break;
-											}
-										?> &gt; 
-										<a href="/topic/<?php echo htmlspecialchars($topicid); ?>/"><?php echo htmlspecialchars($title); ?></a>
-									</td>
-									<td><?php
-											$pdo = new PdoDb();
-
-											$query =
-												'SELECT `login` FROM `users` WHERE `userid`=:userid LIMIT 0, 1;';
-
-											$r = $pdo->prepare($query);
-											$r->bindParam(':userid', $userid);
-											$r->execute();
-
-											while (list($login) = $r->fetch(PDO::FETCH_NUM)) {
-												?><a href="/user/<?php echo htmlspecialchars($userid); ?>/"><?php echo htmlspecialchars($login); ?></a><?php
-												break;
-											}
-										?></td>
-									<td><?php
-											echo $created;
-										?></td>
-								</tr>
-								<tr>
-									<td colspan="3">
-										<?php
-											$pdo = new PdoDb();
-
-											$query =
-												'SELECT `content` FROM `posts` WHERE `topicid`=:topicid ORDER BY `created` ASC LIMIT 0, 1;';
-
-											$r = $pdo->prepare($query);
-											$r->bindParam(':topicid', $topicid);
-											$r->execute();
-
-											while (list($content) = $r->fetch(PDO::FETCH_NUM)) {
-												echo filterMessage($content, $userid);
-												break;
-											}
+											$topicTitle = getTopicTitleById($topicid, $readydb);
+											$sectionid = getSectionIdByTopicId($topicid, $readydb);
+											$sectionTitle = getSectionTitleById($sectionid, $readydb);
 										?>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+										<a href="/">Форум</a>
+										→
+										<a href="/section/<?php echo $sectionid; ?>/"><?php echo $sectionTitle; ?></a>
+										→
+										<a href="/topic/<?php echo $topicid; ?>/"><?php echo $topicTitle; ?></a>
+									</div>
+									<div class="col-md-2" style="text-align: right;"><?php echo $created; ?></div>
+								</div>
+							</div>
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-md-12">
+										<?php echo filterMessage($content, $userid); ?>
+									</div>
+								</div>
+							</div>
+						</div>
 					<?php
 				}
 			?>
