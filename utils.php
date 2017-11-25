@@ -1090,7 +1090,7 @@
 			if ($topics !== false) {
 				$to      = $mail;
 				$subject = 'Новые сообщения в ваших темах';
-				$message = 'На форуме RussianCoders появились новые сообщения в Ваших темах:<br><br>' . "\r\n";
+				$message = 'На форуме <a href="https://forum.russiancoders.ru/">RussianCoders</a> появились новые сообщения в Ваших темах:<br><br>' . "\r\n";
 
 				foreach ($topics as $topic) {
 					$message = $message . '<a href="/topic/' . $topic['topicid'] . '/">' . htmlspecialchars($topic['title']) . '</a><br>' . "\r\n";
