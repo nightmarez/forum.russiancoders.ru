@@ -1089,16 +1089,19 @@
 
 			if ($topics !== false) {
 				$to      = $mail;
-				$subject = 'Новые сообщения в ваших темах';
-				$message = 'На форуме <a href="https://forum.russiancoders.ru/">RussianCoders</a> появились новые сообщения в Ваших темах:<br><br>' . "\r\n";
 
-				foreach ($topics as $topic) {
-					$message = $message . '<a href="/topic/' . $topic['topicid'] . '/">' . htmlspecialchars($topic['title']) . '</a><br>' . "\r\n";
-				}
+				$subject = 'RussianCoders';
+				$message = "Line 1\nLine 2\nLine 3";
+				//$subject = 'Новые сообщения в ваших темах';
+				//$message = 'На форуме <a href="https://forum.russiancoders.ru/">RussianCoders</a>' . "\r\n" . 'появились новые сообщения в Ваших темах:<br><br>' . "\r\n";
 
-				$headers = 'From: noreply@forum.russiancoders.ru' . "\r\n" .
-					'Reply-To: m.m.makarov@gmail.com' . "\r\n" .
-					'X-Mailer: PHP/' . phpversion();
+				//foreach ($topics as $topic) {
+				//	$message = $message . '<a href="/topic/' . $topic['topicid'] . '/">' . htmlspecialchars($topic['title']) . '</a><br>' . "\r\n";
+				//}
+
+				$headers = "From: noreply@$SERVER_NAME\r\n" . 
+					"Reply-To: noreply@$SERVER_NAME\r\n" . 
+					"X-Mailer: PHP/" . phpversion());
 
 				echo 'send mail to ' . htmlspecialchars($mail) . '<br>';;
 				echo mail($to, $subject, $message, $headers);
