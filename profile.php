@@ -117,7 +117,7 @@
 												$login = getUserLoginById($friendid, $readydb);
 
 												?>
-													<div style="width: 100%; display: block;">
+													<div style="float: left; margin-left: 20px;">
 														<img src="<?php echo getGravatarLink($friendid, 25, $readydb); ?>" alt="<?php echo $login; ?>" style="float: left; margin-right: 10px; margin-top: -2px;">
 														<a href="/user/<?php echo htmlspecialchars($friendid); ?>/" style="float: left;" title="Пользователь <?php echo $login; ?>" rel="author"><?php echo $login; ?></a>
 													</div>
@@ -141,7 +141,7 @@
 													$login = getUserLoginById($friendid, $readydb);
 
 													?>
-														<div style="width: 100%; display: block;">
+														<div style="float: left; margin-left: 20px;">
 															<img src="<?php echo getGravatarLink($friendid, 25, $readydb); ?>" alt="<?php echo $login; ?>" style="float: left; margin-right: 10px; margin-top: -2px;">
 															<a href="/user/<?php echo htmlspecialchars($friendid); ?>/" style="float: left;" title="Пользователь <?php echo $login; ?>" rel="author"><?php echo $login; ?></a>
 														</div>
