@@ -11,7 +11,11 @@
 
 	<div class="panel-body">
 		<?php
-			$query = 'SELECT `id`, `topicid`, `userid`, `content`, `created` FROM `posts` ORDER BY `id` DESC LIMIT 0, 30;';
+			$query = 
+				'SELECT `id`, `topicid`, `userid`, `content`, `created` 
+				FROM `posts` 
+				ORDER BY `id` 
+				DESC LIMIT 0, 30;';
 
 			$req = $readydb->prepare($query);
 			$req->execute();

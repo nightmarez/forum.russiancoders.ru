@@ -27,24 +27,46 @@
 		<div class="table-responsive">
 			<?php
 				$query =
-					'SELECT `topicid`, `userid`, `content`, `created` FROM `posts` WHERE `userid`=:userid ORDER BY `id` DESC LIMIT 0, 30;';
+					'SELECT `id`, `topicid`, `userid`, `content`, `created` 
+					FROM `posts` 
+					WHERE `userid`=:userid 
+					ORDER BY `id` 
+					DESC LIMIT 0, 30;';
 
 				$req = $readydb->prepare($query);
 				$req->bindParam(':userid', $userid);
 				$req->execute();
 
-				while (list($topicid, $userid, $content, $created) = $req->fetch(PDO::FETCH_NUM)) {
+				while (list($id, $topicid, $userid, $content, $created) = $req->fetch(PDO::FETCH_NUM)) {
+					$login = getUserLoginById($userid, $readydb);
+
 					?>
 						<div class="panel panel-info">
 							<div class="panel-heading">
 								<div class="row">
 									<div class="col-md-4">
-										<a href="/topic/<?php echo htmlspecialchars($topicid); ?>/"><?php echo getTopicTitleById($topicid, $readydb); ?></a>
+										<img src="<?php echo getGravatarLink($userid, 25, $readydb); ?>" alt="<?php echo $login; ?>" style="float: left; margin-right: 10px; margin-top: -2px;">
+										<a href="/user/<?php echo htmlspecialchars($userid); ?>/"><?php echo $login; ?></a>
 									</div>
-									<div class="col-md-4">
-										<a href="/user/<?php echo htmlspecialchars($userid); ?>/"><?php echo getUserLoginById($userid, $readydb); ?></a>
+									<div class="col-md-6">
+										<?php
+											$topicTitle = getTopicTitleById($topicid, $readydb);
+											$sectionid = getSectionIdByTopicId($topicid, $readydb);
+											$sectionTitle = getSectionTitleById($sectionid, $readydb);
+											$postnumber = getPostNumber($topicid, $id, $readydb);
+											$page = getPostPageNumber($topicid, $id, $readydb);
+										?>
+										<a href="/">Форум</a>
+										→
+										<a href="/section/<?php echo $sectionid; ?>/"><?php echo $sectionTitle; ?></a>
+										→
+										<a href="/topic/<?php echo $topicid; ?>/"><?php echo $topicTitle; ?></a>
+										→
+										<a href="/topic/<?php echo $topicid; ?>/<?php echo $page; ?>/">страница <?php echo $page; ?></a>
+										→
+										<a href="/topic/<?php echo $topicid; ?>/<?php echo $page; ?>/#<?php echo $postnumber; ?>">#<?php echo $postnumber; ?></a>
 									</div>
-									<div class="col-md-4" style="text-align: right;"><?php echo $created; ?></div>
+									<div class="col-md-2" style="text-align: right;"><?php echo $created; ?></div>
 								</div>
 							</div>
 							<div class="panel-body">
