@@ -184,7 +184,7 @@
 										if ($yourid !== $userid && isLogin()) {
 											$yourid = htmlspecialchars($_COOKIE['userid']);
 
-											if (isFriend($yourid, $userid)) {
+											if (!isFriend($yourid, $userid)) {
 												?>
 													<form method="GET" action="/addfriend/<?php echo $userid; ?>/" style="float: left; margin-left: 10px;">
 														<input type="submit" class="btn btn-success" value="Добавить в друзья">
