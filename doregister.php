@@ -1,4 +1,6 @@
 <?php
+	die();
+
 	require_once('utils.php');
 	require_once('recaptchalib.php');
 
