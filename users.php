@@ -34,7 +34,7 @@
 										<img style="margin-right: 15px;" src="<?php echo getGravatarLink($userid, 25, $readydb); ?>" align="left">
 									</td>
 									<td>
-										<a href="/user/<?php echo htmlspecialchars($userid); ?>/"><?php echo htmlspecialchars($login); ?></a>
+										<a href="/user/<?php echo htmlspecialchars($userid); ?>/"><?php echo getUserLoginById($userid, $readydb); ?></a>
 									</td>
 									<td>
 										<?php echo getUserFirstVisit($userid, $readydb); ?>
