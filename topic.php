@@ -68,7 +68,13 @@
 
 	<div class="panel-body">
 		<?php
-			$query = 'SELECT `id`, `userid`, `content`, `created` FROM `posts` WHERE `topicid`=:topicid ORDER BY `id` ASC LIMIT :skipcount, :pagesize;';
+			$query = 
+				'SELECT `id`, `userid`, `content`, `created` 
+				FROM `posts` 
+				WHERE `topicid`=:topicid 
+				ORDER BY `id` 
+				ASC LIMIT :skipcount, :pagesize;';
+				
 			$skipCount = $page * $ppp;
 
 			$req = $readydb->prepare($query);
@@ -82,19 +88,16 @@
 					<div class="panel panel-info">
 						<div class="panel-heading">
 							<div class="row">
-								<div class="col-md-1">
-									<img src="<?php echo getGravatarLink($userid, 25, $readydb); ?>" alt="<?php echo $login; ?>">
+								<div class="col-md-4">
+									<img src="<?php echo getGravatarLink($userid, 25, $readydb); ?>" alt="<?php echo $login; ?>" style="float: left; margin-right: 10px; margin-top: -2px;">
+									<a href="/user/<?php echo htmlspecialchars($userid); ?>/" style="float: left; margin-right: 10px;" title="Пользователь <?php echo $login; ?>" rel="author"><?php echo $login; ?></a>
+									<?php
+										$postnumber = getPostNumber($topicid, $id, $readydb);
+									?>
+									<a href="/topic/<?php echo $topicid; ?>/<?php echo $page; ?>/#<?php echo $postnumber; ?>" style="float: left;">#<?php echo $postnumber; ?></a>
 								</div>
-								<div class="col-md-1">
-									<a class="message-link" href="/topic/<?php echo $topicid; ?>/<?php echo ($page + 1); ?>/#<?php echo $number; ?>" title="Ссылка на сообщение">#<?php echo $number++; ?></a>
-								</div>
-								<div class="col-md-6" id="message<?php echo $number; ?>">
-									<a href="/user/<?php echo htmlspecialchars($userid); ?>/" rel="author"><?php echo getUserLoginById($userid, $readydb); ?></a>
-								</div>
-								<div class="col-md-2" style="text-align: right;"><?php
-									echo $created;
-									?></div>
-								<div class="col-md-2">
+								<div class="col-md-2" style="text-align: right;"><?php echo $created; ?></div>
+								<div class="col-md-1" style="text-align: right;">
 									<span class="triangle-up <?php if (!canVote($id, $userid, $readydb)) { echo 'triangle-up-disabled'; } ?>" data-id="<?php echo $id; ?>" data-userid="<?php echo $userid; ?>"></span><span class="likes-counter"><?php echo calcPostVotes($id, $readydb); ?></span><span class="triangle-down <?php if (!canVote($id, $userid, $readydb)) { echo 'triangle-down-disabled'; } ?>" data-id="<?php echo $id; ?>" data-userid="<?php echo $userid; ?>"></span>
 								</div>
 							</div>
