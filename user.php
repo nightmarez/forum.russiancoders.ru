@@ -177,22 +177,22 @@
 							</tr>
 							<tr>
 								<td colspan="2">
-									<form method="GET" action="/sendmessage/<?php echo $userid; ?>/">
+									<form method="GET" action="/sendmessage/<?php echo $userid; ?>/" style="float: left;">
 										<input type="submit" class="btn btn-primary" value="Написать сообщение">
 									</form>
 									<?php
-										if (isLogin()) {
+										if ($yourid !== $userid && isLogin()) {
 											$yourid = htmlspecialchars($_COOKIE['userid']);
 
 											if (isFriend($yourid, $userid)) {
 												?>
-													<form method="GET" action="/addfriend/<?php echo $userid; ?>/">
+													<form method="GET" action="/addfriend/<?php echo $userid; ?>/" style="float: left; margin-left: 10px;">
 														<input type="submit" class="btn btn-success" value="Добавить в друзья">
 													</form>
 												<?php
 											} else {
 												?>
-													<form method="GET" action="/removefriend/<?php echo $userid; ?>/">
+													<form method="GET" action="/removefriend/<?php echo $userid; ?>/" style="float: left; margin-left: 10px;">
 														<input type="submit" class="btn btn-danger" value="Удалить из друзей">
 													</form>
 												<?php

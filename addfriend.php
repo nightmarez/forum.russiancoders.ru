@@ -9,7 +9,7 @@
 	$yourid = htmlspecialchars($_COOKIE['userid']);
 	$userid = htmlspecialchars($_GET['userid']);
 
-	if (addFriend($yourid, $userid, $readydb)) {
+	if ($yourid !== $userid && addFriend($yourid, $userid, $readydb)) {
 		header('Location: /user/' . $userid . '/');
 	} else {
 		header('Location: /');
