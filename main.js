@@ -231,8 +231,8 @@
 
 		if (location.href.indexOf('/messages/') !== -1) {
 			$('input[type=button].btn-danger').each(function(idx, button) {
-				button = $(button);
-				button.parent().parent().parent().parent().remove();
+				//button = $(button);
+				//button.parent().parent().parent().parent().remove();
 			});
 		}
 	});

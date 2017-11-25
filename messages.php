@@ -14,7 +14,7 @@
 		$userid = $_COOKIE['userid'];
 
 		$query =
-			'SELECT `fromid`, `toid`, `text`, `last` 
+			'SELECT `id`, `fromid`, `toid`, `text`, `last` 
 			FROM `messages`
 			WHERE `fromid`=:userid OR `toid`=:userid ORDER BY `id` ASC;';
 
@@ -26,7 +26,7 @@
 	<div class="panel-body">
 		<div class="table-responsive">
 			<?php
-				while (list($fromid, $toid, $text, $last) = $req->fetch(PDO::FETCH_NUM)) {
+				while (list($id, $fromid, $toid, $text, $last) = $req->fetch(PDO::FETCH_NUM)) {
 			?>
 				<div class="panel panel-info">
 					<div class="panel-heading">
@@ -49,7 +49,7 @@
 						<div class="row">
 							<div class="col-md-12" style="margin-top: 15px;">
 								<input type="button" class="btn btn-primary" value="Ответить" data-id="<?php echo $fromid; ?>" style="float: left; margin-right: 15px;">
-								<input type="button" class="btn btn-danger" value="Удалить" data-id="<?php echo $fromid; ?>" style="float: left; margin-right: 15px;">
+								<input type="button" class="btn btn-danger" value="Удалить" data-fromid="<?php echo $fromid; ?>" data-id="<?php echo $id; ?>" style="float: left;">
 							</div>
 						</div>
 					</div>

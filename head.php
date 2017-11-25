@@ -87,9 +87,9 @@
 		<script src="https://cdn.russiancoders.ru/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous" defer></script>
 		<script src="https://cdn.russiancoders.ru/bootstrap-3.3.7.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous" defer></script>
 		<script src="https://cdn.russiancoders.ru/underscore-1.8.3.min.js" integrity="sha256-obZACiHd7gkOk9iIL/pimWMTJ4W/pBsKu+oZnSeBIek=" crossorigin="anonymous" defer></script>
-		<link rel="stylesheet" href="/index.css?ver=127">
+		<link rel="stylesheet" href="/index.css?ver=128">
 		<link rel="shortcut icon" href="/favicon.ico">
-		<script src="/main.js?ver=127" defer></script>
+		<script src="/main.js?ver=128" defer></script>
 		<link rel="stylesheet" href="/highlight.min.css">
 		<script src="/highlight.pack.js"></script>
 	</head>
