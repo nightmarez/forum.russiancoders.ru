@@ -26,61 +26,33 @@
 	<div class="panel-body">
 		<div class="table-responsive">
 			<?php
-				$db = new PdoDb();
-
 				$query =
 					'SELECT `topicid`, `userid`, `content`, `created` FROM `posts` WHERE `userid`=:userid ORDER BY `id` DESC LIMIT 0, 30;';
 
-				$req = $db->prepare($query);
+				$req = $readydb->prepare($query);
 				$req->bindParam(':userid', $userid);
 				$req->execute();
 
 				while (list($topicid, $userid, $content, $created) = $req->fetch(PDO::FETCH_NUM)) {
 					?>
-						<table class="table tracker-posts">
-							<tbody>
-								<tr>
-									<td>
-										<?php
-											$pdo = new PdoDb();
-
-											$query =
-												'SELECT `title` FROM `topics` WHERE `topicid`=:topicid LIMIT 0, 1;';
-
-											$r = $pdo->prepare($query);
-											$r->bindParam(':topicid', $topicid);
-											$r->execute();
-
-											while (list($title) = $r->fetch(PDO::FETCH_NUM)) {
-												?><a href="/topic/<?php echo htmlspecialchars($topicid); ?>/"><?php echo htmlspecialchars($title); ?></a><?php
-												break;
-											}
-										?>
-									</td>
-									<td><?php
-											$pdo = new PdoDb();
-
-											$query =
-												'SELECT `login` FROM `users` WHERE `userid`=:userid LIMIT 0, 1;';
-
-											$r = $pdo->prepare($query);
-											$r->bindParam(':userid', $userid);
-											$r->execute();
-
-											while (list($login) = $r->fetch(PDO::FETCH_NUM)) {
-												?><a href="/user/<?php echo htmlspecialchars($userid); ?>/"><?php echo htmlspecialchars($login); ?></a><?php
-												break;
-											}
-										?></td>
-									<td><?php
-											echo $created;
-										?></td>
-								</tr>
-								<tr>
-									<td colspan="3"><?php echo filterMessage($content, $userid); ?></td>
-								</tr>
-							</tbody>
-						</table>
+						<div class="panel panel-info">
+							<div class="panel-heading">
+								<div class="row">
+									<div class="col-md-4">
+										<a href="/topic/<?php echo htmlspecialchars($topicid); ?>/"><?php echo getTopicTitleById($topicid, $readydb); ?></a>
+									</div>
+									<div class="col-md-4">
+										<a href="/user/<?php echo htmlspecialchars($userid); ?>/"><?php echo getUserLoginById($userid, $readydb); ?></a>
+									</div>
+									<div class="col-md-4" style="text-align: right;"><?php echo $created; ?></div>
+								</div>
+							</div>
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-md-12"><?php echo filterMessage($content, $userid); ?></div>
+								</div>
+							</div>
+						</div>
 					<?php
 				}
 			?>
