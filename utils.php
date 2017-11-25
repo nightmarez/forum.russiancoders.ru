@@ -647,6 +647,22 @@
 		return $number > 0 ? $number : 1;
 	}
 
+	function getTopicInitMessage($topicid, $readydb = NULL) {
+		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $topicid)) {
+			return false;
+		}
+
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+		$query = 'SELECT `content` FROM `posts` WHERE `topicid`=:topicid ORDER BY `id` LIMIT 0, 1;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':topicid', $topicid, PDO::PARAM_STR);
+		$req->execute();
+		$result = $req->fetchColumn();
+
+		return $result;
+	}
+
 	function isLogin() {
 		if (!isset($_COOKIE['session'])) {
 			return false;
