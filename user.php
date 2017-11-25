@@ -123,6 +123,37 @@
 										$sum = $r->fetchColumn();
 										echo intval($sum);
 									?>
+									(<span style="color: #00aa00">
+									<?php
+										$query =
+											'SELECT SUM(`t1`.`value`) FROM
+											(SELECT `likes`.`value`, `posts`.`userid`
+											FROM `likes`
+											LEFT JOIN `posts` ON `likes`.`postid` = `posts`.`id`) AS `t1`
+											WHERE `t1`.`userid` = :userid AND `t1`.`value` > 0;';
+
+										$r = $readydb->prepare($query);
+										$r->bindParam(':userid', $userid);
+										$r->execute();
+										$sum = $r->fetchColumn();
+										echo intval($sum);
+									?>
+									</span>&nbsp;<span style="color: #aa0000">
+									<?php
+										$query =
+											'SELECT SUM(`t1`.`value`) FROM
+											(SELECT `likes`.`value`, `posts`.`userid`
+											FROM `likes`
+											LEFT JOIN `posts` ON `likes`.`postid` = `posts`.`id`) AS `t1`
+											WHERE `t1`.`userid` = :userid AND `t1`.`value` < 0;';
+
+										$r = $readydb->prepare($query);
+										$r->bindParam(':userid', $userid);
+										$r->execute();
+										$sum = $r->fetchColumn();
+										echo intval($sum);
+									?>
+									</span>)
 								</td>
 							</tr>
 							<tr>
