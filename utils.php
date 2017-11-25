@@ -812,7 +812,9 @@
 		return true;
 	}
 
-	function isLogin() {
+	function isLogin($readydb = NULL) {
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
 		if (!isset($_COOKIE['session'])) {
 			return false;
 		}
@@ -829,10 +831,42 @@
 			return false;
 		}
 
-		$db = new PdoDb();
+		$query =
+			'SELECT * FROM `users` 
+			WHERE `session`=:session AND `userid`=:userid
+			LIMIT 0, 1;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':session', $session);
+		$req->bindParam(':userid', $userid);
+		$req->execute();
+		$count = $req->fetchColumn();
+		return $count >= 1;
+	}
+
+	function isAdmin($readydb = NULL) {
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		if (!isset($_COOKIE['session'])) {
+			return false;
+		}
+
+		$session = $_COOKIE['session'];
+
+		if (!isset($_COOKIE['userid'])) {
+			return false;
+		}
+
+		$userid = $_COOKIE['userid'];
+
+		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $userid)) {
+			return false;
+		}
 
 		$query =
-			'SELECT * FROM `users` WHERE `session`=:session AND `userid`=:userid LIMIT 0, 1;';
+			'SELECT * FROM `users` 
+			WHERE `session`=:session AND `userid`=:userid AND `state`=2 
+			LIMIT 0, 1;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':session', $session);
