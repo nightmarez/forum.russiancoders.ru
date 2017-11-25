@@ -113,7 +113,7 @@
 										$r->bindParam(':userid', $userid);
 										$r->execute();
 										$sum = $r->fetchColumn();
-										echo intval($sum);
+										echo '+' . intval($sum);
 									?>
 									</span>&nbsp;<span style="color: #aa0000">
 									<?php
