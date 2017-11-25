@@ -51,7 +51,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td>
+								<td style="width: 50%;">
 									Последнее посещение:
 								</td>
 								<td>
@@ -181,21 +181,23 @@
 										<input type="submit" class="btn btn-primary" value="Написать сообщение">
 									</form>
 									<?php
-										if ($yourid !== $userid && isLogin()) {
+										if (isLogin()) {
 											$yourid = htmlspecialchars($_COOKIE['userid']);
 
-											if (!isFriend($yourid, $userid)) {
-												?>
-													<form method="GET" action="/addfriend/<?php echo $userid; ?>/" style="float: left; margin-left: 10px;">
-														<input type="submit" class="btn btn-success" value="Добавить в друзья">
-													</form>
-												<?php
-											} else {
-												?>
-													<form method="GET" action="/removefriend/<?php echo $userid; ?>/" style="float: left; margin-left: 10px;">
-														<input type="submit" class="btn btn-danger" value="Удалить из друзей">
-													</form>
-												<?php
+											if ($yourid !== $userid) {
+												if (!isFriend($yourid, $userid)) {
+													?>
+														<form method="GET" action="/addfriend/<?php echo $userid; ?>/" style="float: left; margin-left: 10px;">
+															<input type="submit" class="btn btn-success" value="Добавить в друзья">
+														</form>
+													<?php
+												} else {
+													?>
+														<form method="GET" action="/removefriend/<?php echo $userid; ?>/" style="float: left; margin-left: 10px;">
+															<input type="submit" class="btn btn-danger" value="Удалить из друзей">
+														</form>
+													<?php
+												}
 											}
 										}
 									?>

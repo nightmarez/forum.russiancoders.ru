@@ -57,7 +57,7 @@
 								<td>
 									Последнее посещение:
 								</td>
-								<td>
+								<td style="width: 50%;">
 									<?php echo $last; ?>
 								</td>
 							</tr>
