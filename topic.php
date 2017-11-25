@@ -93,7 +93,7 @@
 										$postnumber = getPostNumber($topicid, $id, $readydb);
 										$login = getUserLoginById($userid, $readydb);
 									?>
-									<a href="/topic/<?php echo $topicid; ?>/<?php echo $(page + 1); ?>/#<?php echo $postnumber; ?>" style="float: left; margin-right: 10px;">#<?php echo $postnumber; ?></a>
+									<a href="/topic/<?php echo $topicid; ?>/<?php echo ($page + 1); ?>/#<?php echo $postnumber; ?>" style="float: left; margin-right: 10px;">#<?php echo $postnumber; ?></a>
 									<img src="<?php echo getGravatarLink($userid, 25, $readydb); ?>" alt="<?php echo $login; ?>" style="float: left; margin-right: 10px; margin-top: -2px;">
 									<a href="/user/<?php echo htmlspecialchars($userid); ?>/" style="float: left; margin-right: 10px;" title="Пользователь <?php echo $login; ?>" rel="author"><?php echo $login; ?></a>
 								</div>
