@@ -16,33 +16,31 @@
 					<tr>
 						<th>Аватар</th>
 						<th>Логин</th>
-						<th>Последнее посещение</th>
 						<th>Регистрация</th>
+						<th>Последнее посещение</th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php
-						$db = new PdoDb();
+						$query = 'SELECT `userid`, `login`, MD5(LOWER(TRIM(`mail`))) FROM `users` ORDER BY `first` DESC;';
 
-						$query = 'SELECT `userid`, `login`, MD5(LOWER(TRIM(`mail`))) FROM `users` ORDER BY `last` DESC;';
-
-						$req = $db->prepare($query);
+						$req = $readydb->prepare($query);
 						$req->execute();
 
 						while (list($userid, $login, $mail) = $req->fetch(PDO::FETCH_NUM)) {
 							?>
 								<tr>
 									<td>
-										<img style="margin-right: 15px;" src="<?php echo 'https://secure.gravatar.com/avatar/' . $mail . '.jpg?s=25';?>" align="left">
+										<img style="margin-right: 15px;" src="<?php echo getGravatarLink($userid, 25, $readydb); ?>" align="left">
 									</td>
 									<td>
 										<a href="/user/<?php echo htmlspecialchars($userid); ?>/"><?php echo htmlspecialchars($login); ?></a>
 									</td>
 									<td>
-										<?php echo getUserLastVisit($userid, $db); ?>
+										<?php echo getUserFirstVisit($userid, $readydb); ?>
 									</td>
 									<td>
-										<?php echo getUserFirstVisit($userid, $db); ?>
+										<?php echo getUserLastVisit($userid, $readydb); ?>
 									</td>
 								</tr>
 							<?php
