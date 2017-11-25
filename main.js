@@ -121,7 +121,7 @@
 				var hashIdx = location.href.indexOf('#');
 
 				if (hashIdx !== -1) {
-					var messageId = parseInt(location.href.substr(hashIdx + 1));
+					var messageId = location.href.substr(hashIdx + 1);
 
 					if (messageId.length) {
 						messageId = parseInt(messageId);
