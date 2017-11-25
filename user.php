@@ -151,7 +151,7 @@
 										$r->bindParam(':userid', $userid);
 										$r->execute();
 										$sum = $r->fetchColumn();
-										echo intval($sum);
+										echo '-' . abs(intval($sum));
 									?>
 									</span>)
 								</td>
