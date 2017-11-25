@@ -152,14 +152,14 @@
 							</tr>
 							<tr>
 								<td>
-									У кого в друзьях::
+									Подписчики:
 								</td>
 								<td>
 									<?php
 										$fans = getFansById($userid, $readydb);
 
 										if (count($fans) == 0) {
-											echo 'Ни у кого';
+											echo 'Нет';
 										} else {
 											foreach ($fans as $key => $fanid) {
 												$login = getUserLoginById($fanid, $readydb);
