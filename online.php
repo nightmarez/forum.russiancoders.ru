@@ -20,13 +20,12 @@
 				</thead>
 				<tbody>
 					<?php
-						$db = new PdoDb();
-
 						$query =
-							'SELECT `userid`, `login`, `last`, (now() - `last`) as `online`, MD5(LOWER(TRIM(`mail`))), `state` FROM `users` WHERE TIME_TO_SEC(TIMEDIFF(NOW(), `last`)) <= 24 * 60 * 60
- ORDER BY `last` DESC LIMIT 0, 100;';
+							'SELECT `userid`, `login`, `last`, (now() - `last`) AS `online`, MD5(LOWER(TRIM(`mail`))), `state` 
+							FROM `users` WHERE TIME_TO_SEC(TIMEDIFF(NOW(), `last`)) <= 24 * 60 * 60 
+							ORDER BY `last` DESC LIMIT 0, 100;';
 
-						$req = $db->prepare($query);
+						$req = $readydb->prepare($query);
 						$req->execute();
 
 						while (list($userid, $login, $last, $online, $mail, $state) = $req->fetch(PDO::FETCH_NUM)) {
@@ -38,7 +37,7 @@
 								<tr>
 									<td>
 										<img style="margin-right: 15px;" src="<?php echo 'https://secure.gravatar.com/avatar/' . $mail . '.jpg?s=25';?>" align="left">
-										<a href="/user/<?php echo htmlspecialchars($userid); ?>/" style="float: left;"><?php echo htmlspecialchars($login); ?></a><?php if (intval($online <= 80 /* seconds */)) { ?><div class="online-indicator"></div><?php } ?>
+										<a href="/user/<?php echo htmlspecialchars($userid); ?>/" style="float: left;"><?php echo getUserLoginById($userid, $readydb); ?></a><?php if (intval($online <= 80 /* seconds */)) { ?><div class="online-indicator"></div><?php } ?>
 									</td>
 									<td>
 										<?php echo $last; ?>
