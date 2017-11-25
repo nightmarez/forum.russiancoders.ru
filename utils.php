@@ -695,6 +695,40 @@
 		return $friends;
 	}
 
+	function getFansById($userid, $readydb = NULL) {
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		if (!isUserIdExists($userid, $db)) {
+			return false;
+		}
+
+		$query =
+			'SELECT `userid1`
+			FROM `friendship`
+			WHERE `userid2`=:userid
+			ORDER BY `userid1`;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':userid', $userid, PDO::PARAM_STR);
+		$req->execute();
+
+		$friends = array();
+
+		while (list($id) = $req->fetch(PDO::FETCH_NUM)) {
+			$friends[] = $id;
+		}
+
+		$fans = array();
+
+		foreach ($friends as $key => $friend) {
+			if (!isFriend($userid, $friend, $readydb)) {
+				$fans[] = $friend;
+			}
+		}
+
+		return $fans;
+	}
+
 	function isFriend($userid, $friendid, $readydb = NULL) {
 		$db = is_null($readydb) ? new PdoDb() : $readydb;
 

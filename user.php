@@ -152,6 +152,31 @@
 							</tr>
 							<tr>
 								<td>
+									У кого в друзьях::
+								</td>
+								<td>
+									<?php
+										$fans = getFansById($userid, $readydb);
+
+										if (count($fans) == 0) {
+											echo 'Ни у кого';
+										} else {
+											foreach ($fans as $key => $fanid) {
+												$login = getUserLoginById($fanid, $readydb);
+
+												?>
+													<div style="float: left; margin-left: 20px;">
+														<img src="<?php echo getGravatarLink($fanid, 25, $readydb); ?>" alt="<?php echo $login; ?>" style="float: left; margin-right: 10px; margin-top: -2px;">
+														<a href="/user/<?php echo htmlspecialchars($fanid); ?>/" style="float: left;" title="Пользователь <?php echo $login; ?>" rel="author"><?php echo $login; ?></a>
+													</div>
+												<?php
+											}
+										}
+									?>
+								</td>
+							</tr>
+							<tr>
+								<td>
 									Взаимные друзья:
 								</td>
 								<td>
