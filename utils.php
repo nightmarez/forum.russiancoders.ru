@@ -653,7 +653,13 @@
 		}
 
 		$db = is_null($readydb) ? new PdoDb() : $readydb;
-		$query = 'SELECT `content` FROM `posts` WHERE `topicid`=:topicid ORDER BY `id` LIMIT 0, 1;';
+
+		$query = 
+			'SELECT `content` 
+			FROM `posts` 
+			WHERE `topicid`=:topicid 
+			ORDER BY `id` 
+			LIMIT 0, 1;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':topicid', $topicid, PDO::PARAM_STR);
@@ -661,6 +667,115 @@
 		$result = $req->fetchColumn();
 
 		return $result;
+	}
+
+	function getFriendsById($userid, $readydb = NULL) {
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		if (!isUserIdExists($userid, $db)) {
+			return false;
+		}
+
+		$query =
+			'SELECT `userid2`
+			FROM `friendship`
+			WHERE `userid1`=:userid
+			ORDER BY `userid2`;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':userid', $userid, PDO::PARAM_STR);
+		$req->execute();
+
+		$friends = array();
+
+		while (list($id) = $req->fetch(PDO::FETCH_NUM)) {
+			$friends[] = $id;
+		}
+
+		return $friends;
+	}
+
+	function isFriend($userid, $friendid, $readydb = NULL) {
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		if (!isUserIdExists($userid, $db)) {
+			return false;
+		}
+
+		if (!isUserIdExists($friendid, $db)) {
+			return false;
+		}
+
+		$query =
+			'SELECT `id`
+			FROM `friendship`
+			WHERE `userid1`=:userid1 AND `userid2`=:userid2
+			LIMIT 0, 1;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':userid1', $userid, PDO::PARAM_STR);
+		$req->bindParam(':userid2', $friendid, PDO::PARAM_STR);
+		$req->execute();
+
+		while (list($id) = $req->fetch(PDO::FETCH_NUM)) {
+			return true;
+		}
+
+		return false;
+	}
+
+	function addFriend($userid, $friendid, $readydb = NULL) {
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		if (!isUserIdExists($userid, $db)) {
+			return false;
+		}
+
+		if (!isUserIdExists($friendid, $db)) {
+			return false;
+		}
+
+		if (isFriend($userid, $friendid, $db)) {
+			return false;
+		}
+
+		$query =
+			'INSERT INTO `friendship` (`userid1`, `userid2`)
+			VALUES (:userid1, :userid2);';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':userid1', $userid, PDO::PARAM_STR);
+		$req->bindParam(':userid2', $friendid, PDO::PARAM_STR);
+		$req->execute();
+
+		return true;
+	}
+
+	function removeFriend($userid, $friendid, $readydb = NULL) {
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		if (!isUserIdExists($userid, $db)) {
+			return false;
+		}
+
+		if (!isUserIdExists($friendid, $db)) {
+			return false;
+		}
+
+		if (!isFriend($userid, $friendid, $db)) {
+			return false;
+		}
+
+		$query =
+			'DELETE FROM `friendship`
+			WHERE `userid1`=:userid1 AND `userid2`=:userid2;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':userid1', $userid, PDO::PARAM_STR);
+		$req->bindParam(':userid2', $friendid, PDO::PARAM_STR);
+		$req->execute();
+
+		return true;
 	}
 
 	function isLogin() {

@@ -30,12 +30,13 @@
 						</tr>
 					<?php } else { ?>
 						<?php
-							$db = new PdoDb();
-
 							$query =
-								'SELECT `login`, `last`, MD5(LOWER(TRIM(`mail`))) FROM `users` WHERE `userid`=:userid LIMIT 0, 1;';
+								'SELECT `login`, `last`, MD5(LOWER(TRIM(`mail`))) 
+								FROM `users` 
+								WHERE `userid`=:userid 
+								LIMIT 0, 1;';
 
-							$req = $db->prepare($query);
+							$req = $readydb->prepare($query);
 							$req->bindParam(':userid', $userid);
 							$req->execute();
 
@@ -63,12 +64,13 @@
 								</td>
 								<td>
 									<?php
-										$pdo = new PdoDb();
-
 										$query =
-											'SELECT COUNT(*) FROM `topics` WHERE `userid`=:userid LIMIT 0, 1;';
+											'SELECT COUNT(*) 
+											FROM `topics` 
+											WHERE `userid`=:userid 
+											LIMIT 0, 1;';
 
-										$r = $db->prepare($query);
+										$r = $readydb->prepare($query);
 										$r->bindParam(':userid', $userid);
 										$r->execute();
 										$count = $r->fetchColumn();
@@ -85,12 +87,13 @@
 								</td>
 								<td>
 									<?php
-										$pdo = new PdoDb();
-
 										$query =
-											'SELECT COUNT(*) FROM `posts` WHERE `userid`=:userid LIMIT 0, 1;';
+											'SELECT COUNT(*) 
+											FROM `posts` 
+											WHERE `userid`=:userid 
+											LIMIT 0, 1;';
 
-										$r = $db->prepare($query);
+										$r = $readydb->prepare($query);
 										$r->bindParam(':userid', $userid);
 										$r->execute();
 										$count = $r->fetchColumn();
@@ -107,8 +110,6 @@
 								</td>
 								<td>
 									<?php
-										$pdo = new PdoDb();
-
 										$query =
 											'SELECT SUM(`t1`.`value`) FROM
 											(SELECT `likes`.`value`, `posts`.`userid`
@@ -116,7 +117,7 @@
 											LEFT JOIN `posts` ON `likes`.`postid` = `posts`.`id`) AS `t1`
 											WHERE `t1`.`userid` = :userid;';
 
-										$r = $db->prepare($query);
+										$r = $readydb->prepare($query);
 										$r->bindParam(':userid', $userid);
 										$r->execute();
 										$sum = $r->fetchColumn();
@@ -125,10 +126,79 @@
 								</td>
 							</tr>
 							<tr>
+								<td>
+									Друзья:
+								</td>
+								<td>
+									<?php
+										$friends = getFriendsById($userid, $readydb);
+
+										if (count($friends) == 0) {
+											echo 'Нет друзей';
+										} else {
+											foreach ($friends as $key => $friendid) {
+												$login = getUserLoginById($friendid, $readydb);
+
+												?>
+													<div style="width: 100%; display: block;">
+														<img src="<?php echo getGravatarLink($friendid, 25, $readydb); ?>" alt="<?php echo $login; ?>" style="float: left; margin-right: 10px; margin-top: -2px;">
+														<a href="/user/<?php echo htmlspecialchars($friendid); ?>/" style="float: left;" title="Пользователь <?php echo $login; ?>" rel="author"><?php echo $login; ?></a>
+													</div>
+												<?php
+											}
+										}
+									?>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Взаимные друзья:
+								</td>
+								<td>
+									<?php
+										if (count($friends) == 0) {
+											echo 'Нет взаимных друзей';
+										} else {
+											foreach ($friends as $key => $friendid) {
+												if (isFriend($friendid, $userid, $readydb)) {
+													$login = getUserLoginById($friendid, $readydb);
+
+													?>
+														<div style="width: 100%; display: block;">
+															<img src="<?php echo getGravatarLink($friendid, 25, $readydb); ?>" alt="<?php echo $login; ?>" style="float: left; margin-right: 10px; margin-top: -2px;">
+															<a href="/user/<?php echo htmlspecialchars($friendid); ?>/" style="float: left;" title="Пользователь <?php echo $login; ?>" rel="author"><?php echo $login; ?></a>
+														</div>
+													<?php
+												}
+											}
+										}
+									?>
+								</td>
+							</tr>
+							<tr>
 								<td colspan="2">
 									<form method="GET" action="/sendmessage/<?php echo $userid; ?>/">
 										<input type="submit" class="btn btn-primary" value="Написать сообщение">
 									</form>
+									<?php
+										if (isLogin()) {
+											$yourid = htmlspecialchars($_COOKIE['userid']);
+
+											if (isFriend($yourid, $userid)) {
+												?>
+													<form method="GET" action="/addfriend/<?php echo $userid; ?>/">
+														<input type="submit" class="btn btn-success" value="Добавить в друзья">
+													</form>
+												<?php
+											} else {
+												?>
+													<form method="GET" action="/removefriend/<?php echo $userid; ?>/">
+														<input type="submit" class="btn btn-danger" value="Удалить из друзей">
+													</form>
+												<?php
+											}
+										}
+									?>
 								</td>
 							</tr>
 						<?php
