@@ -16,12 +16,13 @@
 <div class="panel panel-primary" style="margin: 20px;">
 	<div class="panel-heading">
 		<h3 class="panel-title"><?php
-			$db = new PdoDb();
-
 			$query =
-				'SELECT `title` FROM `sections` WHERE `sectionid`=:sectionid LIMIT 0, 1;';
+				'SELECT `title` 
+				FROM `sections` 
+				WHERE `sectionid`=:sectionid 
+				LIMIT 0, 1;';
 
-			$req = $db->prepare($query);
+			$req = $readydb->prepare($query);
 			$req->bindParam(':sectionid', $sectionid);
 			$req->execute();
 
@@ -44,12 +45,13 @@
 						</tr>
 					<?php } else { ?>
 						<?php
-							$db = new PdoDb();
-
 							$query =
-								'SELECT `title` FROM `sections` WHERE `sectionid`=:sectionid LIMIT 0, 1;';
+								'SELECT `title` 
+								FROM `sections` 
+								WHERE `sectionid`=:sectionid 
+								LIMIT 0, 1;';
 
-							$req = $db->prepare($query);
+							$req = $readydb->prepare($query);
 							$req->bindParam(':sectionid', $sectionid);
 							$req->execute();
 
@@ -71,12 +73,14 @@
 												</thead>
 												<tbody>
 													<?php
-														$pdo = new PdoDb();
-
 														$query =
-															'SELECT `topicid`, `title`, `userid`, `updated` FROM `topics` WHERE `sectionid`=:sectionid ORDER BY `updated` DESC LIMIT 0, 20;';
+															'SELECT `topicid`, `title`, `userid`, `updated` 
+															FROM `topics` 
+															WHERE `sectionid`=:sectionid 
+															ORDER BY `updated` 
+															DESC LIMIT 0, 20;';
 
-														$r = $pdo->prepare($query);
+														$r = $readydb->prepare($query);
 														$r->bindParam(':sectionid', $sectionid);
 														$r->execute();
 														
@@ -88,12 +92,13 @@
 																	</td>
 																	<td style="width: 20%;">
 																		<?php
-																			$p = new PdoDb();
-
 																			$query =
-																				'SELECT `login` FROM `users` WHERE `userid`=:userid LIMIT 0, 1;';
+																				'SELECT `login` 
+																				FROM `users` 
+																				WHERE `userid`=:userid 
+																				LIMIT 0, 1;';
 
-																			$rr = $p->prepare($query);
+																			$rr = $readydb->prepare($query);
 																			$rr->bindParam(':userid', $userid);
 																			$rr->execute();
 
@@ -105,12 +110,42 @@
 																			}
 																		?>
 																	</td>
-																	<td style="width: 20%;">
-																		?
+																	<td>
+																		<?php
+																			$query =
+																				'SELECT `userid` 
+																				FROM `posts` 
+																				WHERE `topicid`=:topicid 
+																				ORDER BY `id` 
+																				DESC LIMIT 0, 1;';
+
+																			$rr = $readydb->prepare($query);
+																			$rr->bindParam(':topicid', $topicid);
+																			$rr->execute();
+
+																			while (list($userid2) = $rr->fetch(PDO::FETCH_NUM)) {
+																				$query2 =
+																					'SELECT `login` 
+																					FROM `users` 
+																					WHERE `userid`=:userid 
+																					LIMIT 0, 1;';
+
+																				$rrr = $readydb->prepare($query2);
+																				$rrr->bindParam(':userid', $userid2);
+																				$rrr->execute();
+
+																				while (list($login2) = $rrr->fetch(PDO::FETCH_NUM)) {
+																					?>
+																						<a href="/user/<?php echo htmlspecialchars($userid2); ?>/"><?php echo htmlspecialchars($login2); ?></a>
+																					<?php
+																					break;
+																				}
+
+																				break;
+																			}
+																		?>
 																	</td>
-																	<td style="width: 20%;">
-																		?
-																	</td>
+																	<td><?php echo intval(calcPostsInTopic($topicid, $readydb)); ?></td>
 																	<td style="width: 20%;">
 																		<?php echo $updated; ?>
 																	</td>
