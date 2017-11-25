@@ -1105,7 +1105,7 @@
 	}
 
 	function postsPerPage() {
-		return 15;
+		return 10;
 	}
 
 	function topicPagesCount($topicid, $readydb = NULL) {
