@@ -26,6 +26,10 @@ nav a {
     padding-left: 0;
 }
 
+.table-responsive {
+	overflow-x: hidden;
+}
+
 .table-responsive a {
 	filter: none;
 }

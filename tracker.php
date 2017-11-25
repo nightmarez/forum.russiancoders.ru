@@ -3,9 +3,7 @@
 
 <div class="panel panel-primary" style="margin: 20px;">
 	<div class="panel-heading">
-		<h3 class="panel-title">
-			Трекер
-		</h3>
+		<h3 class="panel-title">Трекер</h3>
 	</div>
 	<script>
 		document.title = 'Трекер';

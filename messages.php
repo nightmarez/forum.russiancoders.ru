@@ -48,7 +48,8 @@
 						</div>
 						<div class="row">
 							<div class="col-md-12" style="margin-top: 15px;">
-								<input type="button" class="btn btn-primary" value="Ответить" data-id="<?php echo $fromid; ?>">
+								<input type="button" class="btn btn-primary" value="Ответить" data-id="<?php echo $fromid; ?>" style="float: left; margin-right: 15px;">
+								<input type="button" class="btn btn-danger" value="Удалить" data-id="<?php echo $fromid; ?>" style="float: left; margin-right: 15px;">
 							</div>
 						</div>
 					</div>

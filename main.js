@@ -218,7 +218,7 @@
 
 	$(document).ready(function() {
 		if (location.href.indexOf('/messages/') !== -1) {
-			$('input[type=button]').each(function(idx, button) {
+			$('input[type=button].btn-primary').each(function(idx, button) {
 				button = $(button);
 
 				(function(button, id) {
@@ -226,6 +226,13 @@
 						location.href = '/sendmessage/' + id + '/';
 					});
 				})(button, button.attr('data-id'));
+			});
+		}
+
+		if (location.href.indexOf('/messages/') !== -1) {
+			$('input[type=button].btn-danger').each(function(idx, button) {
+				button = $(button);
+				button.parent().parent().parent().parent().remove();
 			});
 		}
 	});
