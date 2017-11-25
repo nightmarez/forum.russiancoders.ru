@@ -49,8 +49,8 @@
 								<input type="button" class="btn btn-primary" value="Ответить" data-id="<?php echo $fromid; ?>">
 							</div>
 						</div>
-					</tbody>
-				</table>
+					</div>
+				</div>
 			<?php
 				}
 			?>
