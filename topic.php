@@ -84,15 +84,13 @@
 			$req->execute();
 
 			while (list($id, $userid, $content, $created) = $req->fetch(PDO::FETCH_NUM)) {
+					$postnumber = getPostNumber($topicid, $id, $readydb);
+					$login = getUserLoginById($userid, $readydb);
 				?>
-					<div class="panel panel-info">
+					<div class="panel panel-info" id="message<?php echo $postnumber; ?>">
 						<div class="panel-heading">
 							<div class="row">
 								<div class="col-md-9">
-									<?php
-										$postnumber = getPostNumber($topicid, $id, $readydb);
-										$login = getUserLoginById($userid, $readydb);
-									?>
 									<a href="/topic/<?php echo $topicid; ?>/<?php echo ($page + 1); ?>/#<?php echo $postnumber; ?>" style="float: left; margin-right: 10px;">#<?php echo $postnumber; ?></a>
 									<img src="<?php echo getGravatarLink($userid, 25, $readydb); ?>" alt="<?php echo $login; ?>" style="float: left; margin-right: 10px; margin-top: -2px;">
 									<a href="/user/<?php echo htmlspecialchars($userid); ?>/" style="float: left; margin-right: 10px;" title="Пользователь <?php echo $login; ?>" rel="author"><?php echo $login; ?></a>
