@@ -39,13 +39,15 @@
 							</div>
 							<div class="col-md-4" style="text-align: right;"><?php echo $last; ?></div>
 						</div>
+					</div>
+					<div class="panel-body">
 						<div class="row">
 							<div class="col-md-12">
 								<?php echo filterMessage($text, $userid); ?>
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-12">
+							<div class="col-md-12" style="margin-top: 15px;">
 								<input type="button" class="btn btn-primary" value="Ответить" data-id="<?php echo $fromid; ?>">
 							</div>
 						</div>
