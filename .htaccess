@@ -8,6 +8,14 @@ RewriteRule ^/topic/([a-zA-Z0-9]+)/$ /topic.php?topicid=$1 [L]
 RewriteRule ^/topic/([a-zA-Z0-9]+)/([0-9]+)/$ /topic.php?topicid=$1&page=$2 [L]
 RewriteRule ^/sendmessage/([a-zA-Z0-9]+)/$ /sendmessage.php?userid=$1 [L]
 
+RewriteRule ^/user/([a-zA-Z0-9]+)$ /user.php?userid=$1 [L]
+RewriteRule ^/posts/([a-zA-Z0-9]+)$ /posts.php?userid=$1 [L]
+RewriteRule ^/topics/([a-zA-Z0-9]+)$ /topics.php?userid=$1 [L]
+RewriteRule ^/section/([a-zA-Z0-9]+)$ /section.php?sectionid=$1 [L]
+RewriteRule ^/topic/([a-zA-Z0-9]+)$ /topic.php?topicid=$1 [L]
+RewriteRule ^/topic/([a-zA-Z0-9]+)/([0-9]+)$ /topic.php?topicid=$1&page=$2 [L]
+RewriteRule ^/sendmessage/([a-zA-Z0-9]+)$ /sendmessage.php?userid=$1 [L]
+
 RewriteCond %{HTTP_REFERER} !^$
 RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?forum.russiancoders.ru [NC]
 RewriteRule \.(jpg|jpeg|png|gif)$ - [NC,F,L]
