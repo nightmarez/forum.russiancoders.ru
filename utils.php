@@ -519,6 +519,8 @@
 			$login = preg_replace('#(seoratings)#iUs', 'Антон Литвинов', $login);
 			$login = preg_replace('#(prematuremakarov)#iUs', 'Антон Литвинов', $login);
 
+			$login = preg_replace('#(Huldra)#iUs', 'Повелительница', $login);
+
 			return $login;
 		}
 
