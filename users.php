@@ -35,6 +35,12 @@
 									</td>
 									<td>
 										<a href="/user/<?php echo htmlspecialchars($userid); ?>/"><?php echo getUserLoginById($userid, $readydb); ?></a>
+										<?php
+											echo '<!--' . "\r\n";
+											echo 'strlen($login) = ' . strlen($login) . "\r\n";
+											echo 'mb_strlen($login) = ' . mb_strlen($login) . "\r\n";
+											echo '-->' . "\r\n";
+										?>
 									</td>
 									<td>
 										<?php echo getUserFirstVisit($userid, $readydb); ?>

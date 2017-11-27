@@ -21,7 +21,7 @@
 			return false;
 		}
 
-		if (strlen($login) > 20) {
+		if (strlen($login) > 40) {
 			return false;
 		}
 
