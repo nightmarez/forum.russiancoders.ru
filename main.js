@@ -116,6 +116,20 @@
 	});
 
 	$(document).ready(function() {
+		if (location.href.indexOf('/tracker/') !== -1) {
+			$('.collapsable-row-content').each(function(rowIdx, row) {
+				$(row).children().each(function(childIdx, child) {
+					child = $(child);
+
+					if (child.position().top > 300) {
+						child.remove();
+					}
+				});
+			});
+		}
+	});
+
+	$(document).ready(function() {
 		if (location.href.indexOf('/topic/') !== -1) {
 			var gotoMessage = function() {
 				var hashIdx = location.href.indexOf('#');

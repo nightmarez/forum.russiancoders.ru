@@ -53,10 +53,10 @@
 							</div>
 						</div>
 						<div class="panel-body" style="max-height: 300px; overflow: hidden; position: relative;">
-							<div style="position: absolute; top: 250px; height: 50px; width: 100%; background: linear-gradient(to top, rgba(255,255,255,1) 0%,rgba(188,232,241,0) 100%); z-index: 1;">
+							<div style="position: absolute; top: 250px; height: 50px; width: 100%; background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(188,232,241,1) 100%); z-index: 1;">
 							</div>
 							<div class="row">
-								<div class="col-md-12">
+								<div class="col-md-12 collapsable-row-content">
 									<?php echo filterMessage($content, $userid); ?>
 								</div>
 							</div>
