@@ -69,6 +69,10 @@
 								WHERE `posts`.`userid` = :userid AND `likes`.`value` > 0;';
 						}
 
+						echo '<!--';
+						echo $query;
+						echo '-->';
+
 						$req = $readydb->prepare($query);
 						$req->bindParam(':userid', $userid);
 						$req->execute();
@@ -103,7 +107,7 @@
 									</td>
 									<td>
 										<?php if ($value > 0) { ?>
-											<span style="color: #00aa00"><?php echo $value; ?></span>
+											<span style="color: #00aa00"><?php echo '+' . $value; ?></span>
 										<?php } else if ($value < 0) { ?>
 											<span style="color: #aa0000"><?php echo $value; ?></span>
 										<?php } else { ?>
