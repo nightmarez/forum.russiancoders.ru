@@ -70,7 +70,7 @@
 						}
 
 						echo '<!--';
-						echo $query;
+						echo $filter;
 						echo '-->';
 
 						$req = $readydb->prepare($query);
