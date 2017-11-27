@@ -15,13 +15,13 @@
 	}
 
 	function validateLogin($login) {
-		$safelogin = stripslashes(htmlspecialchars($login));
+		$safelogin = htmlspecialchars($login, ENT_COMPAT, 'UTF-8');
 
-		if ($safelogin !== $login) {
+		if ($safelogin != $login) {
 			return false;
 		}
 
-		if (strlen($login) > 40) {
+		if (mb_strlen($login) > 20) {
 			return false;
 		}
 

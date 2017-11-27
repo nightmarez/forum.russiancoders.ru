@@ -21,12 +21,6 @@
 		вышеперечисленного Вас не устраивает, пожалуйста, закройте страницу с данным форумом и не посещайте его больше.</h4>
 	</div>
 
-	<!--
-	<div class="panel-body">
-		Прошу прощения за неудобства. Регистрация временно приостановлена ввиду физического <a href="https://forum.russiancoders.ru/topic/inXDm40YNWn1fenYwSoZ/13/#122">преследования меня</a>, разработчика данного форума, одним человеком с неизвестными намерениями.
-	</div>
-	-->
-
 	<div class="panel-body">
 		<form action="/doregister/" method="POST">
 			<div class="col-md-12 col-sm-12">
@@ -36,7 +30,7 @@
 				</div>
 				<div class="form-group col-md-6 col-sm-6">
 					<label for="email">Email*</label>
-					<input type="email" class="form-control input-sm" id="mail" name="mail" placeholder="">
+					<input type="email" class="form-control input-sm" id="mail" name="mail" placeholder="" maxlength="255">
 				</div>
 			</div>
 			<div class="col-md-12 col-sm-12">

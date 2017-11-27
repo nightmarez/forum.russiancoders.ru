@@ -32,24 +32,10 @@
 
 							?>
 								<tr>
-									<td>
-										<img style="margin-right: 15px;" src="<?php echo getGravatarLink($userid, 25, $readydb); ?>" align="left">
-									</td>
-									<td>
-										<a href="/user/<?php echo htmlspecialchars($userid); ?>/"><?php echo $login; ?></a>
-										<?php
-											echo '<!--' . "\r\n";
-											echo 'strlen($login) = ' . strlen($login) . "\r\n";
-											echo 'mb_strlen($login) = ' . mb_strlen($login) . "\r\n";
-											echo '-->' . "\r\n";
-										?>
-									</td>
-									<td>
-										<?php echo getUserFirstVisit($userid, $readydb); ?>
-									</td>
-									<td>
-										<?php echo getUserLastVisit($userid, $readydb); ?>
-									</td>
+									<td><img style="margin-right: 15px;" src="<?php echo getGravatarLink($userid, 25, $readydb); ?>" align="left"></td>
+									<td><a href="/user/<?php echo htmlspecialchars($userid); ?>/"><?php echo $login; ?></a></td>
+									<td><?php echo getUserFirstVisit($userid, $readydb); ?></td>
+									<td><?php echo getUserLastVisit($userid, $readydb); ?></td>
 								</tr>
 							<?php
 						}
