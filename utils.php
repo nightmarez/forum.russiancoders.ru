@@ -28,15 +28,61 @@
 		return true;
 	}
 
+	function validateSectionId($sectionid) {
+		if (!is_string($sectionid)) {
+			return false;
+		}
+
+		if (mb_strlen($sectionid) != 20) {
+			return false;
+		}
+
+		if (!mb_ereg_match('/^\{?[0-9a-zA-Z]{1,20}\}?$/', $sectionid)) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function validateTopicId($topicid) {
+		if (!is_string($topicid)) {
+			return false;
+		}
+
+		if (mb_strlen($topicid) != 20) {
+			return false;
+		}
+
+		if (!mb_ereg_match('/^\{?[0-9a-zA-Z]{1,20}\}?$/', $topicid)) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function validateUserId($userid) {
+		if (!is_string($userid)) {
+			return false;
+		}
+
+		if (mb_strlen($userid) != 20) {
+			return false;
+		}
+
+		if (!mb_ereg_match('/^\{?[0-9a-zA-Z]{1,20}\}?$/', $userid)) {
+			return false;
+		}
+
+		return true;
+	}
+
 	function isLoginExists($login) {
 		if (!validateLogin($login)) {
 			return false;
 		}
 
 		$db = new PdoDb();
-
-		$query =
-			'SELECT * FROM `users` WHERE `login`=:login LIMIT 0, 1;';
+		$query = 'SELECT * FROM `users` WHERE `login`=:login LIMIT 0, 1;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':login', $login);
@@ -46,7 +92,7 @@
 	}
 
 	function isSectionExists($sectionid, $readydb = NULL) {
-		if (!preg_match('/^\{?[0-9a-zA-Z]{1,20}\}?$/', $sectionid)) {
+		if (!validateSectionId($sectionid)) {
 			return false;
 		}
 
@@ -102,10 +148,6 @@
 		}
 
 		return false;
-	}
-
-	function validateUserId($userId) {
-		return preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $userId);
 	}
 
 	function isUserIdExists($userId, $readydb = NULL) {
@@ -512,7 +554,7 @@
 
 		$sectionid = htmlspecialchars($_GET['sectionid']);
 
-		if (!preg_match('/^\{?[0-9a-zA-Z]{1,20}\}?$/', $sectionid)) {
+		if (!validateSectionId($sectionid)) {
 			return false;
 		}
 
@@ -524,7 +566,7 @@
 	}
 
 	function getSectionIdByTopicId($topicid, $readydb = NULL) {
-		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $topicid)) {
+		if (!validateTopicId($topicid)) {
 			return false;
 		}
 
@@ -559,7 +601,7 @@
 	}
 
 	function getTopicTitleById($topicid, $readydb = NULL) {
-		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $topicid)) {
+		if (!validateTopicId($topicid)) {
 			return false;
 		}
 
@@ -578,7 +620,7 @@
 	}
 
 	function getPostNumber($topicid, $id, $readydb = NULL) {
-		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $topicid)) {
+		if (!validateTopicId($topicid)) {
 			return false;
 		}
 
@@ -635,7 +677,7 @@
 	}
 
 	function getPostPageNumber($topicid, $id, $readydb = NULL) {
-		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $topicid)) {
+		if (!validateTopicId($topicid)) {
 			return false;
 		}
 
@@ -646,7 +688,7 @@
 	}
 
 	function getTopicInitMessage($topicid, $readydb = NULL) {
-		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $topicid)) {
+		if (!validateTopicId($topicid)) {
 			return false;
 		}
 
@@ -1309,7 +1351,7 @@
 	}
 
 	function topicPagesCount($topicid, $readydb = NULL) {
-		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $topicid)) {
+		if (!validateTopicId($topicid)) {
 			return 0;
 		}
 
