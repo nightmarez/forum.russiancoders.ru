@@ -45,17 +45,19 @@
 		return $count >= 1;
 	}
 
-	function isSectionExists($sectionid) {
-		$sectionid = stripslashes(htmlspecialchars($sectionid));
-		$db = new PdoDb();
+	function isSectionExists($sectionid, $readydb = NULL) {
+		if (!preg_match('/^\{?[0-9a-zA-Z]{1,20}\}?$/', $sectionid)) {
+			return false;
+		}
 
-		$query =
-			'SELECT * FROM `sections` WHERE `sectionid`=:sectionid LIMIT 0, 1;';
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+		$query = 'SELECT COUNT(*) FROM `sections` WHERE `sectionid`=:sectionid LIMIT 0, 1;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':sectionid', $sectionid);
 		$req->execute();
 		$count = $req->fetchColumn();
+
 		return $count >= 1;
 	}
 
@@ -501,22 +503,6 @@
 		}
 
 		return false;
-	}
-
-	function isSectionExists($sectionid, $readydb = NULL) {
-		if (!preg_match('/^\{?[0-9a-zA-Z]{1,20}\}?$/', $sectionid)) {
-			return false;
-		}
-
-		$db = is_null($readydb) ? new PdoDb() : $readydb;
-		$query = 'SELECT COUNT(*) FROM `sections` WHERE `sectionid`=:sectionid LIMIT 0, 1;';
-
-		$req = $db->prepare($query);
-		$req->bindParam(':sectionid', $sectionid);
-		$req->execute();
-		$count = $req->fetchColumn();
-
-		return $count >= 1;
 	}
 
 	function getSectionId($readydb = NULL) {
