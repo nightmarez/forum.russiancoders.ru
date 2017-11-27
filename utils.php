@@ -33,7 +33,7 @@
 			return false;
 		}
 
-		if (strlen($sectionid) < 40) {
+		if (strlen($sectionid) >= 40) {
 			return false;
 		}
 
