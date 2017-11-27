@@ -17,7 +17,7 @@
 
 			if ($f == 'negative') {
 				$filter = 'neg';
-			} else if ($f = 'positive') {
+			} else if ($f == 'positive') {
 				$filter = 'pos';
 			} else {
 				$filter = 'all';
@@ -68,10 +68,6 @@
 								ON `likes`.`postid` = `posts`.`id`
 								WHERE `posts`.`userid` = :userid AND `likes`.`value` > 0;';
 						}
-
-						echo '<!--';
-						echo $filter;
-						echo '-->';
 
 						$req = $readydb->prepare($query);
 						$req->bindParam(':userid', $userid);
