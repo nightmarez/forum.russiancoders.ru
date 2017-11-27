@@ -48,19 +48,19 @@
 								'SELECT `likes`.`postid`, `likes`.`userid`, `likes`.`value` FROM `likes`
 								LEFT JOIN `posts`
 								ON `likes`.`postid` = `posts`.`id`
-								WHERE `posts`.`userid` = :userid;'
+								WHERE `posts`.`userid` = :userid;';
 						} else if ($filter == 'neg') {
 							$query = 
 								'SELECT `likes`.`postid`, `likes`.`userid`, `likes`.`value` FROM `likes`
 								LEFT JOIN `posts`
 								ON `likes`.`postid` = `posts`.`id`
-								WHERE `posts`.`userid` = :userid AND `likes`.`value` < 0;'
+								WHERE `posts`.`userid` = :userid AND `likes`.`value` < 0;';
 						} else if ($filter == 'pos') {
 							$query = 
 								'SELECT `likes`.`postid`, `likes`.`userid`, `likes`.`value` FROM `likes`
 								LEFT JOIN `posts`
 								ON `likes`.`postid` = `posts`.`id`
-								WHERE `posts`.`userid` = :userid AND `likes`.`value` > 0;'
+								WHERE `posts`.`userid` = :userid AND `likes`.`value` > 0;';
 						}
 
 						$req = $readydb->prepare($query);
