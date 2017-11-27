@@ -230,7 +230,7 @@
 													$smilesEnabled = '';
 												}
 											?>
-											<label class="checkbox-inline"><input type="checkbox" value="<?php echo $smilesEnabled; ?>" id="smiles">Включить смайлы</label>
+											<label class="checkbox-inline"><input type="checkbox" <?php echo $smilesEnabled; ?> id="smiles">Включить смайлы</label>
 										</li>
 									</ul>
 								</td>
