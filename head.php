@@ -73,8 +73,7 @@
 		<meta name="description" content="RussianCoder's Forum">
 		<meta property="og:title" content="RussianCoder's Forum">
 		<meta property="og:description" content="Forum of Russian Developers">
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="viewport" content="width=device-width">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="site-created" content="Михаил Макаров"> 
 		<meta name="author" content="Михаил Макаров">
