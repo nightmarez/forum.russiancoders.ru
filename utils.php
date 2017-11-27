@@ -33,11 +33,11 @@
 			return false;
 		}
 
-		if (strlen($sectionid) != 20) {
+		if (strlen($sectionid) < 40) {
 			return false;
 		}
 
-		if (!preg_match('/^\{?[0-9a-zA-Z]{1,20}\}?$/', $sectionid)) {
+		if (!preg_match('/^\{?[a-z]*\}?$/', $sectionid)) {
 			return false;
 		}
 
@@ -1358,7 +1358,7 @@
 		$query = 
 			'INSERT INTO `settings` (`userid`, `param`, `value`) 
 			VALUES (:userid, :param, :value) 
-			ON DUPLICATE KEY  UPDATE SET `value` = :value;';
+			ON DUPLICATE KEY UPDATE SET `value` = :value;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':userid', $userid, PDO::PARAM_STR);
