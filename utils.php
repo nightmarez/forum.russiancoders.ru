@@ -567,6 +567,22 @@
 		return $sectionid;
 	}
 
+	function getTopicIdByPostId($postid, $readydb = NULL) {
+		$postid = intval($postid);
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+		$query = 'SELECT `topicid` FROM `posts` WHERE `id`=:postid LIMIT 0, 1;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':postid', $postid, PDO::PARAM_STR);
+		$req->execute();
+
+		while (list($topicid) = $req->fetch(PDO::FETCH_NUM)) {
+			return htmlspecialchars($topicid);
+		}
+
+		return false;
+	}
+
 	function getSectionIdByTopicId($topicid, $readydb = NULL) {
 		if (!validateTopicId($topicid)) {
 			return false;

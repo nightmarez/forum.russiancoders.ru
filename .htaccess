@@ -9,6 +9,7 @@ RewriteRule ^/topic/([a-zA-Z0-9]+)/([0-9]+)/$ /topic.php?topicid=$1&page=$2 [L]
 RewriteRule ^/sendmessage/([a-zA-Z0-9]+)/$ /sendmessage.php?userid=$1 [L]
 RewriteRule ^/addfriend/([a-zA-Z0-9]+)/$ /addfriend.php?userid=$1 [L]
 RewriteRule ^/removefriend/([a-zA-Z0-9]+)/$ /removefriend.php?userid=$1 [L]
+RewriteRule ^/rating/([a-zA-Z0-9]+)/$ /rating.php?filter=$1 [L]
 
 RewriteCond %{HTTP_REFERER} !^$
 RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?forum.russiancoders.ru [NC]
