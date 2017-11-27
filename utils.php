@@ -76,18 +76,19 @@
 		return true;
 	}
 
-	function isLoginExists($login) {
+	function isLoginExists($login, $readydb = NULL) {
 		if (!validateLogin($login)) {
 			return false;
 		}
 
-		$db = new PdoDb();
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
 		$query = 'SELECT * FROM `users` WHERE `login`=:login LIMIT 0, 1;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':login', $login);
 		$req->execute();
 		$count = $req->fetchColumn();
+
 		return $count >= 1;
 	}
 
@@ -107,29 +108,30 @@
 		return $count >= 1;
 	}
 
-	function isTopicExists($topicid) {
-		$topicid = stripslashes(htmlspecialchars($topicid));
-		$db = new PdoDb();
+	function isTopicExists($topicid, $readydb = NULL) {
+		if (!validateTopicId($topicid)) {
+			return false;
+		}
 
-		$query =
-			'SELECT * FROM `topics` WHERE `topicid`=:topicid LIMIT 0, 1;';
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+		$query = 'SELECT * FROM `topics` WHERE `topicid`=:topicid LIMIT 0, 1;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':topicid', $topicid);
 		$req->execute();
 		$count = $req->fetchColumn();
+
 		return $count >= 1;
 	}
 
-	function tryLogin($login, $pass) {
-		if (!isLoginExists($login)) {
+	function tryLogin($login, $pass, $readydb = NULL) {
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		if (!isLoginExists($login, $readydb)) {
 			return false;
 		}
 
-		$db = new PdoDb();
-
-		$query =
-			'SELECT `userid`, `pass`, `salt`, `session` FROM `users` WHERE `login`=:login LIMIT 0, 1;';
+		$query = 'SELECT `userid`, `pass`, `salt`, `session` FROM `users` WHERE `login`=:login LIMIT 0, 1;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':login', $login);
@@ -437,8 +439,8 @@
 	}
 
 	function setUserCookies($userid, $session) {
-		setcookie('userid', $userid, time() + 3600 * 100);
-		setcookie('session', $session, time() + 3600 * 100);
+		setcookie('userid', $userid, time() + 3600 * 500);
+		setcookie('session', $session, time() + 3600 * 500);
 	}
 
 	function unsetUserCookies() {
