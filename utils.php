@@ -1292,8 +1292,7 @@
 			return false;
 		}
 
-		$query =
-			'SELECT (now() - `created`) as `online` FROM `posts` WHERE `id` = :postid AND TIME_TO_SEC(TIMEDIFF(NOW(), `created`)) <= 24 * 60 * 60;';
+		$query = 'SELECT (now() - `created`) as `online` FROM `posts` WHERE `id` = :postid AND TIME_TO_SEC(TIMEDIFF(NOW(), `created`)) <= 24 * 60 * 60;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':postid', $postid);
@@ -1319,14 +1318,52 @@
 		}
 
 		$db = is_null($readydb) ? new PdoDb() : $readydb;
-
-		$query =
-			'INSERT INTO `likes` (`userid`, `postid`, `value`) VALUES (:userid, :postid, :value);';
+		$query = 'INSERT INTO `likes` (`userid`, `postid`, `value`) VALUES (:userid, :postid, :value);';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':userid', $userid);
 		$req->bindParam(':postid', $postid);
 		$req->bindParam(':value', $value);
+		$req->execute();
+	}
+
+	function getSettingsParam($userid, $param, $readydb = NULL) {
+		if (!validateUserId($userid)) {
+			return false;
+		}
+
+		$param = htmlspecialchars($param);
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+		$query = 'SELECT `value` FROM `settings` WHERE `param`=:param;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':param', $param, PDO::PARAM_STR);
+		$req->execute();
+
+		while (list($value) = $req->fetch(PDO::FETCH_NUM)) {
+			return htmlspecialchars($value);
+		}
+
+		return false;
+	}
+
+	function setSettingsParam($userid, $param, $value, $readydb = NULL) {
+		if (!validateUserId($userid)) {
+			return false;
+		}
+
+		$param = htmlspecialchars($param);
+		$value = htmlspecialchars($value);
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+		$query = 
+			'INSERT INTO `settings` (`userid`, `param`, `value`) 
+			VALUES (:userid, :param, :value) 
+			ON DUPLICATE KEY  UPDATE SET `value` = :value;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':userid', $userid, PDO::PARAM_STR);
+		$req->bindParam(':param', $param, PDO::PARAM_STR);
+		$req->bindParam(':value', $value, PDO::PARAM_STR);
 		$req->execute();
 	}
 

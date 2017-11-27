@@ -214,6 +214,27 @@
 									?>
 								</td>
 							</tr>
+							<tr>
+								<td>
+									Личные настройки:
+								</td>
+								<td>
+									<ul>
+										<li>
+											<?php
+												$smilesEnabled = getSettingsParam($userid, 'smiles', $readydb);
+
+												if ($smilesEnabled === false || $smilesEnabled === 'checked') {
+													$smilesEnabled = 'checked';
+												} else {
+													$smilesEnabled = '';
+												}
+											?>
+											<label class="checkbox-inline"><input type="checkbox" value="<?php echo $smilesEnabled; ?>" id="smiles">Включить смайлы</label>
+										</li>
+									</ul>
+								</td>
+							</tr>
 						<?php
 								break;
 							}

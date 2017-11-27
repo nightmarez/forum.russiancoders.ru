@@ -195,6 +195,14 @@
 	});
 
 	$(document).ready(function() {
+		if (location.href.indexOf('/profile/') !== -1) {
+			$('#smiles').change(function() {
+				$.get('/switchsmiles.php?value=' + (this.checked ? 'checked' : 'unchecked'));
+			});
+		}
+	});
+
+	$(document).ready(function() {
 		if (location.href.indexOf('/uploader/') !== -1) {
 			var self = $('input[type=file]')[0];
 			var input = $(self),
