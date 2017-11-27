@@ -33,11 +33,11 @@
 			return false;
 		}
 
-		if (mb_strlen($sectionid) != 20) {
+		if (strlen($sectionid) != 20) {
 			return false;
 		}
 
-		if (!mb_ereg_match('/^\{?[0-9a-zA-Z]{1,20}\}?$/', $sectionid)) {
+		if (!preg_match('/^\{?[0-9a-zA-Z]{1,20}\}?$/', $sectionid)) {
 			return false;
 		}
 
@@ -49,11 +49,11 @@
 			return false;
 		}
 
-		if (mb_strlen($topicid) != 20) {
+		if (strlen($topicid) != 20) {
 			return false;
 		}
 
-		if (!mb_ereg_match('/^\{?[0-9a-zA-Z]{1,20}\}?$/', $topicid)) {
+		if (!preg_match('/^\{?[0-9a-zA-Z]{1,20}\}?$/', $topicid)) {
 			return false;
 		}
 
@@ -65,11 +65,11 @@
 			return false;
 		}
 
-		if (mb_strlen($userid) != 20) {
+		if (strlen($userid) != 20) {
 			return false;
 		}
 
-		if (!mb_ereg_match('/^\{?[0-9a-zA-Z]{1,20}\}?$/', $userid)) {
+		if (!preg_match('/^\{?[0-9a-zA-Z]{1,20}\}?$/', $userid)) {
 			return false;
 		}
 
