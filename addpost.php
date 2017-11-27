@@ -19,7 +19,7 @@
 	addPost($userid, $topicid, $content);
 
 	$postid = calcPostsInTopic($topicid, $readydb) - 1;
-	$pageid = getPostPageNumber($topicid, $postid, $readydb);
+	$pageid = ceil($postid + 1) / postsPerPage());
 
 	header('Location: /topic/' . $topicid . '/' . $pageid . '/#' . $postid);
 ?>
