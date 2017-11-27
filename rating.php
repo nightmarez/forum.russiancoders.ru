@@ -19,6 +19,8 @@
 				$filter = 'neg';
 			} else if ($f = 'positive') {
 				$filter = 'pos';
+			} else {
+				$filter = 'all';
 			}
 		}
 
