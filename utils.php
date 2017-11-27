@@ -1,30 +1,6 @@
 <?php
 	require_once('db.php');
 
-	function databaseTestAccess() {
-		$sum = 0;
-
-		$db = new PdoDb();
-
-		$query =
-			'SELECT `num` FROM `test`;';
-
-		$req = $db->prepare($query);
-		$req->execute();
-
-		while (list($value) = $req->fetch(PDO::FETCH_NUM)) {
-			$sum += $value;
-		}
-
-		if ($sum === 60) {
-			?>
-				<!-- Database Connection Successfully -->
-			<?php
-		}
-
-		return $sum === 60;
-	}
-
 	function get_ip()
 	{
 		if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
@@ -525,6 +501,40 @@
 		}
 
 		return false;
+	}
+
+	function isSectionExists($sectionid, $readydb = NULL) {
+		if (!preg_match('/^\{?[0-9a-zA-Z]{1,20}\}?$/', $sectionid)) {
+			return false;
+		}
+
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+		$query = 'SELECT COUNT(*) FROM `sections` WHERE `sectionid`=:sectionid LIMIT 0, 1;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':sectionid', $sectionid);
+		$req->execute();
+		$count = $req->fetchColumn();
+
+		return $count >= 1;
+	}
+
+	function getSectionId($readydb = NULL) {
+		if (empty($_GET['sectionid'])) {
+			return false;
+		}
+
+		$sectionid = htmlspecialchars($_GET['sectionid']);
+
+		if (!preg_match('/^\{?[0-9a-zA-Z]{1,20}\}?$/', $sectionid)) {
+			return false;
+		}
+
+		if (!isSectionExists($sectionid, $readydb)) {
+			return false;
+		}
+
+		return $sectionid;
 	}
 
 	function getSectionIdByTopicId($topicid, $readydb = NULL) {

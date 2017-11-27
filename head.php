@@ -2,11 +2,11 @@
 <html lang="en">
 	<head>
 		<?php
-			if (!databaseTestAccess()) {
-				die('No Database Access');
-			}
+			$authorized = isLogin($readydb);
 
-			updateUserOnline();
+			if ($authorized) {
+				updateUserOnline($readydb);
+			}
 		?>
 		<title>
 			<?php
@@ -14,19 +14,13 @@
 
 				// ----------------------------------------------------
 
-				$sectionid = false;
-
-				if (isset($_GET['sectionid'])) {
-					$sectionid = htmlspecialchars($_GET['sectionid']);
-
-					if (!preg_match('/^\{?[0-9a-zA-Z]{1,20}\}?$/', $sectionid)) {
-						$sectionid = false;
-					}
-				}
+				$sectionid = getSectionId($readydb);
 
 				if ($sectionid !== false) {
 					$query =
-						'SELECT `title` FROM `sections` WHERE `sectionid`=:sectionid LIMIT 0, 1;';
+						'SELECT `title` 
+						FROM `sections` 
+						WHERE `sectionid`=:sectionid LIMIT 0, 1;';
 
 					$req = $readydb->prepare($query);
 					$req->bindParam(':sectionid', $sectionid);
@@ -51,7 +45,10 @@
 
 					if ($topicid !== false) {
 						$query =
-							'SELECT `title` FROM `topics` WHERE `topicid`=:topicid LIMIT 0, 1;';
+							'SELECT `title` 
+							FROM `topics` 
+							WHERE `topicid`=:topicid 
+							LIMIT 0, 1;';
 
 						$req = $readydb->prepare($query);
 						$req->bindParam(':topicid', $topicid);
