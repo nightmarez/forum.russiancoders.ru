@@ -963,10 +963,10 @@
 		$text = preg_replace('#\[url=(\S*)\]#iUs', '<a href="${1}" rel="nofollow" target="_blank">${1}</a>', $text);
 		$text = preg_replace('#\[url=\"(\S*)\"\]#iUs', '<a href="${1}" rel="nofollow" target="_blank">${1}</a>', $text);
 
-		$text = preg_replace('#\[youtube=\"([0-9a-zA-Z_]*)\"\]#iUs', '<iframe width="640" height="420" src="https://www.youtube.com/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
-		$text = preg_replace('#\[rutube=\"([0-9a-zA-Z_]*)\"\]#iUs', '<iframe width="640" height="420" src="https://rutube.ru/play/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
-		$text = preg_replace('#\[youtube=([0-9a-zA-Z_]*)\]#iUs', '<iframe width="640" height="420" src="https://www.youtube.com/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
-		$text = preg_replace('#\[rutube=([0-9a-zA-Z_]*)\]#iUs', '<iframe width="640" height="420" src="https://rutube.ru/play/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
+		$text = preg_replace('#\[youtube=\"([0-9a-zA-Z_\-]*)\"\]#iUs', '<iframe width="640" height="420" src="https://www.youtube.com/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
+		$text = preg_replace('#\[rutube=\"([0-9a-zA-Z_\-]*)\"\]#iUs', '<iframe width="640" height="420" src="https://rutube.ru/play/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
+		$text = preg_replace('#\[youtube=([0-9a-zA-Z_\-]*)\]#iUs', '<iframe width="640" height="420" src="https://www.youtube.com/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
+		$text = preg_replace('#\[rutube=([0-9a-zA-Z_\-]*)\]#iUs', '<iframe width="640" height="420" src="https://rutube.ru/play/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
 
 		$text = preg_replace("#(\r\n){2,}#iUs", "<br><br>", $text);
 		$text = preg_replace("#(\r\n)#iUs", "<br>", $text);
