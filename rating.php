@@ -21,6 +21,16 @@
 				$filter = 'pos';
 			}
 		}
+
+		$userid = false;
+
+		if (isset($_GET['userid'])) {
+			$userid = $_GET['userid'];
+
+			if (!validateUserId($userid)) {
+				die('Invalid user id');
+			}
+		}
 	?>
 
 	<div class="panel-body">
@@ -35,12 +45,6 @@
 				</thead>
 				<tbody>
 					<?php
-						$userid = $_COOKIE['userid'];
-
-						if (!validateUserId($userid)) {
-							die('Invalid user id');
-						}
-
 						$query = '';
 
 						if ($filter == 'all') {

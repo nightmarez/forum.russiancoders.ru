@@ -86,7 +86,7 @@
 									Рейтинг:
 								</td>
 								<td>
-									<a href="/rating/all/">
+									<a href="/rating/<?php echo $userid; ?>/all/">
 										<span style="color: #000000">
 											<?php
 												$query =
@@ -104,7 +104,7 @@
 											?>
 										</span>
 									</a>
-									(<a href="/rating/positive/"><span style="color: #00aa00">
+									(<a href="/rating/<?php echo $userid; ?>/positive/"><span style="color: #00aa00">
 									<?php
 										$query =
 											'SELECT SUM(`t1`.`value`) FROM
@@ -119,7 +119,7 @@
 										$sum = $r->fetchColumn();
 										echo '+' . intval($sum);
 									?>
-									</span></a> <a href="/rating/negative/"><span style="color: #aa0000">
+									</span></a> <a href="/rating/<?php echo $userid; ?>/negative/"><span style="color: #aa0000">
 									<?php
 										$query =
 											'SELECT SUM(`t1`.`value`) FROM
