@@ -119,7 +119,7 @@
 										$sum = $r->fetchColumn();
 										echo '+' . intval($sum);
 									?>
-									</span></a>&nbsp;<a href="/rating/negative/"><span style="color: #aa0000">
+									</span></a> <a href="/rating/negative/"><span style="color: #aa0000">
 									<?php
 										$query =
 											'SELECT SUM(`t1`.`value`) FROM

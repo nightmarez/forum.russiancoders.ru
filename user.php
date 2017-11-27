@@ -109,21 +109,25 @@
 									Рейтинг:
 								</td>
 								<td>
-									<?php
-										$query =
-											'SELECT SUM(`t1`.`value`) FROM
-											(SELECT `likes`.`value`, `posts`.`userid`
-											FROM `likes`
-											LEFT JOIN `posts` ON `likes`.`postid` = `posts`.`id`) AS `t1`
-											WHERE `t1`.`userid` = :userid;';
+									<a href="/rating/all/">
+										<span style="color: #000000">
+											<?php
+												$query =
+													'SELECT SUM(`t1`.`value`) FROM
+													(SELECT `likes`.`value`, `posts`.`userid`
+													FROM `likes`
+													LEFT JOIN `posts` ON `likes`.`postid` = `posts`.`id`) AS `t1`
+													WHERE `t1`.`userid` = :userid;';
 
-										$r = $readydb->prepare($query);
-										$r->bindParam(':userid', $userid);
-										$r->execute();
-										$sum = $r->fetchColumn();
-										echo intval($sum);
-									?>
-									(<span style="color: #00aa00">
+												$r = $readydb->prepare($query);
+												$r->bindParam(':userid', $userid);
+												$r->execute();
+												$sum = $r->fetchColumn();
+												echo intval($sum);
+											?>
+										</span>
+									</a>
+									(<a href="/rating/positive/"><span style="color: #00aa00">
 									<?php
 										$query =
 											'SELECT SUM(`t1`.`value`) FROM
@@ -138,7 +142,7 @@
 										$sum = $r->fetchColumn();
 										echo '+' . intval($sum);
 									?>
-									</span>&nbsp;<span style="color: #aa0000">
+									</span></a> <a href="/rating/negative/"><span style="color: #aa0000">
 									<?php
 										$query =
 											'SELECT SUM(`t1`.`value`) FROM
@@ -153,7 +157,7 @@
 										$sum = $r->fetchColumn();
 										echo '-' . abs(intval($sum));
 									?>
-									</span>)
+									</span></a>)
 								</td>
 							</tr>
 							<tr>
