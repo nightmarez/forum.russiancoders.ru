@@ -972,7 +972,10 @@
 		$text = preg_replace("#(\r\n)#iUs", "<br>", $text);
 
 		$text = preg_replace("#(\r){2,}#iUs", "<br><br>", $text);
-		$text = preg_replace("#(\r)#iUs", "<br>", $text);  		
+		$text = preg_replace("#(\r)#iUs", "<br>", $text);
+
+		$text = preg_replace("#(\n){2,}#iUs", "<br><br>", $text);
+		$text = preg_replace("#(\n)#iUs", "<br>", $text);		
 
 		$text = preg_replace('#\[b\](.*)\[\/b\]#iUs', '<b>${1}</b>', $text);
 		$text = preg_replace('#\[i\](.*)\[\/i\]#iUs', '<i>${1}</i>', $text);
