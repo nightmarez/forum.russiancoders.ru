@@ -11,6 +11,9 @@
 		$value = 'unchecked';
 	}
 
-	setSettingsParam($userid, $param, $value, $readydb);
-	echo 'ok';
+	if (setSettingsParam($userid, $param, $value, $readydb)) {
+		echo 'ok';
+	} else {
+		echo 'error';
+	}
 ?>
