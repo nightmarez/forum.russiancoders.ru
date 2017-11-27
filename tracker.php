@@ -9,7 +9,9 @@
 		document.title = 'Трекер';
 	</script>
 
-	<div class="panel-body">
+	<div class="panel-body" style="max-height: 300px; overflow: hidden; position: relative;">
+		<div style="position: absolute; top: 250px; height: 50px; width: 100%; background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(188,232,241,0) 100%);">
+		</div>
 		<?php
 			$query = 
 				'SELECT `id`, `topicid`, `userid`, `content`, `created` 
