@@ -20,6 +20,6 @@
 
 	$postid = getPostNumber($topicid, $readydb);
 	$pageid = getPostPageNumber($topicid, $postid, $readydb);
-	
-	header('Location: /topic/' . $topicid . '/' . $pageid . '/' . $postid . '/');
+
+	header('Location: /topic/' . $topicid . '/' . $pageid . '/#' . $postid);
 ?>
