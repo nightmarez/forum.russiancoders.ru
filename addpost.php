@@ -16,9 +16,10 @@
 	$userid = htmlspecialchars($_COOKIE['userid']);
 	$topicid = htmlspecialchars($_POST['topicid']);
 
+	addPost($userid, $topicid, $content);
+
 	$postid = getPostNumber($topicid, $readydb);
 	$pageid = getPostPageNumber($topicid, $postid, $readydb);
-
-	addPost($userid, $topicid, $content);
+	
 	header('Location: /topic/' . $topicid . '/' . $pageid . '/' . $postid . '/');
 ?>
