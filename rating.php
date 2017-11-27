@@ -86,8 +86,8 @@
 											$topicTitle = getTopicTitleById($topicid, $readydb);
 											$sectionid = getSectionIdByTopicId($topicid, $readydb);
 											$sectionTitle = getSectionTitleById($sectionid, $readydb);
-											$postnumber = getPostNumber($topicid, $id, $readydb);
-											$page = getPostPageNumber($topicid, $id, $readydb);
+											$postnumber = getPostNumber($topicid, $postid, $readydb);
+											$page = getPostPageNumber($topicid, $postid, $readydb);
 										?>
 										<a href="/">Форум</a>
 										→
