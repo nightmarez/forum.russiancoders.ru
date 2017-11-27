@@ -22,19 +22,21 @@
 				</thead>
 				<tbody>
 					<?php
-						$query = 'SELECT `userid`, `login`, MD5(LOWER(TRIM(`mail`))) FROM `users` ORDER BY `first` DESC;';
+						$query = 'SELECT `userid`, MD5(LOWER(TRIM(`mail`))) FROM `users` ORDER BY `first` DESC;';
 
 						$req = $readydb->prepare($query);
 						$req->execute();
 
 						while (list($userid, $login, $mail) = $req->fetch(PDO::FETCH_NUM)) {
+							$login = getUserLoginById($userid, $readydb);
+
 							?>
 								<tr>
 									<td>
 										<img style="margin-right: 15px;" src="<?php echo getGravatarLink($userid, 25, $readydb); ?>" align="left">
 									</td>
 									<td>
-										<a href="/user/<?php echo htmlspecialchars($userid); ?>/"><?php echo getUserLoginById($userid, $readydb); ?></a>
+										<a href="/user/<?php echo htmlspecialchars($userid); ?>/"><?php echo $login; ?></a>
 										<?php
 											echo '<!--' . "\r\n";
 											echo 'strlen($login) = ' . strlen($login) . "\r\n";
