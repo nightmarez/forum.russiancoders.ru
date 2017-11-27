@@ -117,7 +117,7 @@
 
 	$(document).ready(function() {
 		if (location.href.indexOf('/tracker/') !== -1) {
-			$('.collapsable-row-content').each(function(rowIdx, row) {
+			$('iframe').add('img').each(function(rowIdx, row) {
 				$(row).children().each(function(childIdx, child) {
 					child = $(child);
 
