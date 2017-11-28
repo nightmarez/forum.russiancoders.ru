@@ -376,8 +376,8 @@
 		$r->bindParam(':postid', $postid);
 		$r->execute();
 
-		while (list($postid) = $r->fetch(PDO::FETCH_NUM)) {
-			return intval($postid);
+		while (list($userid) = $r->fetch(PDO::FETCH_NUM)) {
+			return $userid;
 		}
 
 		return false;
