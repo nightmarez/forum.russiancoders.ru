@@ -148,7 +148,7 @@
 												$query =
 													'SELECT SUM(`value`)
 													FROM `likes`
-													WHERE `userid`=:userid';
+													WHERE `userid`=:userid;';
 
 												$r = $readydb->prepare($query);
 												$r->bindParam(':userid', $userid);
@@ -163,7 +163,7 @@
 										$query =
 											'SELECT SUM(`value`)
 											FROM `likes`
-											WHERE `userid`=:userid' AND `value` > 0;
+											WHERE `userid`=:userid AND `value` > 0;';
 
 										$r = $readydb->prepare($query);
 										$r->bindParam(':userid', $userid);
@@ -176,7 +176,7 @@
 										$query =
 											'SELECT SUM(`value`)
 											FROM `likes`
-											WHERE `userid`=:userid' AND `value` < 0;
+											WHERE `userid`=:userid AND `value` < 0;';
 
 										$r = $readydb->prepare($query);
 										$r->bindParam(':userid', $userid);
