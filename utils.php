@@ -368,6 +368,21 @@
 		}
 	}
 
+	function getUserIdByPost($postid, $readydb = NULL) {
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+		$query = 'SELECT `userid` FROM `posts` WHERE `id`=:postid LIMIT 0, 1;';
+
+		$r = $readydb->prepare($query);
+		$r->bindParam(':postid', $postid);
+		$r->execute();
+
+		while (list($postid) = $r->fetch(PDO::FETCH_NUM)) {
+			return intval($postid);
+		}
+
+		return false;
+	}
+
 	function addPost($userid, $topicid, $content, $readydb = NULL) {
 		if (!isUserIdExists($userid, $readydb)) {
 			return false;

@@ -1,12 +1,24 @@
 <?php include_once('head.php'); ?>
 <?php include_once('nav.php'); ?>
 
+<?php
+	$userid = false;
+
+	if (isset($_GET['userid'])) {
+		$userid = $_GET['userid'];
+
+		if (!validateUserId($userid)) {
+			die('Invalid user id');
+		}
+	}
+?>
+
 <div class="panel panel-primary" style="margin: 20px;">
 	<div class="panel-heading">
-		<h3 class="panel-title">История рейтинга</h3>
+		<h3 class="panel-title">Выставленные оценки пользователем <?php echo htmlspecialchars(getUserLoginById($userid, $readydb)); ?></h3>
 	</div>
 	<script>
-		document.title = 'История рейтинга';
+		document.title = 'Выставленные оценки';
 	</script>
 
 	<?php
@@ -21,16 +33,6 @@
 				$filter = 'pos';
 			} else {
 				$filter = 'all';
-			}
-		}
-
-		$userid = false;
-
-		if (isset($_GET['userid'])) {
-			$userid = $_GET['userid'];
-
-			if (!validateUserId($userid)) {
-				die('Invalid user id');
 			}
 		}
 	?>
@@ -71,7 +73,7 @@
 						$req->execute();
 
 						while (list($postid, $userid, $value) = $req->fetch(PDO::FETCH_NUM)) {
-							$login = getUserLoginById($userid, $readydb);
+							$login = getUserLoginById(getUserIdByPost($postid, $readydb), $readydb);
 
 							?>
 								<tr>
