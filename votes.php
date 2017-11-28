@@ -75,6 +75,8 @@
 						while (list($postid, $userid, $value) = $req->fetch(PDO::FETCH_NUM)) {
 							$userid = getUserIdByPost($postid, $readydb);
 
+							echo $userid;
+
 							if ($userid === false) {
 								continue;
 							}
