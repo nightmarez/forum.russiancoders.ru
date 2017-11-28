@@ -73,7 +73,8 @@
 						$req->execute();
 
 						while (list($postid, $userid, $value) = $req->fetch(PDO::FETCH_NUM)) {
-							$login = getUserLoginById(getUserIdByPost($postid, $readydb), $readydb);
+							$userid = getUserIdByPost($postid, $readydb);
+							$login = getUserLoginById($userid, $readydb);
 
 							?>
 								<tr>
