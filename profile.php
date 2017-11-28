@@ -139,6 +139,56 @@
 							</tr>
 							<tr>
 								<td>
+									Оценки:
+								</td>
+								<td>
+									<a href="/votes/<?php echo $userid; ?>/all/">
+										<span style="color: #000000">
+											<?php
+												$query =
+													'SELECT SUM(`value`)
+													FROM `likes`
+													WHERE `userid`=:userid';
+
+												$r = $readydb->prepare($query);
+												$r->bindParam(':userid', $userid);
+												$r->execute();
+												$sum = $r->fetchColumn();
+												echo intval($sum);
+											?>
+										</span>
+									</a>
+									(<a href="/votes/<?php echo $userid; ?>/positive/"><span style="color: #00aa00">
+									<?php
+										$query =
+											'SELECT SUM(`value`)
+											FROM `likes`
+											WHERE `userid`=:userid' AND `value` > 0;
+
+										$r = $readydb->prepare($query);
+										$r->bindParam(':userid', $userid);
+										$r->execute();
+										$sum = $r->fetchColumn();
+										echo '+' . intval($sum);
+									?>
+									</span></a> <a href="/votes/<?php echo $userid; ?>/negative/"><span style="color: #aa0000">
+									<?php
+										$query =
+											'SELECT SUM(`value`)
+											FROM `likes`
+											WHERE `userid`=:userid' AND `value` > 0;
+
+										$r = $readydb->prepare($query);
+										$r->bindParam(':userid', $userid);
+										$r->execute();
+										$sum = $r->fetchColumn();
+										echo '-' . abs(intval($sum));
+									?>
+									</span></a>)
+								</td>
+							</tr>
+							<tr>
+								<td>
 									Друзья:
 								</td>
 								<td>
