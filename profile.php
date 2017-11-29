@@ -142,7 +142,10 @@
 									Загрузил изображений:
 								</td>
 								<td>
-									<?php echo getLoadedImagesCount($userid, $readydb); ?>
+									<?php
+										echo getLoadedImagesCount($userid, $readydb);
+										tryAddPhotographerReward($userid, $readydb);
+									?>
 								</td>
 							</tr>
 							<tr>
