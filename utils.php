@@ -477,6 +477,46 @@
 		return false;
 	}
 
+	function getUserMessagesCount($userid, $readydb = NULL) {
+		if (!validateUserId($userid)) {
+			return false;
+		}
+
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		$query =
+			'SELECT COUNT(*) 
+			FROM `posts` 
+			WHERE `userid`=:userid 
+			LIMIT 0, 1;';
+
+		$r = $readydb->prepare($query);
+		$r->bindParam(':userid', $userid);
+		$r->execute();
+		$count = $r->fetchColumn();
+
+		return $count;
+	}
+
+	function tryAddCitizenReward($userid, $readydb = NULL) {
+		if (!validateUserId($userid)) {
+			return false;
+		}
+
+		$reward = 'citizen';
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		if (isRewardExists($userid, $reward, $db)) {
+			return false;
+		}
+
+		if (getUserMessagesCount($userid, $db) >= 100) {
+			return addReward($userid, $reward, $db);
+		}
+
+		return false;
+	}
+
 	function addPost($userid, $topicid, $content, $readydb = NULL) {
 		if (!isUserIdExists($userid, $readydb)) {
 			return false;
@@ -514,6 +554,8 @@
 		$req = $db->prepare($query);
 		$req->bindParam(':topicid', $topicid, PDO::PARAM_STR);
 		$req->execute();
+
+		tryAddCitizenReward($userid, $readydb);
 	}
 
 	function createTopic($userid, $sectionid, $title, $content, $readydb = NULL) {
