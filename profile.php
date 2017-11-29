@@ -139,6 +139,14 @@
 							</tr>
 							<tr>
 								<td>
+									Загрузил изображений:
+								</td>
+								<td>
+									<?php echo getLoadedImagesCount($userid, $readydb); ?>
+								</td>
+							</tr>
+							<tr>
+								<td>
 									Оценки:
 								</td>
 								<td>
