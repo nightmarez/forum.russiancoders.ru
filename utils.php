@@ -124,6 +124,114 @@
 		return $count >= 1;
 	}
 
+	function isUserIdExists($userId, $readydb = NULL) {
+		if (!validateUserId($userId)) {
+			return false;
+		}
+
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+		$query = 'SELECT * FROM `users` WHERE `userid`=:userid LIMIT 0, 1;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':userid', $userId);
+		$req->execute();
+		$count = $req->fetchColumn();
+		return $count >= 1;
+	}
+
+	function getRewards($userid, $readydb = NULL) {
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		if (!validateUserId($userid, $db)) {
+			return false;
+		}
+
+		if (!isUserIdExists($userid, $db)) {
+			return false;
+		}
+
+		$query = 'SELECT `reward` FROM `rewards` WHERE `userid`=:userid;';
+		$rewards = array();
+
+		$req = $db->prepare($query);
+		$req->bindParam(':userid', $userid);
+		$req->execute();
+
+		while (list($reward) = $req->fetch(PDO::FETCH_NUM)) {
+			$rewards[] = $reward;
+		}
+
+		return $rewards;
+	}
+
+	function isRewardExists($userid, $reward, $readydb = NULL) {
+		if (!preg_match('/^\{?[a-z]*\}?$/', $reward)) {
+			return false;
+		}
+
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		if (!validateUserId($userid, $db)) {
+			return false;
+		}
+
+		if (!isUserIdExists($userid, $db)) {
+			return false;
+		}
+
+		$rewards = getRewards($userid, $db);
+
+		if ($rewards === false) {
+			return false;
+		}
+
+		return in_array($reward, $rewards);
+	}
+
+	function addReward($userid, $reward, $readydb = NULL) {
+		if (!preg_match('/^\{?[a-z]*\}?$/', $reward)) {
+			return false;
+		}
+
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		if (!validateUserId($userid, $db)) {
+			return false;
+		}
+
+		if (!isUserIdExists($userid, $db)) {
+			return false;
+		}
+
+		if (isRewardExists($userid, $reward, $db)) {
+			return true;
+		}
+
+		$query = 'INSERT INTO `rewards` (`userid`, `reward`) VALUES (:userid, :reward);';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':userid', $userid);
+		$req->bindParam(':reward', $reward);
+		$req->execute();
+
+		return true;
+	}
+
+	function tryAddNewbieReward($userid, $readydb = NULL) {
+		if (!validateUserId($userid)) {
+			return false;
+		}
+
+		$reward = 'newbie';
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		if (isRewardExists($userid, $reward, $db)) {
+			return false;
+		}
+
+		return addReward($userid, $reward, $db);
+	}
+
 	function tryLogin($login, $pass, $readydb = NULL) {
 		$db = is_null($readydb) ? new PdoDb() : $readydb;
 
@@ -145,26 +253,12 @@
 			}
 
 			setUserCookies($userid, $session);
+			tryAddNewbieReward($userid, $db);
 			return true;
 			break;
 		}
 
 		return false;
-	}
-
-	function isUserIdExists($userId, $readydb = NULL) {
-		if (!validateUserId($userId)) {
-			return false;
-		}
-
-		$db = is_null($readydb) ? new PdoDb() : $readydb;
-		$query = 'SELECT * FROM `users` WHERE `userid`=:userid LIMIT 0, 1;';
-
-		$req = $db->prepare($query);
-		$req->bindParam(':userid', $userId);
-		$req->execute();
-		$count = $req->fetchColumn();
-		return $count >= 1;
 	}
 
 	function isUidExists($uid, $readydb = NULL) {
