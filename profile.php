@@ -280,15 +280,17 @@
 									Награды:
 								</td>
 								<td>
-									<?php
-										$rewards = getRewards($userid, $readydb);
+									<div>
+										<?php
+											$rewards = getRewards($userid, $readydb);
 
-										foreach ($rewards as $key => $value) {
-											?>
-												<div style="background-image: url('https://storage.russiancoders.ru/rewards/<?php echo $value; ?>.jpg'); background-repeat: no-repeat; background-position: center center; width: 64px; height: 64px; float: left; margin-right: 10px;" title="<?php echo getRewardInfo($value, $readydb); ?>"></div>
-											<?php
-										}
-									?>
+											foreach ($rewards as $key => $value) {
+												?>
+													<div style="background-image: url('https://storage.russiancoders.ru/rewards/<?php echo $value; ?>.jpg'); background-repeat: no-repeat; background-position: center center; width: 64px; height: 64px; float: left; margin-right: 10px;" title="<?php echo getRewardInfo($value, $readydb); ?>"></div>
+												<?php
+											}
+										?>
+									</div>
 								</td>
 							</tr>
 							<!--
