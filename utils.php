@@ -517,6 +517,23 @@
 		return false;
 	}
 
+	function getRewardInfo($reward, $readydb = NULL) {
+		if (!preg_match('/^\{?[a-z]*\}?$/', $reward)) {
+			return false;
+		}
+
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+		$query = 'SELECT `title` FROM `rewardinfo` WHERE `reward`=:reward;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':reward', $reward, PDO::PARAM_STR);
+		$req->execute();
+
+		while (list($title) = $req->fetch(PDO::FETCH_NUM)) {
+			return $title;
+		}
+	}
+
 	function addPost($userid, $topicid, $content, $readydb = NULL) {
 		if (!isUserIdExists($userid, $readydb)) {
 			return false;

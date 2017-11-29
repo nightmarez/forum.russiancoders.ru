@@ -297,7 +297,7 @@
 
 										foreach ($rewards as $key => $value) {
 											?>
-												<img src="https://storage.russiancoders.ru/rewards/<?php echo $value; ?>.jpg" alt="<?php echo $value; ?>" style="float: left; margin-right: 10px; width: 64px; height: 64px;">
+												<img src="https://storage.russiancoders.ru/rewards/<?php echo $value; ?>.jpg" alt="<?php echo getRewardInfo($value, $readydb); ?>" style="float: left; margin-right: 10px; width: 64px; height: 64px;">
 											<?php
 										}
 									?>
