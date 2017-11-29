@@ -555,6 +555,52 @@
 		return false;
 	}
 
+	function scanDir($base) {
+		$result = array(); 
+		$cdir = scandir($base);
+
+		foreach ($cdir as $key => $value) { 
+			if (!in_array($value, array('.', '..', '.git'))) { 
+				if (is_dir($base . DIRECTORY_SEPARATOR . $value)) { 
+					$result = array_merge($result, scanDirectory($base . DIRECTORY_SEPARATOR . $value)); 
+				} else { 
+					$result[] = $base . DIRECTORY_SEPARATOR . $value; 
+				} 
+			} 
+		} 
+   
+		return $result; 
+	}
+
+	function getLoadedImagesCount($userid) {
+		if (!validateUserId($userid)) {
+			return false;
+		}
+
+		$files = scanDir('/var/www/domains/storage.russiancoders.ru/' . $userid . '/');
+
+		return count($files);
+	}
+
+	function tryAddPhotographerReward($userid, $readydb = NULL) {
+		if (!validateUserId($userid)) {
+			return false;
+		}
+
+		$reward = 'photographer';
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		if (isRewardExists($userid, $reward, $db)) {
+			return false;
+		}
+
+		if (getLoadedImagesCount($userid) >= 100) {
+			return addReward($userid, $reward, $db);
+		}
+
+		return false;
+	}
+
 	function getRewardInfo($reward, $readydb = NULL) {
 		if (!preg_match('/^\{?[a-z]*\}?$/', $reward)) {
 			return false;
@@ -859,7 +905,7 @@
 		$query =
 			'SELECT t.`cnt` FROM
 			(
-    			SELECT `id`, (@cnt := @cnt + 1) as `cnt` FROM `posts` WHERE `topicid`="' . $topicid . '"
+				SELECT `id`, (@cnt := @cnt + 1) as `cnt` FROM `posts` WHERE `topicid`="' . $topicid . '"
 			) as t
 			WHERE t.`id` = ' . $id . ';';
 

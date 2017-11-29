@@ -16,7 +16,7 @@
 			
 			<?php
 				function scanDirectory($base) {
-					$result = array(); 
+					$result = array();
 					$cdir = scandir($base);
 
 					foreach ($cdir as $key => $value) 
