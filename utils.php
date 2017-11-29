@@ -555,7 +555,7 @@
 		return false;
 	}
 
-	function scanDir($base) {
+	function scanServerDirectory($base) {
 		$result = array(); 
 		$cdir = scandir($base);
 
@@ -577,7 +577,7 @@
 			return false;
 		}
 
-		$files = scanDir('/var/www/domains/storage.russiancoders.ru/' . $userid . '/');
+		$files = scanServerDirectory('/var/www/domains/storage.russiancoders.ru/' . $userid . '/');
 
 		return count($files);
 	}
