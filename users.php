@@ -27,7 +27,7 @@
 						$req = $readydb->prepare($query);
 						$req->execute();
 
-						while (list($userid, $login, $mail) = $req->fetch(PDO::FETCH_NUM)) {
+						while (list($userid, $login) = $req->fetch(PDO::FETCH_NUM)) {
 							$login = getUserLoginById($userid, $readydb);
 
 							?>
