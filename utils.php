@@ -517,6 +517,44 @@
 		return false;
 	}
 
+	function tryAddResidentReward($userid, $readydb = NULL) {
+		if (!validateUserId($userid)) {
+			return false;
+		}
+
+		$reward = 'resident';
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		if (isRewardExists($userid, $reward, $db)) {
+			return false;
+		}
+
+		if (getUserMessagesCount($userid, $db) >= 300) {
+			return addReward($userid, $reward, $db);
+		}
+
+		return false;
+	}
+
+	function tryAddVeteranReward($userid, $readydb = NULL) {
+		if (!validateUserId($userid)) {
+			return false;
+		}
+
+		$reward = 'veteran';
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		if (isRewardExists($userid, $reward, $db)) {
+			return false;
+		}
+
+		if (getUserMessagesCount($userid, $db) >= 1000) {
+			return addReward($userid, $reward, $db);
+		}
+
+		return false;
+	}
+
 	function getRewardInfo($reward, $readydb = NULL) {
 		if (!preg_match('/^\{?[a-z]*\}?$/', $reward)) {
 			return false;
@@ -573,6 +611,8 @@
 		$req->execute();
 
 		tryAddCitizenReward($userid, $readydb);
+		tryAddResidentReward($userid, $readydb);
+		tryAddVeteranReward($userid, $readydb);
 	}
 
 	function createTopic($userid, $sectionid, $title, $content, $readydb = NULL) {
