@@ -203,26 +203,28 @@
 									Друзья:
 								</td>
 								<td>
-									<?php
-										$friends = getFriendsById($userid, $readydb);
+									<div>
+										<?php
+											$friends = getFriendsById($userid, $readydb);
 
-										if (count($friends) == 0) {
-											echo 'Нет друзей';
-										} else {
-											foreach ($friends as $key => $friendid) {
-												if (!isFriend($friendid, $userid, $readydb)) {
-													$login = getUserLoginById($friendid, $readydb);
+											if (count($friends) == 0) {
+												echo 'Нет друзей';
+											} else {
+												foreach ($friends as $key => $friendid) {
+													if (!isFriend($friendid, $userid, $readydb)) {
+														$login = getUserLoginById($friendid, $readydb);
 
-													?>
-														<div style="float: left; margin-right: 20px;">
-															<img src="<?php echo getGravatarLink($friendid, 25, $readydb); ?>" alt="<?php echo $login; ?>" style="float: left; margin-right: 10px; margin-top: -2px;">
-															<a href="/user/<?php echo htmlspecialchars($friendid); ?>/" style="float: left;" title="Пользователь <?php echo $login; ?>" rel="author"><?php echo $login; ?></a>
-														</div>
-													<?php
+														?>
+															<div style="float: left; margin-right: 20px;">
+																<img src="<?php echo getGravatarLink($friendid, 25, $readydb); ?>" alt="<?php echo $login; ?>" style="float: left; margin-right: 10px; margin-top: -2px;">
+																<a href="/user/<?php echo htmlspecialchars($friendid); ?>/" style="float: left;" title="Пользователь <?php echo $login; ?>" rel="author"><?php echo $login; ?></a>
+															</div>
+														<?php
+													}
 												}
 											}
-										}
-									?>
+										?>
+									</div>
 								</td>
 							</tr>
 							<tr>
@@ -230,24 +232,26 @@
 									Подписчики:
 								</td>
 								<td>
-									<?php
-										$fans = getFansById($userid, $readydb);
+									<div>
+										<?php
+											$fans = getFansById($userid, $readydb);
 
-										if (count($fans) == 0) {
-											echo 'Нет';
-										} else {
-											foreach ($fans as $key => $fanid) {
-												$login = getUserLoginById($fanid, $readydb);
+											if (count($fans) == 0) {
+												echo 'Нет';
+											} else {
+												foreach ($fans as $key => $fanid) {
+													$login = getUserLoginById($fanid, $readydb);
 
-												?>
-													<div style="float: left; margin-right: 20px;">
-														<img src="<?php echo getGravatarLink($fanid, 25, $readydb); ?>" alt="<?php echo $login; ?>" style="float: left; margin-right: 10px; margin-top: -2px;">
-														<a href="/user/<?php echo htmlspecialchars($fanid); ?>/" style="float: left;" title="Пользователь <?php echo $login; ?>" rel="author"><?php echo $login; ?></a>
-													</div>
-												<?php
+													?>
+														<div style="float: left; margin-right: 20px;">
+															<img src="<?php echo getGravatarLink($fanid, 25, $readydb); ?>" alt="<?php echo $login; ?>" style="float: left; margin-right: 10px; margin-top: -2px;">
+															<a href="/user/<?php echo htmlspecialchars($fanid); ?>/" style="float: left;" title="Пользователь <?php echo $login; ?>" rel="author"><?php echo $login; ?></a>
+														</div>
+													<?php
+												}
 											}
-										}
-									?>
+										?>
+									</div>
 								</td>
 							</tr>
 							<tr>
@@ -255,24 +259,26 @@
 									Взаимные друзья:
 								</td>
 								<td>
-									<?php
-										if (count($friends) == 0) {
-											echo 'Нет взаимных друзей';
-										} else {
-											foreach ($friends as $key => $friendid) {
-												if (isFriend($friendid, $userid, $readydb)) {
-													$login = getUserLoginById($friendid, $readydb);
+									<div>
+										<?php
+											if (count($friends) == 0) {
+												echo 'Нет взаимных друзей';
+											} else {
+												foreach ($friends as $key => $friendid) {
+													if (isFriend($friendid, $userid, $readydb)) {
+														$login = getUserLoginById($friendid, $readydb);
 
-													?>
-														<div style="float: left; margin-right: 20px;">
-															<img src="<?php echo getGravatarLink($friendid, 25, $readydb); ?>" alt="<?php echo $login; ?>" style="float: left; margin-right: 10px; margin-top: -2px;">
-															<a href="/user/<?php echo htmlspecialchars($friendid); ?>/" style="float: left;" title="Пользователь <?php echo $login; ?>" rel="author"><?php echo $login; ?></a>
-														</div>
-													<?php
+														?>
+															<div style="float: left; margin-right: 20px;">
+																<img src="<?php echo getGravatarLink($friendid, 25, $readydb); ?>" alt="<?php echo $login; ?>" style="float: left; margin-right: 10px; margin-top: -2px;">
+																<a href="/user/<?php echo htmlspecialchars($friendid); ?>/" style="float: left;" title="Пользователь <?php echo $login; ?>" rel="author"><?php echo $login; ?></a>
+															</div>
+														<?php
+													}
 												}
 											}
-										}
-									?>
+										?>
+									</div>
 								</td>
 							</tr>
 							<tr>
