@@ -280,7 +280,7 @@
 									Награды:
 								</td>
 								<td>
-									<div>
+									<div style="margin-left: -16px;">
 										<?php
 											$rewards = getRewards($userid, $readydb);
 
