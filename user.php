@@ -288,6 +288,22 @@
 								</td>
 							</tr>
 							<tr>
+								<td>
+									Награды:
+								</td>
+								<td>
+									<?php
+										$rewards = getRewards($userid, $readydb);
+
+										foreach ($rewards as $key => $value) {
+											?>
+												<img src="https://storage.russiancoders.ru/rewards/<?php echo $value; ?>.jpg" alt="<?php echo $value; ?>" style="float: left; margin-right: 10px; width: 64px; height: 64px;">
+											<?php
+										}
+									?>
+								</td>
+							</tr>
+							<tr>
 								<td colspan="2">
 									<form method="GET" action="/sendmessage/<?php echo $userid; ?>/" style="float: left;">
 										<input type="submit" class="btn btn-primary" value="Написать сообщение">
