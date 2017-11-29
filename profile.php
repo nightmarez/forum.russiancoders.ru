@@ -266,6 +266,27 @@
 							</tr>
 							<tr>
 								<td>
+									Награды:
+								</td>
+								<td>
+									<ul>
+										<li>
+											<?php
+												$rewards = getRewards($userid, $readydb);
+
+												foreach ($variable as $key => $value) {
+													?>
+														<img src="https://storage.russiancoders.ru/rewards/<?php echo $value; ?>.jpg" alt="<?php echo $value; ?>" style="float: left; margin-right: 10px; width: 64px; height: 64px;">
+													<?php
+												}
+											?>
+										</li>
+									</ul>
+								</td>
+							</tr>
+							<!--
+							<tr>
+								<td>
 									Личные настройки:
 								</td>
 								<td>
@@ -285,6 +306,7 @@
 									</ul>
 								</td>
 							</tr>
+							-->
 						<?php
 								break;
 							}
