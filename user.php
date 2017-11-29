@@ -212,6 +212,17 @@
 							</tr>
 							<tr>
 								<td>
+									Загрузил изображений:
+								</td>
+								<td>
+									<?php
+										echo getLoadedImagesCount($userid, $readydb);
+										tryAddPhotographerReward($userid, $readydb);
+									?>
+								</td>
+							</tr>
+							<tr>
+								<td>
 									Друзья:
 								</td>
 								<td>

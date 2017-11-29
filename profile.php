@@ -139,17 +139,6 @@
 							</tr>
 							<tr>
 								<td>
-									Загрузил изображений:
-								</td>
-								<td>
-									<?php
-										echo getLoadedImagesCount($userid, $readydb);
-										tryAddPhotographerReward($userid, $readydb);
-									?>
-								</td>
-							</tr>
-							<tr>
-								<td>
 									Оценки:
 								</td>
 								<td>
@@ -196,6 +185,17 @@
 										echo '-' . abs(intval($sum));
 									?>
 									</span></a>)
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Загрузил изображений:
+								</td>
+								<td>
+									<?php
+										echo getLoadedImagesCount($userid, $readydb);
+										tryAddPhotographerReward($userid, $readydb);
+									?>
 								</td>
 							</tr>
 							<tr>
