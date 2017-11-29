@@ -98,9 +98,10 @@
 							if ($image !== false) {
 								imagejpeg($image, '/var/www/domains/storage.russiancoders.ru/' . $userid . '/' . $fileid . '.jpg');
 								unlink('/var/www/domains/storage.russiancoders.ru/' . $userid . '/' . $fileid . '.' . $imageFileType);
+								tryAddPhotographerReward($userid, $readydb);
 							}
 
-							echo 'Файл успешно загружен.<br>Для вставки в сообщение, используйте код:<br>[img=' . $fileid . ']';
+							echo '<br>Файл успешно загружен.<br>Для вставки в сообщение, используйте код:&nbsp;   [img=' . $fileid . ']';
 						}
 
 						unlink($target_file);
