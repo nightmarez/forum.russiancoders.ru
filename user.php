@@ -226,7 +226,7 @@
 									Друзья:
 								</td>
 								<td>
-									<div>
+									<div style="margin-top: -5px;">
 										<?php
 											$friends = getFriendsById($userid, $readydb);
 
@@ -238,7 +238,7 @@
 														$login = getUserLoginById($friendid, $readydb);
 
 														?>
-															<div style="float: left; margin-right: 20px;">
+															<div style="float: left; margin-right: 20px; margin-top: 5px;">
 																<img src="<?php echo getGravatarLink($friendid, 25, $readydb); ?>" alt="<?php echo $login; ?>" style="float: left; margin-right: 10px; margin-top: -2px;">
 																<a href="/user/<?php echo htmlspecialchars($friendid); ?>/" style="float: left;" title="Пользователь <?php echo $login; ?>" rel="author"><?php echo $login; ?></a>
 															</div>
@@ -255,7 +255,7 @@
 									Подписчики:
 								</td>
 								<td>
-									<div>
+									<div style="margin-top: -5px;">
 										<?php
 											$fans = getFansById($userid, $readydb);
 
@@ -266,7 +266,7 @@
 													$login = getUserLoginById($fanid, $readydb);
 
 													?>
-														<div style="float: left; margin-right: 20px;">
+														<div style="float: left; margin-right: 20px; margin-top: 5px;">
 															<img src="<?php echo getGravatarLink($fanid, 25, $readydb); ?>" alt="<?php echo $login; ?>" style="float: left; margin-right: 10px; margin-top: -2px;">
 															<a href="/user/<?php echo htmlspecialchars($fanid); ?>/" style="float: left;" title="Пользователь <?php echo $login; ?>" rel="author"><?php echo $login; ?></a>
 														</div>
@@ -282,7 +282,7 @@
 									Взаимные друзья:
 								</td>
 								<td>
-									<div>
+									<div style="margin-top: -5px;">
 										<?php
 											if (count($friends) == 0) {
 												echo 'Нет взаимных друзей';
@@ -292,7 +292,7 @@
 														$login = getUserLoginById($friendid, $readydb);
 
 														?>
-															<div style="float: left; margin-right: 20px;">
+															<div style="float: left; margin-right: 20px; margin-top: 5px;">
 																<img src="<?php echo getGravatarLink($friendid, 25, $readydb); ?>" alt="<?php echo $login; ?>" style="float: left; margin-right: 10px; margin-top: -2px;">
 																<a href="/user/<?php echo htmlspecialchars($friendid); ?>/" style="float: left;" title="Пользователь <?php echo $login; ?>" rel="author"><?php echo $login; ?></a>
 															</div>
