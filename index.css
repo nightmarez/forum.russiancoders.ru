@@ -223,7 +223,7 @@ table.tracker-posts td:nth-child(4) {
     border-radius: 3px;
 }
 
-.online-indicator {
+.offline-indicator {
 	display: block;
     float: left;
     background-color: #ff0000;

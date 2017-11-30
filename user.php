@@ -51,11 +51,11 @@
 											$online = isUserOnline($userid, $readydb);
 
 											if (!is_null($online)) {
-												if ($online == true) {
+												if ($online === true) {
 													?>
 														<span class="online-indicator" style="float: right; margin-top: 11px; margin-left: 10px;"></span>
 													<?php
-												} else {
+												} else if ($online === false) {
 													?>
 														<span class="offline-indicator" style="float: right; margin-top: 11px; margin-left: 10px;"></span>
 													<?php
