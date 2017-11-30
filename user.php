@@ -50,6 +50,8 @@
 										<?php
 											$online = isUserOnline($userid, $readydb);
 
+											echo '<!--' . $online . '-->';
+
 											if (!is_null($online)) {
 												if ($online === true) {
 													?>
