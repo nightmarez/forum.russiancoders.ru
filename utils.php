@@ -1566,7 +1566,7 @@
 		$db = is_null($readydb) ? new PdoDb() : $readydb;
 
 		if (!isUserIdExists($userid, $db)) {
-			return NULL;
+			return 0;
 		}
 
 		$query = 
@@ -1580,13 +1580,13 @@
 
 		while (list($state) = $req->fetch(PDO::FETCH_NUM)) {
 			if ($state == 2) {
-				return NULL;
+				return 0;
 			}
 
-			return true;
+			return 1;
 		}
 
-		return false;
+		return -1;
 	}
 
 	function vote($postid, $userid, $value, $readydb = NULL) {

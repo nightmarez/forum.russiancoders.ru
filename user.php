@@ -52,12 +52,12 @@
 
 											echo '<!--' . $online . '-->';
 
-											if (!is_null($online)) {
-												if ($online === true) {
+											if ($online != 0) {
+												if ($online == 1) {
 													?>
 														<span class="online-indicator" style="float: right; margin-top: 11px; margin-left: 10px;"></span>
 													<?php
-												} else if ($online === false) {
+												} else if ($online == -1) {
 													?>
 														<span class="offline-indicator" style="float: right; margin-top: 11px; margin-left: 10px;"></span>
 													<?php
