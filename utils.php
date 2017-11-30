@@ -1562,6 +1562,31 @@
 		return false;
 	}
 
+	function isUserOnline($userid, $readydb = NULL) {
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		if (!isUserIdExists($userid, $db)) {
+			return NULL;
+		}
+
+		$query = 
+			'SELECT `state`
+			FROM `users` WHERE TIME_TO_SEC(TIMEDIFF(NOW(), `last`)) <= 80;';
+
+		$req = $db->prepare($query);
+		$req->execute();
+
+		while (list($state) = $req->fetch(PDO::FETCH_NUM)) {
+			if ($state == 2) {
+				return NULL;
+			}
+
+			return true;
+		}
+
+		return false;
+	}
+
 	function vote($postid, $userid, $value, $readydb = NULL) {
 		$postid = intval($postid);
 		$value = intval($value);

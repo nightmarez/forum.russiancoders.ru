@@ -45,9 +45,24 @@
 							<tr>
 								<td colspan="2">
 									<img style="margin-right: 15px;" src="<?php echo 'https://secure.gravatar.com/avatar/' . $mail . '.jpg?s=200';?>" align="left">
-									<h3>
+									<h3 style="float: left;">
 										<?php echo htmlspecialchars($login); ?>
-									<h3>
+										<?php
+											$online = isUserOnline($userid, $readydb);
+
+											if (!is_null($online)) {
+												if ($online == true) {
+													?>
+														<span class="online-indicator" style="float: right; margin-top: 11px; margin-left: 10px;"></span>
+													<?php
+												} else {
+													?>
+														<span class="offline-indicator" style="float: right; margin-top: 11px; margin-left: 10px;"></span>
+													<?php
+												}
+											}
+										?>
+									</h3>
 								</td>
 							</tr>
 							<tr>

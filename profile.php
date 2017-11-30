@@ -50,7 +50,7 @@
 									<img style="margin-right: 15px;" src="<?php echo 'https://secure.gravatar.com/avatar/' . $mail . '.jpg?s=200';?>" align="left">
 									<h3>
 										<?php echo htmlspecialchars($login); ?>
-									<h3>
+									</h3>
 								</td>
 							</tr>
 							<tr>

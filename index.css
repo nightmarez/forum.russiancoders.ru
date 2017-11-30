@@ -223,6 +223,18 @@ table.tracker-posts td:nth-child(4) {
     border-radius: 3px;
 }
 
+.online-indicator {
+	display: block;
+    float: left;
+    background-color: #ff0000;
+    border: 1px solid #990000;
+    width: 6px;
+    height: 6px;
+    margin-left: 6px;
+    margin-top: 7px;
+    border-radius: 3px;
+}
+
 .topics-posts {
 	background-color: whitesmoke;
 	border: 1px solid blue;
