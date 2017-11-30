@@ -1571,7 +1571,7 @@
 
 		$query = 
 			'SELECT `state`
-			FROM `users` WHERE TIME_TO_SEC(TIMEDIFF(NOW(), `last`)) <= 80;';
+			FROM `users` WHERE (now() - `last`) <= 80;';
 
 		$req = $db->prepare($query);
 		$req->execute();
