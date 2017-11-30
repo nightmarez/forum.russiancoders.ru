@@ -1571,9 +1571,11 @@
 
 		$query = 
 			'SELECT `state`
-			FROM `users` WHERE (now() - `last`) <= 80;';
+			FROM `users` WHERE (now() - `last`) <= 80
+			WHERE `userid`=:userid;';
 
 		$req = $db->prepare($query);
+		$req->bindParam(':userid', $userid);
 		$req->execute();
 
 		while (list($state) = $req->fetch(PDO::FETCH_NUM)) {
