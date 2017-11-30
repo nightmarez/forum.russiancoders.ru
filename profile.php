@@ -200,7 +200,7 @@
 							</tr>
 							<tr>
 								<td>
-									Друзья:
+									Подписан на:
 								</td>
 								<td>
 									<div style="margin-top: -5px;">
@@ -208,10 +208,13 @@
 											$friends = getFriendsById($userid, $readydb);
 
 											if (count($friends) == 0) {
-												echo 'Нет друзей';
+												echo 'Ни на кого';
 											} else {
+												$fcount = 0;
+
 												foreach ($friends as $key => $friendid) {
 													if (!isFriend($friendid, $userid, $readydb)) {
+														$fcount++;
 														$login = getUserLoginById($friendid, $readydb);
 
 														?>
@@ -221,6 +224,10 @@
 															</div>
 														<?php
 													}
+												}
+
+												if ($fcount == 0) {
+													echo 'Ни на кого';
 												}
 											}
 										?>
@@ -237,7 +244,7 @@
 											$fans = getFansById($userid, $readydb);
 
 											if (count($fans) == 0) {
-												echo 'Нет';
+												echo 'Нет подписчиков';
 											} else {
 												foreach ($fans as $key => $fanid) {
 													$login = getUserLoginById($fanid, $readydb);
