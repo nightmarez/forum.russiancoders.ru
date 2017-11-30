@@ -50,7 +50,7 @@
 										<?php
 											$online = isUserOnline($userid, $readydb);
 
-											echo '<!--' . $online . '-->';
+											echo '<!-- [' . $online . '] -->';
 
 											if ($online != 0) {
 												if ($online == 1) {

@@ -1570,20 +1570,24 @@
 		}
 
 		$query = 
-			'SELECT `state`
-			FROM `users` WHERE (now() - `last`) <= 80
+			'SELECT `state`, (now() - `last`) AS `online`
+			FROM `users`
 			WHERE `userid`=:userid;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':userid', $userid);
 		$req->execute();
 
-		while (list($state) = $req->fetch(PDO::FETCH_NUM)) {
+		while (list($state, $online) = $req->fetch(PDO::FETCH_NUM)) {
 			if ($state == 2) {
 				return 0;
 			}
 
-			return 1;
+			if ($online <= 80) {
+				return 1;
+			}
+			
+			return -1
 		}
 
 		return -1;
