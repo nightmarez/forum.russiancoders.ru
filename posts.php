@@ -31,7 +31,7 @@
 					FROM `posts` 
 					WHERE `userid`=:userid 
 					ORDER BY `id` 
-					DESC LIMIT 0, 30;';
+					DESC;';
 
 				$req = $readydb->prepare($query);
 				$req->bindParam(':userid', $userid);
