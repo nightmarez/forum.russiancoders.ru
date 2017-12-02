@@ -170,6 +170,8 @@
 
 	$db = is_null($readydb) ? new PdoDb() : $readydb;
 
+	echo 1;
+
 	$query = 
 		'INSERT INTO `regrequest` 
 			(`login`, `pass`, `salt`, `text`, `email`) 
