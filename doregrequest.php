@@ -1,5 +1,4 @@
 <?php
-	die();
 	require_once('utils.php');
 	require_once('recaptchalib.php');
 
@@ -169,8 +168,6 @@
 	$session = generateSession();
 
 	$db = is_null($readydb) ? new PdoDb() : $readydb;
-
-	echo 1;
 
 	$query = 
 		'INSERT INTO `regrequest` 
