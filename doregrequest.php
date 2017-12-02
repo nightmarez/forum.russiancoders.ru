@@ -168,7 +168,7 @@
 	$session = generateSession();
 
 	$query = 
-		'INSERT INTO `regrequest` 
+		'INSERT INTO `regrequests` 
 			(`login`, `pass`, `salt`, `text`, `email`) 
 		VALUES 
 			(:login, :pass, :salt, :txt, :email);';
