@@ -16,6 +16,10 @@
 	$userid = htmlspecialchars($_COOKIE['userid']);
 	$topicid = htmlspecialchars($_POST['topicid']);
 
+	if (isTopicClosed($topicid, $readydb)) {
+		die();
+	}
+
 	addPost($userid, $topicid, $content);
 
 	$postid = calcPostsInTopic($topicid, $readydb) - 1;

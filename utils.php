@@ -982,6 +982,32 @@
 		return $result;
 	}
 
+	function isTopicClosed($topicid, $readydb = NULL) {
+		if (!validateTopicId($topicid)) {
+			return true;
+		}
+
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		$query = 
+			'SELECT `closed` 
+			FROM `topics` 
+			WHERE `topicid`=:topicid 
+			ORDER BY `id` 
+			LIMIT 0, 1;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':topicid', $topicid, PDO::PARAM_STR);
+		$req->execute();
+		$result = $req->fetchColumn();
+
+		while (list($closed) = $req->fetch(PDO::FETCH_NUM)) {
+			return $closed == 1;
+		}
+
+		return false;
+	}
+
 	function getFriendsById($userid, $readydb = NULL) {
 		$db = is_null($readydb) ? new PdoDb() : $readydb;
 
@@ -1217,6 +1243,16 @@
 		$text = preg_replace('#\[url=\"(\S*)\"\](.*)\[\/url\]#iUs', '<a href="${1}" rel="nofollow" target="_blank">${2}</a>', $text);
 		$text = preg_replace('#\[url=(\S*)\]#iUs', '<a href="${1}" rel="nofollow" target="_blank">${1}</a>', $text);
 		$text = preg_replace('#\[url=\"(\S*)\"\]#iUs', '<a href="${1}" rel="nofollow" target="_blank">${1}</a>', $text);
+
+		$text = preg_replace('#\[mail=(\S*)\](.*)\[\/mail\]#iUs', '<a href="mailto:${1}">${2}</a>', $text);
+		$text = preg_replace('#\[mail=\"(\S*)\"\](.*)\[\/mail\]#iUs', '<a href="mailto:${1}">${2}</a>', $text);
+		$text = preg_replace('#\[mail=(\S*)\]#iUs', '<a href="mailto:${1}">${1}</a>', $text);
+		$text = preg_replace('#\[mail=\"(\S*)\"\]#iUs', '<a href="mailto:${1}">${1}</a>', $text);
+
+		$text = preg_replace('#\[mail=(mailto:\S*)\](.*)\[\/mail\]#iUs', '<a href="${1}">${2}</a>', $text);
+		$text = preg_replace('#\[mail=\"(mailto:\S*)\"\](.*)\[\/mail\]#iUs', '<a href="${1}">${2}</a>', $text);
+		$text = preg_replace('#\[mail=(mailto:\S*)\]#iUs', '<a href="${1}">${1}</a>', $text);
+		$text = preg_replace('#\[mail=\"(mailto:\S*)\"\]#iUs', '<a href="${1}">${1}</a>', $text);
 
 		$text = preg_replace('#\[youtube=\"([0-9a-zA-Z_\-]*)\"\]#iUs', '<iframe width="640" height="420" src="https://www.youtube.com/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
 		$text = preg_replace('#\[rutube=\"([0-9a-zA-Z_\-]*)\"\]#iUs', '<iframe width="640" height="420" src="https://rutube.ru/play/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
