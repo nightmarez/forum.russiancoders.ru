@@ -194,7 +194,7 @@
 
 			$('#preview-btn').click(function() {
 				var form = $('form');
-				form.attr('action', '/preview.php');
+				form.attr('action', '/preview/');
 				form.submit();
 			});
 		}
@@ -204,7 +204,7 @@
 		if (location.href.indexOf('/preview/') !== -1) {
 			$('#preview-btn').click(function() {
 				var form = $('form');
-				form.attr('action', '/preview.php');
+				form.attr('action', '/preview/');
 				form.submit();
 			});
 		}
