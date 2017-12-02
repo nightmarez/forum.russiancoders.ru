@@ -78,6 +78,9 @@
 						<div style="float: left; margin-left: 10px;">
 							<input type="button" class="btn btn-primary" id="upload-image-btn" value="Загрузить изображение">
 						</div>
+						<div style="float: left; margin-left: 10px;">
+							<input type="button" class="btn btn-warning" id="cancel-btn" value="Отмена">
+						</div>
 					</div>
 				</form>
 			</div>
