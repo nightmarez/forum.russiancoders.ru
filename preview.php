@@ -73,6 +73,9 @@
 							<input type="submit" class="btn btn-primary" value="Отправить">
 						</div>
 						<div style="float: left; margin-left: 10px;">
+							<input type="button" class="btn btn-primary" id="preview-btn" value="Предпросмотр">
+						</div>
+						<div style="float: left; margin-left: 10px;">
 							<input type="button" class="btn btn-primary" id="upload-image-btn" value="Загрузить изображение">
 						</div>
 					</div>

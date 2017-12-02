@@ -201,6 +201,16 @@
 	});
 
 	$(document).ready(function() {
+		if (location.href.indexOf('/preview/') !== -1) {
+			$('#preview-btn').click(function() {
+				var form = $('form');
+				form.attr('action', '/preview.php');
+				form.submit();
+			});
+		}
+	});
+
+	$(document).ready(function() {
 		if (location.href.indexOf('/profile/') !== -1) {
 			$('#smiles').change(function() {
 				$.get('/switchsmiles.php?value=' + (this.checked ? 'checked' : 'unchecked'));
