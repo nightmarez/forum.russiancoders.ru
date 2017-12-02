@@ -14,14 +14,14 @@
 		die();
 	}
 
-	$title = htmlspecialchars($_POST['title']);
+	$title = $_POST['title'];
 
 	if (strlen($title) > 100) {
 		header('Location: /createtopic.php?error=Некорректно задан заголовок');
 		die();
 	}
 
-	$content = htmlspecialchars($_POST['content']);
+	$content = $_POST['content'];
 
 	if (strlen($content) > 20000) {
 		header('Location: /createtopic.php?error=Некорректно задано содержимое поста');

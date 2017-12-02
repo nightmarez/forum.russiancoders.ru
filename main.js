@@ -191,6 +191,12 @@
 					})(self);
 				}
 			});
+
+			$('#preview-btn').click(function() {
+				var form = $('form');
+				form.attr('action', '/preview.php');
+				form.submit();
+			});
 		}
 	});
 
