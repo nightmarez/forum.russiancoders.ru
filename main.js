@@ -209,9 +209,7 @@
 			});
 
 			$('#cencel-btn').click(function() {
-				var form = $('form');
-				form.attr('action', '/topic/' + $('input[name=topicid]').val() + '/');
-				form.submit();
+				location.href = '/topic/' + $('input[name=topicid]').val() + '/';
 			});
 		}
 	});
