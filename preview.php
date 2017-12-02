@@ -67,7 +67,7 @@
 			<div class="table-responsive">
 				<form method="POST" action="/addpost.php">
 					<input type="hidden" name="topicid" value="<?php echo $topicid; ?>">
-					<textarea name="content" style="min-width: 800px; min-height: 300px; width: 100%; margin-bottom: 5px;"></textarea>
+					<textarea name="content" style="min-width: 800px; min-height: 300px; width: 100%; margin-bottom: 5px;"><?php echo $content; ?></textarea>
 					<div>
 						<div style="float: left;">
 							<input type="submit" class="btn btn-primary" value="Отправить">

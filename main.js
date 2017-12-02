@@ -621,6 +621,7 @@
 		console.log('init 1');
 
 		if (document.location.href.indexOf('/topic/') == -1 &&
+			document.location.href.indexOf('/preview/') == -1 &&
 			document.location.href.indexOf('/sendmessage/') == -1 &&
 			document.location.href.indexOf('/createtopic') == -1)
 		{
