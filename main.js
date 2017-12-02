@@ -208,7 +208,7 @@
 				form.submit();
 			});
 
-			$('#cencel-btn').click(function() {
+			$('#cancel-btn').click(function() {
 				location.href = '/topic/' + $('input[name=topicid]').val() + '/';
 			});
 		}
