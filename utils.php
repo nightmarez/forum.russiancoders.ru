@@ -993,13 +993,11 @@
 			'SELECT `closed` 
 			FROM `topics` 
 			WHERE `topicid`=:topicid 
-			ORDER BY `id` 
 			LIMIT 0, 1;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':topicid', $topicid, PDO::PARAM_STR);
 		$req->execute();
-		$result = $req->fetchColumn();
 
 		while (list($closed) = $req->fetch(PDO::FETCH_NUM)) {
 			return $closed == 1;
