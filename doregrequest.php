@@ -167,8 +167,6 @@
 	$pass = saltPass($pass1, $salt);
 	$session = generateSession();
 
-	$db = is_null($readydb) ? new PdoDb() : $readydb;
-
 	$query = 
 		'INSERT INTO `regrequest` 
 			(`login`, `pass`, `salt`, `text`, `email`) 
