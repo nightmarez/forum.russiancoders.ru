@@ -1,6 +1,7 @@
 <?php include_once('head.php'); ?>
 <?php include_once('nav.php'); ?>
 
+<!--
 <div class="panel panel-primary" style="margin: 20px;">
 	<div class="panel-heading">
 		<h3 class="panel-title">Разделы</h3>
@@ -47,6 +48,7 @@
 		</div>
 	</div>
 </div>
+-->
 
 	<?php
 		$query =
