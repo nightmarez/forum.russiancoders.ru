@@ -95,6 +95,19 @@
 									?>
 										<tr>
 											<td>
+												<?php
+													$icon = false;
+
+													if (isTopicClosed($topicid, $readydb)) {
+														$icon = 'closed.png';
+													}
+
+													if ($icon !== false) {
+												?>
+													<div style="width: 32px; height: 32px; float: left; background-position: center center; background-repeat: no-repeat; background-image: url('https://storage.russiancoders.ru/icons/<?php echo $icon; ?>');"></div>
+												<?php
+													}
+												?>
 												<a href="/topic/<?php echo htmlspecialchars($topicid); ?>/"><?php echo htmlspecialchars($title); ?></a>
 											</td>
 											<td>
