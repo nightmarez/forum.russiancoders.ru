@@ -1269,10 +1269,6 @@
 		$text = preg_replace('#(Макарова Михаила)#iUs', 'NightmareZ\'а', $text);
 		$text = preg_replace('#(Макарова\s*Михаила)#iUs', 'NightmareZ\'а', $text);
 
-		$text = preg_replace('#(aik)#iUs', 'Антон Литвинов', $text);
-		$text = preg_replace('#(seoratings)#iUs', 'Антон Литвинов', $text);
-		$text = preg_replace('#(prematuremakarov)#iUs', 'Антон Литвинов', $text);
-
 		$text = preg_replace('#\:\)\)\)\)#iUs', '<img src="https://gdpanel.nightmarez.net/laugh.gif" alt="смех">', $text);
 		$text = preg_replace('#\:\)\)\)#iUs', '<img src="https://gdpanel.nightmarez.net/laugh.gif" alt="смех">', $text);
 		$text = preg_replace('#\:\)\)#iUs', '<img src="https://gdpanel.nightmarez.net/laugh.gif" alt="смех">', $text);
@@ -1311,8 +1307,11 @@
 		$text = preg_replace('#\[wall\]#iUs', '<img src="https://gdpanel.nightmarez.net/wall.gif" alt="убиться об стену">', $text);
 		$text = preg_replace('#\[sex\]#iUs', '<img src="https://gdpanel.nightmarez.net/sex.gif" alt="ёбля">', $text);
 
+		$text = preg_replace('#\[img=([0-9a-zA-Z]{20})\s*alt=([0-9a-zA-Z]{100})\]#iUs', '<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="${2}">', $text);
+		$text = preg_replace('#\[img\s*alt=([0-9a-zA-Z]{100})\]([0-9a-zA-Z]{20})\s*\[\/img\]#iUs', '<img src="https://storage.russiancoders.ru/' . $userid . '/${2}.jpg" alt="${1}">', $text);
 		$text = preg_replace('#\[img=([0-9a-zA-Z]{20})\]#iUs', '<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="изображение">', $text);
 		$text = preg_replace('#\[img\]([0-9a-zA-Z]{20})\[\/img\]#iUs', '<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="изображение">', $text);
+
 		$text = preg_replace('#\[color=\#([0-9a-zA-Z]{6})\](.*)\[\/color\]#iUs', '<span style="color:#${1}">${2}</span>', $text);
 		$text = preg_replace('#\[color=([0-9a-zA-Z]{6})\](.*)\[\/color\]#iUs', '<span style="color:#${1}">${2}</span>', $text);
 
