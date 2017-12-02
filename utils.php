@@ -385,6 +385,7 @@
 		}
 
 		header('Location: /register.php?error=Неизвестная ошибка при регистрации пользователя');
+		tryAddNewbieReward($userId, $db);
 		die();
 	}
 
