@@ -1307,8 +1307,8 @@
 		$text = preg_replace('#\[wall\]#iUs', '<img src="https://gdpanel.nightmarez.net/wall.gif" alt="убиться об стену">', $text);
 		$text = preg_replace('#\[sex\]#iUs', '<img src="https://gdpanel.nightmarez.net/sex.gif" alt="ёбля">', $text);
 
-		$text = preg_replace('#\[img=([0-9a-zA-Z]{20})\s*alt=([0-9a-zA-Z]{100})\]#iUs', '<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="${2}">', $text);
-		$text = preg_replace('#\[img\s*alt=([0-9a-zA-Z]{100})\]([0-9a-zA-Z]{20})\s*\[\/img\]#iUs', '<img src="https://storage.russiancoders.ru/' . $userid . '/${2}.jpg" alt="${1}">', $text);
+		$text = preg_replace('#\[img=([0-9a-zA-Z]{20})\s*alt=([0-9a-zA-Z]{1,100})\]#iUs', '<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="${2}">', $text);
+		$text = preg_replace('#\[img\s*alt=([0-9a-zA-Z]{1,100})\]([0-9a-zA-Z]{20})\s*\[\/img\]#iUs', '<img src="https://storage.russiancoders.ru/' . $userid . '/${2}.jpg" alt="${1}">', $text);
 		$text = preg_replace('#\[img=([0-9a-zA-Z]{20})\]#iUs', '<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="изображение">', $text);
 		$text = preg_replace('#\[img\]([0-9a-zA-Z]{20})\[\/img\]#iUs', '<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="изображение">', $text);
 
