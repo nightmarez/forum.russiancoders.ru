@@ -63,8 +63,8 @@
 			</div>
 			<div class="col-md-12 col-sm-12">
 				<div class="form-group col-md-12 col-sm-12">
-					<label for="text">Укажите информацию о себе*</label>
-					<textarea id="text" name="text" maxlength="2000" style="min-width: 800px; min-height: 300px; width: 100%; margin-bottom: 5px;"></textarea>
+					<label for="txt">Укажите информацию о себе*</label>
+					<textarea id="txt" name="txt" maxlength="2000" style="min-width: 800px; min-height: 300px; width: 100%; margin-bottom: 5px;"></textarea>
 				</div>
 			</div>
 			<div class="col-md-12 col-sm-12">

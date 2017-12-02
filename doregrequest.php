@@ -135,7 +135,7 @@
 		die();
 	}
 
-	$text = $_POST['text'];
+	$txt = $_POST['txt'];
 
 	if (!validateLogin($login)) {
 		header('Location: /register.php?error=Недопустимый логин');
