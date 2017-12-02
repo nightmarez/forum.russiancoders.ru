@@ -1312,6 +1312,11 @@
 		$text = preg_replace('#\[img=([0-9a-zA-Z]{20})\]#iUs', '<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="изображение">', $text);
 		$text = preg_replace('#\[img\]([0-9a-zA-Z]{20})\[\/img\]#iUs', '<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="изображение">', $text);
 
+		$text = preg_replace('#\[img=\"([0-9a-zA-Z]{20})\"\s*alt=\"([0-9a-zA-Z]{1,100})\"\]#iUs', '<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="${2}">', $text);
+		$text = preg_replace('#\[img\s*alt=\"([0-9a-zA-Z]{1,100})\"\]([0-9a-zA-Z]{20})\s*\[\/img\]#iUs', '<img src="https://storage.russiancoders.ru/' . $userid . '/${2}.jpg" alt="${1}">', $text);
+		$text = preg_replace('#\[img=\"([0-9a-zA-Z]{20})\"\]#iUs', '<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="изображение">', $text);
+		$text = preg_replace('#\[img\]([0-9a-zA-Z]{20})\[\/img\]#iUs', '<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="изображение">', $text);
+
 		$text = preg_replace('#\[color=\#([0-9a-zA-Z]{6})\](.*)\[\/color\]#iUs', '<span style="color:#${1}">${2}</span>', $text);
 		$text = preg_replace('#\[color=([0-9a-zA-Z]{6})\](.*)\[\/color\]#iUs', '<span style="color:#${1}">${2}</span>', $text);
 
