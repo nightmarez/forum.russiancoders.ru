@@ -1601,6 +1601,28 @@
 		return false;
 	}
 
+	function isHotTopic($topicid, $readydb = NULL) {
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		if (!isTopicExists($topicid, $db)) {
+			return false;
+		}
+
+		$query = 'SELECT COUNT(*) WHERE `topicid` = :topicid AND TIME_TO_SEC(TIMEDIFF(NOW(), `created`)) <= 24 * 60 * 60 * 7;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':topicid', $topicid);
+		$req->execute();
+
+		$count = $req->fetchColumn();
+
+		if ($count < 30) {
+			return false;
+		}
+
+		return true;
+	}
+
 	function isUserOnline($userid, $readydb = NULL) {
 		$db = is_null($readydb) ? new PdoDb() : $readydb;
 

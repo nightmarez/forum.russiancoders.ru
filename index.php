@@ -102,6 +102,15 @@
 												<?php
 													}
 												?>
+
+												<?php
+													if (isHotTopic($topicid, $readydb)) {
+												?>
+													<div style="width: 16px; height: 16px; float: left; background-position: center center; background-repeat: no-repeat; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAANCAYAAAB/9ZQ7AAABA0lEQVR4AWNAB7c9Vdg/xDjvehbpIMJACLyPdgr8EOPy/32089VXoQ48OBW+DHdSfh/t8gykGKqhEbuJkY72H6KdX4MUwXG0y3WoNCNc4YcoFxegO3/BFMFNjnH5ApF3Knkbbc7HAHSXCtDqjyBJLIofvox0FgfKP30X7ZzFAHTXAogkJgYpAuJHUCftZAASb1EVOH/GphHkHwaQu5AU3n8f4+iH3RbnbyBn7EOyNgkUGUD2X0z3O19keB/uqA9kvAcJvItxtoVEjPNmDMVRLjXgoHsT4WgO8vmHaKdUaFAqgdyIZOq5q6HabPCwfuZrzPU20tkDHklRTvIgJwLxYli0AwDQPva9BmGXugAAAABJRU5ErkJggg==');" title="Горячая тема"></div>
+												<?php
+													}
+												?>
+
 												<a href="/topic/<?php echo htmlspecialchars($topicid); ?>/"><?php echo htmlspecialchars($title); ?></a>
 											</td>
 											<td>
