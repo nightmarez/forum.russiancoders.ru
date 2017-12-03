@@ -11,6 +11,7 @@ RewriteRule ^/addfriend/([a-zA-Z0-9]+)/$ /addfriend.php?userid=$1 [L]
 RewriteRule ^/removefriend/([a-zA-Z0-9]+)/$ /removefriend.php?userid=$1 [L]
 RewriteRule ^/rating/([a-zA-Z0-9]+)/([a-zA-Z0-9]+)/$ /rating.php?userid=$1&filter=$2 [L]
 RewriteRule ^/votes/([a-zA-Z0-9]+)/([a-zA-Z0-9]+)/$ /votes.php?userid=$1&filter=$2 [L]
+RewriteRule ^/preview/$ /preview.php [L]
 
 RewriteCond %{HTTP_REFERER} !^$
 RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?forum.russiancoders.ru [NC]
