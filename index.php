@@ -111,6 +111,14 @@
 													}
 												?>
 
+												<?php
+													if (isPinnedTopic($topicid, $readydb)) {
+												?>
+													<div style="width: 16px; height: 16px; float: left; background-position: center center; background-repeat: no-repeat; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4QwDBxEzL8906wAAAR1JREFUOMtjYCASPPexYX3uY8NAFnjuYyP/3MfmHpSNIsdEpBn2DAwMis99bC5LbjnCcNHRiHgDnvvYuDIwMCxkYGBgYGRk1LnsZHxFf/85hgOW2gwMDAwMjERo3gXVzPD66zeGN99+MDAyMlxxOH5V94ClNm4D8GiGgQcMDAyqLGia1BkYGNYzMDD8ZmBg0MOjOYyBgeGww/Grfxix2JzLwMAwCY9mG4fjV4/COFi98MLDIpORiWnaqx8/8WrGGQs32mZznDKyY3j79RtezVgNOHT8dMmdG1f7jgiKpzExMGRDhc9g08yATfOcZSv+V3d0ZsDEDlhq5x6w1L5AhOYz+eiakQxRJmjA3GUr/1V3dKaSlVmmLVzMxjBQAAAKYnxfnVVxpAAAAABJRU5ErkJggg==');" title="Горячая тема"></div>
+												<?php
+													}
+												?>
+
 												<a href="/topic/<?php echo htmlspecialchars($topicid); ?>/"><?php echo htmlspecialchars($title); ?></a>
 											</td>
 											<td>

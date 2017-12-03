@@ -1625,6 +1625,23 @@
 		return true;
 	}
 
+	function isPinnedTopic($topicid, $readydb = NULL) {
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		if (!isTopicExists($topicid, $db)) {
+			return false;
+		}
+
+		$query = 'SELECT COUNT(*) FROM `topics` WHERE `topicid`=:topicid AND `pinned`=1;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':topicid', $topicid);
+		$req->execute();
+
+		$count = $req->fetchColumn();
+		return $count > 0;
+	}
+
 	function isUserOnline($userid, $readydb = NULL) {
 		$db = is_null($readydb) ? new PdoDb() : $readydb;
 
