@@ -39,6 +39,8 @@
 
 				function createThumbnail($image_name, $new_width, $new_height, $uploadDir, $moveToDir)
 				{
+					$result = NULL;
+
 					$path = $uploadDir . '/' . $image_name;
 					$mime = getimagesize($path);
 
