@@ -1,6 +1,8 @@
 <?php
 	require_once('db.php');
 
+	$readydb = is_null($readydb) ? new PdoDb() : $readydb;
+
 	function get_ip()
 	{
 		if (!empty($_SERVER['HTTP_CLIENT_IP'])) {

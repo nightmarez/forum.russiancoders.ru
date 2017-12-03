@@ -1,4 +1,4 @@
-<?php $start_time = microtime(true); require_once('utils.php'); $readydb = new PdoDb(); ?><!DOCTYPE html>
+<?php $start_time = microtime(true); require_once('utils.php'); $readydb = is_null($readydb) ? new PdoDb() : $readydb; ?><!DOCTYPE html>
 <html lang="en">
 	<head>
 		<?php
