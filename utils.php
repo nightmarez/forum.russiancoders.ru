@@ -1588,7 +1588,7 @@
 			return false;
 		}
 
-		$query = 'SELECT (now() - `created`) as `online` FROM `posts` WHERE `id` = :postid AND TIME_TO_SEC(TIMEDIFF(NOW(), `created`)) <= 24 * 60 * 60;';
+		$query = 'SELECT (now() - `created`) AS `online` FROM `posts` WHERE `id` = :postid AND TIME_TO_SEC(TIMEDIFF(NOW(), `created`)) <= 24 * 60 * 60;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':postid', $postid);
@@ -1608,7 +1608,7 @@
 			return false;
 		}
 
-		$query = 'SELECT COUNT(*) WHERE `topicid` = :topicid AND TIME_TO_SEC(TIMEDIFF(NOW(), `created`)) <= 24 * 60 * 60 * 7;';
+		$query = 'SELECT COUNT(*) FROM `posts` WHERE `topicid` = :topicid AND TIME_TO_SEC(TIMEDIFF(NOW(), `created`)) <= 24 * 60 * 60 * 7;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':topicid', $topicid);
