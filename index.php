@@ -81,11 +81,11 @@
 						<tbody>
 							<?php
 								$query =
-									'SELECT `topicid`, `title`, `userid`, `updated` 
+									'SELECT `topicid`, `title`, `userid`, `updated`, (SELECT COUNT(*) FROM `posts` WHERE `topicid` = `topics`.`topicid` AND TIME_TO_SEC(TIMEDIFF(NOW(), `created`)) <= 24 * 60 * 60 * 7) AS `count`
 									FROM `topics` 
 									WHERE `sectionid`=:sectionid 
-									ORDER BY `updated` 
-									DESC LIMIT 0, 10;';
+									ORDER BY `pinned` DESC, `count` >= 30 DESC, `updated` DESC
+									LIMIT 0, 10;';
 
 								$r = $readydb->prepare($query);
 								$r->bindParam(':sectionid', $sectionid);
