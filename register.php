@@ -22,20 +22,7 @@
 	</div>
 
 	<div class="panel-body">
-		<h3>Правила регистрации.</h3>
-		<br>
-		<div>
-			Во избежание регистрации на форуме неадекватных личностей, ботов, мимокрокодилов и прочей швали, на данном форуме присутствует
-			премодерация всех желающих зарегистрироваться. Заполните, пожалуйста, внимательно все поля, укажите корректный e-mail,
-			напишите о себе, где и под какими никами вы присутствуюете на других ресурсах, вобщем, предоставьте информацию, однозначно подтверждающую,
-			что Вы - взрослый адекватный человек. В течении суток Ваша заявка будет рассмотрена и, в случае положительного решения,
-			Вам будет создан аккаунт и выслано извещение об этом на указанную почту. На форуме присутствуют аватары, которые берутся по
-			Вашему e-mail адресу из сервиса gravatar. Будет плюсом, если Вы зарегистрированы на нём, и имеете там загруженную аватару.
-		</div>
-	</div>
-
-	<div class="panel-body">
-		<form action="/doregrequest.php" method="POST">
+		<form action="/doregister.php" method="POST">
 			<div class="col-md-12 col-sm-12">
 				<div class="form-group col-md-6 col-sm-6">
 					<label for="login">Логин*</label>
@@ -59,12 +46,6 @@
 			<div class="col-md-12 col-sm-12">
 				<div class="form-group col-md-12 col-sm-12">
 					<?php echo recaptcha_get_html('6LdlUjcUAAAAACmECdupCukxHQt-KGv-AKn0UTy3', null, true); ?>
-				</div>
-			</div>
-			<div class="col-md-12 col-sm-12">
-				<div class="form-group col-md-12 col-sm-12">
-					<label for="txt">Укажите информацию о себе*</label>
-					<textarea id="txt" name="txt" maxlength="2000" style="min-width: 800px; min-height: 300px; width: 100%; margin-bottom: 5px;"></textarea>
 				</div>
 			</div>
 			<div class="col-md-12 col-sm-12">
