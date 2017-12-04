@@ -17,6 +17,8 @@ nav a {
 
 footer > a {
 	filter: none;
+	float: left;
+	margin-left: 20px;
 }
 
 .panel-heading {
