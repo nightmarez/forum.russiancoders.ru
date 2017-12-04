@@ -2,6 +2,7 @@
 	require_once('db.php');
 
 	$readydb = !isset($readydb) ? new PdoDb() : $readydb;
+	setlocale(LC_ALL, 'ru_RU.UTF-8');
 
 	function get_ip()
 	{
@@ -1344,11 +1345,11 @@
 		$text = preg_replace('#\[sex\]#iUs', '<img src="https://gdpanel.nightmarez.net/sex.gif" alt="ёбля">', $text);
 
 		$text = preg_replace(
-			'#\[img=\"([0-9a-zA-Z]{20})\"\s*alt=\"([\S\s]{1,100})\"\]#iuUs',
+			'#\[img=\"([0-9a-zA-Z]{20})\"\s*alt=\"([0-9a-zA-Zа-яА-Я\s]{1,100})\"\]#iuUs',
 			'<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="${2}">',
 			$text);
 		$text = preg_replace(
-			'#\[img\s*alt=\"([\S\s]{1,100})\"\]([0-9a-zA-Z]{20})\s*\[\/img\]#iuUs',
+			'#\[img\s*alt=\"([0-9a-zA-Zа-яА-Я\s]{1,100})\"\]([0-9a-zA-Z]{20})\s*\[\/img\]#iuUs',
 			'<img src="https://storage.russiancoders.ru/' . $userid . '/${2}.jpg" alt="${1}">',
 			$text);
 		$text = preg_replace(
@@ -1361,11 +1362,11 @@
 			$text);
 
 		$text = preg_replace(
-			'#\[img=([0-9a-zA-Z]{20})\s*alt=([\S\s]{1,100})\]#iuUs',
+			'#\[img=([0-9a-zA-Z]{20})\s*alt=([0-9a-zA-Zа-яА-Я\s]{1,100})\]#iuUs',
 			'<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="${2}">',
 			$text);
 		$text = preg_replace(
-			'#\[img\s*alt=([\S\s]{1,100})\]([0-9a-zA-Z]{20})\s*\[\/img\]#iuUs',
+			'#\[img\s*alt=([0-9a-zA-Zа-яА-Я\s]{1,100})\]([0-9a-zA-Z]{20})\s*\[\/img\]#iuUs',
 			'<img src="https://storage.russiancoders.ru/' . $userid . '/${2}.jpg" alt="${1}">',
 			$text);
 		$text = preg_replace(
