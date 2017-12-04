@@ -94,7 +94,7 @@ a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,c
 		<link rel="shortcut icon" href="/favicon.ico">
 		<script src="/main.js?ver=149" defer></script>
 		<?php
-			$requestUri = $_SERVER['REQUEST_URI'];
+			$requestUri = filterDengerousString($_SERVER['REQUEST_URI']);
 
 			$withoutHighlighting = array(
 				'/',
