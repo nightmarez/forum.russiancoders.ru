@@ -7,10 +7,10 @@
 	</div>
 
 	<div class="panel-body">
-		<form action="/" method="GET">
+		<form action="/login/" method="GET">
 			<div class="col-md-12 col-sm-12">
 				<div class="form-group col-md-12 col-sm-12">
-					Регистрация прошла успешно. Ждите верификации аккаунта.<!-- На указанный Вами адрес была выслана ссылка для активации аккаунта. -->
+					Регистрация прошла успешно. Можете авторизироваться на форуме.
 				</div>
 			</div>
 			<div class="col-md-12 col-sm-12">
