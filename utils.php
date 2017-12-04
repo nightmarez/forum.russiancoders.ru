@@ -21,7 +21,7 @@
 		return trim(stripslashes(str_replace("`", '',
 			str_replace("\n", ' ', str_replace("|", '_',
 			str_replace("..", '',
-			htmlspecialchars($s, ENT_QUOTES)))))));
+			htmlspecialchars($input, ENT_QUOTES)))))));
 	}
 
 	function validateLogin($login) {
