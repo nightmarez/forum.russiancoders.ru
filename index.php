@@ -1,55 +1,6 @@
 <?php include_once('head.php'); ?>
 <?php include_once('nav.php'); ?>
 
-<!--
-<div class="panel panel-primary" style="margin: 20px;">
-	<div class="panel-heading">
-		<h3 class="panel-title">Разделы</h3>
-	</div>
-
-	<div class="panel-body">
-		<div class="table-responsive">
-			<table class="table index-topics">
-				<thead>
-					<tr>
-						<th>Раздел</th>
-						<th>Темы</th>
-						<th>Сообщения</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php
-						$query =
-							'SELECT `sectionid`, `title` 
-							FROM `sections` 
-							ORDER BY `id`;';
-
-						$req = $readydb->prepare($query);
-						$req->execute();
-
-						while (list($sectionid, $title) = $req->fetch(PDO::FETCH_NUM)) {
-							?>
-								<tr>
-									<td>
-										<a href="/section/<?php echo htmlspecialchars($sectionid); ?>/"><?php echo htmlspecialchars($title); ?></a>
-									</td>
-									<td>
-										<?php echo intval(calcTopicsInSection($sectionid, $readydb)); ?>
-									</td>
-									<td>
-										<?php echo intval(calcPostsInSection($sectionid, $readydb)); ?>
-									</td>
-								</tr>
-							<?php
-						}
-					?>
-				</tbody>
-			</table>
-		</div>
-	</div>
-</div>
--->
-
 	<?php
 		$query =
 			'SELECT `sectionid`, `title` 
@@ -189,12 +140,18 @@
 				</div>
 			</div>
 
+			<?php
+				if (isLogin()) {
+			?>
 			<div style="margin: 0 0 10px 10px;">
 				<form method="GET" action="/createtopic.php">
 					<input type="hidden" name="sectionid" value="<?php echo $sectionid; ?>">
 					<input type="submit" class="btn btn-primary" value="Создать тему">
 				</form>
 			</div>
+			<?php
+				}
+			?>
 		</div>
 	<?php
 		}
