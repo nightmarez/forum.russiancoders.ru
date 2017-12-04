@@ -17,6 +17,13 @@
 		return $ip;
 	}
 
+	function filterDengerousString($input) {
+		return trim(stripslashes(str_replace("`", '',
+			str_replace("\n", ' ', str_replace("|", '_',
+			str_replace("..", '',
+			htmlspecialchars($s, ENT_QUOTES)))))));
+	}
+
 	function validateLogin($login) {
 		$safelogin = htmlspecialchars($login, ENT_COMPAT, 'UTF-8');
 
