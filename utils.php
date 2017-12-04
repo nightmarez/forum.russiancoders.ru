@@ -1293,8 +1293,10 @@
 		$text = preg_replace('#(\s*)---(\s*)#iUs', '${1}—${2}', $text);
 		$text = preg_replace('#(\s*)--(\s*)#iUs', '${1}–${2}', $text);
 
-		$text = preg_replace('#<br>&gt;(.*)<br>#iUs', '<br><span style="color: gray;">&gt;${1}</span><br>', $text);
-		$text = preg_replace('#^&gt;(.*)<br>#iUs', '<span style="color: gray;">&gt;${1}</span><br>', $text);
+		$text = preg_replace('#<br>([\s]*)&gt;(.*)<br>#iUs', '<br><span style="color: gray;">&gt;${2}</span><br>', $text);
+		$text = preg_replace('#^([\s]*)&gt;(.*)<br>#iUs', '<span style="color: gray;">&gt;${2}</span><br>', $text);
+		$text = preg_replace('#<br>([\s]*)&gt;(.*)$#iUs', '<br><span style="color: gray;">&gt;${2}</span><br>', $text);
+		$text = preg_replace('#^([\s]*)&gt;(.*)$#iUs', '<span style="color: gray;">&gt;${2}</span><br>', $text);
 
 		$text = preg_replace('#(Михаил Макаров)#iUs', 'NightmareZ', $text);
 		$text = preg_replace('#(Михаил\s*Макаров)#iUs', 'NightmareZ', $text);

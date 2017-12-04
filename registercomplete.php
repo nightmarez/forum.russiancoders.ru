@@ -15,7 +15,7 @@
 			</div>
 			<div class="col-md-12 col-sm-12">
 				<div class="form-group col-md-12 col-sm-12">
-					<input type="submit" class="btn btn-primary" value="Понял">
+					<input type="submit" class="btn btn-primary" value="Авторизироваться">
 				</div>
 			</div>
 		</form>
