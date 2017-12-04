@@ -90,9 +90,9 @@ a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,c
 		<script src="https://cdn.russiancoders.ru/jquery-3.1.1.min.js" crossorigin="anonymous" defer></script>
 		<script src="https://cdn.russiancoders.ru/bootstrap-3.3.7.min.js" crossorigin="anonymous" defer></script>
 		<script src="https://cdn.russiancoders.ru/underscore-1.8.3.min.js" crossorigin="anonymous" defer></script>
-		<link rel="stylesheet" href="/index.css?ver=145">
+		<link rel="stylesheet" href="/index.css?ver=146">
 		<link rel="shortcut icon" href="/favicon.ico">
-		<script src="/main.js?ver=145" defer></script>
+		<script src="/main.js?ver=146" defer></script>
 		<?php
 			$requestUri = $_SERVER['REQUEST_URI'];
 
