@@ -86,8 +86,27 @@
 		<link rel="stylesheet" href="/index.css?ver=143">
 		<link rel="shortcut icon" href="/favicon.ico">
 		<script src="/main.js?ver=143" defer></script>
+		<?php
+			$requestUri = $_SERVER['REQUEST_URI'];
+
+			$withoutHighlighting = array(
+				'/',
+				'/faq/',
+				'/users/',
+				'/online/',
+				'/profile/',
+				'/user/',
+				'/gallery/',
+				'/donate/'
+			);
+
+			if (!in_array($requestUri, $withoutHighlighting)) {
+		?>
 		<link rel="stylesheet" href="/highlight.min.css">
 		<script src="/highlight.pack.js"></script>
+		<?php
+			}
+		?>
 	</head>
 	<body>
 		<?php
