@@ -90,3 +90,11 @@
 		<script src="/highlight.pack.js"></script>
 	</head>
 	<body>
+		<?php
+			echo "<!--\r\n";
+			echo '====================================================';
+			echo "debug info\r\n";
+			echo '$_SERVER[''REQUEST_URI'']: ' . $_SERVER['REQUEST_URI'];
+			echo '====================================================';
+			echo "-->\r\n";
+		?>
