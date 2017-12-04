@@ -94,7 +94,7 @@
 			echo "<!--\r\n";
 			echo '====================================================';
 			echo "debug info\r\n";
-			echo '$_SERVER[''REQUEST_URI'']: ' . $_SERVER['REQUEST_URI'];
+			echo '$_SERVER[\'REQUEST_URI\']: ' . $_SERVER['REQUEST_URI'];
 			echo '====================================================';
 			echo "-->\r\n";
 		?>
