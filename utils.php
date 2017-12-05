@@ -1356,15 +1356,15 @@
 		echo '-->' . "\r\n";
 
 		$text = preg_replace(
-			'/\[img=\"([0-9a-zA-Z]{20})\"\s*alt=\"([\w\s]{1,100})\"\]/iuUs',
+			'/\[img=&quot;([0-9a-zA-Z]{20})&quot;\s*alt=&quot;([\w\s]{1,100})&quot;\]/iuUs',
 			'<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="${2}">',
 			$text);
 		$text = preg_replace(
-			'/\[img\s*alt=\"([\w\s]{1,100})\"\]([0-9a-zA-Z]{20})\s*\[\/img\]/iuUs',
+			'/\[img\s*alt=&quot;([\w\s]{1,100})&quot;\]([0-9a-zA-Z]{20})\s*\[\/img\]/iuUs',
 			'<img src="https://storage.russiancoders.ru/' . $userid . '/${2}.jpg" alt="${1}">',
 			$text);
 		$text = preg_replace(
-			'/\[img=\"([0-9a-zA-Z]{20})\"\]/iUs',
+			'/\[img=&quot;([0-9a-zA-Z]{20})&quot;\]/iUs',
 			'<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="изображение">',
 			$text);
 		
