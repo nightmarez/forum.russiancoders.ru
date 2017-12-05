@@ -51,13 +51,13 @@
 								Тема
 							</td>
 							<td>
-								<input class="form-control" type="text" maxlength="40" name="title" style="min-width: 200px;">
+								<input class="form-control" type="text" maxlength="100" name="title" style="min-width: 200px;">
 							</td>
 						</tr>
 						<tr>
 							<td colspan="2">
 								<p>Сообщение</p>
-								<textarea class="form-control" name="content" style="min-width: 800px; min-height: 300px;"></textarea>
+								<textarea class="form-control" name="content" style="min-width: 800px; min-height: 300px;" maxlength="2000"></textarea>
 							</td>
 						</tr>
 						<tr>
