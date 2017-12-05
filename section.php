@@ -190,12 +190,18 @@
 				</tbody>
 			</table>
 
+			<?php
+				if (isLogin()) {
+			?>
 			<div>
 				<form method="GET" action="/createtopic.php">
 					<input type="hidden" name="sectionid" value="<?php echo $sectionid; ?>">
 					<input type="submit" class="btn btn-primary" value="Создать тему">
 				</form>
 			</div>
+			<?php
+				}
+			?>
 		</div>
 	</div>
 </div>
