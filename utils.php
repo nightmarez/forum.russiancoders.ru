@@ -1394,6 +1394,8 @@
 		$text = preg_replace('#\[color=\#([0-9a-zA-Z]{6})\](.*)\[\/color\]#iUs', '<span style="color:#${1}">${2}</span>', $text);
 		$text = preg_replace('#\[color=([0-9a-zA-Z]{6})\](.*)\[\/color\]#iUs', '<span style="color:#${1}">${2}</span>', $text);
 
+		$text = preg_replace('#&quot;(.{1,100})&quot;#iUs', '«${1}»', $text);
+
 		foreach ($preformatted[1] as $key => $value) {
 			$text = str_replace('###$$$###' . $key . '###$$$###', $value, $text);
 		}
