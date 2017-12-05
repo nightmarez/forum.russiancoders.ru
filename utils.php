@@ -1262,8 +1262,8 @@
 		$text = preg_replace('#\[mail=(mailto:\S*)\]#iUs', '<a href="${1}">${1}</a>', $text);
 		$text = preg_replace('#\[mail=\"(mailto:\S*)\"\]#iUs', '<a href="${1}">${1}</a>', $text);
 
-		$text = preg_replace('#\[youtube=\"([0-9a-zA-Z_\-]*)\"\]#iUs', '<iframe width="640" height="420" src="https://www.youtube.com/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
-		$text = preg_replace('#\[rutube=\"([0-9a-zA-Z_\-]*)\"\]#iUs', '<iframe width="640" height="420" src="https://rutube.ru/play/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
+		$text = preg_replace('#\[youtube=&quot;([0-9a-zA-Z_\-]*)&quot;\]#iUs', '<iframe width="640" height="420" src="https://www.youtube.com/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
+		$text = preg_replace('#\[rutube=&quot;([0-9a-zA-Z_\-]*)&quot;\]#iUs', '<iframe width="640" height="420" src="https://rutube.ru/play/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
 		$text = preg_replace('#\[youtube=([0-9a-zA-Z_\-]*)\]#iUs', '<iframe width="640" height="420" src="https://www.youtube.com/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
 		$text = preg_replace('#\[rutube=([0-9a-zA-Z_\-]*)\]#iUs', '<iframe width="640" height="420" src="https://rutube.ru/play/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
 
@@ -1367,7 +1367,15 @@
 			'/\[img=&quot;([0-9a-zA-Z]{20})&quot;\]/iUs',
 			'<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="изображение">',
 			$text);
-		
+
+		$text = preg_replace(
+			'/\[img=([0-9a-zA-Z]{20})\s*alt=&quot;([\w\s]{1,100})&quot;\]/iuUs',
+			'<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="${2}">',
+			$text);
+		$text = preg_replace(
+			'/\[img=&quot;([0-9a-zA-Z]{20})&quot;\s*alt=([\w\s]{1,100})\]/iuUs',
+			'<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="${2}">',
+			$text);
 
 		$text = preg_replace(
 			'/\[img=([0-9a-zA-Z]{20})\s*alt=([\w\s]{1,100})\]/iuUs',
