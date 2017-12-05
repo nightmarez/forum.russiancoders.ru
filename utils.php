@@ -1351,10 +1351,6 @@
 		$text = preg_replace('#\[wall\]#iUs', '<img src="https://gdpanel.nightmarez.net/wall.gif" alt="убиться об стену">', $text);
 		$text = preg_replace('#\[sex\]#iUs', '<img src="https://gdpanel.nightmarez.net/sex.gif" alt="ёбля">', $text);
 
-		echo '<!--' . "\r\n";
-		echo $text . "\r\n";
-		echo '-->' . "\r\n";
-
 		$text = preg_replace(
 			'/\[img=&quot;([0-9a-zA-Z]{20})&quot;\s*alt=&quot;([\w\s]{1,100})&quot;\]/iuUs',
 			'<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="${2}">',
