@@ -47,7 +47,7 @@
 						{
 							$dots = true;
 							?>
-								<li class="disabled"><a style="border: none;" href="#" onclick="return false" onmousedown="return false">...</a></li>
+								<li class="disabled"><a style="border-bottom: none; border-top: none;" href="#" onclick="return false" onmousedown="return false">...</a></li>
 							<?php
 						}
 					}
