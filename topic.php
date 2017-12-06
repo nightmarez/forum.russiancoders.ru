@@ -155,13 +155,13 @@
 
 					if ($page == 4) {
 						$poffset1 = 1;
-					} else ($page == 5) {
+					} else if ($page == 5) {
 						$poffset1 = 2;
 					}
 
 					if ($page == $pagesCount - 5) {
 						$poffset2 = 1;
-					} else ($page == $pagesCount - 6) {
+					} else if ($page == $pagesCount - 6) {
 						$poffset2 = 2;
 					}
 
