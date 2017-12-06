@@ -164,6 +164,11 @@
 					$poffset2 = 2;
 				}
 
+				echo '<!--' . "\r\n";
+				echo $poffset1 . "\r\n";
+				echo $poffset2 . "\r\n";
+				echo '-->' . "\r\n";
+
 				for ($p = 1; $p <= $pagesCount; ++$p) {
 					$pagen = $p - 1;
 
