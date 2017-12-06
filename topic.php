@@ -34,7 +34,10 @@
 				for ($p = 1; $p <= $pagesCount; ++$p) {
 					$pagen = $p - 1;
 
-					if ($pagen < 3 || $pagen > $pagesCount - 4 || $pagen > $page - 3 && $pagen < $page + 3 || (($page < 3 || $page > $pagesCount - 4) && $pagen > ceil($pagesCount / 2 - 3) && $pagen < ceil($pagesCount / 2 + 3)))
+					if ($pagen < 3 || 
+						$pagen > $pagesCount - 4 || 
+						$pagen > $page - 3 && $pagen < $page + 3 || 
+						(($page < 3 || $page > $pagesCount - 4) && $pagen > ceil($pagesCount / 2 - 3) && $pagen < ceil($pagesCount / 2 + 3)))
 					{
 						$dots = false;
 						?>
@@ -144,10 +147,30 @@
 				</a>
 			</li>
 			<?php
+				$dots = false;
 				for ($p = 1; $p <= $pagesCount; ++$p) {
-					?>
-						<li<?php if ($p == $page + 1) { echo ' class="active"'; } ?>><a href="/topic/<?php echo $topicid; ?>/<?php echo $p; ?>/"><?php echo $p; ?></a></li>
-					<?php
+					$pagen = $p - 1;
+
+					if ($pagen < 3 || 
+						$pagen > $pagesCount - 4 || 
+						$pagen > $page - 3 && $pagen < $page + 3 || 
+						(($page < 3 || $page > $pagesCount - 4) && $pagen > ceil($pagesCount / 2 - 3) && $pagen < ceil($pagesCount / 2 + 3)))
+					{
+						$dots = false;
+						?>
+							<li<?php if ($pagen == $page) { echo ' class="active"'; } ?>><a href="/topic/<?php echo $topicid; ?>/<?php echo $p; ?>/"><?php echo $p; ?></a></li>
+						<?php
+					}
+					else
+					{
+						if (!$dots)
+						{
+							$dots = true;
+							?>
+								<li class="disabled"><a style="border-bottom: none; border-top: none;" href="#" onclick="return false" onmousedown="return false">...</a></li>
+							<?php
+						}
+					}
 				}
 			?>
 			<li<?php if ($page >= $pagesCount - 1) { echo ' class="disabled"'; } ?>>
