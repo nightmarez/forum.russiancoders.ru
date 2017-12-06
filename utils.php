@@ -1225,6 +1225,7 @@
 
 	function filterMessage($text, $userid) {
 		$text = htmlspecialchars($text);
+		$text = preg_replace('#&amp;quot;#iUs', '&quot;', $text);
 
 		$text = preg_replace('#\[pre\](.*)\[\/pre\]#iUs', '<pre>${1}</pre>', $text);
 		$text = preg_replace('#\[code\](.*)\[\/code\]#iUs', '<pre><code>${1}</code></pre>', $text);
