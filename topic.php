@@ -150,9 +150,23 @@
 				$dots = false;
 				for ($p = 1; $p <= $pagesCount; ++$p) {
 					$pagen = $p - 1;
+					$poffset1 = 3;
+					$poffset2 = 3;
 
-					if ($pagen < 3 || 
-						$pagen > $pagesCount - 4 || 
+					if ($page == 4) {
+						$poffset1 = 1;
+					} else ($page == 5) {
+						$poffset1 = 2;
+					}
+
+					if ($page == $pagesCount - 5) {
+						$poffset2 = 1;
+					} else ($page == $pagesCount - 6) {
+						$poffset2 = 2;
+					}
+
+					if ($pagen < $poffset1 || 
+						$pagen > $pagesCount - ($poffset2 + 1) || 
 						$pagen > $page - 3 && $pagen < $page + 3 || 
 						(($page < 3 || $page > $pagesCount - 4) && $pagen > ceil($pagesCount / 2 - 3) && $pagen < ceil($pagesCount / 2 + 3)))
 					{
