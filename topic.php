@@ -34,7 +34,7 @@
 				for ($p = 1; $p <= $pagesCount; ++$p) {
 					$pagen = $p - 1;
 
-					if ($pagen < 3 || $pagen > $pagesCount - 3 || $pagen > $page - 4 && $pagen < $page + 3 || (($pagen < 3 || $pagen > $pagesCount - 3) && $pagen > ceil($pagesCount / 2 - 3) && $pagen < ceil($pagesCount / 2 + 3)))
+					if ($pagen < 3 || $pagen > $pagesCount - 2 || $pagen > $page - 4 && $pagen < $page + 3 || (($pagen < 3 || $pagen > $pagesCount - 3) && $pagen > ceil($pagesCount / 2 - 3) && $pagen < ceil($pagesCount / 2 + 3)))
 					{
 						$dots = false;
 						?>
