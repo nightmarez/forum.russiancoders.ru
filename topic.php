@@ -47,28 +47,38 @@
 					$poffset2 = 2;
 				}
 
-				for ($p = 1; $p <= $pagesCount; ++$p) {
-					$pagen = $p - 1;
+				if ($pagesCount >= 12) {
+					for ($p = 1; $p <= $pagesCount; ++$p) {
+						$pagen = $p - 1;
 
-					if ($pagen < $poffset1 || 
-						$pagen > $pagesCount - ($poffset2 + 1) || 
-						$pagen > $page - 3 && $pagen < $page + 3 || 
-						(($page < 3 || $page > $pagesCount - 4) && $pagen > ceil($pagesCount / 2 - 3) && $pagen < ceil($pagesCount / 2 + 3)))
-					{
-						$dots = false;
+						if ($pagen < $poffset1 || 
+							$pagen > $pagesCount - ($poffset2 + 1) || 
+							$pagen > $page - 3 && $pagen < $page + 3 || 
+							(($page < 3 || $page > $pagesCount - 4) && $pagen > ceil($pagesCount / 2 - 3) && $pagen < ceil($pagesCount / 2 + 3)))
+						{
+							$dots = false;
+							?>
+								<li<?php if ($pagen == $page) { echo ' class="active"'; } ?>><a href="/topic/<?php echo $topicid; ?>/<?php echo $p; ?>/"><?php echo $p; ?></a></li>
+							<?php
+						}
+						else
+						{
+							if (!$dots)
+							{
+								$dots = true;
+								?>
+									<li class="disabled"><a style="border-bottom: none; border-top: none;" href="#" onclick="return false" onmousedown="return false">...</a></li>
+								<?php
+							}
+						}
+					}
+				} else {
+					for ($p = 1; $p <= $pagesCount; ++$p) {
+						$pagen = $p - 1;
+
 						?>
 							<li<?php if ($pagen == $page) { echo ' class="active"'; } ?>><a href="/topic/<?php echo $topicid; ?>/<?php echo $p; ?>/"><?php echo $p; ?></a></li>
 						<?php
-					}
-					else
-					{
-						if (!$dots)
-						{
-							$dots = true;
-							?>
-								<li class="disabled"><a style="border-bottom: none; border-top: none;" href="#" onclick="return false" onmousedown="return false">...</a></li>
-							<?php
-						}
 					}
 				}
 			?>
@@ -180,28 +190,38 @@
 					$poffset2 = 2;
 				}
 
-				for ($p = 1; $p <= $pagesCount; ++$p) {
-					$pagen = $p - 1;
+				if ($pagesCount >= 12) {
+					for ($p = 1; $p <= $pagesCount; ++$p) {
+						$pagen = $p - 1;
 
-					if ($pagen < $poffset1 || 
-						$pagen > $pagesCount - ($poffset2 + 1) || 
-						$pagen > $page - 3 && $pagen < $page + 3 || 
-						(($page < 3 || $page > $pagesCount - 4) && $pagen > ceil($pagesCount / 2 - 3) && $pagen < ceil($pagesCount / 2 + 3)))
-					{
-						$dots = false;
+						if ($pagen < $poffset1 || 
+							$pagen > $pagesCount - ($poffset2 + 1) || 
+							$pagen > $page - 3 && $pagen < $page + 3 || 
+							(($page < 3 || $page > $pagesCount - 4) && $pagen > ceil($pagesCount / 2 - 3) && $pagen < ceil($pagesCount / 2 + 3)))
+						{
+							$dots = false;
+							?>
+								<li<?php if ($pagen == $page) { echo ' class="active"'; } ?>><a href="/topic/<?php echo $topicid; ?>/<?php echo $p; ?>/"><?php echo $p; ?></a></li>
+							<?php
+						}
+						else
+						{
+							if (!$dots)
+							{
+								$dots = true;
+								?>
+									<li class="disabled"><a style="border-bottom: none; border-top: none;" href="#" onclick="return false" onmousedown="return false">...</a></li>
+								<?php
+							}
+						}
+					}
+				} else {
+					for ($p = 1; $p <= $pagesCount; ++$p) {
+						$pagen = $p - 1;
+
 						?>
 							<li<?php if ($pagen == $page) { echo ' class="active"'; } ?>><a href="/topic/<?php echo $topicid; ?>/<?php echo $p; ?>/"><?php echo $p; ?></a></li>
 						<?php
-					}
-					else
-					{
-						if (!$dots)
-						{
-							$dots = true;
-							?>
-								<li class="disabled"><a style="border-bottom: none; border-top: none;" href="#" onclick="return false" onmousedown="return false">...</a></li>
-							<?php
-						}
 					}
 				}
 			?>
