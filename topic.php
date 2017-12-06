@@ -148,22 +148,24 @@
 			</li>
 			<?php
 				$dots = false;
+
+				$poffset1 = 3;
+				$poffset2 = 3;
+
+				if ($page == 4) {
+					$poffset1 = 1;
+				} else if ($page == 5) {
+					$poffset1 = 2;
+				}
+
+				if ($page == $pagesCount - 5) {
+					$poffset2 = 1;
+				} else if ($page == $pagesCount - 6) {
+					$poffset2 = 2;
+				}
+
 				for ($p = 1; $p <= $pagesCount; ++$p) {
 					$pagen = $p - 1;
-					$poffset1 = 3;
-					$poffset2 = 3;
-
-					if ($page == 4) {
-						$poffset1 = 1;
-					} else if ($page == 5) {
-						$poffset1 = 2;
-					}
-
-					if ($page == $pagesCount - 5) {
-						$poffset2 = 1;
-					} else if ($page == $pagesCount - 6) {
-						$poffset2 = 2;
-					}
 
 					if ($pagen < $poffset1 || 
 						$pagen > $pagesCount - ($poffset2 + 1) || 
