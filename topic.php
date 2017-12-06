@@ -30,10 +30,27 @@
 				</a>
 			</li>
 			<?php
+				$dots = false;
 				for ($p = 1; $p <= $pagesCount; ++$p) {
-					?>
-						<li<?php if ($p == $page + 1) { echo ' class="active"'; } ?>><a href="/topic/<?php echo $topicid; ?>/<?php echo $p; ?>/"><?php echo $p; ?></a></li>
-					<?php
+					$pagen = $p - 1;
+
+					if ($pagen < 3 || $pagen > $pagesCount - 3 || $pagen > $page - 3 && $pagen < $page + 3)
+					{
+						$dots = false;
+						?>
+							<li<?php if ($pagen == $page) { echo ' class="active"'; } ?>><a href="/topic/<?php echo $topicid; ?>/<?php echo $p; ?>/"><?php echo $p; ?></a></li>
+						<?php
+					}
+					else
+					{
+						if (!$dots)
+						{
+							$dots = true;
+							?>
+								<li class="disabled"><a style="border: none;" href="#" onclick="return false" onmousedown="return false">...</a></li>
+							<?php
+						}
+					}
 				}
 			?>
 			<li<?php if ($page >= $pagesCount - 1) { echo ' class="disabled"'; } ?>>
