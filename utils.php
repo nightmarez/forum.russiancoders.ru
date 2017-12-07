@@ -916,7 +916,7 @@
 		$query =
 			'SELECT t.`cnt` FROM
 			(
-				SELECT `id`, (@cnt := @cnt + 1) as `cnt` FROM `posts` WHERE `topicid`="' . $topicid . '"
+				SELECT `id`, (@cnt := @cnt + 1) AS `cnt` FROM `posts` WHERE `topicid`="' . $topicid . '" ORDER BY `id`
 			) as t
 			WHERE t.`id` = ' . $id . ';';
 
