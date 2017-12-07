@@ -35,7 +35,7 @@
 									'SELECT `topicid`, `title`, `userid`, `updated`, (SELECT COUNT(*) FROM `posts` WHERE `topicid` = `topics`.`topicid` AND TIME_TO_SEC(TIMEDIFF(NOW(), `created`)) <= 24 * 60 * 60 * 7) AS `count`
 									FROM `topics` 
 									WHERE `sectionid`=:sectionid 
-									ORDER BY `pinned` DESC, `count` >= 30 DESC, `updated` DESC
+									ORDER BY `pinned` DESC, `pinned` + `closed` DESC, `count` >= 30 DESC, `updated` DESC
 									LIMIT 0, 20;';
 
 								$r = $readydb->prepare($query);
