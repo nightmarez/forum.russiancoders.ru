@@ -1247,7 +1247,7 @@
 
 		$query =
 			'UPDATE `users` 
-			 SET `pass`=:pass, `salt`=:salt, `session`=:session 
+			 SET `pass`=:pass, `salt`=:salt, `session`=:session, `state`=0  
 			 WHERE `userid`=:userid;';
 		$req = $db->prepare($query);
 		$req->bindParam(':userid', $userid, PDO::PARAM_STR);
