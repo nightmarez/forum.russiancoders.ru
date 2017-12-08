@@ -149,7 +149,7 @@
 		return $count >= 1;
 	}
 
-	isUserBanned($userid, $readydb = NULL) {
+	function isUserBanned($userid, $readydb = NULL) {
 		if (!validateUserId($userid)) {
 			return false;
 		}
