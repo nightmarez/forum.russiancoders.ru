@@ -149,6 +149,19 @@
 		return $count >= 1;
 	}
 
+	isUserBanned($userid, $readydb = NULL) {
+		if (!validateUserId($userId)) {
+			return false;
+		}
+
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+		$query = 'SELECT * FROM `users` WHERE `userid`=:userid AND `state`=0 LIMIT 0, 1;';
+		$req->bindParam(':userid', $userId);
+		$req->execute();
+		$count = $req->fetchColumn();
+		return $count >= 1;
+	}
+
 	function getRewards($userid, $readydb = NULL) {
 		$db = is_null($readydb) ? new PdoDb() : $readydb;
 
