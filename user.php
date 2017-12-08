@@ -375,7 +375,7 @@
 									<?php
 										if (isAdmin($readydb)) {
 											?>
-												<form method="GET" action="/setban/<?php echo $userid; ?>/" style="float: left;">
+												<form method="GET" action="/setban/<?php echo $userid; ?>/" style="float: left; margin-left: 10px;">
 													<input type="submit" class="btn btn-danger" value="Забанить пользователя">
 												</form>
 											<?php
