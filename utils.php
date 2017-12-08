@@ -1184,8 +1184,8 @@
 			LIMIT 0, 1;';
 
 		$req = $db->prepare($query);
-		$req->bindParam(':session', $session);
-		$req->bindParam(':userid', $userid);
+		$req->bindParam(':session', $session, PDO::PARAM_STR);
+		$req->bindParam(':userid', $userid, PDO::PARAM_STR);
 		$req->execute();
 		$count = $req->fetchColumn();
 		return $count >= 1;
@@ -1212,15 +1212,41 @@
 
 		$query =
 			'SELECT * FROM `users` 
-			WHERE `session`=:session AND `userid`=:userid AND `state`=2 
-			LIMIT 0, 1;';
+			 WHERE `session`=:session AND `userid`=:userid AND `state`=2 
+			 LIMIT 0, 1;';
 
 		$req = $db->prepare($query);
-		$req->bindParam(':session', $session);
-		$req->bindParam(':userid', $userid);
+		$req->bindParam(':session', $session, PDO::PARAM_STR);
+		$req->bindParam(':userid', $userid, PDO::PARAM_STR);
 		$req->execute();
 		$count = $req->fetchColumn();
 		return $count >= 1;
+	}
+
+	function setBan($userid, $readydb = NULL) {
+		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $userid)) {
+			return false;
+		}
+
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		$query =
+			'UPDATE `users` 
+			 SET `pass`=:pass, `salt`=:salt, `session`=:session 
+			 WHERE `userid`=:userid;';
+		$req = $db->prepare($query);
+		$req->bindParam(':userid', $userid, PDO::PARAM_STR);
+		$req->bindParam(':pass', generateSymbols(20), PDO::PARAM_STR);
+		$req->bindParam(':salt', generateSalt(), PDO::PARAM_STR);
+		$req->bindParam(':session', generateSession(), PDO::PARAM_STR);
+		$req->execute();
+
+		$query = 
+			'INSERT INTO `rewards` (`userid`, `reward`) 
+			 VALUES (:userid, "banned");';
+		$req = $db->prepare($query);
+		$req->bindParam(':userid', $userid, PDO::PARAM_STR);
+		$req->execute();
 	}
 
 	function filterMessage($text, $userid) {

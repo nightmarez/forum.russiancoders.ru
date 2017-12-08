@@ -352,7 +352,7 @@
 										<input type="submit" class="btn btn-primary" value="Написать сообщение">
 									</form>
 									<?php
-										if (isLogin()) {
+										if (isLogin($readydb)) {
 											$yourid = htmlspecialchars($_COOKIE['userid']);
 
 											if ($yourid !== $userid) {
@@ -370,6 +370,15 @@
 													<?php
 												}
 											}
+										}
+									?>
+									<?php
+										if (isAdmin($readydb)) {
+											?>
+												<form method="GET" action="/setban/<?php echo $userid; ?>/" style="float: left;">
+													<input type="submit" class="btn btn-danger" value="Забанить пользователя">
+												</form>
+											<?php
 										}
 									?>
 								</td>
