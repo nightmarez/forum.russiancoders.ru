@@ -96,8 +96,12 @@
 
 <div class="panel panel-primary" style="margin: 20px;">
 	<div class="panel-heading">
-		<h3 class="panel-title">
-			<?php
+		<?php
+			$sectionid = getSectionIdByTopicId($topicid, $readydb);
+			$sectiontitle = getSectionTitleById($sectionid, $readydb);
+		?>
+		<div class="panel-title">
+			<a href="/">Форум</a> → <a href="/section/<?php echo $sectionid; ?>/"><?php echo $sectiontitle; ?></a> → <?php
 				$query = 'SELECT `title` FROM `topics` WHERE `topicid`=:topicid LIMIT 0, 1;';
 
 				$req = $readydb->prepare($query);
@@ -109,7 +113,7 @@
 					break;
 				}
 			?>
-		</h3>
+		</div>
 	</div>
 
 	<div class="panel-body">
