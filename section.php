@@ -15,12 +15,12 @@
 
 <div class="panel panel-primary" style="margin: 20px;">
 	<div class="panel-heading">
-		<h3 class="panel-title"><?php
+		<div class="panel-title"><a href="/">Форум</a> → <?php
 			$query =
 				'SELECT `title` 
-				FROM `sections` 
-				WHERE `sectionid`=:sectionid 
-				LIMIT 0, 1;';
+				  FROM `sections` 
+				  WHERE `sectionid`=:sectionid 
+				  LIMIT 0, 1;';
 
 			$req = $readydb->prepare($query);
 			$req->bindParam(':sectionid', $sectionid);
@@ -30,7 +30,7 @@
 				echo htmlspecialchars($title);
 				break;
 			}
-		?></h3>
+		?></div>
 	</div>
 
 	<div class="panel-body">
@@ -47,9 +47,9 @@
 						<?php
 							$query =
 								'SELECT `title` 
-								FROM `sections` 
-								WHERE `sectionid`=:sectionid 
-								LIMIT 0, 1;';
+								 FROM `sections` 
+								 WHERE `sectionid`=:sectionid 
+								 LIMIT 0, 1;';
 
 							$req = $readydb->prepare($query);
 							$req->bindParam(':sectionid', $sectionid);
@@ -75,9 +75,9 @@
 													<?php
 														$query =
 															'SELECT `topicid`, `title`, `userid`, `updated`, (SELECT COUNT(*) FROM `posts` WHERE `topicid` = `topics`.`topicid` AND TIME_TO_SEC(TIMEDIFF(NOW(), `created`)) <= 24 * 60 * 60 * 7) AS `count`
-															FROM `topics` 
-															WHERE `sectionid`=:sectionid 
-															ORDER BY `pinned` DESC, `count` >= 30 DESC, `updated` DESC;';
+															 FROM `topics` 
+															 WHERE `sectionid`=:sectionid 
+															 ORDER BY `pinned` DESC, `count` >= 30 DESC, `updated` DESC;';
 
 														$r = $readydb->prepare($query);
 														$r->bindParam(':sectionid', $sectionid);
