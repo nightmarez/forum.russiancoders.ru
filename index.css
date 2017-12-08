@@ -1,26 +1,8 @@
-a {
-	filter: contrast(4) brightness(0.5);
-}
-
-h3 > a {
-	filter: none;
-}
-
-td > a {
-	filter: none;
-	margin: 0 5px 0 5px;
-}
-
-nav a {
-	filter: none;
-}
-
-div > a {
-	filter: none;
-}
+/*a {
+ 	filter: contrast(4) brightness(0.5);
+}*/
 
 footer > a {
-	filter: none;
 	float: left;
 	margin-left: 20px;
 }
