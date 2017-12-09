@@ -27,11 +27,11 @@
 					<div class="panel panel-info">
 						<div class="panel-heading">
 							<div class="row">
-								<div class="col-md-4">
+								<div class="col-md-3">
 									<img src="<?php echo getGravatarLink($userid, 25, $readydb); ?>" alt="<?php echo $login; ?>" style="float: left; margin-right: 10px; margin-top: -2px;">
 									<a href="/user/<?php echo htmlspecialchars($userid); ?>/" style="float: left;" title="Пользователь <?php echo $login; ?>" rel="author"><?php echo $login; ?></a>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-7">
 									<?php
 										$topicTitle = getTopicTitleById($topicid, $readydb);
 										$sectionid = getSectionIdByTopicId($topicid, $readydb);
