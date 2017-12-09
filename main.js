@@ -132,7 +132,7 @@
 		var date = new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 30);
 		_.each(names, function(name) {
 			if (!_.isNull(localStorage.getItem(name))) {
-				document.cookie = 'name=' + localStorage.getItem(name) + '; path=/; expires=' + date.toUTCString();
+				document.cookie = name + '=' + localStorage.getItem(name) + '; path=/; expires=' + date.toUTCString();
 			}
 		});
 	});

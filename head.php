@@ -87,9 +87,9 @@ a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,c
 		<script src="https://cdn.russiancoders.ru/jquery-3.1.1.min.js" crossorigin="anonymous" defer></script>
 		<script src="https://cdn.russiancoders.ru/bootstrap-3.3.7.min.js" crossorigin="anonymous" defer></script>
 		<script src="https://cdn.russiancoders.ru/underscore-1.8.3.min.js" crossorigin="anonymous" defer></script>
-		<link rel="stylesheet" href="/index.css?ver=156">
+		<link rel="stylesheet" href="/index.css?ver=157">
 		<link rel="shortcut icon" href="/favicon.ico">
-		<script src="/main.js?ver=156" defer></script>
+		<script src="/main.js?ver=157" defer></script>
 		<?php
 			$requestUri = filterDengerousString($_SERVER['REQUEST_URI']);
 

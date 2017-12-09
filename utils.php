@@ -730,12 +730,12 @@
 
 	function logout() {
 		unsetUserCookies();
-		header('Location: /');
+		header('Location: /unset.php');
 	}
 
 	function fullLogout() {
 		$session = $_COOKIE['session'];
-		setUserCookies();
+		unsetUserCookies();
 
 		if (!preg_match('/^\{?[0-9a-zA-Z]{40}\}?$/', $session)) {
 			die();
@@ -743,12 +743,13 @@
 
 		$db = new PdoDb();
 
-		$query =
-			'UPDATE `users` SET `session`="none" WHERE `session`=:session;';
+		$query = 'UPDATE `users` 
+		          SET `session`="none" 
+		          WHERE `session`=:session;';
 
 		$req->bindParam(':session', $session, PDO::PARAM_STR);
 		$req->execute();
-		header('Location: /');
+		header('Location: /unset.php');
 	}
 
 	function updateUserOnline($readydb = NULL) {
