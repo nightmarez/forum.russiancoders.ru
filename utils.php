@@ -741,6 +741,8 @@
 			die();
 		}
 
+		echo $session;
+
 		$db = new PdoDb();
 
 		$query = 'UPDATE `users` 
