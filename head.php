@@ -87,6 +87,8 @@
 		<link rel="dns-prefetch" href="//cdn.russiancoders.ru/">
 		<link rel="dns-prefetch" href="//static.doubleclick.net/">
 
+		<link rel="preconnect" href="//cdn.russiancoders.ru/">
+
 		<!--
 		<link rel="preconnect" href="//gdpanel.nightmarez.net/">
 		-->
