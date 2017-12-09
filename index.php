@@ -4,8 +4,8 @@
 	<?php
 		$query =
 			'SELECT `sectionid`, `title` 
-			FROM `sections` 
-			ORDER BY `id`;';
+			 FROM `sections` 
+			 ORDER BY `id`;';
 
 		$req = $readydb->prepare($query);
 		$req->execute();

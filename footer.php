@@ -16,6 +16,7 @@ style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика" tit
 				<p>Hosted at <a href="https://www.jino.ru/?pl=14468430">jino.ru</a></p>
 			</div>
 		</footer>
+    </div>
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript" >
     (function (d, w, c) {

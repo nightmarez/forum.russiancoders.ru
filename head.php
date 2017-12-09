@@ -113,6 +113,7 @@ a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,c
 		?>
 	</head>
 	<body>
+		<div class="container">
 		<?php
 			echo "<!--\r\n";
 			echo '====================================================' . "\r\n";
