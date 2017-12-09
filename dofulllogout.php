@@ -1,4 +1,4 @@
 <?php
 	require_once('utils.php');
-	fullLogout();
+	fullLogout($readydb);
 ?>

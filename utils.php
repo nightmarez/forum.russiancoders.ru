@@ -733,7 +733,7 @@
 		header('Location: /unset.php');
 	}
 
-	function fullLogout() {
+	function fullLogout($readydb = NULL) {
 		$session = $_COOKIE['session'];
 		unsetUserCookies();
 
@@ -741,9 +741,7 @@
 			die();
 		}
 
-		echo $session;
-
-		$db = new PdoDb();
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
 
 		$query = 'UPDATE `users` 
 		          SET `session`=:newsession 
@@ -751,6 +749,7 @@
 
 		$newsession = generateSession();
 
+		$req = $db->prepare($query);
 		$req->bindParam(':session', $session, PDO::PARAM_STR);
 		$req->bindParam(':newsession', $newsession, PDO::PARAM_STR);
 		$req->execute();
