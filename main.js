@@ -117,22 +117,14 @@
 		// save cookies to localStorage
 		var cookies = _.map(document.cookie.split(';'), function(cookie) { return cookie.trim().split('='); });
 		var names = ['userid', 'session'];
-		var errors = 0;
 
 		_.each(names, function(name) {
-			var setdone = false;
-
 			if (_.isNull(localStorage.getItem(name))) {
 				_.each(cookies, function(kvp) {
 					if (kvp[0] == name) {
 						localStorage.setItem(name, kvp[1]);
-						setdone = true;
 					}
 				});
-			}
-
-			if (!setdone) {
-				++errors;
 			}
 		});
 
@@ -142,11 +134,6 @@
 				document.cookie = 'name=' + localStorage.getItem(name);
 			}
 		});
-
-		// reload page if needed
-		if (errors) {
-			document.location.reload(true);
-		}
 	});
 
 	$(document).ready(function() {
