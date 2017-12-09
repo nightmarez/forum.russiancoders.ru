@@ -744,10 +744,13 @@
 		$db = new PdoDb();
 
 		$query = 'UPDATE `users` 
-		          SET `session`="none" 
+		          SET `session`=:newsession 
 		          WHERE `session`=:session;';
 
+		$newsession = generateSession();
+
 		$req->bindParam(':session', $session, PDO::PARAM_STR);
+		$req->bindParam(':newsession', $newsession, PDO::PARAM_STR);
 		$req->execute();
 		header('Location: /unset.php');
 	}
