@@ -243,7 +243,7 @@
 
 				if (img.attr('src').indexOf('gravatar') !== -1) {
 					var a = $(img.parent().find('a')[0]);
-					img.css('left', (a.position().left - 22) + 'px');
+					img.css('left', (a.position().left + a.width() - 45) + 'px');
 				}
 			});
 		}
