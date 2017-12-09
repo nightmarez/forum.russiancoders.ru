@@ -12,7 +12,7 @@
 
 		while (list($sectionid, $title) = $req->fetch(PDO::FETCH_NUM)) {
 	?>
-		<div class="panel panel-primary" style="margin: 20px;">
+		<div class="panel panel-primary" style="margin: 20px 0 20px 0;">
 			<div class="panel-heading">
 				<h3 class="panel-title"><a href="/section/<?php echo htmlspecialchars($sectionid); ?>/"><?php echo htmlspecialchars($title); ?></a></h3>
 			</div>
