@@ -114,27 +114,51 @@
 			window.open('/uploader/');
 		});
 
-		// save cookies to localStorage
-		var cookies = _.map(document.cookie.split(';'), function(cookie) { return cookie.trim().split('='); });
-		var names = ['userid', 'session'];
+		if (location.href.indexOf('/unset') === -1) {
+			// save cookies to localStorage
+			var cookies = _.map(document.cookie.split(';'), function(cookie) { return cookie.trim().split('='); });
+			var names = ['userid', 'session'];
 
-		_.each(names, function(name) {
-			if (_.isNull(localStorage.getItem(name))) {
-				_.each(cookies, function(kvp) {
-					if (kvp[0] == name) {
-						localStorage.setItem(name, kvp[1]);
-					}
-				});
-			}
-		});
+			_.each(names, function(name) {
+				if (_.isNull(localStorage.getItem(name))) {
+					_.each(cookies, function(kvp) {
+						if (kvp[0] == name) {
+							localStorage.setItem(name, kvp[1]);
+						}
+					});
+				}
+			});
 
-		// restore cookies from localStorage
-		var date = new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 30);
-		_.each(names, function(name) {
-			if (!_.isNull(localStorage.getItem(name))) {
-				document.cookie = name + '=' + localStorage.getItem(name) + '; path=/; expires=' + date.toUTCString();
-			}
-		});
+			// restore cookies from localStorage
+			var date = new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 30);
+			_.each(names, function(name) {
+				if (!_.isNull(localStorage.getItem(name))) {
+					document.cookie = name + '=' + localStorage.getItem(name) + '; path=/; expires=' + date.toUTCString();
+				}
+			});
+		}
+	});
+
+	$(document).ready(function() {
+		if (location.href.indexOf('/unset') !== -1) {
+			var names = ['userid', 'session'];
+
+			// remove data from localstorage
+			_.each(names, function(name) {
+				if (!_.isNull(localStorage.getItem(name))) {
+					localStorage.removeItem(name);
+				}
+			});
+
+			// remove data from cookies
+			var date = new Date(0);
+			_.each(names, function(name) {
+				document.cookie = name + '=; path=/; expires=' + date.toUTCString();
+			});
+
+			// redirect
+			location.href = '/';
+		}
 	});
 
 	$(document).ready(function() {

@@ -1,26 +1,14 @@
 <?php include_once('head.php'); ?>
 <?php include_once('nav.php'); ?>
 
-<script>
-	//$(document).ready(function() {
-		var names = ['userid', 'session'];
+<div class="panel panel-primary" style="margin: 20px;">
+	<div class="panel-heading">
+		<h3 class="panel-title">Выход</h3>
+	</div>
 
-		// remove data from localstorage
-		_.each(names, function(name) {
-			if (!_.isNull(localStorage.getItem(name))) {
-				localStorage.removeItem(name);
-			}
-		});
-
-		// remove data from cookies
-		var date = new Date(0);
-		_.each(names, function(name) {
-			document.cookie = name + '=; path=/; expires=' + date.toUTCString();
-		});
-
-		// redirect
-		location.href = '/';
-	//});
-</script>
+	<div class="panel-body">
+		Подождите, завершается выход...
+	</div>
+</div>
 
 <?php include_once('footer.php'); ?>
