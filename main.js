@@ -1,14 +1,8 @@
 ;(function(document) {
 	var uuidv4 = function() {
-		var timeStampInMs =
-			window.performance &&
-			window.performance.now &&
-			window.performance.timing &&
-			window.performance.timing.navigationStart ? window.performance.now() + window.performance.timing.navigationStart : Date.now();
-
 		return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
 			var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-			return v.toString(16) + '-' + timeStampInMs;
+			return v.toString(16);
 		});
 	};
 
