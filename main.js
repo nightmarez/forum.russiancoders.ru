@@ -141,7 +141,7 @@
 			if (!_.isNull(localStorage.getItem(name))) {
 				document.cookie = 'name=' + localStorage.getItem(name);
 			}
-		}
+		});
 
 		// reload page if needed
 		if (errors) {
