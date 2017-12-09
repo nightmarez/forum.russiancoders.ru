@@ -13,7 +13,7 @@
 	}
 ?>
 
-<div class="panel panel-primary" style="margin: 20px;">
+<div class="panel panel-primary" style="margin: 20px 0 20px 0;">
 	<div class="panel-heading">
 		<h3 class="panel-title">Выставленные оценки пользователем <?php echo htmlspecialchars(getUserLoginById($userid, $readydb)); ?></h3>
 	</div>

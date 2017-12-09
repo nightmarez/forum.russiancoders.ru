@@ -4,11 +4,9 @@
 
 footer > a {
 	float: left;
-	margin-left: 20px;
 }
 
 .footer-inner {
-	margin-right: 20px;
 	text-align: right;
 }
 

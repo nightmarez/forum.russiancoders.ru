@@ -4,7 +4,7 @@
 
 <script src='https://www.google.com/recaptcha/api.js'></script>
 
-<div class="panel panel-primary" style="margin: 20px;">
+<div class="panel panel-primary" style="margin: 20px 0 20px 0;">
 	<div class="panel-heading">
 		<h3 class="panel-title">Создание темы</h3>
 	</div>

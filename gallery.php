@@ -1,7 +1,7 @@
 <?php include_once('head.php'); ?>
 <?php include_once('nav.php'); ?>
 
-<div class="panel panel-primary" style="margin: 20px;">
+<div class="panel panel-primary" style="margin: 20px 0 20px 0;">
 	<div class="panel-heading">
 		<h3 class="panel-title">
 			Галерея
