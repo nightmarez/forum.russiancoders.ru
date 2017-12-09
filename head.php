@@ -109,9 +109,9 @@ a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,c
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous" defer></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js" integrity="sha256-obZACiHd7gkOk9iIL/pimWMTJ4W/pBsKu+oZnSeBIek=" crossorigin="anonymous" defer></script>
 
-		<link rel="stylesheet" href="/index.css?ver=161">
+		<link rel="stylesheet" href="/index.css?ver=164">
 		<link rel="shortcut icon" href="/favicon.ico">
-		<script src="/main.js?ver=161" defer></script>
+		<script src="/main.js?ver=164" defer></script>
 		<?php
 			$requestUri = filterDengerousString($_SERVER['REQUEST_URI']);
 

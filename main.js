@@ -237,6 +237,15 @@
 				form.attr('action', '/preview/');
 				form.submit();
 			});
+
+			$('img').each(function(idx, img) {
+				img = $(img);
+
+				if (img.attr('src').indexOf('gravatar') !== -1) {
+					var a = $(img.parent().find('a')[0]);
+					img.css('left', (a.position().left - 22) + 'px');
+				}
+			});
 		}
 	});
 
