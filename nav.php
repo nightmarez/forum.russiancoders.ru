@@ -25,20 +25,22 @@
 				<li><a href="/register/">Регистрация</a></li>
 			<?php } ?>
 
-			<li style="float: right;">
-				<div id="custom-search-input" style="max-width: 150px; margin-top: 7px;">
-					<div class="input-group col-md-12" style="max-height: 35px; padding-top: 1px;">
-						<form method="POST" action="/search/">
-							<input type="text" class="form-control input-lg" name="search" placeholder="Поиск" style="width: 150px; height: 35px; font-size: 14px;" />
-						</form>
-						<span class="input-group-btn">
-							<button class="btn btn-info btn-lg" type="button" id="btn-search" style="height: 35px; padding-top: 6px;">
-								<i class="glyphicon glyphicon-search"></i>
-							</button>
-						</span>
+			<?php if (isLogin()) { ?>
+				<li style="float: right;">
+					<div id="custom-search-input" style="max-width: 150px; margin-top: 7px;">
+						<div class="input-group col-md-12" style="max-height: 35px; padding-top: 1px;">
+							<form method="POST" action="/search/">
+								<input type="text" class="form-control input-lg" name="search" placeholder="Поиск" style="width: 150px; height: 35px; font-size: 14px;" />
+							</form>
+							<span class="input-group-btn">
+								<button class="btn btn-info btn-lg" type="button" id="btn-search" style="height: 35px; padding-top: 6px;">
+									<i class="glyphicon glyphicon-search"></i>
+								</button>
+							</span>
+						</div>
 					</div>
-				</div>
-			</li>
+				</li>
+			<?php } ?>
 		</ul>
 	</div>
 </nav>
