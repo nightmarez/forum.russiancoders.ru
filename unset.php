@@ -2,7 +2,7 @@
 <?php include_once('nav.php'); ?>
 
 <script>
-	$(document).ready(function() {
+	//$(document).ready(function() {
 		var names = ['userid', 'session'];
 
 		// remove data from localstorage
@@ -20,7 +20,7 @@
 
 		// redirect
 		location.href = '/';
-	});
+	//});
 </script>
 
 <?php include_once('footer.php'); ?>
