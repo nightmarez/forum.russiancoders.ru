@@ -1697,7 +1697,9 @@
 			return false;
 		}
 
-		$query = 'SELECT COUNT(*) FROM `posts` WHERE `topicid` = :topicid AND TIME_TO_SEC(TIMEDIFF(NOW(), `created`)) <= 24 * 60 * 60 * 7;';
+		$query = 'SELECT COUNT(*) 
+		          FROM `posts` 
+		          WHERE `topicid` = :topicid AND TIME_TO_SEC(TIMEDIFF(NOW(), `created`)) <= 24 * 60 * 60 * 7;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':topicid', $topicid);
@@ -1719,10 +1721,12 @@
 			return false;
 		}
 
-		$query = 'SELECT COUNT(*) FROM `topics` WHERE `topicid`=:topicid AND `pinned`=1;';
+		$query = 'SELECT COUNT(*) 
+		          FROM `topics` 
+		          WHERE `topicid`=:topicid AND `pinned`=1;';
 
 		$req = $db->prepare($query);
-		$req->bindParam(':topicid', $topicid);
+		$req->bindParam(':topicid', $topicid, PDO::PARAM_STR);
 		$req->execute();
 
 		$count = $req->fetchColumn();
@@ -1737,12 +1741,12 @@
 		}
 
 		$query = 
-			'SELECT `state`, (now() - `last`) AS `online`
-			FROM `users`
-			WHERE `userid`=:userid;';
+			'SELECT `state`, (now() - `last`) AS `online` 
+			 FROM `users` 
+			 WHERE `userid`=:userid;';
 
 		$req = $db->prepare($query);
-		$req->bindParam(':userid', $userid);
+		$req->bindParam(':userid', $userid, PDO::PARAM_STR);
 		$req->execute();
 
 		while (list($state, $online) = $req->fetch(PDO::FETCH_NUM)) {
@@ -1750,7 +1754,7 @@
 				return 0;
 			}
 
-			if ($online <= 80) {
+			if (intval($online <= 80 /* seconds */)) {
 				return 1;
 			}
 			
