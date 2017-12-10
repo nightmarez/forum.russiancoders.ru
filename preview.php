@@ -58,7 +58,7 @@
 </div>
 
 <?php if (isLogin() && !isTopicClosed($topicid, $readydb)) { ?>
-	<div class="panel panel-primary" style="margin: 20px;">
+	<div class="panel panel-primary" style="margin: 20px 0 20px 0;">
 		<div class="panel-heading">
 			<h3 class="panel-title">Сообщение</h3>
 		</div>

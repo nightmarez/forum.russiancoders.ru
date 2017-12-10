@@ -204,6 +204,9 @@ table.tracker-posts td:nth-child(4) {
 #img-upload{
     width: 540px;
     height: 540px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 .online-indicator {

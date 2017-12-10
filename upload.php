@@ -101,7 +101,12 @@
 								tryAddPhotographerReward($userid, $readydb);
 							}
 
-							echo '<br>Файл успешно загружен.<br>Для вставки в сообщение, используйте код:&nbsp;   [img=' . $fileid . ']';
+							echo '<br>' . "\r\n";
+							echo 'Файл успешно загружен.' . "\r\n";
+							echo '<br>' . "\r\n";
+							echo 'Для вставки в сообщение, используйте код:' . "\r\n";
+							echo '<br>' . "\r\n";
+							echo '<input type="text" value="[img=' . $fileid . ']">' . "\r\n";
 						}
 
 						unlink($target_file);

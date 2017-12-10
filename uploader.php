@@ -63,7 +63,7 @@
 												</span>
 											</div>
 										</form>
-										<img id='img-upload'/>
+										<div id='img-upload'></div>
 									</div>
 								</td>
 							</tr>

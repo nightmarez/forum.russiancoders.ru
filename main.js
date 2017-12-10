@@ -294,7 +294,7 @@
 					var reader = new FileReader();
 					
 					reader.onload = function (e) {
-						$('#img-upload').attr('src', e.target.result);
+						$('#img-upload').css('background-image', 'url("' + e.target.result + '")');
 					};
 					
 					reader.readAsDataURL(input.files[0]);
