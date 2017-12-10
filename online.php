@@ -20,10 +20,10 @@
 				</thead>
 				<tbody>
 					<?php
-						$query =
+						$query = 
 							'SELECT `userid`, `login`, `last`, (now() - `last`) AS `online`, MD5(LOWER(TRIM(`mail`))), `state` 
-							FROM `users` WHERE TIME_TO_SEC(TIMEDIFF(NOW(), `last`)) <= 24 * 60 * 60 
-							ORDER BY `last` DESC LIMIT 0, 100;';
+							 FROM `users` WHERE TIME_TO_SEC(TIMEDIFF(NOW(), `last`)) <= 24 * 60 * 60 
+							 ORDER BY `last` DESC LIMIT 0, 100;';
 
 						$req = $readydb->prepare($query);
 						$req->execute();

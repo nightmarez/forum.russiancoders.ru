@@ -1743,7 +1743,7 @@
 		$query = 
 			'SELECT `state`, (now() - `last`) AS `online` 
 			 FROM `users` 
-			 WHERE `userid`=:userid;';
+			 WHERE TIME_TO_SEC(TIMEDIFF(NOW(), `last`)) <= 24 * 60 * 60 AND `userid`=:userid;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':userid', $userid, PDO::PARAM_STR);
