@@ -140,10 +140,10 @@ a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,c
 			echo "<!--\r\n";
 			echo '====================================================' . "\r\n";
 			echo "debug info\r\n";
-			echo '$_SERVER[\'REQUEST_URI\']: ' . filterDengerousString($_SERVER['REQUEST_URI']) . "\r\n";
-			echo '$_SERVER[\'REMOTE_ADDR\']: ' . filterDengerousString($_SERVER['REMOTE_ADDR']) . "\r\n";
-			echo '$_SERVER[\'HTTP_REFERER\']: ' . filterDengerousString($_SERVER['HTTP_REFERER']) . "\r\n";
-			echo '$_SERVER[\'HTTP_USER_AGENT\']: ' . filterDengerousString($_SERVER['HTTP_USER_AGENT']) . "\r\n";
+			echo '$_SERVER[\'REQUEST_URI\']: ' . (isset($_SERVER['REQUEST_URI']) ? filterDengerousString($_SERVER['REQUEST_URI']) : 'undefined') . "\r\n"; 
+			echo '$_SERVER[\'REMOTE_ADDR\']: ' . (isset($_SERVER['REMOTE_ADDR']) ? filterDengerousString($_SERVER['REMOTE_ADDR']) : 'undefined')  . "\r\n";
+			echo '$_SERVER[\'HTTP_REFERER\']: ' . (isset($_SERVER['HTTP_REFERER']) ? filterDengerousString($_SERVER['HTTP_REFERER']) : 'undefined')  . "\r\n";
+			echo '$_SERVER[\'HTTP_USER_AGENT\']: ' . (isset($_SERVER['HTTP_USER_AGENT']) ? filterDengerousString($_SERVER['HTTP_USER_AGENT']) : 'undefined')  . "\r\n";
 			echo '====================================================' . "\r\n";
 			echo "-->\r\n";
 		?>
