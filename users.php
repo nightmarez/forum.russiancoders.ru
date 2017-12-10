@@ -32,7 +32,7 @@
 
 							?>
 								<tr>
-									<td><img style="margin-right: 15px;" src="<?php echo getGravatarLink($userid, 25, $readydb); ?>" align="left"><?php if (isUserOnline($userid, $readydb)) { echo '<div class="online-indicator"></div>'; } ?></td>
+									<td><img style="margin-right: 15px;" src="<?php echo getGravatarLink($userid, 25, $readydb); ?>" align="left"><?php if (isUserOnline($userid, $readydb) == 1) { echo '<div class="online-indicator"></div>'; } ?></td>
 									<td><a href="/user/<?php echo htmlspecialchars($userid); ?>/"><?php echo $login; ?></a><?php if (isUserBanned($userid, $readydb)) { ?> <span style="color: black;">(</span><span style="color: maroon;">banned</span><span style="color: black;">)</span><?php } ?></td>
 									<td><?php echo getUserFirstVisit($userid, $readydb); ?></td>
 									<td><?php echo getUserLastVisit($userid, $readydb); ?></td>
