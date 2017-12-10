@@ -142,7 +142,7 @@
 							<div class="row">
 								<div class="col-md-9">
 									<a href="/topic/<?php echo $topicid; ?>/<?php echo ($page + 1); ?>/#<?php echo $postnumber; ?>" style="float: left; margin-right: 10px;">#<?php echo $postnumber; ?></a>
-									<img src="<?php echo getGravatarLink($userid, 50, $readydb); ?>" alt="<?php echo $login; ?>" style="border-radius: 50%; border: 2px solid silver; padding: 2px; position: absolute; width: 50px; height: 50px; min-width: 50px; min-height: 50px; background-color: white; top: -16px; left: <?php if ($postnumber < 10) { echo '-14.4'; } else if ($postnumber < 100) { echo '-6.64'; } else if ($postnumber < 1000) { echo '1.15'; } else { echo '8'; } ?>px; margin-left: 50px;">
+									<img src="<?php echo getGravatarLink($userid, 50, $readydb); ?>" alt="<?php echo $login; ?>" style="border-radius: 50%; border: 2px solid <?php if (isUserOnline($userid, $readydb)) { echo 'lime'; } else { echo 'silver'; } ?>; padding: 2px; position: absolute; width: 50px; height: 50px; min-width: 50px; min-height: 50px; background-color: white; top: -16px; left: <?php if ($postnumber < 10) { echo '-14.4'; } else if ($postnumber < 100) { echo '-6.64'; } else if ($postnumber < 1000) { echo '1.15'; } else { echo '8'; } ?>px; margin-left: 50px;">
 									<a href="/user/<?php echo htmlspecialchars($userid); ?>/" style="float: left; margin-right: 10px; margin-left: 50px;" title="Пользователь <?php echo $login; ?>" rel="author"><?php echo $login; ?></a>
 								</div>
 								<div class="col-md-2" style="text-align: right;"><?php echo $created; ?></div>
