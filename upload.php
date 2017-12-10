@@ -72,7 +72,7 @@
 				// if everything is ok, try to upload file
 				} else {
 					if (move_uploaded_file($_FILES["imgInp"]["tmp_name"], $target_file)) {
-						echo "The file ". basename($_FILES["imgInp"]["name"]). " has been uploaded.";
+						//echo "The file ". basename($_FILES["imgInp"]["name"]). " has been uploaded.";
 
 						if (!file_exists('/var/www/domains/storage.russiancoders.ru/' . $userid)) {
 							mkdir('/var/www/domains/storage.russiancoders.ru/' . $userid);
@@ -106,7 +106,9 @@
 							echo '<br>' . "\r\n";
 							echo 'Для вставки в сообщение, используйте код:' . "\r\n";
 							echo '<br>' . "\r\n";
-							echo '<input type="text" value="[img=' . $fileid . ']">' . "\r\n";
+							echo '<br>' . "\r\n";
+							echo '<input type="text" value="[img=' . $fileid . ']" style="width: 250px;">' . "\r\n";
+							echo '<br>' . "\r\n";
 						}
 
 						unlink($target_file);
