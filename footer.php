@@ -17,16 +17,23 @@ style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика" tit
 			</div>
 		</footer>
     </div>
+<!-- Yandex.Metrika informer -->
+<a href="https://metrika.yandex.ru/stat/?id=48222068&amp;from=informer"
+target="_blank" rel="nofollow"><img src="https://informer.yandex.ru/informer/48222068/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"
+style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика" title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)" class="ym-advanced-informer" data-cid="48222068" data-lang="ru" /></a>
+<!-- /Yandex.Metrika informer -->
+
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript" >
     (function (d, w, c) {
         (w[c] = w[c] || []).push(function() {
             try {
-                w.yaCounter46607505 = new Ya.Metrika({
-                    id:46607505,
+                w.yaCounter48222068 = new Ya.Metrika({
+                    id:48222068,
                     clickmap:true,
                     trackLinks:true,
-                    accurateTrackBounce:true
+                    accurateTrackBounce:true,
+                    webvisor:true
                 });
             } catch(e) { }
         });
@@ -43,7 +50,7 @@ style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика" tit
         } else { f(); }
     })(document, window, "yandex_metrika_callbacks");
 </script>
-<noscript><div><img src="https://mc.yandex.ru/watch/46607505" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<noscript><div><img src="https://mc.yandex.ru/watch/48222068" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 	</body>
 </html>
