@@ -3,10 +3,10 @@
 
 <div class="panel panel-primary" style="margin: 20px 0 20px 0;">
 	<div class="panel-heading">
-		<h3 class="panel-title">Загрузка изображения</h3>
+		<h3 class="panel-title">Загрузка файла</h3>
 	</div>
 	<script>
-		document.title = 'Загрузка изображения';
+		document.title = 'Загрузка файла';
 	</script>
 
 	<?php
@@ -15,7 +15,7 @@
 		if (isset($_COOKIE['userid'])) {
 			$userid = htmlspecialchars($_COOKIE['userid']);
 
-			if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $userid)) {
+			if (!preg_match('/^\{?[0-9a-zA-Z]{1,30}\}?$/', $userid)) {
 				$userid = false;
 			}
 		}

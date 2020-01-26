@@ -1,0 +1,29 @@
+video {
+	background-color: lightgray;
+	display: block;
+	height: 480px;
+	margin: 10px auto;
+	width: 640px;
+}
+
+canvas {
+	background-color: lightgray;
+	display: block;
+	height: 480px;
+	margin: 10px auto;
+	width: 640px;
+}
+
+#snap {
+	display: block;
+	height: 48px;
+	margin: 10px auto;
+	width: 198px;
+}
+
+#save {
+	display: block;
+	height: 48px;
+	margin: 10px auto;
+	width: 198px;
+}

@@ -19,7 +19,7 @@
 				if (isset($_COOKIE['userid'])) {
 					$userid = htmlspecialchars($_COOKIE['userid']);
 
-					if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $userid)) {
+					if (!preg_match('/^\{?[0-9a-zA-Z]{1,30}\}?$/', $userid)) {
 						$userid = false;
 					}
 				}
@@ -29,9 +29,22 @@
 				}
 
 				$fileid = generateUserId();
+				$uploadOk = 0;
+				$imageFileType = '';
 
-				$target_dir = "uploads/";
-				$target_file = $target_dir . basename($_FILES["imgInp"]["name"]);
+				if (isset($_POST['imgUrl'])) {
+					$target_dir = "uploads/";
+					$img = $_POST['imgUrl'];
+					$img = str_replace('data:image/png;base64,', '', $img);
+					$img = str_replace(' ', '+', $img);
+					$data = base64_decode($img);
+					$target_file = $target_dir . 'upload_img.jpg';
+					file_put_contents($target_file, $data);
+				} else {
+					$target_dir = "uploads/";
+					$target_file = $target_dir . basename($_FILES["imgInp"]["name"]);
+				}
+
 				$uploadOk = 1;
 				$imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
 
@@ -54,15 +67,17 @@
 				}
 
 				// Check file size
-				if ($_FILES["imgInp"]["size"] > 500000) {
+				if ($_FILES["imgInp"]["size"] > 5242880 /* 5 MB */) {
 					echo "Извините, файл имеет слишком большой размер.";
 					$uploadOk = 0;
 				}
 
 				// Allow certain file formats
 				if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" &&
-				   $imageFileType != "JPG" && $imageFileType != "PNG" && $imageFileType != "JPEG" && $imageFileType != "GIF") {
-					echo "Извините, только JPG, JPEG, PNG и GIF файлы разрешены.";
+				   $imageFileType != "JPG" && $imageFileType != "PNG" && $imageFileType != "JPEG" && $imageFileType != "GIF" /*&&
+				   $imageFileType != "mp3" &&
+				   $imageFileType != "MP3"*/) {
+					echo "Извините, только JPG, JPEG, PNG, GIF и MP3 файлы разрешены.";
 					$uploadOk = 0;
 				}
 
@@ -74,17 +89,20 @@
 					if (move_uploaded_file($_FILES["imgInp"]["tmp_name"], $target_file)) {
 						//echo "The file ". basename($_FILES["imgInp"]["name"]). " has been uploaded.";
 
-						if (!file_exists('/var/www/domains/storage.russiancoders.ru/' . $userid)) {
-							mkdir('/var/www/domains/storage.russiancoders.ru/' . $userid);
-							chmod('/var/www/domains/storage.russiancoders.ru/' . $userid, 0777);
+						if (!file_exists('/var/www/russiancoders.club/' . $userid)) {
+							mkdir('/var/www/russiancoders.club/' . $userid);
+							chmod('/var/www/russiancoders.club/' . $userid, 0777);
 						}
 
-						if (copy($target_file, '/var/www/domains/storage.russiancoders.ru/' . $userid . '/' . $fileid . '.' . $imageFileType)) {
+						if (copy($target_file, '/var/www/russiancoders.club/' . $userid . '/' . $fileid . '.' . $imageFileType)) {
 							$image = false;
-							$filename = '/var/www/domains/storage.russiancoders.ru/' . $userid . '/' . $fileid . '.' . $imageFileType;
+							$filename = '/var/www/russiancoders.club/' . $userid . '/' . $fileid . '.' . $imageFileType;
 
-							switch ($imageFileType) {
+							switch (strtolower($imageFileType)) {
 								case 'jpeg':
+									$image = imagecreatefromjpeg($filename);
+									break;
+								case 'jpg':
 									$image = imagecreatefromjpeg($filename);
 									break;
 								case 'gif':
@@ -96,19 +114,30 @@
 							}
 
 							if ($image !== false) {
-								imagejpeg($image, '/var/www/domains/storage.russiancoders.ru/' . $userid . '/' . $fileid . '.jpg');
-								unlink('/var/www/domains/storage.russiancoders.ru/' . $userid . '/' . $fileid . '.' . $imageFileType);
-								tryAddPhotographerReward($userid, $readydb);
-							}
+								$newName = '/var/www/russiancoders.club/' . $userid . '/' . $fileid . '.jpg';
+								$oldName = '/var/www/russiancoders.club/' . $userid . '/' . $fileid . '.' . $imageFileType;
 
-							echo '<br>' . "\r\n";
-							echo 'Файл успешно загружен.' . "\r\n";
-							echo '<br>' . "\r\n";
-							echo 'Для вставки в сообщение, используйте код:' . "\r\n";
-							echo '<br>' . "\r\n";
-							echo '<br>' . "\r\n";
-							echo '<input type="text" value="[img=' . $fileid . ']" style="width: 250px;">' . "\r\n";
-							echo '<br>' . "\r\n";
+								imagejpeg($image, $newName);
+								
+								if ($newName != $oldName) {
+									unlink($oldName);
+								}
+
+								tryAddPhotographerReward($userid, $readydb);
+
+								echo '<br>' . "\r\n";
+								echo 'Файл успешно загружен.' . "\r\n";
+								echo '<br>' . "\r\n";
+								echo 'Для вставки в сообщение, используйте код:' . "\r\n";
+								echo '<br>' . "\r\n";
+								echo '<br>' . "\r\n";
+								echo '<input type="text" value="[img=' . $fileid . ']" style="width: 250px;">' . "\r\n";
+								echo '<br>' . "\r\n";
+							} else {
+								echo 'Не удалось создать объект изображения из файла.';
+							}
+						} else {
+							echo 'Не удалось скопировать файл в хранилище.';
 						}
 
 						unlink($target_file);

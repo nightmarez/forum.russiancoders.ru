@@ -1,4 +1,4 @@
-<?php setlocale(LC_ALL, 'ru_RU.UTF-8'); $start_time = microtime(true); require_once('utils.php'); $readydb = !isset($readydb) ? new PdoDb() : $readydb; ?><!DOCTYPE html>
+<?php setlocale(LC_ALL, 'ru_RU.UTF-8'); $start_time = microtime(true); require_once('utils.php'); $readydb = !isset($readydb) ? new PdoDb() : $readydb; /* if (inBlackList($readydb)) { header('Location: /wrong/'); die(); } */ ?><!DOCTYPE html>
 <html lang="en">
 	<head>
 		<?php
@@ -8,64 +8,7 @@
 				updateUserOnline($readydb);
 			}
 		?>
-		<title>
-			<?php
-				$title = 'RussianCoder\'s Forum';
-
-				// ----------------------------------------------------
-
-				$sectionid = getSectionId($readydb);
-
-				if ($sectionid !== false) {
-					$query =
-						'SELECT `title` 
-						FROM `sections` 
-						WHERE `sectionid`=:sectionid LIMIT 0, 1;';
-
-					$req = $readydb->prepare($query);
-					$req->bindParam(':sectionid', $sectionid);
-					$req->execute();
-
-					while (list($title) = $req->fetch(PDO::FETCH_NUM)) {
-						$title = htmlspecialchars($title);
-						break;
-					}
-				} else {
-					// ----------------------------------------------------
-
-					$topicid = false;
-
-					if (isset($_GET['topicid'])) {
-						$topicid = htmlspecialchars($_GET['topicid']);
-
-						if (!preg_match('/^\{?[0-9a-zA-Z]{1,20}\}?$/', $topicid)) {
-							$topicid = false;
-						}
-					}
-
-					if ($topicid !== false) {
-						$query =
-							'SELECT `title` 
-							FROM `topics` 
-							WHERE `topicid`=:topicid 
-							LIMIT 0, 1;';
-
-						$req = $readydb->prepare($query);
-						$req->bindParam(':topicid', $topicid);
-						$req->execute();
-
-						while (list($title) = $req->fetch(PDO::FETCH_NUM)) {
-							$title = htmlspecialchars($title);
-							break;
-						}
-					}
-				}
-
-				// ----------------------------------------------------
-
-				echo $title;
-			?>
-		</title>
+		<title><?php echo getPageTitle($readydb); ?></title>
 		<meta charset="utf-8">
 		<meta name="description" content="RussianCoder's Forum">
 		<meta property="og:title" content="RussianCoder's Forum">
@@ -74,21 +17,21 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="site-created" content="Михаил Макаров"> 
 		<meta name="author" content="Михаил Макаров">
-		<meta name="address" content="https://forum.russiancoders.ru/">
-		<meta name="yandex-verification" content="5283d249ceae7fde" />
+		<meta name="address" content="https://russiancoders.tech/">
 		<meta name="google-site-verification" content="wVW_y0xstTSBBWTaC3euQ6cde_nH0hWpeFN9-jZHObg" />
 
-		<link rel="canonical" href="https://forum.russiancoders.ru/">
-		<link rel="shortlink" href="https://forum.russiancoders.ru/">
+		<!--
+		<link rel="canonical" href="https://russiancoders.tech/">
+		<link rel="shortlink" href="https://russiancoders.tech/">
+		-->
 
 		<link rel="dns-prefetch" href="//yandex.ru/">
 		<link rel="dns-prefetch" href="//mc.yandex.ru/">
 		<link rel="dns-prefetch" href="//metrika.yandex.ru/">
-		<link rel="dns-prefetch" href="//cdn.russiancoders.ru/">
 		<link rel="dns-prefetch" href="//static.doubleclick.net/">
 
 		<!--
-		<link rel="preconnect" href="//gdpanel.nightmarez.net/">
+		<link rel="preconnect" href="//panel.russiancoders.tech/">
 		-->
 		
 		<style>
@@ -96,11 +39,11 @@ a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,c
 		</style>
 
 		<!--
-		<link rel="stylesheet" href="https://cdn.russiancoders.ru/bootstrap-3.3.7.min.css" crossorigin="anonymous">
-		<link rel="stylesheet" href="https://cdn.russiancoders.ru/bootstrap-theme-3.3.7.min.css" crossorigin="anonymous">
-		<script src="https://cdn.russiancoders.ru/jquery-3.1.1.min.js" crossorigin="anonymous" defer></script>
-		<script src="https://cdn.russiancoders.ru/bootstrap-3.3.7.min.js" crossorigin="anonymous" defer></script>
-		<script src="https://cdn.russiancoders.ru/underscore-1.8.3.min.js" crossorigin="anonymous" defer></script>
+		<link rel="stylesheet" href="https://cdn.russiancoders.tech/bootstrap-3.3.7.min.css" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://cdn.russiancoders.tech/bootstrap-theme-3.3.7.min.css" crossorigin="anonymous">
+		<script src="https://cdn.russiancoders.tech/jquery-3.1.1.min.js" crossorigin="anonymous" defer></script>
+		<script src="https://cdn.russiancoders.tech/bootstrap-3.3.7.min.js" crossorigin="anonymous" defer></script>
+		<script src="https://cdn.russiancoders.tech/underscore-1.8.3.min.js" crossorigin="anonymous" defer></script>
 		-->
 
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -109,9 +52,17 @@ a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,c
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous" defer></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js" integrity="sha256-obZACiHd7gkOk9iIL/pimWMTJ4W/pBsKu+oZnSeBIek=" crossorigin="anonymous" defer></script>
 
-		<link rel="stylesheet" href="/index.css?ver=166">
+		<link rel="stylesheet" href="/index.css?ver=200">
 		<link rel="shortcut icon" href="/favicon.ico">
-		<script src="/main.js?ver=166" defer></script>
+		<script src="/main.js?ver=201" defer></script>
+
+        <link href="/assets/css/font-awesome.css" rel="stylesheet">
+        <style>
+            .fa-google:before {
+                content: "G";
+            }
+        </style>
+        <link rel="stylesheet" href="/bootstrap-social.css">
 		<?php
 			$requestUri = filterDengerousString($_SERVER['REQUEST_URI']);
 
@@ -133,8 +84,59 @@ a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,c
 		<?php
 			}
 		?>
+
+		<?php
+			$requestUri = filterDengerousString($_SERVER['REQUEST_URI']);
+			if ($requestUri == '/crypto/') {
+				?>
+					<script src="/chart.js?ver=1" defer></script>
+					<link href="/chart.css?ver=1" rel="stylesheet">
+				<?php
+			}
+		?>
+
+		<?php
+			$requestUri = filterDengerousString($_SERVER['REQUEST_URI']);
+			if ($requestUri == '/webcam/') {
+				?>
+					<script src="/webcam.js?ver=4" defer></script>
+					<link href="/webcam.css?ver=4" rel="stylesheet">
+				<?php
+			}
+		?>
+
+		<?php
+			if ($authorized) {
+				tryAdd2018Reward($_COOKIE['userid'], $readydb);
+			}
+		?>
+
+		<!--
+		<style>
+			body {
+				background-image: url('https://russiancoders.ru/jYzACIND80rGj0XngB3N/m7EJZgnXQtWVGHsyWJ5O.png');
+				background-repeat: no-repeat;
+				background-position: 20px 20px;
+				overflow-x: hidden;
+			}
+
+			#baron {
+				display: block;
+				position: absolute;
+				float: right;
+				background-image: url('https://russiancoders.ru/jYzACIND80rGj0XngB3N/W7luy9HyZ2c82OmRRMk3.png');
+				background-repeat: no-repeat;
+				width: 800px;
+				height: 828px;
+				right: -170px;
+				top: 0;
+				z-index: -10;
+			}
+		</style>
+		-->
 	</head>
 	<body>
+		<div id="baron"></div>
 		<div class="container">
 		<?php
 			echo "<!--\r\n";

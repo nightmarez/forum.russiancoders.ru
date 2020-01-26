@@ -15,7 +15,7 @@
 		if (isset($_COOKIE['userid'])) {
 			$userid = htmlspecialchars($_COOKIE['userid']);
 
-			if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $userid)) {
+			if (!preg_match('/^\{?[0-9a-zA-Z]{1,30}\}?$/', $userid)) {
 				$userid = false;
 			}
 		}
@@ -34,7 +34,7 @@
 					<?php } else { ?>
 						<?php
 							$query =
-								'SELECT `login`, `last`, MD5(LOWER(TRIM(`mail`))) 
+								'SELECT `login`, `last`, MD5(LOWER(TRIM(`mail`))), `mail` 
 								FROM `users` 
 								WHERE `userid`=:userid 
 								LIMIT 0, 1;';
@@ -43,14 +43,41 @@
 							$req->bindParam(':userid', $userid);
 							$req->execute();
 
-							while (list($login, $last, $mail) = $req->fetch(PDO::FETCH_NUM)) {
+							while (list($login, $last, $mailmd5, $mail) = $req->fetch(PDO::FETCH_NUM)) {
 						?>
 							<tr>
 								<td colspan="2">
-									<img style="margin-right: 15px;" src="<?php echo 'https://secure.gravatar.com/avatar/' . $mail . '.jpg?s=200';?>" align="left">
-									<h3>
-										<?php echo htmlspecialchars($login); ?>
-									</h3>
+									<?php
+										$userAvatar = getAvatar($userid, TRUE);
+
+										if ($userAvatar) {
+											?>
+												<img style="margin-right: 15px;" src="<?php echo $userAvatar; ?>?stamp=<?php echo time(); ?>" align="left">
+											<?php
+										} else {
+											?>
+												<img style="margin-right: 15px;" src="<?php echo 'https://secure.gravatar.com/avatar/' . $mailmd5 . '.jpg?s=200'; ?>" align="left">
+											<?php
+										}
+									?>
+									<h3><?php echo getUserTitleById($userid, $readydb); ?></h3>
+									<form method="POST" action="/upload-avatar.php" enctype="multipart/form-data">
+										<div class="input-group">
+											<label for="imgInp" id="imgInpLbl" style="cursor: pointer; color: blue; text-decoration: underline;">Выбрать новый аватар…</label>
+											<input type="file" id="imgInp" name="imgInp" style="opacity: 0; position: absolute; z-index: -1;">
+											<label for="imgSubmit" id="imgSubmitLbl" style="cursor: pointer; color: blue; text-decoration: underline; display: none;">Загрузить на сервер…</label>
+											<input type="submit" id="imgSubmit" style="opacity: 0; position: absolute; z-index: -1;">
+										</div>
+									</form>
+									<script>
+										document.addEventListener('DOMContentLoaded', function() {
+											document.getElementById('imgInp').addEventListener("change", function() {
+												document.getElementById('imgInpLbl').style.display = 'none';
+												document.getElementById('imgSubmitLbl').style.display = 'block';
+												document.getElementById('imgSubmitLbl').click();
+											});
+										});
+									</script>
 								</td>
 							</tr>
 							<tr>
@@ -70,7 +97,13 @@
 										$topics = getSelfTopicsWithNewMessage($userid);
 
 										if ($topics !== false) {
+											$tpcscount = 11;
+
 											foreach ($topics as $key => $topic) {
+												if (!--$tpcscount) {
+													break;
+												}
+
 												?>
 													<a href="/topic/<?php echo $topic['topicid']; ?>/"><?php echo htmlspecialchars($topic['title']); ?></a><br>
 												<?php
@@ -193,8 +226,33 @@
 								</td>
 								<td>
 									<?php
-										echo getLoadedImagesCount($userid, $readydb);
-										tryAddPhotographerReward($userid, $readydb);
+										echo getLoadedImagesCount($userid);
+										tryAddPhotographerReward($userid);
+									?>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Последние загрузки:
+								</td>
+								<td>
+									<?php
+										$images = getLoadedImages($userid);
+										$imgcnt = 8;
+
+										foreach ($images as $image) {
+											if (!--$imgcnt) {
+												break;
+											}
+
+											$image = 'https://russiancoders.club/' . $userid . '/' . basename($image);
+
+											?>
+												<a href="<?php echo $image; ?>" target="_blank" type="image/jpeg" title="<?php echo basename($image); ?>">
+													<div style="float: left; width: 64px; height: 64px; overflow: hidden; margin: 3px; background-repeat: no-repeat; background-size: contain; background-color: white; border: 1px solid silver; background-position: center center; background-image: url(<?php echo $image; ?>);"></div>
+												</a>
+											<?php
+										}
 									?>
 								</td>
 							</tr>
@@ -299,7 +357,7 @@
 
 											foreach ($rewards as $key => $value) {
 												?>
-													<div style="background-image: url('https://storage.russiancoders.ru/rewards/<?php echo $value; ?>.jpg'); background-repeat: no-repeat; background-position: center center; width: 64px; height: 64px; float: left; margin-right: 10px;" title="<?php echo getRewardInfo($value, $readydb); ?>"></div>
+													<div style="background-image: url('https://russiancoders.club/rewards/<?php echo $value; ?>.jpg'); background-repeat: no-repeat; background-position: center center; width: 64px; height: 64px; float: left; margin-right: 10px;" title="<?php echo getRewardInfo($value, $readydb); ?>"></div>
 												<?php
 											}
 										?>

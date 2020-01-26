@@ -16,7 +16,7 @@
 
 	$userid = $_COOKIE['userid'];
 
-	if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $userid)) {
+	if (!preg_match('/^\{?[0-9a-zA-Z]{1,30}\}?$/', $userid)) {
 		$targetid = false;
 		$targetLogin = '???';
 	}

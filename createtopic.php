@@ -1,8 +1,5 @@
 <?php include_once('head.php'); ?>
 <?php include_once('nav.php'); ?>
-<?php require_once('recaptchalib.php'); ?>
-
-<script src='https://www.google.com/recaptcha/api.js'></script>
 
 <div class="panel panel-primary" style="margin: 20px 0 20px 0;">
 	<div class="panel-heading">
@@ -57,12 +54,7 @@
 						<tr>
 							<td colspan="2">
 								<p>Сообщение</p>
-								<textarea class="form-control" name="content" style="min-width: 800px; min-height: 300px;" maxlength="2000"></textarea>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<?php echo recaptcha_get_html('6LdlUjcUAAAAACmECdupCukxHQt-KGv-AKn0UTy3', null, true); ?>
+								<textarea class="form-control" name="content" style="min-width: 800px; min-height: 300px;" maxlength="5000"></textarea>
 							</td>
 						</tr>
 						<tr>

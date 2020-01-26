@@ -16,7 +16,7 @@
 		$query =
 			'SELECT `id`, `fromid`, `toid`, `text`, `last` 
 			FROM `messages`
-			WHERE `fromid`=:userid OR `toid`=:userid ORDER BY `id` ASC;';
+			WHERE `fromid`=:userid OR `toid`=:userid ORDER BY `id` DESC;';
 
 		$req = $readydb->prepare($query);
 		$req->bindParam(':userid', $userid);

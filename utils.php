@@ -4,8 +4,54 @@
 	$readydb = !isset($readydb) ? new PdoDb() : $readydb;
 	setlocale(LC_ALL, 'ru_RU.UTF-8');
 
-	function get_ip()
+	function startsWith($haystack, $needle)
 	{
+		 $length = mb_strlen($needle);
+		 return (mb_substr($haystack, 0, $length) === $needle);
+	}
+
+	function endsWith($haystack, $needle)
+	{
+		$length = mb_strlen($needle);
+		return $length === 0 || (mb_substr($haystack, -$length) === $needle);
+	}
+
+	function mb_strrev($string, $encoding = null) {
+		if ($encoding === null) {
+			$encoding = mb_detect_encoding($string);
+		}
+
+		$length   = mb_strlen($string, $encoding);
+		$reversed = '';
+
+		while ($length-- > 0) {
+			$reversed .= mb_substr($string, $length, 1, $encoding);
+		}
+
+		return $reversed;
+	}
+
+	function mb_trim($string, $trim_chars = '\s'){
+		return preg_replace('/^[' . $trim_chars . ']*(?U)(.*)[' . $trim_chars . ']*$/u', '\\1', $string);
+	}
+
+	function showEnvironmentError($message) {
+		//echo '<div color="maroon">';
+		//echo htmlspecialchars($message);
+		//echo '</div>';
+	}
+
+	function testEnvironment() {
+		if (function_exists('mb_strlen')) {
+			showEnvironmentError('PHP mbstring extension not installed. Please, install them. Example: <i>apt-get install php7.1-mbstring</i>');
+		}
+	}
+
+	testEnvironment();
+
+	function get_ip() {
+		$ip = '';
+
 		if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
 			$ip = $_SERVER['HTTP_CLIENT_IP'];
 		} elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
@@ -31,7 +77,7 @@
 			return false;
 		}
 
-		if (mb_strlen($login) > 20) {
+		if (mb_strlen($login) > 30) {
 			return false;
 		}
 
@@ -63,7 +109,7 @@
 			return false;
 		}
 
-		if (!preg_match('/^\{?[0-9a-zA-Z]{1,20}\}?$/', $topicid)) {
+		if (!preg_match('/^\{?[0-9a-zA-Z]{1,30}\}?$/', $topicid)) {
 			return false;
 		}
 
@@ -71,15 +117,18 @@
 	}
 
 	function validateUserId($userid) {
-		if (!is_string($userid)) {
+	    if (is_numeric($userid))
+        {
+            $userid = '' .  $userid;
+        } else if (!is_string($userid)) {
 			return false;
 		}
 
-		if (strlen($userid) != 20) {
+		if (strlen($userid) <= 1) {
 			return false;
 		}
 
-		if (!preg_match('/^\{?[0-9a-zA-Z]{1,20}\}?$/', $userid)) {
+		if (!preg_match('/^\{?[0-9a-zA-Z]{1,40}\}?$/', $userid)) {
 			return false;
 		}
 
@@ -190,7 +239,7 @@
 	}
 
 	function isRewardExists($userid, $reward, $readydb = NULL) {
-		if (!preg_match('/^\{?[a-z]*\}?$/', $reward)) {
+		if (!preg_match('/^\{?[a-z0-9]*\}?$/', $reward)) {
 			return false;
 		}
 
@@ -214,7 +263,7 @@
 	}
 
 	function addReward($userid, $reward, $readydb = NULL) {
-		if (!preg_match('/^\{?[a-z]*\}?$/', $reward)) {
+		if (!preg_match('/^\{?[a-z0-9]*\}?$/', $reward)) {
 			return false;
 		}
 
@@ -257,6 +306,27 @@
 		return addReward($userid, $reward, $db);
 	}
 
+	function tryAdd2018Reward($userid, $readydb = NULL) {
+		if (!validateUserId($userid)) {
+			return false;
+		}
+
+		$reward = '2018';
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		if (isRewardExists($userid, $reward, $db)) {
+			return false;
+		}
+
+		$date = \Datetime::createFromFormat('d.m.Y', '31.12.2017');
+
+		if ($date >= new \Datetime('-1 day') and $date <= new \Datetime('+1 day')) {
+			return addReward($userid, '2018', $db);
+		}
+
+		return false;
+	}
+
 	function tryLogin($login, $pass, $readydb = NULL) {
 		$db = is_null($readydb) ? new PdoDb() : $readydb;
 
@@ -264,30 +334,41 @@
 			return false;
 		}
 
-		$query = 'SELECT `userid`, `pass`, `salt`, `session` FROM `users` WHERE `login`=:login LIMIT 0, 1;';
+		$query = 'SELECT `userid`, `pass`, `salt`, `session`, `mail` FROM `users` WHERE `login`=:login LIMIT 0, 1;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':login', $login);
 		$req->execute();
 
-		while (list($userid, $pass2, $salt, $session) = $req->fetch(PDO::FETCH_NUM)) {
-			$pass = saltPass($pass, $salt);
+		while (list($userid, $pass2, $salt, $session, $mail) = $req->fetch(PDO::FETCH_NUM)) {
+			if ($mail == 'vkregistered@russiancoders.tech') {
+				if ($pass !== $pass2) {
+					return false;
+				}
 
-			if ($pass !== $pass2) {
-				return false;
+				setUserCookies($userid, $session);
+				tryAddNewbieReward($userid, $db);
+				return true;
+				break;
+			} else {
+				$pass = saltPass($pass, $salt);
+
+				if ($pass !== $pass2) {
+					return false;
+				}
+
+				setUserCookies($userid, $session);
+				tryAddNewbieReward($userid, $db);
+				return true;
+				break;
 			}
-
-			setUserCookies($userid, $session);
-			tryAddNewbieReward($userid, $db);
-			return true;
-			break;
 		}
 
 		return false;
 	}
 
 	function isUidExists($uid, $readydb = NULL) {
-		if (preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $uid)) {
+		if (preg_match('/^\{?[0-9a-zA-Z]{1,30}\}?$/', $uid)) {
 			return true;
 		}
 
@@ -314,7 +395,7 @@
 	}
 
 	function generateSymbols($count) {
-		$symbols = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+		$symbols = 'abcdefghkmnopqrstuvwxyzABCDEFGHKLMNPRSTUVWXYZ123456789';
 		$salt = '';
 		$len = strlen($symbols);
 
@@ -347,33 +428,29 @@
 		return $userId;
 	}
 
-	function addUser($login, $pass, $mail) {
+	function addUser($login, $pass, $mail, $die = TRUE, $uid = FALSE) {
 		if (!validateLogin($login)) {
-			header('Location: /register.php?error=Недопустимый логин');
-			die();
-		}
-
-		if (strlen($pass) > 20) {
-			header('Location: /register.php?error=Слишком длинный пароль');
-			die();
+			die('Недопустимый логин');
 		}
 
 		if (strlen($pass) < 4) {
-			header('Location: /register.php?error=Слишком короткий пароль');
-			die();
+			die('Слишком короткий пароль');
 		}
 
 		if (isLoginExists($login)) {
-			header('Location: /register.php?error=Заданный логин уже занят');
-			die();
+			die('Заданный логин уже занят');
 		}
 
 		if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
-			header('Location: /register.php?error=Указан некорректный почтовый ящик');
-			die();
+			die('Указан некорректный почтовый ящик');
 		}
 
 		$userId = generateUserId();
+
+		if ($uid) {
+		    $userId = $uid;
+        }
+
 		$safelogin = stripslashes(htmlspecialchars($login));
 		$salt = generateSalt();
 		$pass = saltPass($pass, $salt);
@@ -381,7 +458,7 @@
 
 		$db = new PdoDb();
 
-		$query = 
+		$query =
 			'INSERT INTO `users` 
 				(`userid`, `login`, `pass`, `salt`, `session`, `first`, `last`, `mail`, `state`) 
 			VALUES 
@@ -398,20 +475,32 @@
 		if ($req->execute()) {
 			$subject = 'Регистрация на форуме RussianCoders';
 			$message = 'Вы зарегистрировались на форуме <b>RussianCoders</b><br>' . "\r\n" .
-'Для активации аккаунта перейдите по ссылке <a href="https://forum.russiancoders.ru/activate.php?id=' . $session . '">' . $session . '</a>';
-			$headers = 'From: noreply@russiancoders.ru' . "\r\n" .
+'Для активации аккаунта перейдите по ссылке <a href="https://russiancoders.tech/activate.php?id=' . $session . '">' . $session . '</a>';
+			$headers = 'From: noreply@russiancoders.tech' . "\r\n" .
 'Reply-To: webmaster@example.com' . "\r\n" .
 'X-Mailer: PHP/' . phpversion();
 
 			// mail($mail, $subject, $message, $headers);
 
-			header('Location: /registercomplete.php');
-			die();
+			/*header('Location: /registercomplete.php');
+
+			if ($die) {
+				die();
+			} else {
+				return $userId;
+			}*/
+
+            tryAddNewbieReward($userId, $db);
 		}
 
-		header('Location: /register.php?error=Неизвестная ошибка при регистрации пользователя');
-		tryAddNewbieReward($userId, $db);
-		die();
+		//header('Location: /register.php?error=Неизвестная ошибка при регистрации пользователя');
+		//tryAddNewbieReward($userId, $db);
+
+		/*if ($die) {
+			die();
+		} else {
+			return $userId;
+		}*/
 	}
 
 	function sendPrivateMessage($fromid, $toid, $content, $readydb = NULL) {
@@ -474,20 +563,6 @@
 		return $count;
 	}
 
-	function getGravatarLink($userid, $size, $readydb = NULL) {
-		$db = is_null($readydb) ? new PdoDb() : $readydb;
-
-		$query = 'SELECT MD5(LOWER(TRIM(`mail`))) FROM `users` WHERE `userid`=:userid LIMIT 0, 1;';
-
-		$r = $readydb->prepare($query);
-		$r->bindParam(':userid', $userid);
-		$r->execute();
-
-		while (list($mail) = $r->fetch(PDO::FETCH_NUM)) {
-			return 'https://secure.gravatar.com/avatar/' . $mail . '.jpg?s=' . $size;
-		}
-	}
-
 	function getUserIdByPost($postid, $readydb = NULL) {
 		$db = is_null($readydb) ? new PdoDb() : $readydb;
 		$query = 'SELECT `userid` FROM `posts` WHERE `id`=:postid LIMIT 0, 1;';
@@ -501,6 +576,30 @@
 		}
 
 		return false;
+	}
+
+	function getPostsCountByUserId($userid, $readydb = NULL) {
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+		$query = 'SELECT COUNT(*) FROM `posts` WHERE `userid`=:userid LIMIT 0, 1;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':userid', $userid);
+		$req->execute();
+
+		$count = $req->fetchColumn();
+		return $count;
+	}
+
+	function getTopicsCountByUserId($userid, $readydb = NULL) {
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+		$query = 'SELECT COUNT(*) FROM `topics` WHERE `userid`=:userid LIMIT 0, 1;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':userid', $userid);
+		$req->execute();
+
+		$count = $req->fetchColumn();
+		return $count;
 	}
 
 	function getUserMessagesCount($userid, $readydb = NULL) {
@@ -582,29 +681,47 @@
 	}
 
 	function scanServerDirectory($base) {
-		$result = array(); 
+		$files = array();
 		$cdir = scandir($base);
 
 		foreach ($cdir as $key => $value) { 
-			if (!in_array($value, array('.', '..', '.git'))) { 
+			if (!in_array($value, array('.', '..', '.git', 'gallery', 'icons', 'rewards', 'static', 'avatars'))) { 
 				if (is_dir($base . DIRECTORY_SEPARATOR . $value)) { 
-					$result = array_merge($result, scanDirectory($base . DIRECTORY_SEPARATOR . $value)); 
-				} else { 
-					$result[] = $base . DIRECTORY_SEPARATOR . $value; 
+					$files = array_merge($files, scanDirectory($base . DIRECTORY_SEPARATOR . $value)); 
+				} else {
+					$path = $base . DIRECTORY_SEPARATOR . $value;
+					$files[filemtime($path)] = $path;
 				} 
 			} 
-		} 
-   
-		return $result; 
+		}
+
+		ksort($files);
+		return array_reverse($files);
 	}
 
-	function getLoadedImagesCount($userid) {
+	function getUserIdByThumbnail($thumbnail) {
+		$base = '/var/www/russiancoders.club';
+		$files = scanServerDirectory($base);
+
+		foreach ($files as $file) {
+			if (basename($file) == $thumbnail) {
+				return basename(dirname($file));
+			}
+		}
+
+		return false;
+	}
+
+	function getLoadedImages($userid) {
 		if (!validateUserId($userid)) {
 			return false;
 		}
 
-		$files = scanServerDirectory('/var/www/domains/storage.russiancoders.ru/' . $userid . '/');
+		return scanServerDirectory('/var/www/russiancoders.club/' . $userid . '/');
+	}
 
+	function getLoadedImagesCount($userid) {
+		$files = getLoadedImages($userid);
 		return count($files);
 	}
 
@@ -613,8 +730,8 @@
 			return false;
 		}
 
-		$reward = 'photographer';
 		$db = is_null($readydb) ? new PdoDb() : $readydb;
+		$reward = 'photographer';
 
 		if (isRewardExists($userid, $reward, $db)) {
 			return false;
@@ -628,7 +745,7 @@
 	}
 
 	function getRewardInfo($reward, $readydb = NULL) {
-		if (!preg_match('/^\{?[a-z]*\}?$/', $reward)) {
+		if (!preg_match('/^\{?[a-z0-9]*\}?$/', $reward)) {
 			return false;
 		}
 
@@ -642,6 +759,27 @@
 		while (list($title) = $req->fetch(PDO::FETCH_NUM)) {
 			return $title;
 		}
+	}
+
+	function editPost($userid, $topicid, $postid, $content) {
+		if (!isUserIdExists($userid, $readydb)) {
+			return false;
+		}
+
+		if (!isTopicExists($topicid, $readydb)) {
+			return false;
+		}
+
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		$query = 'UPDATE `posts` SET `content`=:content WHERE `topicid`=:topicid AND `userid`=:userid AND `id`=:postid;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':content', $content, PDO::PARAM_STR);
+		$req->bindParam(':topicid', $topicid, PDO::PARAM_STR);
+		$req->bindParam(':userid', $userid, PDO::PARAM_STR);
+		$req->bindParam(':postid', $postid, PDO::PARAM_INT);
+		$req->execute();
 	}
 
 	function addPost($userid, $topicid, $content, $readydb = NULL) {
@@ -670,16 +808,24 @@
 		$req->bindParam(':ip', $ip, PDO::PARAM_STR);
 		$req->execute();
 
+		$hot = isHotTopic($topicid, $db) ? 1 : 0;
+
 		$query = 
 			'UPDATE 
 				`topics` 
 			SET 
-				`updated` = NOW()
+				`updated` = NOW(),
+				`lastpost`= :postnumber,
+				`hot` = :hot
 			WHERE 
 				`topicid` = :topicid;';
 
+		$postnumber = getPostNumber($topicid, getLastPostIdInTopic($topicid, $db), $db);
+
 		$req = $db->prepare($query);
 		$req->bindParam(':topicid', $topicid, PDO::PARAM_STR);
+		$req->bindParam(':postnumber', $postnumber, PDO::PARAM_INT);
+		$req->bindParam(':hot', $hot, PDO::PARAM_INT);
 		$req->execute();
 
 		tryAddCitizenReward($userid, $readydb);
@@ -744,8 +890,8 @@
 		$db = is_null($readydb) ? new PdoDb() : $readydb;
 
 		$query = 'UPDATE `users` 
-		          SET `session`=:newsession 
-		          WHERE `session`=:session;';
+				  SET `session`=:newsession 
+				  WHERE `session`=:session;';
 
 		$newsession = generateSession();
 
@@ -834,6 +980,44 @@
 		return false;
 	}
 
+	function getUserFullNameById($userid, $readydb = NULL) {
+		if (!isUserIdExists($userid, $readydb)) {
+			return false;
+		}
+
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+		$query = 'SELECT `fullname` FROM `users` WHERE `userid`=:userid LIMIT 0, 1;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':userid', $userid, PDO::PARAM_STR);
+		$req->execute();
+
+		while (list($fullname) = $req->fetch(PDO::FETCH_NUM)) {
+			if (!is_null($fullname) && !empty($fullname) && mb_trim(mb_strlen($fullname)) > 0) {
+				return htmlspecialchars(mb_trim($fullname));
+			}
+
+			return false;
+		}
+
+		return false;
+	}
+
+	function getUserTitleById($userid, $readydb = NULL) {
+		if (!isUserIdExists($userid, $readydb)) {
+			return false;
+		}
+
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+		$fullname = getUserFullNameById($userid, $readydb);
+
+		if (!$fullname) {
+			$fullname = getUserLoginById($userid, $readydb);
+		}
+
+		return $fullname;
+	}
+
 	function getSectionId($readydb = NULL) {
 		if (empty($_GET['sectionid'])) {
 			return false;
@@ -845,11 +1029,25 @@
 			return false;
 		}
 
-		if (!isSectionExists($sectionid, $readydb)) {
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		if (!isSectionExists($sectionid, $db)) {
 			return false;
 		}
 
 		return $sectionid;
+	}
+
+	function getTopicId($readydb = NULL) {
+		if (empty($_GET['topicid'])) {
+			return false;
+		}
+
+		$topicid = htmlspecialchars($_GET['topicid']);
+
+		// TODO: 
+
+		return $topicid;
 	}
 
 	function getTopicIdByPostId($postid, $readydb = NULL) {
@@ -988,6 +1186,46 @@
 
 		$number = ceil((getPostNumber($topicid, $id, $readydb) + 1) / postsPerPage());
 		return $number > 0 ? $number : 1;
+	}
+
+	function getLastPostIdInTopic($topicid, $readydb = NULL) {
+		if (!validateTopicId($topicid)) {
+			return false;
+		}
+
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		$query = 
+			'SELECT `id` 
+			FROM `posts` 
+			WHERE `topicid`=:topicid 
+			ORDER BY `id` DESC
+			LIMIT 0, 1;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':topicid', $topicid, PDO::PARAM_STR);
+		$req->execute();
+		$result = $req->fetchColumn();
+
+		return intval($result);
+	}
+
+	function getPostDate($postid, $readydb = NULL) {
+		$postid = intval($postid);
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		$query = 
+			'SELECT `created` 
+			 FROM `posts` 
+			 WHERE `id`=:postid 
+			 LIMIT 0, 1;';
+
+		$req = $db->prepare($query);
+		$req->bindParam(':postid', $postid, PDO::PARAM_INT);
+		$req->execute();
+		$result = $req->fetchColumn();
+
+		return $result;
 	}
 
 	function getTopicInitMessage($topicid, $readydb = NULL) {
@@ -1194,7 +1432,7 @@
 
 		$userid = $_COOKIE['userid'];
 
-		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $userid)) {
+		if (!preg_match('/^\{?[0-9a-zA-Z]{1,30}\}?$/', $userid)) {
 			return false;
 		}
 
@@ -1226,7 +1464,7 @@
 
 		$userid = $_COOKIE['userid'];
 
-		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $userid)) {
+		if (!preg_match('/^\{?[0-9a-zA-Z]{1,30}\}?$/', $userid)) {
 			return false;
 		}
 
@@ -1244,7 +1482,7 @@
 	}
 
 	function setBan($userid, $readydb = NULL) {
-		if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $userid)) {
+		if (!preg_match('/^\{?[0-9a-zA-Z]{1,30}\}?$/', $userid)) {
 			return false;
 		}
 
@@ -1299,6 +1537,8 @@
 		$text = preg_replace('#\[url=(\S*)\]#iUs', '<a href="${1}" rel="nofollow" target="_blank">${1}</a>', $text);
 		$text = preg_replace('#\[url=\"(\S*)\"\]#iUs', '<a href="${1}" rel="nofollow" target="_blank">${1}</a>', $text);
 
+		$text = preg_replace('/([\s]+)((www|http:\/\/)[^\s]+)/', '${1}<a href="${2}" rel="nofollow" target="_blank">${2}</a>', $text);
+
 		$text = preg_replace('#\[mail=(\S*)\](.*)\[\/mail\]#iUs', '<a href="mailto:${1}">${2}</a>', $text);
 		$text = preg_replace('#\[mail=\"(\S*)\"\](.*)\[\/mail\]#iUs', '<a href="mailto:${1}">${2}</a>', $text);
 		$text = preg_replace('#\[mail=(\S*)\]#iUs', '<a href="mailto:${1}">${1}</a>', $text);
@@ -1309,10 +1549,10 @@
 		$text = preg_replace('#\[mail=(mailto:\S*)\]#iUs', '<a href="${1}">${1}</a>', $text);
 		$text = preg_replace('#\[mail=\"(mailto:\S*)\"\]#iUs', '<a href="${1}">${1}</a>', $text);
 
-		$text = preg_replace('#\[youtube=&quot;([0-9a-zA-Z_\-]*)&quot;\]#iUs', '<iframe width="640" height="420" src="https://www.youtube.com/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
-		$text = preg_replace('#\[rutube=&quot;([0-9a-zA-Z_\-]*)&quot;\]#iUs', '<iframe width="640" height="420" src="https://rutube.ru/play/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
-		$text = preg_replace('#\[youtube=([0-9a-zA-Z_\-]*)\]#iUs', '<iframe width="640" height="420" src="https://www.youtube.com/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
-		$text = preg_replace('#\[rutube=([0-9a-zA-Z_\-]*)\]#iUs', '<iframe width="640" height="420" src="https://rutube.ru/play/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
+		$text = preg_replace('#\[youtube=&quot;([0-9a-zA-Z_\-]*)&quot;\]#iUs', '<iframe width="100%" height="605px" src="https://www.youtube.com/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
+		$text = preg_replace('#\[rutube=&quot;([0-9a-zA-Z_\-]*)&quot;\]#iUs', '<iframe width="100%" height="605px" src="https://rutube.ru/play/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
+		$text = preg_replace('#\[youtube=([0-9a-zA-Z_\-]*)\]#iUs', '<iframe width="100%" height="605px" src="https://www.youtube.com/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
+		$text = preg_replace('#\[rutube=([0-9a-zA-Z_\-]*)\]#iUs', '<iframe width="100%" height="605px" src="https://rutube.ru/play/embed/${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>', $text);
 
 		$text = preg_replace("#(\r\n){2,}#iUs", "<br><br>", $text);
 		$text = preg_replace("#(\r\n)#iUs", "<br>", $text);
@@ -1346,102 +1586,132 @@
 
 		$text = preg_replace('#(\s*)---(\s*)#iUs', '${1}—${2}', $text);
 		$text = preg_replace('#(\s*)--(\s*)#iUs', '${1}–${2}', $text);
+		$text = preg_replace('#<iframe(.*)(—)(.*)<\/iframe>#iUs', '<iframe${1}---${3}</iframe>', $text);
+		$text = preg_replace('#<iframe(.*)(–)(.*)<\/iframe>#iUs', '<iframe${1}--${3}</iframe>', $text);
 
 		$text = preg_replace('#<br>&gt;(.*)<br>#iUs', '<br><span style="color: gray;">&gt;${1}</span><br>', $text);
 		$text = preg_replace('#^&gt;(.*)<br>#iUs', '<span style="color: gray;">&gt;${1}</span><br>', $text);
 
-		$text = preg_replace('#(Михаил Макаров)#iUs', 'NightmareZ', $text);
-		$text = preg_replace('#(Михаил\s*Макаров)#iUs', 'NightmareZ', $text);
-		$text = preg_replace('#(Макаров Михаил)#iUs', 'NightmareZ', $text);
-		$text = preg_replace('#(Макаров\s*Михаил)#iUs', 'NightmareZ', $text);
+		$text = preg_replace('#(Михаил Макаров)#iUs', generateSalt(), $text);
+		$text = preg_replace('#(Михаил\s*Макаров)#iUs', generateSalt(), $text);
+		$text = preg_replace('#(Макаров Михаил)#iUs', generateSalt(), $text);
+		$text = preg_replace('#(Макаров\s*Михаил)#iUs', generateSalt(), $text);
 
-		$text = preg_replace('#(Михaилa Мaкaрoвa)#iUs', 'NightmareZ\'а', $text);
-		$text = preg_replace('#(Михаила\s*Макарова)#iUs', 'NightmareZ\'а', $text);
-		$text = preg_replace('#(Макарова Михаила)#iUs', 'NightmareZ\'а', $text);
-		$text = preg_replace('#(Макарова\s*Михаила)#iUs', 'NightmareZ\'а', $text);
+		$text = preg_replace('#(Михaилa Мaкaрoвa)#iUs', generateSalt(), $text);
+		$text = preg_replace('#(Михаила\s*Макарова)#iUs', generateSalt(), $text);
+		$text = preg_replace('#(Макарова Михаила)#iUs', generateSalt(), $text);
+		$text = preg_replace('#(Макарова\s*Михаила)#iUs', generateSalt(), $text);
 
-		$text = preg_replace('#\:\)\)\)\)#iUs', '<img src="https://gdpanel.nightmarez.net/laugh.gif" alt="смех">', $text);
-		$text = preg_replace('#\:\)\)\)#iUs', '<img src="https://gdpanel.nightmarez.net/laugh.gif" alt="смех">', $text);
-		$text = preg_replace('#\:\)\)#iUs', '<img src="https://gdpanel.nightmarez.net/laugh.gif" alt="смех">', $text);
-		$text = preg_replace('#\:\)#iUs', '<img src="https://gdpanel.nightmarez.net/smile.gif" alt="улыбка">', $text);
-		$text = preg_replace('#\:-\)#iUs', '<img src="https://gdpanel.nightmarez.net/smile.gif" alt="улыбка">', $text);
-		$text = preg_replace('#\:D#iUs', '<img src="https://gdpanel.nightmarez.net/laugh.gif" alt="смех">', $text);
-		$text = preg_replace('#\:-D#iUs', '<img src="https://gdpanel.nightmarez.net/laugh.gif" alt="смех">', $text);
-		$text = preg_replace('#\;-\)#iUs', '<img src="https://gdpanel.nightmarez.net/wink.gif" alt="подмигивание">', $text);
-		$text = preg_replace('#\;\)#iUs', '<img src="https://gdpanel.nightmarez.net/wink.gif" alt="подмигивание">', $text);
-		$text = preg_replace('#\:-P#iUs', '<img src="https://gdpanel.nightmarez.net/tongue.gif" alt="язык">', $text);
-		$text = preg_replace('#\:-\(#iUs', '<img src="https://gdpanel.nightmarez.net/sorrow.gif" alt="грусть">', $text);
-		$text = preg_replace('#\:\(#iUs', '<img src="https://gdpanel.nightmarez.net/sorrow.gif" alt="грусть">', $text);
-		$text = preg_replace("#\:\'-\(#iUs", '<img src="https://gdpanel.nightmarez.net/cry.gif" alt="слёзы">', $text);
-		$text = preg_replace("#\:\'\(#iUs", '<img src="https://gdpanel.nightmarez.net/cry.gif" alt="слёзы">', $text);
-		$text = preg_replace('#O_O#Us', '<img src="https://gdpanel.nightmarez.net/amazement.gif" alt="удивление">', $text);
-		$text = preg_replace('#O_o#Us', '<img src="https://gdpanel.nightmarez.net/crazy.gif" alt="сумасшествие">', $text);
-		$text = preg_replace('#o_O#Us', '<img src="https://gdpanel.nightmarez.net/crazy.gif" alt="сумасшествие">', $text);
+		$text = preg_replace('#(Антон Литвинов)#iUs', generateSalt(), $text);
+		$text = preg_replace('#(Антон\s*Литвинов)#iUs', generateSalt(), $text);
+		$text = preg_replace('#(Литвинов Антон)#iUs', generateSalt(), $text);
+		$text = preg_replace('#(Литвинов\s*Антон)#iUs', generateSalt(), $text);
 
-		$text = preg_replace('#\[rofl\]#iUs', '<img src="https://gdpanel.nightmarez.net/rofl.gif" alt="ржу не могу">', $text);
-		$text = preg_replace('#\[good\]#iUs', '<img src="https://gdpanel.nightmarez.net/good.gif" alt="отлично">', $text);
-		$text = preg_replace('#\[scratch\]#iUs', '<img src="https://gdpanel.nightmarez.net/scratch.gif" alt="задумался">', $text);
-		$text = preg_replace('#\[rtfm\]#iUs', '<img src="https://gdpanel.nightmarez.net/rtfm.gif" alt="читай маны">', $text);
-		$text = preg_replace('#\[stop\]#iUs', '<img src="https://gdpanel.nightmarez.net/stop.gif" alt="стоп">', $text);
-		$text = preg_replace('#\[genius\]#iUs', '<img src="https://gdpanel.nightmarez.net/umnik.gif" alt="гений">', $text);
-		$text = preg_replace('#\[angel\]#iUs', '<img src="https://gdpanel.nightmarez.net/angel.gif" alt="ангел">', $text);
-		$text = preg_replace('#\[love\]#iUs', '<img src="https://gdpanel.nightmarez.net/love.gif" alt="любовь">', $text);
-		$text = preg_replace('#\[idea\]#iUs', '<img src="https://gdpanel.nightmarez.net/idea.gif" alt="идея">', $text);
-		$text = preg_replace('#\[kill\]#iUs', '<img src="https://gdpanel.nightmarez.net/kill.gif" alt="убиться">', $text);
-		$text = preg_replace('#\[bad\]#iUs', '<img src="https://gdpanel.nightmarez.net/bad.gif" alt="плохо">', $text);
-		$text = preg_replace('#\[smoke\]#iUs', '<img src="https://gdpanel.nightmarez.net/smoke.gif" alt="закурил">', $text);
-		$text = preg_replace('#\[angry\]#iUs', '<img src="https://gdpanel.nightmarez.net/angry.gif" alt="злой">', $text);
-		$text = preg_replace('#\[devil\]#iUs', '<img src="https://gdpanel.nightmarez.net/devil.gif" alt="дьявол">', $text);
-		$text = preg_replace('#\[bomb\]#iUs', '<img src="https://gdpanel.nightmarez.net/bomb.gif" alt="бомба">', $text);
-		$text = preg_replace('#\[yahoo\]#iUs', '<img src="https://gdpanel.nightmarez.net/yahoo.gif" alt="ура">', $text);
-		$text = preg_replace('#\[dance\]#iUs', '<img src="https://gdpanel.nightmarez.net/dance.gif" alt="танцую">', $text);
-		$text = preg_replace('#\[wall\]#iUs', '<img src="https://gdpanel.nightmarez.net/wall.gif" alt="убиться об стену">', $text);
-		$text = preg_replace('#\[sex\]#iUs', '<img src="https://gdpanel.nightmarez.net/sex.gif" alt="ёбля">', $text);
+		$text = preg_replace('#(Антонa Литвиновa)#iUs', generateSalt(), $text);
+		$text = preg_replace('#(Антонa\s*Литвиновa)#iUs', generateSalt(), $text);
+		$text = preg_replace('#(Литвиновa Антонa)#iUs', generateSalt(), $text);
+		$text = preg_replace('#(Литвиновa\s*Антонa)#iUs', generateSalt(), $text);
+
+		$text = preg_replace('#\:\)\)\)\)#iUs', '<img src="https://russiancoders.club/static/laugh.gif" alt="смех">', $text);
+		$text = preg_replace('#\:\)\)\)#iUs', '<img src="https://russiancoders.club/static/laugh.gif" alt="смех">', $text);
+		$text = preg_replace('#\:\)\)#iUs', '<img src="https://russiancoders.club/static/laugh.gif" alt="смех">', $text);
+		$text = preg_replace('#\:\)#iUs', '<img src="https://russiancoders.club/static/smile.gif" alt="улыбка">', $text);
+		$text = preg_replace('#\:-\)#iUs', '<img src="https://russiancoders.club/static/smile.gif" alt="улыбка">', $text);
+		$text = preg_replace('#\:D#iUs', '<img src="https://russiancoders.club/static/laugh.gif" alt="смех">', $text);
+		$text = preg_replace('#\:-D#iUs', '<img src="https://russiancoders.club/static/laugh.gif" alt="смех">', $text);
+		$text = preg_replace('#\;-\)#iUs', '<img src="https://russiancoders.club/static/wink.gif" alt="подмигивание">', $text);
+		$text = preg_replace('#\;\)#iUs', '<img src="https://russiancoders.club/static/wink.gif" alt="подмигивание">', $text);
+		$text = preg_replace('#\:-P#iUs', '<img src="https://russiancoders.club/static/tongue.gif" alt="язык">', $text);
+		$text = preg_replace('#\:-\(#iUs', '<img src="https://russiancoders.club/static/sorrow.gif" alt="грусть">', $text);
+		$text = preg_replace('#\:\(#iUs', '<img src="https://russiancoders.club/static/sorrow.gif" alt="грусть">', $text);
+		$text = preg_replace("#\:\'-\(#iUs", '<img src="https://russiancoders.club/static/cry.gif" alt="слёзы">', $text);
+		$text = preg_replace("#\:\'\(#iUs", '<img src="https://russiancoders.club/static/cry.gif" alt="слёзы">', $text);
+		$text = preg_replace('#O_O#Us', '<img src="https://russiancoders.club/static/amazement.gif" alt="удивление">', $text);
+		$text = preg_replace('#O_o#Us', '<img src="https://russiancoders.club/static/crazy.gif" alt="сумасшествие">', $text);
+		$text = preg_replace('#o_O#Us', '<img src="https://russiancoders.club/static/crazy.gif" alt="сумасшествие">', $text);
+
+		$text = preg_replace('#\[rofl\]#iUs', '<img src="https://russiancoders.club/static/rofl.gif" alt="ржу не могу">', $text);
+		$text = preg_replace('#\[good\]#iUs', '<img src="https://russiancoders.club/static/good.gif" alt="отлично">', $text);
+		$text = preg_replace('#\[scratch\]#iUs', '<img src="https://russiancoders.club/static/scratch.gif" alt="задумался">', $text);
+		$text = preg_replace('#\[rtfm\]#iUs', '<img src="https://russiancoders.club/static/rtfm.gif" alt="читай маны">', $text);
+		$text = preg_replace('#\[stop\]#iUs', '<img src="https://russiancoders.club/static/stop.gif" alt="стоп">', $text);
+		$text = preg_replace('#\[genius\]#iUs', '<img src="https://russiancoders.club/static/umnik.gif" alt="гений">', $text);
+		$text = preg_replace('#\[angel\]#iUs', '<img src="https://russiancoders.club/static/angel.gif" alt="ангел">', $text);
+		$text = preg_replace('#\[love\]#iUs', '<img src="https://russiancoders.club/static/love.gif" alt="любовь">', $text);
+		$text = preg_replace('#\[idea\]#iUs', '<img src="https://russiancoders.club/static/idea.gif" alt="идея">', $text);
+		$text = preg_replace('#\[kill\]#iUs', '<img src="https://russiancoders.club/static/kill.gif" alt="убиться">', $text);
+		$text = preg_replace('#\[bad\]#iUs', '<img src="https://russiancoders.club/static/bad.gif" alt="плохо">', $text);
+		$text = preg_replace('#\[smoke\]#iUs', '<img src="https://russiancoders.club/static/smoke.gif" alt="закурил">', $text);
+		$text = preg_replace('#\[angry\]#iUs', '<img src="https://russiancoders.club/static/angry.gif" alt="злой">', $text);
+		$text = preg_replace('#\[devil\]#iUs', '<img src="https://russiancoders.club/static/devil.gif" alt="дьявол">', $text);
+		$text = preg_replace('#\[bomb\]#iUs', '<img src="https://russiancoders.club/static/bomb.gif" alt="бомба">', $text);
+		$text = preg_replace('#\[yahoo\]#iUs', '<img src="https://russiancoders.club/static/yahoo.gif" alt="ура">', $text);
+		$text = preg_replace('#\[dance\]#iUs', '<img src="https://russiancoders.club/static/dance.gif" alt="танцую">', $text);
+		$text = preg_replace('#\[wall\]#iUs', '<img src="https://russiancoders.club/static/wall.gif" alt="убиться об стену">', $text);
+		$text = preg_replace('#\[sex\]#iUs', '<img src="https://russiancoders.club/static/sex.gif" alt="секс">', $text);
 
 		$text = preg_replace(
-			'/\[img=&quot;([0-9a-zA-Z]{20})&quot;\s*alt=&quot;([\w\s]{1,100})&quot;\]/iuUs',
-			'<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="${2}">',
+			'/\[img=&quot;([0-9a-zA-Z]{1,30})&quot;\s*alt=&quot;([\w\s]{1,100})&quot;\]/iuUs',
+			'<img src="https://russiancoders.club/' . $userid . '/${1}.jpg" alt="${2}">',
 			$text);
 		$text = preg_replace(
 			'/\[img\s*alt=&quot;([\w\s]{1,100})&quot;\]([0-9a-zA-Z]{20})\s*\[\/img\]/iuUs',
-			'<img src="https://storage.russiancoders.ru/' . $userid . '/${2}.jpg" alt="${1}">',
+			'<img src="https://russiancoders.club/' . $userid . '/${2}.jpg" alt="${1}">',
 			$text);
 		$text = preg_replace(
-			'/\[img=&quot;([0-9a-zA-Z]{20})&quot;\]/iUs',
-			'<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="изображение">',
+			'/\[img=&quot;([0-9a-zA-Z]{1,30})&quot;\]/iUs',
+			'<img src="https://russiancoders.club/' . $userid . '/${1}.jpg" alt="изображение">',
 			$text);
 
 		$text = preg_replace(
 			'/\[img=([0-9a-zA-Z]{20})\s*alt=&quot;([\w\s]{1,100})&quot;\]/iuUs',
-			'<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="${2}">',
+			'<img src="https://russiancoders.club/' . $userid . '/${1}.jpg" alt="${2}">',
 			$text);
 		$text = preg_replace(
 			'/\[img=&quot;([0-9a-zA-Z]{20})&quot;\s*alt=([\w\s]{1,100})\]/iuUs',
-			'<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="${2}">',
+			'<img src="https://russiancoders.club/' . $userid . '/${1}.jpg" alt="${2}">',
 			$text);
 
 		$text = preg_replace(
 			'/\[img=([0-9a-zA-Z]{20})\s*alt=([\w\s]{1,100})\]/iuUs',
-			'<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="${2}">',
+			'<img src="https://russiancoders.club/' . $userid . '/${1}.jpg" alt="${2}">',
 			$text);
 		$text = preg_replace(
 			'/\[img\s*alt=([\w\s]{1,100})\]([0-9a-zA-Z]{20})\s*\[\/img\]/iuUs',
-			'<img src="https://storage.russiancoders.ru/' . $userid . '/${2}.jpg" alt="${1}">',
+			'<img src="https://russiancoders.club/' . $userid . '/${2}.jpg" alt="${1}">',
 			$text);
 		$text = preg_replace(
 			'/\[img=([0-9a-zA-Z]{20})\]/iUs',
-			'<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="изображение">',
+			'<img src="https://russiancoders.club/' . $userid . '/${1}.jpg" alt="изображение">',
 			$text);
 
 		$text = preg_replace(
 			'/\[img\]([0-9a-zA-Z]{20})\[\/img\]/iUs',
-			'<img src="https://storage.russiancoders.ru/' . $userid . '/${1}.jpg" alt="изображение">',
+			'<img src="https://russiancoders.club/' . $userid . '/${1}.jpg" alt="изображение">',
+			$text);
+
+		$text = preg_replace(
+			'/\[mp3=&quot;([0-9a-zA-Z]{1,20})&quot;\]/iuUs',
+			'<audio src="https://russiancoders.club/' . $userid . '/${1}.mp3" controls style="width: 100%;"></audio>',
+			$text);
+		$text = preg_replace(
+			'/\[mp3=([0-9a-zA-Z]{1,20})\]/iUs',
+			'<audio src="https://russiancoders.club/' . $userid . '/${1}.mp3" controls style="width: 100%;"></audio>',
 			$text);
 
 		$text = preg_replace('#\[color=\#([0-9a-zA-Z]{6})\](.*)\[\/color\]#iUs', '<span style="color:#${1}">${2}</span>', $text);
 		$text = preg_replace('#\[color=([0-9a-zA-Z]{6})\](.*)\[\/color\]#iUs', '<span style="color:#${1}">${2}</span>', $text);
 
 		$text = preg_replace('#&quot;(.{1,100})&quot;#iUs', '«${1}»', $text);
+
+		$text = preg_replace('#\.{3,5}#iUs', '…', $text);
+
+		$brlen = mb_strlen('<br>');
+		$text = mb_trim($text);
+		while (endsWith($text, '<br>')) {
+			$text = mb_strrev(mb_substr(mb_strrev($text), $brlen));
+			$text = mb_trim($text);
+		}
 
 		foreach ($preformatted[1] as $key => $value) {
 			$text = str_replace('###$$$###' . $key . '###$$$###', $value, $text);
@@ -1536,7 +1806,7 @@
 				$subject = 'RussianCoders';
 				$message = "Line 1\nLine 2\nLine 3";
 				//$subject = 'Новые сообщения в ваших темах';
-				//$message = 'На форуме <a href="https://forum.russiancoders.ru/">RussianCoders</a>' . "\r\n" . 'появились новые сообщения в Ваших темах:<br><br>' . "\r\n";
+				//$message = 'На форуме <a href="https://forum.russiancoders.tech/">RussianCoders</a>' . "\r\n" . 'появились новые сообщения в Ваших темах:<br><br>' . "\r\n";
 
 				//foreach ($topics as $topic) {
 				//	$message = $message . '<a href="/topic/' . $topic['topicid'] . '/">' . htmlspecialchars($topic['title']) . '</a><br>' . "\r\n";
@@ -1698,8 +1968,8 @@
 		}
 
 		$query = 'SELECT COUNT(*) 
-		          FROM `posts` 
-		          WHERE `topicid` = :topicid AND TIME_TO_SEC(TIMEDIFF(NOW(), `created`)) <= 24 * 60 * 60 * 7;';
+				  FROM `posts` 
+				  WHERE `topicid` = :topicid AND TIME_TO_SEC(TIMEDIFF(NOW(), `created`)) <= 24 * 60 * 60 * 7;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':topicid', $topicid);
@@ -1722,8 +1992,8 @@
 		}
 
 		$query = 'SELECT COUNT(*) 
-		          FROM `topics` 
-		          WHERE `topicid`=:topicid AND `pinned`=1;';
+				  FROM `topics` 
+				  WHERE `topicid`=:topicid AND `pinned`=1;';
 
 		$req = $db->prepare($query);
 		$req->bindParam(':topicid', $topicid, PDO::PARAM_STR);
@@ -1847,11 +2117,96 @@
 		return $arr;
 	}
 
+	function inBlackList($readydb = NULL) {
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+		$ip = $_SERVER['REMOTE_ADDR'];
+
+		if (!preg_match('/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\z/', $ip)) {
+			return true;
+		}
+
+		$ip = explode('.', trim($ip));
+
+		for ($i = 0; $i < 4; ++$i) {
+			$ip[$i] = intval($ip[$i]);
+		}
+
+		$query = 'SELECT `addr` FROM `blacklist`;';
+		$req = $db->prepare($query);
+		$req->execute();
+
+		while (list($blackip) = $req->fetch(PDO::FETCH_NUM)) {
+			$blackip = trim($blackip);
+
+			if (preg_match('/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\z/', $blackip)) {
+				$blackip = explode('.', $blackip);
+
+				if ($ip[0] == intval($blackip[0]) ||
+					$ip[1] == intval($blackip[1]) ||
+					$ip[2] == intval($blackip[2]) ||
+					$ip[3] == intval($blackip[3]))
+				{
+					return true;
+				}
+			} else if (preg_match('/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}-\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\z/', $blackip)) {
+				$blackip = explode('-', $blackip);
+
+				$bmin = explode('.', trim($blackip[0]));
+				$bmax = explode('.', trim($blackip[1]));
+
+				for ($i = 0; $i < 4; ++$i) {
+					$bmin[$i] = intval($bmin[$i]);
+					$bmax[$i] = intval($bmax[$i]);
+				}
+
+				while (true) {
+					if ($bmin[0] > $bmax[0]) {
+						break;
+					} else if ($bmin[1] > $bmax[1]) {
+						break;
+					} else if ($bmin[2] > $bmax[2]) {
+						break;
+					} else if ($bmin[3] > $bmax[3]) {
+						break;
+					}
+
+					if ($ip[0] == $bmin[0] ||
+						$ip[1] == $bmin[1] ||
+						$ip[2] == $bmin[2] ||
+						$ip[3] == $bmin[3])
+					{
+						return true;
+					}
+
+					if (++$bmin[3] > 255) {
+						$bmin[3] = 0;
+
+						if (++$bmin[2] > 255) {
+							$bmin[2] = 0;
+
+							if (++$bmin[1] > 255) {
+								$bmin[1] = 0;
+
+								if (++$bmin[0] > 255) {
+									break;
+								}
+							}
+						}
+					}
+				}
+			} else if (preg_match('/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\/\d{1,2}\z/', $blackip)) {
+
+			}
+		}
+
+		return false;
+	}
+
 	function call404() {
-		header("HTTP/1.0 404 Not Found");
-		header("HTTP/1.1 404 Not Found");
-		header("Status: 404 Not Found");
-		die();
+		// header("HTTP/1.0 404 Not Found");
+		// header("HTTP/1.1 404 Not Found");
+		// header("Status: 404 Not Found");
+		// die();
 	}
 
 	function testBlackList() {
@@ -1880,4 +2235,151 @@
 
 		return $count > 0 ? $count : 1;
 	}
-?>
+
+	function getPageTitle($readydb = NULL) {
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+		$title = 'RussianCoder\'s Forum';
+
+		// ----------------------------------------------------
+
+		$sectionid = getSectionId($readydb);
+
+		if ($sectionid !== false) {
+			$query =
+				'SELECT `title` 
+				 FROM `sections` 
+				 WHERE `sectionid`=:sectionid LIMIT 0, 1;';
+
+			$req = $readydb->prepare($query);
+			$req->bindParam(':sectionid', $sectionid);
+			$req->execute();
+
+			while (list($title) = $req->fetch(PDO::FETCH_NUM)) {
+				$title = htmlspecialchars($title);
+				break;
+			}
+		} else if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/tracker') !== false) {
+			$title = 'Трекер';
+		} else if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/faq') !== false) {
+			$title = 'ЧаВо';
+		} else if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/donate') !== false) {
+			$title = 'Донат';
+		} else if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/gallery') !== false) {
+			$title = 'Галерея';
+		} else if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/rating') !== false) {
+			$title = 'Рейтинг';
+		} else if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/posts') !== false) {
+			$title = 'Сообщения пользователя';
+		} else if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/users') !== false) {
+			$title = 'Пользователи ресурса';
+		} else {
+			// ----------------------------------------------------
+
+			$topicid = false;
+
+			if (isset($_GET['topicid'])) {
+				$topicid = htmlspecialchars($_GET['topicid']);
+
+				if (!preg_match('/^\{?[0-9a-zA-Z]{1,20}\}?$/', $topicid)) {
+					$topicid = false;
+				}
+			}
+
+			if ($topicid !== false) {
+				$query =
+					'SELECT `title` 
+					 FROM `topics` 
+					 WHERE `topicid`=:topicid 
+					 LIMIT 0, 1;';
+
+				$req = $readydb->prepare($query);
+				$req->bindParam(':topicid', $topicid);
+				$req->execute();
+
+				while (list($title) = $req->fetch(PDO::FETCH_NUM)) {
+					$title = htmlspecialchars($title);
+					break;
+				}
+			}
+		}
+
+		// ----------------------------------------------------
+
+		return $title;
+	}
+
+	function accessDenied() {
+		include_once('accessdenied.php');
+		die();
+	}
+
+	function getAvatar($userid, $big = FALSE) {
+		$filename = '/var/www/russiancoders.club/avatars/' . $userid . ($big ? '' : '-small') . '.jpg';
+
+		if (file_exists($filename)) {
+			return 'https://russiancoders.club/avatars/' . $userid . ($big ? '' : '-small') . '.jpg';
+		}
+
+		return FALSE;
+	}
+
+	function getGravatarLink($userid, $size, $readydb = NULL) {
+		$avatar = getAvatar($userid);
+
+		if ($avatar !== FALSE) {
+			return $avatar;
+		}
+
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+
+		$query = 'SELECT MD5(LOWER(TRIM(`mail`))) FROM `users` WHERE `userid`=:userid LIMIT 0, 1;';
+
+		$r = $readydb->prepare($query);
+		$r->bindParam(':userid', $userid);
+		$r->execute();
+
+		while (list($mail) = $r->fetch(PDO::FETCH_NUM)) {
+			return 'https://secure.gravatar.com/avatar/' . $mail . '.jpg?s=' . $size;
+		}
+	}
+
+	function usersPerPage() {
+		return 10;
+	}
+
+	function topicsPerSection() {
+		return 15;
+	}
+
+	function topicsPerPage() {
+		return 10;
+	}
+
+	function totalUsersCount($readydb = NULL) {
+		$db = is_null($readydb) ? new PdoDb() : $readydb;
+		$query = isAdmin($db) ? 'SELECT COUNT(*) FROM `users`;' : 'SELECT COUNT(*) FROM `users` WHERE `state` > 0;';
+		$req = $db->prepare($query);
+		$req->execute();
+		$count = intval($req->fetch(PDO::FETCH_NUM)[0]);
+		return $count > 0 ? $count : 1;
+	}
+
+	function usersPagesCount($usersCount) {
+		$count = ceil($usersCount / usersPerPage());
+		return $count;
+	}
+
+	function sectionPagesCount($topicsCount) {
+		$count = ceil($topicsCount / topicsPerSection());
+		return $count;
+	}
+
+	function postsPagesCount($postsCount) {
+		$count = ceil($postsCount / postsPerPage());
+		return $count;
+	}
+
+	function topicsPagesCount($topicsCount) {
+		$count = ceil($topicsCount / topicsPerPage());
+		return $count;
+	}

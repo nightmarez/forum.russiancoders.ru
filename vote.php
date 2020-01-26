@@ -57,7 +57,7 @@
 
 	$userid = $_GET['userid'];
 
-	if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $userid)) {
+	if (!preg_match('/^\{?[0-9a-zA-Z]{1,30}\}?$/', $userid)) {
 		echo json_encode(
 			array(
 				'answer' => false,
@@ -89,7 +89,7 @@
 
 	$curruserid = $_COOKIE['userid'];
 
-	if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $curruserid)) {
+	if (!preg_match('/^\{?[0-9a-zA-Z]{1,30}\}?$/', $curruserid)) {
 		echo json_encode(
 			array(
 				'answer' => false,

@@ -1,0 +1,97 @@
+<IfModule mod_ssl.c>
+	<VirtualHost *:443>
+		ServerAdmin m.m.makarov@gmail.com
+		ServerName russiancoders.tech
+		DocumentRoot /var/www/html
+		DirectoryIndex index.php
+		Protocols h2
+	
+		ErrorLog ${APACHE_LOG_DIR}/error.log
+		CustomLog ${APACHE_LOG_DIR}/access.log combined		
+
+		<Directory /var/www/html>
+			Options +FollowSymLinks -Indexes
+			RewriteEngine On
+
+			RewriteRule ^donate$ /donate.php [L]
+			RewriteRule ^user/([a-zA-Z0-9]+)/$ /user.php?userid=$1 [L]
+			RewriteRule ^user/([a-zA-Z0-9]+)$ /user.php?userid=$1 [L]
+
+			RewriteRule ^sendmessage/([a-zA-Z0-9]+)/$ sendmessage.php?userid=$1 [L]
+			RewriteRule ^sendmessage/([a-zA-Z0-9]+)$ sendmessage.php?userid=$1 [L]
+
+			RewriteRule ^addfriend/([a-zA-Z0-9]+)/$ /addfriend.php?userid=$1 [L]
+			RewriteRule ^addfriend/([a-zA-Z0-9]+)$ /addfriend.php?userid=$1 [L]
+
+			RewriteRule ^section/([a-zA-Z0-9]+)/([0-9]+)/ /section.php?sectionid=$1&page=$2 [L]
+			RewriteRule ^section/([a-zA-Z0-9]+)/$ /section.php?sectionid=$1 [L]
+			RewriteRule ^section/([a-zA-Z0-9]+)/([0-9]+) /section.php?sectionid=$1&page=$2 [L]
+			RewriteRule ^section/([a-zA-Z0-9]+)$ /section.php?sectionid=$1 [L]
+
+			RewriteRule ^topic/([a-zA-Z0-9]+)/$ /topic.php?topicid=$1 [L]
+			RewriteRule ^topic/([a-zA-Z0-9]+)/([0-9]+)/ /topic.php?topicid=$1&page=$2 [L]
+			RewriteRule ^topic/([a-zA-Z0-9]+)$ /topic.php?topicid=$1 [L]
+			RewriteRule ^topic/([a-zA-Z0-9]+)/([0-9]+) /topic.php?topicid=$1&page=$2 [L]
+
+			RewriteRule ^posts/([a-zA-Z0-9]+)/([0-9]+)/$ /posts.php?userid=$1&page=$2 [L]
+			RewriteRule ^posts/([a-zA-Z0-9]+)/$ /posts.php?userid=$1 [L]
+			RewriteRule ^posts/([a-zA-Z0-9]+)/([0-9]+)$ /posts.php?userid=$1&page=$2 [L]
+			RewriteRule ^posts/([a-zA-Z0-9]+)$ /posts.php?userid=$1 [L]
+
+			RewriteRule ^users/([0-9]+)/$ /users.php?page=$1 [L] 
+			RewriteRule ^users/$ /users.php [L]
+			RewriteRule ^users/([0-9]+)$ /users.php?page=$1 [L] 
+			RewriteRule ^users$ /users.php [L]
+
+			RewriteRule ^topics/([a-zA-Z0-9]+)/([0-9]+)/$ /topics.php?userid=$1&page=$2 [L]
+			RewriteRule ^topics/([a-zA-Z0-9]+)/$ /topics.php?userid=$1 [L]
+			RewriteRule ^topics/([a-zA-Z0-9]+)/([0-9]+)$ /topics.php?userid=$1&page=$2 [L]
+			RewriteRule ^topics/([a-zA-Z0-9]+)$ /topics.php?userid=$1 [L]
+
+			RewriteRule ^rating/([a-zA-Z0-9]+)/$ /rating.php?userid=$1 [L]
+			RewriteRule ^rating/([a-zA-Z0-9]+)/([a-z]+)/ /rating.php?userid=$1&filter=$2 [L]
+			RewriteRule ^rating/([a-zA-Z0-9]+)$ /rating.php?userid=$1 [L]
+			RewriteRule ^rating/([a-zA-Z0-9]+)/([a-z]+) /rating.php?userid=$1&filter=$2 [L]
+
+			RewriteRule ^votes/([a-zA-Z0-9]+)/$ /votes.php?userid=$1 [L]
+			RewriteRule ^votes/([a-zA-Z0-9]+)/([a-z]+)/ /rating.php?userid=$1&filter=$2 [L]
+			RewriteRule ^votes/([a-zA-Z0-9]+)$ /votes.php?userid=$1 [L]
+			RewriteRule ^votes/([a-zA-Z0-9]+)/([a-z]+) /rating.php?userid=$1&filter=$2 [L]
+
+			RewriteRule ^gallery/([0-9]+)/$ /gallery.php?page=$1 [L]
+			RewriteRule ^gallery/$ /gallery.php [L]
+			RewriteRule ^gallery/([0-9]+)$ /gallery.php?page=$1 [L]
+			RewriteRule ^gallery$ /gallery.php [L]
+
+			RewriteRule ^post/([a-zA-Z0-9]+)/([a-zA-Z0-9]+)/([0-9]+)/$ /post.php?userid=$1&topicid=$2&postnumber=$3 [L]
+			RewriteRule ^post/([a-zA-Z0-9]+)/([a-zA-Z0-9]+)/([0-9]+)$ /post.php?userid=$1&topicid=$2&postnumber=$3 [L]
+
+			RewriteRule ^/setban/(a-zA-Z0-9]+)/$ /setban.php?userid=$1
+
+			RewriteRule ^([a-zA-Z0-9\-\_]+)/$ /$1.php [L]
+			RewriteRule ^([a-zA-Z0-9\-\_]+)$ /$1.php [L]
+
+			RewriteRule ^([a-zA-Z0-9\-\_]+)/([a-zA-Z0-9\-\_]+)/$ /$1.php?id=$2 [L]
+			RewriteRule ^([a-zA-Z0-9\-\_]+)/([a-zA-Z0-9\-\_]+)$ /$1.php?id=$2 [L]
+		</Directory>
+
+		Include /etc/letsencrypt/options-ssl-apache.conf
+		SSLCertificateFile /etc/letsencrypt/live/storage.russiancoders.tech/fullchain.pem
+		SSLCertificateKeyFile /etc/letsencrypt/live/storage.russiancoders.tech/privkey.pem
+	</VirtualHost>
+
+	<VirtualHost *:80>
+        ServerName russiancoders.tech
+        ServerAdmin m.m.makarov@gmail.com
+        DocumentRoot /var/www/html
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+        RewriteEngine on
+        RewriteCond %{SERVER_NAME} =russiancoders.tech
+        RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
+	</VirtualHost>
+</IfModule>
+
+

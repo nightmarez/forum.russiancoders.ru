@@ -1,0 +1,31 @@
+{
+	"server": {
+		"ip": "134.209.12.58",
+		"user": "root",
+		"pass": "jdh57dhsg673gdkey",
+		"directory": "/var/www/russiancoders.dev"
+	},
+	"cache": {
+		"directories": "uploader-cache-dirs.txt",
+		"files": "uploader-cache-files.txt"
+	},
+	"rules": {
+		"directories": [
+			[".", true],
+			["assets", true],
+			["icons", true],
+			["images", true],
+			["map", true],
+			["picolisp", true],
+			["uploads", true],
+			[".idea", false],
+			["__pycache__", false]
+		],
+		"files": [
+			["index.php", "."],
+			["robots.txt"]
+		],
+		"extensions": ["php", "css", "js", "py", "json"],
+		"disallowed": [".git", ".idea", "__pycache__"]
+	}
+}

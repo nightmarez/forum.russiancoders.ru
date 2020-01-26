@@ -1,6 +1,5 @@
 <?php
 	require_once('utils.php');
-	require_once('recaptchalib.php');
 
 	if (!isset($_POST['login'])) {
 		header('Location: /register.php?error=Не задан логин');
@@ -16,7 +15,7 @@
 
 	$firstSymbol = mb_substr($login, 0, 1, 'utf-8');
 
-	if (in_array($firstSymbol, /* latin symbols */ [
+	if (in_array($firstSymbol, [
 		'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
 		'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
 		'0', '1', '2', '3', '4', '5', '6', '7', '8', '9']))
@@ -123,17 +122,13 @@
 		}
 	}
 
-	$privatekey = RE_SECRET;
-	$resp = recaptcha_check_answer (
-		$privatekey,
-		$_SERVER['REMOTE_ADDR'],
-		$_POST['recaptcha_challenge_field'],
-		$_POST['recaptcha_response_field']);
+	addUser($login, $pass1, $mail);
 
-	if (!$resp->is_valid) {
-		header('Location: /register.php?error=Капча введена неправильно');
+	if (!tryLogin($login, $pass1)) {
+		header('Location: /login.php?error=Не удалось залогиниться');
+		die();
+	} else {
+		header('Location: /profile/');
 		die();
 	}
-
-	addUser($login, $pass1, $mail);
 ?>

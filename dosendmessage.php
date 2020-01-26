@@ -9,7 +9,7 @@
 		$fromid = $_COOKIE['userid'];
 	}
 
-	if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $fromid)) {
+	if (!preg_match('/^\{?[0-9a-zA-Z]{1,30}\}?$/', $fromid)) {
 		$fromid = false;
 	}
 
@@ -17,7 +17,7 @@
 		$toid = $_POST['toid'];
 	}
 
-	if (!preg_match('/^\{?[0-9a-zA-Z]{20}\}?$/', $toid)) {
+	if (!preg_match('/^\{?[0-9a-zA-Z]{1,30}\}?$/', $toid)) {
 		$toid = false;
 	}
 
