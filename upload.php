@@ -62,8 +62,14 @@
 
 				// Check if file already exists
 				if (file_exists($target_file)) {
-					echo "Коллизия в директории загрузки файлов. Напишите об этом на форуме и я постараюсь в ближайшее время починить.";
-					$uploadOk = 0;
+				    unlink($target_file);
+
+                    if (file_exists($target_file)) {
+                        echo "Коллизия в директории загрузки файлов. Напишите об этом на форуме и я постараюсь в ближайшее время починить.";
+                        echo '<br><br>';
+                        echo htmlentities($target_file);
+                        $uploadOk = 0;
+                    }
 				}
 
 				// Check file size
